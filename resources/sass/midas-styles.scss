@@ -1,0 +1,229 @@
+//custom csss bs
+@import "midas-variables";
+.nav {
+    height: 75px !important;
+}
+
+.midas-top-bar {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    //font-weight: bolder;
+    //font-size: 1.5rem;
+}
+
+.banner-height {
+    height: 300px;
+}
+.loader {
+    position: absolute;
+    top: 40%;
+    left: 47%;
+}
+.side-content {
+    padding: 3px;
+}
+#f-message {
+    position: absolute;
+    z-index: 10;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    height: 50px;
+    border-radius: 3px 3px 3px 3px;
+}
+// .carousel-bgimage {
+//     //background: url("../../public/images/carousel-1.jpg");
+//     background: url("../../public/images/agm1.jpg");
+//     background-size: cover;
+// }
+
+// .carousel-bgimage2 {
+//     //background: url("../../public/images/carousel-2.jpg");
+//     background: url("../../public/images/agm2.jpg");
+//     background-size: cover;
+// }
+
+// .carousel-bgimage3 {
+//     //background: url("../../public/images/carousel-3.jpg");
+//     background: url("../../public/images/agm3.jpg");
+//     background-size: cover;
+// }
+// .midas-showcase {
+//     position: relative;
+// }
+// .primary-overlay {
+//     background: $primary-overlay;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+// }
+
+.myfooter {
+    background-image: url("../../public/images/bg.jpg");
+    background-size: cover;
+    background-position: top;
+}
+
+//USER PROFILE SECTION
+.user-profiles {
+    box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+    //box-shadow: 0 2rem 5.8rem rgba(0, 0, 0, 0.04);
+    //$border-line: 1px solid #f4f2f2; //#ccc
+}
+// .profile-detail {
+//     border-left: 3px solid #0091ea;
+// }
+.side-section-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 3px solid #0091ea;
+    &__heading {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+    &__user-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__photo {
+        height: 4.4rem;
+        width: 4.4rem;
+        border-radius: 50%;
+        //margin-right: 1.5rem;
+    }
+    &__user-name {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+    }
+    &__manage-mode {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    // &__user-date {
+    // }
+}
+.sub-profile {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+}
+
+.subject-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+//SIDE SECTION STYLES
+.side-section-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3px;
+    margin-bottom: 6px;
+}
+.add-more {
+    color: grey !important;
+    font-size: 1.3rem;
+    text-align: center;
+}
+.add-more a {
+    text-decoration: none;
+}
+.add-more a:visited {
+    text-decoration: none;
+}
+.add-more-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 7px 7px 7px 7px;
+}
+//custom serach container
+// .overview {
+//     display: flex;
+//     align-items: center; // aligns the items vertically
+//     border-bottom: $border-line;
+
+//     &__heading {
+//         font-size: 2.25rem;
+//         font-weight: 300;
+//         //text-transform: uppercase;
+//         letter-spacing: 1px;
+//         padding: 1.5rem 3rem;
+//         @media only screen and (max-width: $bp-small) {
+//             font-size: 1.8rem;
+//             padding: 1.25 2rem;
+//         }
+//     }
+// }
+.search_bar {
+    text-align: center;
+}
+
+//CUSTOM SEARCH INPUT
+.customsearch {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    &__item {
+        margin: 5px;
+    }
+
+    &__select {
+        background-color: $dash-grey-light2;
+        border: none; //no border
+        padding: 0.7rem 2rem; //20px
+        border-radius: 100px;
+        width: 20%;
+    }
+    &__button {
+        background-color: $dash-grey-light2;
+        border: none; //no border
+        padding: 0.7rem 2rem; //20px
+        border-radius: 100px;
+        width: 20%;
+    }
+}
+.custom-input {
+    background-color: $dash-grey-light2 !important;
+    border: none !important; //no border
+    padding: 0.7rem 2rem !important; //20px
+    border-radius: 100px !important;
+}
+.custom-width {
+    width: 70%;
+}
+
+// .profile-detail {
+//     display: flex;
+//     align-items: center;
+// }
+
+//media queries
+// @media #{$small-and-down} {
+//     // styles for small screens and down
+// }
+// @media #{$medium-and-up} {
+//     // styles for medium screens and larger
+// }
+// @media #{$medium-and-down} {
+//     // styles for medium screens and down
+// }
+// @media #{$large-and-up} {
+//     // styles for large screens and up
+// }
+// @media #{$extra-large-and-up} {
+//     // styles for extra large screens and up
+// }

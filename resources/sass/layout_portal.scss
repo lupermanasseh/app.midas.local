@@ -1,0 +1,100 @@
+//layout container
+.midas-container {
+    max-width: 120rem;
+    margin: 4rem auto;
+    background-color: $dash-grey-light2;
+    box-shadow: $boxshadow;
+    min-height: 50rem;
+
+    //media query for the container
+    @media only screen and (max-width: $bp-largest) {
+        margin: 0;
+        //becos we reduce the global font size at the 1100px bp  the margin right is visible
+        //set max width and with to 100%
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+.header {
+    font-size: 1.4rem;
+    height: 7rem;
+    background-color: #fff;
+    border-bottom: $border-line;
+    display: flex;
+    justify-content: space-between; //aligns header components among the main axis
+    align-items: center; // aligns header components along the cross axis
+    @media only screen and (max-width: $bp-smallest) {
+        //move the items on the next row
+        flex-wrap: wrap;
+        //control space around rows
+        align-content: space-around;
+        height: 11rem;
+    }
+}
+
+.midas-content {
+    display: flex;
+    //media query to stack the sidenav display as a column
+    @media only screen and (max-width: $bp-medium) {
+        flex-direction: column; //default is row, this stacks the sidenav bar
+    }
+}
+
+.sidebar {
+    background-color: $grey-dark1;
+    flex: 0 0 18%; //short cut for flex basis for setting with 1st param -grow,second shrink, width
+    //pushing the legal text to the bottom
+    display: flex; //making it a flex container
+    flex-direction: column; //used to the change the direction of the main axis from left to right To top to bottom
+    justify-content: space-between;
+}
+.midas-view {
+    background-color: #fff;
+    flex: 1; //grow the element to fill the available space for it
+}
+
+.detail {
+    font-size: 1.4rem;
+    display: flex; //ensures that items are displayed side by side
+    padding: 4.5rem;
+    background-color: $dash-grey-light1;
+    border-bottom: $border-line;
+    @media only screen and (max-width: $bp-medium) {
+        // // Reduce the padding
+        padding: 3rem;
+    }
+
+    //change the direction of the flex item to stack
+    @media only screen and (max-width: $bp-small) {
+        flex-direction: column;
+    }
+}
+
+.description {
+    background-color: #fff;
+    box-shadow: $shadow-light;
+    padding: 3rem;
+    flex: 0 0 60%; //occupies 60% of the available width
+    margin-right: 4.5rem;
+
+    @media only screen and (max-width: $bp-medium) {
+        // Reduce the padding
+        padding: 2rem;
+        margin-right: 3rem;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+        // Remove the margin right that was visible on other viewport sizes
+        margin-right: 0;
+        margin-bottom: 3rem;
+    }
+}
+.user-reviews {
+    flex: 1; //occupies the remaining space
+
+    //change the display to center the reviews button
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

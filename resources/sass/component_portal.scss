@@ -1,0 +1,752 @@
+///////////////////////////////////////
+//Beginning of the header section //////
+
+//LOGO
+.logo {
+    height: 3.25rem;
+    margin-left: 2rem; //left margin of the logo
+}
+
+///////////////////////////////////////
+//SEARCH BOX
+
+.search {
+    flex: 0 0 40%; //setting the width of the search box;
+    display: flex; //the container for the button icon, this allows us to centre the button within the search; nested flex display
+    align-items: center; //centers the element along the cross axis
+    justify-content: center; //centers element along the main axis
+
+    @media only screen and (max-width: $bp-smallest) {
+        //order the items, move the search bar to the last increasing order
+        order: 1; //default order value is 0
+        flex: 0 0 100%; //flex basis of 100%
+        background-color: $dash-grey-light2;
+    }
+
+    &__input {
+        font-family: inherit; //does not by default inherit font of the global document
+        font-size: inherit; //does not by default inherit font-size of the global document
+        //global font size is 10px=1rem
+        color: inherit;
+        background-color: $dash-grey-light2;
+        border: none; //no border
+        padding: 0.7rem 2rem; //20px
+        border-radius: 100px;
+        width: 90%;
+        transition: all 0.2s; //Animation
+        margin-right: -3.25rem; //This is to enable the button sit on top of the search box, pull the button closer
+        &:focus {
+            width: 100%;
+            outline: none; //No outline cloor when in focus
+            background-color: $dash-grey-light3;
+        }
+
+        //styling the placeholder text
+        &::-webkit-input-placeholder {
+            font-weight: 100;
+            color: $dash-grey-dark3;
+        }
+    }
+
+    &__input:focus + &__button {
+        background-color: $dash-grey-light3; //using adhjacent selector to select siblings
+    }
+
+    &__button {
+        border: none;
+        background-color: $dash-grey-light2; //we want the button to be on top of the search box, so we use negative margin on the input element
+
+        &:focus {
+            outline: none;
+        }
+        &:active {
+            transform: translateY(2px);
+        }
+    }
+
+    &__icon {
+        height: 2rem;
+        width: 2rem;
+        fill: $dash-grey-dark2; // changing the color of the magnifying icon in the search
+    }
+}
+///////////////////////////////////////
+//USER NAV
+.user-nav {
+    align-self: stretch; //allows this flex item to fill the entire header apart from other item
+    display: flex; //turning a flex item to a flex container
+    align-items: center;
+
+    &__icon-box {
+        padding: 0 2rem;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+    &__icon-box:hover {
+        background-color: $dash-grey-light2;
+    }
+
+    &__user {
+        padding: 0 2rem;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    &__user:hover {
+        background-color: $dash-grey-light2;
+    }
+    &__icon {
+        height: 2.25rem;
+        width: 2.25rem;
+        fill: $dash-grey-dark2;
+    }
+
+    &__notification {
+        font-size: 0.8rem;
+        height: 1.75rem;
+        width: 1.75rem;
+        border-radius: 50%;
+        background-color: $dash-primary1;
+        color: #fff;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.1rem;
+        // //Note that flex box works on text also; used to centre text in the notification
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__user-photo {
+        height: 3.75rem;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+
+    &__user-name {
+        font-weight: bold;
+    }
+}
+
+///End header section////////
+
+//Beginning of the side naviagtion
+
+.side-nav {
+    font-size: 1.4rem;
+    list-style: none;
+    margin-top: 3.5rem;
+    @media only screen and (max-width: $bp-medium) {
+        display: flex;
+        margin: 0;
+    }
+
+    &__item {
+        position: relative;
+
+        // //add margin bottom except on the last element
+        &:not(:last-child) {
+            margin-bottom: 0.5rem;
+            //remove the bottom margin
+            @media only screen and (max-width: $bp-medium) {
+                margin: 0;
+            }
+        }
+        //let the menu items oocupy 1/3 of the available space
+        @media only screen and (max-width: $bp-medium) {
+            flex: 1; //give them the ability to grow based on the space available
+        }
+    }
+
+    //Add a before pseudo  element to have the hover effect
+    &__item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 3px;
+        background-color: $dash-primary1;
+        //does d scale on all sides while scale(y) is on the vertical, from top to bottom
+        transform: scaleY(0);
+        // NOTE again that transform-origin starts from the center, we can change so many settings here
+        // setting properties on the transform 2nd param is delay
+        transition: transform 0.2s, width 0.4s cubic-bezier(1, 0.1) 0.2s,
+            background-color 0.1s;
+    }
+    // show the before element on hover
+    &__item:hover::before,
+    &__item--active::before {
+        transform: scaleY(1);
+        width: 100%;
+    }
+    //add bg color for the before pseudo element on active state
+    &__item:active::before {
+        background-color: $dash-primary2;
+    }
+
+    &__link:link,
+    &__link:visited {
+        color: $dash-grey-light1;
+        text-decoration: none;
+        text-transform: uppercase;
+        display: block; // use inline-block also
+        padding: 1.5rem 3rem;
+        display: flex;
+        align-items: center; // // align the icons and the link text in centre
+        position: relative; // used for the z-index
+        z-index: 10;
+
+        @media only screen and (max-width: $bp-medium) {
+            // // align the icons and the link text in centre
+            justify-content: center;
+            padding: 2rem;
+        }
+        //stack icons on top of one another
+        @media only screen and (max-width: $bp-small) {
+            flex-direction: column;
+            padding: 1.5rem 0.5rem;
+        }
+    }
+
+    &__icon {
+        width: 1.75rem;
+        height: 1.75rem;
+        margin-right: 2rem;
+        fill: currentColor; //$dash-grey-light1;
+        // currentColor is the color of the parent element or the current element //$dash-grey-light1;
+
+        @media only screen and (max-width: $bp-small) {
+            //remove the margin right
+            margin-right: 0;
+            margin-bottom: 0.7rem;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+}
+// /End side navigation section////////
+
+// begin legal text///
+.legal {
+    font-size: 1.2rem;
+    color: $dash-grey-light4;
+    text-align: center;
+    padding: 2.5rem;
+    //remove the legal text at this break point
+    @media only screen and (max-width: $bp-medium) {
+        display: none;
+    }
+}
+
+///////////////////////
+//Gallery section NOT IN USE ANY MORE
+
+// .gallery {
+//     display: flex;
+//     &__photo {
+//         //responsive images are defined in %
+//         width: 100%;
+//         display: block;
+//     }
+// }
+
+//overview component
+
+.overview {
+    display: flex;
+    align-items: center; // aligns the items vertically
+    border-bottom: $border-line;
+
+    &__heading {
+        font-size: 2.25rem;
+        font-weight: 300;
+        //text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 1.5rem 3rem;
+        @media only screen and (max-width: $bp-small) {
+            font-size: 1.8rem;
+            padding: 1.25 2rem;
+        }
+    }
+
+    &__stars {
+        margin-right: auto;
+        display: flex; //removes the small bottom margin on the pins svg
+    }
+    &__icon-star,
+    &__icon-location {
+        width: 1.75rem;
+        height: 1.75rem;
+        fill: $dash-primary1;
+    }
+    &__push {
+        margin-right: auto;
+    }
+    //NO LONGER IN USE: STYLES THE LOCATION COMPONENT
+    // &__location {
+    //     font-size: 1.2rem;
+    //     display: flex;
+    //     align-items: center;
+    // }
+
+    // &__icon-location {
+    //     margin-right: 0.5rem;
+    // }
+
+    &__rating {
+        background-color: $dash-primary1;
+        color: #fff;
+        margin-left: 3rem;
+        padding: 0 2.25rem;
+        align-self: stretch;
+        // //to center align elements
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        @media only screen and (max-width: $bp-small) {
+            padding: 0 1.5rem;
+        }
+    }
+
+    &__rating-average {
+        font-size: 2.25rem;
+        font-weight: 300;
+        margin-bottom: -3px;
+        @media only screen and (max-width: $bp-small) {
+            font-size: 1.8rem;
+        }
+    }
+    &__rating-count {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        @media only screen and (max-width: $bp-small) {
+            font-size: 0.5rem;
+        }
+    }
+    &__link:link,
+    &__link:visited {
+        color: $dash-grey-light1;
+        text-decoration: none;
+        //text-transform: uppercase;
+        font-size: 1.15rem;
+        //display: block; // use inline-block also
+    }
+    &__savings:link,
+    &__savings:visited {
+        color: $dash-grey-dark2;
+        text-decoration: none;
+        cursor: pointer;
+    }
+}
+
+//btn inline NO LONGER IN USE BECASUE COMPNENT IS NO LONGER IN USE
+// .btn-inline {
+//     border: none;
+//     color: $dash-primary1;
+//     font-size: inherit; //inherit the font size of the parent element
+//     border-bottom: 1px solid currentColor;
+//     padding-bottom: 2px;
+//     display: inline-block;
+//     background-color: transparent;
+//     cursor: pointer;
+//     transition: all 0.2s;
+
+//     //used on the button below the reviews
+//     & span {
+//         margin-left: 3px;
+//         transition: margin-left 0.2s;
+//     }
+
+//     &:hover {
+//         color: $dash-grey-dark2;
+//         span {
+//             margin-left: 8px;
+//         }
+//     }
+
+//     &:focus {
+//         outline: none;
+//         animation: pulsate 1s infinite; //infinte means the animation is infinite
+//     }
+// }
+
+//animations for the btn inline focus effect NO LONGER IN USE BECOS ELEMENT NOT IN USE
+// @keyframes pulsate {
+//     0% {
+//         transform: scale(1);
+//         box-shadow: none;
+//     }
+
+//     50% {
+//         transform: scale(1.05);
+//         box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.25);
+//     }
+
+//     100% {
+//         transform: scale(1);
+//         box-shadow: none;
+//     }
+// }
+
+//paragraph
+.paragraph:not(:last-of-type) {
+    margin-bottom: 2rem;
+}
+
+//list
+.list {
+    list-style: none;
+    margin: 3rem 0;
+    padding: 3rem 0;
+    border-top: $border-line;
+    border-bottom: $border-line;
+    //display the list items side by side
+    display: flex;
+    flex-wrap: wrap;
+
+    &__item {
+        //ensures the list items are side by side and have a fixed width
+        flex: 0 0 50%; //dont grow, dont shrink, width of 50%
+        margin-bottom: 0.7rem;
+    }
+
+    //using the list icons
+    &__item::before {
+        content: "";
+        display: inline-block;
+        height: 1rem;
+        width: 1rem;
+        margin-right: 0.7rem;
+        background-color: $dash-primary1;
+        //used for older browsers , u cant style this
+        background-image: url("../../public/images/chevron-left.svg");
+        background-size: cover;
+
+        //newer browsers use mask use the image to see through a background image
+        @supports (-webkit-mask-image: url()) or (mask-image: url()) {
+            -webkit-mask-image: url("../../public/images/chevron-left.svg");
+            -webkit-mask-size: cover;
+            //for
+            mask-image: url("../../public/images/chevron-left.svg");
+            mask-size: cover;
+            background-image: none;
+        }
+    }
+}
+
+//recommend
+.recommend {
+    font-size: 1.3rem;
+    color: $dash-grey-dark3;
+    display: flex; //ensures that the element display side by side
+    align-items: center;
+    &__count {
+        margin-right: auto;
+    }
+
+    &__friends {
+        display: flex; //allows the flex items to stay side by side
+    }
+    &__photo {
+        box-sizing: content-box; //ensures that the border on the image does not affect its size default
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+        border: 3px solid #fff;
+
+        &:not(:last-child) {
+            margin-right: -2rem; //places the photo slightly on top of one another overlapping
+        }
+    }
+}
+
+//RVEIEWS
+.review {
+    background-color: #fff;
+    box-shadow: $shadow-light;
+    padding: 3rem;
+    margin-bottom: 3.5rem;
+    //relative position to place the quotation marks on the top left corner
+    position: relative;
+    //prevent overflow of the quotation mark
+    overflow: hidden;
+
+    @media only screen and (max-width: $bp-medium) {
+        // Reduce the padding
+        padding: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    &__text {
+        margin-bottom: 2rem;
+        //align  the quotation mark behind the text
+        position: relative;
+        z-index: 10;
+    }
+    &__heading {
+        position: relative;
+        z-index: 10;
+    }
+
+    &__user {
+        display: flex;
+        align-items: center;
+    }
+
+    &__photo {
+        height: 4.4rem;
+        width: 4.5rem;
+        border-radius: 50%;
+        margin-right: 1.5rem;
+    }
+    &__user-box {
+        margin-right: auto;
+    }
+
+    &__user-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+    }
+
+    &__user-date {
+        font-size: 1rem;
+        color: $dash-grey-dark3;
+    }
+
+    &__rating {
+        color: $dash-primary1;
+        font-size: 2.2rem;
+        font-weight: 300;
+    }
+
+    //place quotation marks before the review
+
+    &::before {
+        content: "\201C";
+        top: -2.75rem; //move along the y axis in the negative direction
+        left: -1rem; //move right but in the negative direction on the x axis
+        font-size: 20rem;
+        position: absolute;
+        color: $dash-grey-light2;
+        line-height: 1;
+        font-family: sans-serif;
+        z-index: 1;
+    }
+}
+
+//CTA
+
+.cta {
+    padding: 3.5rem 0;
+    text-align: center;
+    @media only screen and (max-width: $bp-medium) {
+        // Reduce the padding
+        padding: 2.5rem 0;
+    }
+
+    &__book-now {
+        font-size: 2rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        margin-bottom: 2.5rem;
+    }
+    &__feature-request {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__request-content {
+        width: 40%;
+        border-radius: 3px 3px 3px;
+    }
+}
+
+//btn
+.btn {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    padding: 2rem 7.5rem;
+    border: none;
+    border-radius: 100px;
+    background-image: linear-gradient(to right, $dash-primary1, $dash-primary3);
+    color: #fff;
+    cursor: pointer;
+    width: 30%;
+    margin-top: 1.5rem;
+
+    &:focus {
+        outline: none;
+    }
+}
+//Table Styles
+table,
+th,
+td {
+    border: 0.5px solid;
+}
+
+table {
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table thead tr th,
+table tbody tr td {
+    text-align: left;
+}
+tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+td,
+th {
+    padding: 3px 3px;
+    display: table-cell;
+    vertical-align: middle;
+    border-radius: 2px;
+    font-size: 1rem;
+}
+
+// Pagination
+
+.pagination {
+    li {
+        display: inline-block;
+        border-radius: 2px;
+        text-align: center;
+        vertical-align: top;
+        height: 30px;
+
+        a {
+            color: #444;
+            display: inline-block;
+            font-size: 1.2rem;
+            padding: 0 10px;
+            line-height: 30px;
+        }
+
+        &.active a {
+            color: #fff;
+        }
+
+        &.active {
+            background-color: $primary-overlay;
+        }
+
+        &.disabled a {
+            cursor: default;
+            color: #999;
+        }
+
+        i {
+            font-size: 2rem;
+        }
+    }
+
+    li.pages ul li {
+        display: inline-block;
+        float: none;
+    }
+}
+@media #{$medium-and-down} {
+    .pagination {
+        width: 100%;
+
+        li.prev,
+        li.next {
+            width: 10%;
+        }
+
+        li.pages {
+            width: 80%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+}
+//CUSTOM FORM SEARCH
+.customsearch {
+    display: flex;
+    align-items: center;
+    &__item {
+        margin: 5px;
+    }
+
+    &__select {
+        background-color: $dash-grey-light2;
+        border: none; //no border
+        padding: 0.7rem 2rem; //20px
+        border-radius: 100px;
+        width: 20%;
+    }
+    &__button {
+        background-color: $dash-grey-light2;
+        border: none; //no border
+        padding: 0.7rem 2rem; //20px
+        border-radius: 100px;
+        width: 20%;
+    }
+}
+.custom-input {
+    background-color: $dash-grey-light2;
+    border: none; //no border
+    padding: 0.7rem 2rem; //20px
+    border-radius: 100px;
+}
+
+// loan detail subscriptions
+//USER PROFILE section
+.user-profiles {
+    box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+    //box-shadow: 0 2rem 5.8rem rgba(0, 0, 0, 0.04);
+    //$border-line: 1px solid #f4f2f2; //#ccc
+}
+// .profile-detail {
+//     border-left: 3px solid #0091ea;
+// }
+.side-section-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #c56087;
+    margin-bottom: 20px;
+}
+
+.myloandetail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sub-profile {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+}
+
+.subject-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-detail {
+    display: flex;
+    align-items: center;
+}

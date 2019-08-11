@@ -1,0 +1,47 @@
+//CUSTOM COLOR VARIABLES FOR DASHBOARD
+$dash-grey-light1: #faf9f9;
+$dash-grey-light2: #f4f2f2;
+$dash-grey-light3: #f0eeee;
+$dash-grey-light4: #ccc;
+
+$dash-primary1: #cb2f64;
+$dash-primary2: #ff3366;
+$dash-primary3: #911937;
+
+$grey-dark1: #333;
+$dash-grey-dark2: #777;
+$dash-grey-dark3: #999;
+$dash-grey-dark4: rgb(97, 92, 92);
+
+$basic: #ffffff;
+$link: #444;
+$navbar: #ff1744;
+$navbar-color: #f50057;
+$primary-overlay: rgba(199, 123, 176, 0.8);
+
+$boxshadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+$shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+$border-line: 1px solid $dash-grey-light2;
+
+//break points variables
+$bp-largest: 75em; // 1200px/16px =75em
+$bp-large: 68.75em; // 1100px/16px =68.75em
+$bp-medium: 56.25em; // 900px/16px =56.25em
+$bp-small: 37.5em; // 600px/16px =37.5em
+$bp-smallest: 31.25em; // 500px/16px =31.25em
+
+//global media queries from materialize
+// Media Query Ranges
+$small-screen-up: 601px !default;
+$medium-screen-up: 993px !default;
+$large-screen-up: 1201px !default;
+$small-screen: 600px !default;
+$medium-screen: 992px !default;
+$large-screen: 1200px !default;
+
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
+$large-and-up: "only screen and (min-width : #{$medium-screen-up})" !default;
+$extra-large-and-up: "only screen and (min-width : #{$large-screen-up})" !default;
+$small-and-down: "only screen and (max-width : #{$small-screen})" !default;
+$medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;

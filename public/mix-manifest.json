@@ -1,0 +1,10 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/css/midas-styles.css": "/css/midas-styles.css",
+    "/css/portal.css": "/css/portal.css",
+    "/css/print.css": "/css/print.css",
+    "/css/printpdf.css": "/css/printpdf.css",
+    "/css/toastr.min.css": "/css/toastr.min.css",
+    "/js/toastr.min.js": "/js/toastr.min.js"
+}

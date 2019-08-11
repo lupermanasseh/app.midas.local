@@ -1,0 +1,7 @@
+/*
+custom styles without scss
+*/
+.top-banner {
+    height: 100px;
+    border: 0.9px solid grey;
+}

@@ -1,0 +1,92 @@
+//CUSTOM SASS FOR OFFICIAL WEBSITE
+@import "customVariables";
+
+.midas-logo-styles {
+    width: 200px;
+    height: 30px;
+}
+
+.midas-top-bar {
+    background-color: $basic;
+    color: #000000;
+    font-weight: bolder;
+    font-size: 1.5rem;
+}
+
+.midas-nav {
+    color: $basic;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-decoration: none !important;
+}
+.midas-nav-bg {
+    background-color: $navbar-color;
+}
+.midas-active-link {
+    color: $basic;
+    border-left: #444 3px solid;
+}
+
+.slider-height {
+    height: 450px;
+}
+.carousel-bgimage {
+    //background: url("../../public/images/carousel-1.jpg");
+    background: url("../../public/images/agm1.jpg");
+    background-size: cover;
+}
+
+.carousel-bgimage2 {
+    //background: url("../../public/images/carousel-2.jpg");
+    background: url("../../public/images/agm2.jpg");
+    background-size: cover;
+}
+
+.carousel-bgimage3 {
+    //background: url("../../public/images/carousel-3.jpg");
+    background: url("../../public/images/agm3.jpg");
+    background-size: cover;
+}
+.midas-showcase {
+    position: relative;
+}
+.primary-overlay {
+    background: $primary-overlay;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.cards-img {
+    // width: 300px;
+    height: 450px;
+}
+
+.products {
+    background-image: linear-gradient(to right bottom, #ffed4abe, #f69b3fc4);
+    background-size: cover;
+    background-position: center;
+    //clip-path: polygon(0 0, 100% 0, 100% 300px, 0 100%);
+}
+.myfooter {
+    background-image: url("../../public/images/bg.jpg");
+    background-size: cover;
+    background-position: top;
+}
+
+@include media-breakpoint-down(sm) {
+    .midas-small-screen {
+        font-size: 1.3rem;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .midas-small-screen {
+        font-size: 1.5rem;
+    }
+}
+
+//CUSTOM CSS FOR DASHBOARD

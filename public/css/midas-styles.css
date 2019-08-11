@@ -1,0 +1,219 @@
+.nav {
+  height: 75px !important;
+}
+
+.midas-top-bar {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.banner-height {
+  height: 300px;
+}
+
+.loader {
+  position: absolute;
+  top: 40%;
+  left: 47%;
+}
+
+.side-content {
+  padding: 3px;
+}
+
+#f-message {
+  position: absolute;
+  z-index: 10;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  height: 50px;
+  border-radius: 3px 3px 3px 3px;
+}
+
+.myfooter {
+  background-image: url(/images/bg.jpg?057781f722782298bdf5827be2ff29f8);
+  background-size: cover;
+  background-position: top;
+}
+
+.user-profiles {
+  -webkit-box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+}
+
+.side-section-detail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-right: 3px solid #0091ea;
+}
+
+.profile__heading {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.profile__user-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile__photo {
+  height: 4.4rem;
+  width: 4.4rem;
+  border-radius: 50%;
+}
+
+.profile__user-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.profile__manage-mode {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sub-profile {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+.subject-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.side-section-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 3px;
+  margin-bottom: 6px;
+}
+
+.add-more {
+  color: grey !important;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.add-more a {
+  text-decoration: none;
+}
+
+.add-more a:visited {
+  text-decoration: none;
+}
+
+.add-more-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 7px 7px 7px 7px;
+}
+
+.search_bar {
+  text-align: center;
+}
+
+.customsearch {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.customsearch__item {
+  margin: 5px;
+}
+
+.customsearch__select {
+  background-color: #f4f2f2;
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 100px;
+  width: 20%;
+}
+
+.customsearch__button {
+  background-color: #f4f2f2;
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 100px;
+  width: 20%;
+}
+
+.custom-input {
+  background-color: #f4f2f2 !important;
+  border: none !important;
+  padding: 0.7rem 2rem !important;
+  border-radius: 100px !important;
+}
+
+.custom-width {
+  width: 70%;
+}
+
