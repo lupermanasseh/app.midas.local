@@ -82,41 +82,45 @@
             <i class="material-icons">add</i>
         </a>
         <ul>
-            <li>
+            {{-- <li>
                 <a href="/New" class="modal-trigger btn-floating light-blue accent-1 tooltipped" data-position="left"
                     data-tooltip="Create User">
                     <i class="material-icons">mode_edit</i>
                 </a>
-            </li>
-            <li>
+            </li> --}}
+
+            {{-- <li>
                 <a href="/Nok" class="modal-trigger btn-floating teal darken-3 tooltipped" data-position="left"
                     data-tooltip="Add User NOK">
                     <i class="material-icons">person_pin</i>
                 </a>
-            </li>
-            <li>
-                <a href="/bank" class="modal-trigger btn-floating cyan darken-3 tooltipped" data-position="left"
-                    data-tooltip="Add User Bank">
+            </li> --}}
+            {{-- <li>
+                <a href="/loanSub/create" class="modal-trigger btn-floating cyan darken-3 tooltipped" data-position="left"
+                    data-tooltip="New Loan">
                     <i class="material-icons">attach_money</i>
+                </a>
+            </li> --}}
+            <li>
+                <a href="/New" class="modal-trigger btn-floating red accent-1 tooltipped" data-position="left"
+                    data-tooltip="New User">
+                    <i class="material-icons">supervisor_account</i>
                 </a>
             </li>
 
             <li>
-                <a href="#category-modal" class="modal-trigger btn-floating red accent-3">
+                <a href="/saving/statement" class="modal-trigger btn-floating red accent-3 tooltipped"
+                    data-position="left" data-tooltip="Statement of Account">
                     <i class="material-icons">folder</i>
                 </a>
             </li>
-            <li>
-                <a href="#user-modal" class="modal-trigger btn-floating red accent-1">
-                    <i class="material-icons">supervisor_account</i>
-                </a>
-            </li>
+
         </ul>
     </div>
 
     {{-- POST MODAL --}}
 
-    <div id=post-modal class="modal ">
+    {{-- <div id=post-modal class="modal ">
         <div class="modal-content ">
             <h4>Post</h4>
             <form action="">
@@ -135,7 +139,7 @@
         <div class="modal-footer ">
             <a href="#! " class="modal-close waves-effect waves-green btn-flat ">Agree</a>
         </div>
-    </div>
+    </div> --}}
 
     {{--Below is loader --}} {{--
     <div class="loader preloader-wrapper big active ">
