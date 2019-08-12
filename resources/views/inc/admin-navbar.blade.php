@@ -1,41 +1,45 @@
-<nav class="blue darken-4">
+<div class="navbar-fixed">
+    <nav class="blue-grey darken-2">
 
-    <div class="container">
-        <div class="nav-wrapper">
-            <ul class="right">
-                @if (Auth::check())
-                <li class="right">{{auth()->user()->first_name}}</li>
-                @endif
-            </ul>
+        <div class="container">
+            <div class="nav-wrapper">
+                <ul class="right orange-text darken-4">
+                    @if (Auth::check())
+                    <li class="right">{{auth()->user()->first_name}}</li>
+                    @endif
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="nav-wrapper">
-            <a href="/Dashboard" class="brand-logo"><img height="30" src="{{asset('images/logo2.svg')}}" alt="logo"></a>
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="/Dashboard" class="brand-logo"><img height="30" src="{{asset('images/logo2.svg')}}"
+                        alt="logo"></a>
 
-            <a href="#" data-target="slide-out" class="sidenav-trigger right show-on-large"><i
-                    class="material-icons">menu</i></a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger right show-on-large orange-text darken-4"><i
+                        class="material-icons">menu</i></a>
 
-            <ul class="right hide-on-med-and-down">
+                <ul class="right hide-on-med-and-down">
 
-                <li><a class="dropdown-trigger" href="/" data-target='dropdown1'><i
-                            class="material-icons left">group</i></a></li>
-                <li><a class="dropdown-trigger" href="/about" data-target='dropdown2'><i
-                            class="material-icons left">bubble_chart</i></a></li>
-                <li><a class="dropdown-trigger" href="/about" data-target='dropdown3'><i
-                            class="material-icons left">style</i></a></li>
-                <li><a class="dropdown-trigger" href="/about" data-target='dropdown4'><i
-                            class="material-icons left">person</i></a></li>
-                {{-- <li><a class="dropdown-trigger" href="/about" data-target='dropdown5'><i
-                            class="material-icons left">dashboard</i></a></li> --}}
-            </ul>
+                    <li><a class="dropdown-trigger orange-text darken-4" href="" data-target='dropdown1'><i
+                                class="material-icons left orange-text darken-4">group</i>
+                            USERS</a></li>
+                    <li><a class="dropdown-trigger orange-text darken-4" href="" data-target='dropdown2'><i
+                                class="material-icons left orange-text darken-3">bubble_chart</i> SAVINGS</a></li>
+                    <li><a class="dropdown-trigger orange-text darken-4" href="" data-target='dropdown3'><i
+                                class="material-icons left orange-text darken-4">style</i>
+                            LOANS</a></li>
 
+                    <li><a class="dropdown-trigger orange-text darken-4" href="" data-target='dropdown4'><i
+                                class="material-icons left orange-text darken-4">cloud</i>IPPIS</a></li>
+                </ul>
+
+            </div>
         </div>
-    </div>
 
 
-</nav>
+    </nav>
+</div>
 
 {{-- SIDE NAV CODE --}}
 <ul id="slide-out" class="sidenav">
@@ -85,9 +89,6 @@
     <li><a class="subheader">MIDAS Loan Deductions </a></li>
     <li><a href="/loan/deductions"> <i class="fas fa-file-invoice "></i>Template</a></li>
     <li><a href="/loan/uploadForm"><i class="fas fa-cloud-upload-alt"></i>Upload</a></li>
-    <li><a href="/product/create"><i class="material-icons">create</i>Add Product</a></li>
-    <li><a href="/products"><i class="material-icons">view_list</i>All Products</a></li>
-
     <div class="divider"></div>
     </li>
 
@@ -137,11 +138,9 @@
 <ul id='dropdown1' class='dropdown-content'>
 
 
-    <li><a href="/New"><i class="material-icons">add</i>New User</a></li>
-
-    <li><a href="/user/all"><i class="material-icons">view_list</i>All Users</a></li>
-
-
+    <li><a href="/New" class="orange-text darken-4">New</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/user/all" class="orange-text darken-4">All</a></li>
     <li class="divider" tabindex="-1"></li>
     {{--
     <li><a href="#!"></a></li>
@@ -152,51 +151,28 @@
 {{-- DROP DOWN MENU 2 --}}
 
 <ul id='dropdown2' class='dropdown-content'>
-    <li><a href="#!"><i class="material-icons">create</i>New Savings</a></li>
-    <li><a href="#!"><i class="material-icons">add</i>New Template</a></li>
+    <li><a href="/saving-deductions" class="orange-text darken-4">Deductions</a></li>
     <li class="divider" tabindex="-1"></li>
-    {{--
-    <li><a href="#!">three</a></li> --}}
-    <li><a href="#!"><i class="material-icons">cloud_upload</i>Upload Deductions</a></li>
-    {{--
-    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li> --}}
+    <li><a href="/saving/create" class="orange-text darken-4">Upload</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/saving/search" class="orange-text darken-4">Search</a></li>
+    <li class="divider" tabindex="-1"></li>
 </ul>
 
 {{-- DROP DOWN MENU 3 --}}
 <ul id='dropdown3' class='dropdown-content'>
-    <li><a href="/product/category/add"><i class="material-icons">create</i>New Category</a></li>
-    <li><a href="/product/category"><i class="material-icons">view_list</i>All Categories</a></li>
-    <li><a href="/product/create"><i class="material-icons">create</i>New Product</a></li>
-    <li><a href="/products"><i class="material-icons">view_list</i>All Products</a></li>
+    <li><a href="/loan/deductions" class="orange-text darken-4">Deductions</a></li>
     <li class="divider" tabindex="-1"></li>
-    {{--
-    <li><a href="#!">three</a></li> --}} {{--
-    <li><a href="#!"><i class="material-icons">cloud_upload</i>Upload Deductions</a></li> --}} {{--
-    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-     --}}
+    <li><a href="/loan/uploadForm" class="orange-text darken-4">Upload</a></li>
+    <li class="divider" tabindex="-1"></li>
 </ul>
 
 {{-- DROP DOWN MENU 4 --}}
 
 <ul id='dropdown4' class='dropdown-content'>
-    <li><a href="#!"><i class="material-icons">create</i>New Target Saving</a></li>
-    <li><a href="#!"><i class="material-icons">cloud_download</i>New Template</a></li>
+    <li><a href="/ippis/savings" class="orange-text darken-4">Savings</a></li>
     <li class="divider" tabindex="-1"></li>
-    {{--
-    <li><a href="#!">three</a></li> --}}
-    <li><a href="#!"><i class="material-icons">cloud_upload</i>Upload Target Saving</a></li>
-    {{--
-    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li> --}}
+    <li><a href="/ippis/loans" class="orange-text darken-4">Loans</a></li>
+    <li class="divider" tabindex="-1"></li>
+    <li><a href="/loan/filter" class="orange-text darken-4">Filter</a></li>
 </ul>
-
-{{-- DROP DOWN MENU 4 --}}
-
-{{-- <ul id='dropdown5' class='dropdown-content'>
-    <li><a href="#!"><i class="material-icons">create</i>New Staff</a></li>
-    <li><a href="#!"><i class="material-icons">view_list</i>Staff List</a></li>
-    <li class="divider" tabindex="-1"></li> --}}
-{{--
-    <li><a href="#!">three</a></li> --}} {{--
-    <li><a href="#!"><i class="material-icons">cloud_upload</i>Upload Deductions</a></li> --}} {{--
-    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li> --}}
-{{-- </ul> --}}
