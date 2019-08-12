@@ -41,29 +41,12 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m4 l4 grey-text text-lighten-3">
-                    <h5 class="font-weight-bold"><i class="fas fa-map-marker-alt"></i> Contact Us</h5>
-                    <hr />
-                    <address>
-                        <h6>MIDAS Touch Multipurpose Cooperative Society Limited</h6>
-                        Federal Medical Centre Makurdi,<br />
-                        No 1, Hospital Road, Mission Ward,<br />
-                        P.M.B. 102004, Makurdi, Benue State<br />
-                        +234 081 189 014 11<br />
-                        midastouch@gmail.com<br />
-                    </address>
+                    
 
-                    <p>&copy; MIDAS TOUCH</p>
+                    
 
                 </div>
-                <div class="col s12 m4 l4 offset-m4 grey-text text-lighten-3">
-                    <h5 class="font-weight-bold grey-text text-lighten-3"> <i class="fas fa-share-alt"></i> Social </h5>
-                    <hr />
-                    <ul class="list-unstyled">
-                        <li><span><i class="fab fa-facebook-square"></i></span> Facebook</li>
-                        <li><span><i class="fab fa-twitter-square"></i></span> Twitter</li>
-                        <li><span><i class="fab fa-whatsapp-square"></i></span> Whatsapp</li>
-                    </ul>
-                </div>
+                
 
             </div>
         </div>
