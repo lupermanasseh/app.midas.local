@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Psubscription;
 use App\Ldeduction;
 use App\User;
+use App\Charts\membershipSpread;
 
 use Carbon\Carbon;
 
@@ -172,6 +173,49 @@ public  function totalLoanDeductions($loan_id)
      $user = User::find($id);
      return $user->first_name .' '.$user->last_name;
 }
+
+public static function subGroup(){
+
+    // $result = static::selectRaw('products.name AS Product, count(*) Numbers')
+    //         ->join('products', 'products.id', '=', 'lsubscriptions.product_id')
+    //         ->groupBy('products.name')
+    //         ->orderBy('Numbers', 'DESC')
+    //         ->get();
+
+            $active = Lsubscription::where('loan_status', 'Active')->count();
+            $pending = Lsubscription::where('loan_status', 'Pending')->count();
+            $reviewed = Lsubscription::where('loan_status', 'Reviewed')->count();
+            $paid = Lsubscription::where('loan_status', 'Paid')->count();
+            
+            $status_chart = new membershipSpread;
+            $status_chart->labels(['Active','Pending','Reviewed','Paid']);
+            $status_chart->dataset('Loan Status', 'line', [$active,$pending,$reviewed,$paid]);
+            return $status_chart;
+}
+
+//user activity
+public static function userActivity($id){
+                $id = $id;
+
+            $active = Lsubscription::where('user_id',$id)
+                                    ->where('loan_status', 'Active')
+                                    ->count();
+            $pending = Lsubscription::where('user_id',$id)
+                                    ->where('loan_status', 'Pending')
+                                    ->count();
+            $reviewed = Lsubscription::where('user_id',$id)
+                                    ->where('loan_status', 'Reviewed')
+                                    ->count();
+            $paid = Lsubscription::where('user_id',$id)
+                                    ->where('loan_status', 'Paid')
+                                    ->count();
+            
+            $userActivity = new membershipSpread;
+            $userActivity->labels(['Active','Pending','Reviewed','Paid']);
+            $userActivity->dataset('Foot Prints', 'line', [$active,$pending,$reviewed,$paid]);
+            return $userActivity;
+}
+
 
       
 }
