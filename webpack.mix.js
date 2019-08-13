@@ -21,4 +21,5 @@ mix.js("resources/js/app.js", "public/js")
         "node_modules/toastr/build/toastr.min.css",
         "public/css/toastr.min.css"
     )
-    .copy("node_modules/toastr/build/toastr.min.js", "public/js/toastr.min.js");
+    .copy("node_modules/toastr/build/toastr.min.js", "public/js/toastr.min.js")
+    .copy("node_modules/echarts/dist/echarts.min.js", "public/js/echarts.min.js");
