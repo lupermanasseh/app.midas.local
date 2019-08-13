@@ -6,5 +6,6 @@
     "/css/print.css": "/css/print.css",
     "/css/printpdf.css": "/css/printpdf.css",
     "/css/toastr.min.css": "/css/toastr.min.css",
-    "/js/toastr.min.js": "/js/toastr.min.js"
+    "/js/toastr.min.js": "/js/toastr.min.js",
+    "/js/echarts.min.js": "/js/echarts.min.js"
 }
