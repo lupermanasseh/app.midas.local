@@ -25,6 +25,19 @@ class AppServiceProvider extends ServiceProvider
         //
         Schema::defaultStringLength(191);
         
+        //view composer for admin index page
+          //view composer for product list
+          view()->composer(['Madmin.index'], function($view){
+              $data = User::membershipByGender();
+              $subSpread = Lsubscription::subGroup();
+            $view->with(['chart'=>$data,'item'=>$subSpread]);
+        });
+
+    //     view()->composer(['Madmin.index'], function($view){
+    //         $subSpread = Lsubscription::subGroup();
+    //       $view->with('item',$subSpread);
+    //   });
+
         //view composer for product list
         view()->composer(['ProductSub.create','ProductSub.editSubscription'], function($view){
             $view->with('prodList', Product::productList());
@@ -57,13 +70,17 @@ class AppServiceProvider extends ServiceProvider
             $view->with('tsSaving', TargetSaving::myTargetSavings(auth()->id()));
         });
 
-        view()->composer('inc.dashboard-userreviews', function($view){
-            $view->with('paid', Lsubscription::paidLoans(auth()->id()));
+        view()->composer(['inc.dashboard-userreviews','Dashboard.home'], function($view){
+            $paidLoans = Lsubscription::paidLoans(auth()->id());
+            $pendingLoans = Lsubscription::pendingLoans(auth()->id());
+            $userPrints = Lsubscription::userActivity(auth()->id());
+            $view->with(['paid'=>$paidLoans,'myPendingApp'=>$pendingLoans,'footPrints'=>$userPrints]);
         });
 
-        view()->composer('inc.dashboard-userreviews', function($view){
-            $view->with('myPendingApp', Lsubscription::pendingLoans(auth()->id()));
-        });
+        // view()->composer('inc.dashboard-userreviews', function($view){
+        //     $view->with('myPendingApp')
+        // });
+
     }
 
     /**
