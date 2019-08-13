@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Lsubscription;
+
 
 class MadminController extends Controller
 {
@@ -12,9 +15,10 @@ class MadminController extends Controller
         return view('Madmin.index')->with('title',$title);
     }
     //Cooperators
-    public function cooperators (){
-        $title ="Cooperators";
-        return view('Madmin.users')->with('title',$title);
+    public function cooperators(){
+
+    return view('Madmin.index',compact());
+    
     }
 
     //Steering Committtee
