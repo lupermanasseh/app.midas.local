@@ -98,6 +98,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="<?php echo e(asset( 'js/echarts.min.js')); ?> "></script>
     <script>
         //HIDE ALL SECTIONS
     //$('.section').hide();
@@ -204,6 +205,9 @@ $('.deny').click(function(e){
      })
     </script>
     <script src="<?php echo e(asset( 'js/custom.js')); ?> "></script>
+    <?php echo $chart->script(); ?>
+
+    <?php echo $item->script(); ?>
 
 </body>
 <?php echo app('toastr')->render(); ?>
