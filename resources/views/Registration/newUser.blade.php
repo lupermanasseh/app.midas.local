@@ -135,7 +135,21 @@
             <div class="row">
 
                 <div class="input-field col s4">
-                    <input id="dept" name="dept" type="text" class="validate" required>
+                    <select id="dept" name="dept">
+                        <option value="Administration">Administration</option>
+                        <option value="Finance And Accounts">Finance And Accounts</option>
+                        <option value="Family Medicine">Family Medicine</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Pharmacy">Pharmacy</option>
+                        <option value="Paediatrics">Paediatrics</option>
+                        <option value="Pysiotherapy">Pysiotherapy</option>
+                        <option value="Obstetics And Gynaecology">Obstetics And Gynaecology</option>
+                        <option value="Opthalmology">Opthalmology</option>
+                        <option value="Records">Records</option>
+                        <option value="Nutrition And Dietetics">Nutrition And Dietetics</option>
+                        <option value="Laboratory">Laboratory</option>
+                        <option value="Social Works">Social Works</option>
+                    </select>
                     <label for="dept">Dept</label>
                 </div>
 
