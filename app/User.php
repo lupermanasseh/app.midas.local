@@ -4,6 +4,7 @@ use App\Saving;
 use App\Savingreview;
 use App\Psubscription;
 use App\Lsubscription;
+use App\Charts\membershipSpread;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -214,13 +215,31 @@ class User extends Authenticatable
 
    
         //Search User
-    public function searchUser($param){
+public function searchUser($param){
             $result = User::where('first_name','like','%'.$param.'%')
                             ->orWhere('payment_number',$param)
                             ->get();
                             return $result;
         }
 
+
+
+public static function membershipByGender(){
+            // $data = User::groupBy('sex')
+            // ->get()
+            // ->map(function ($item) {
+            //     // Return the number of persons with that age
+            //     return count($item);
+            // });
+
+        $female = User::where('sex', 'Female')->count();
+        $male = User::where('sex', 'Male')->count();
+        
+        $chart = new membershipSpread;
+        $chart->labels(['Male','Female']);
+        $chart->dataset('Membership Spread By Gender', 'pie', [$male,$female]);
+        return $chart;
+}
     // public static function totalSavings($id)
     // {
     //     return static::selectRaw('users.name, count(*) submitted_games')
