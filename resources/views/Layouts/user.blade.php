@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?famaily=Open+Sans:300,400,600">
     <link rel="stylesheet" href="{{asset('css/portal.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.3.1/main.min.css">
     <title>MIDAS- User Dashboard:: {{$title}}</title>
 </head>
 
@@ -52,10 +53,13 @@
     {{-- @yield('admin') --}}
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset( 'js/echarts.min.js')}} "></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.3.1/main.min.js"></script>
     @isset($footPrints)
     {!! $footPrints->script() !!}
     @endisset
-
+    @isset($calendar)
+    {!! $calendar->script() !!}
+    @endisset
 </body>
 
 </html>

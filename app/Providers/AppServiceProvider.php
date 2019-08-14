@@ -74,7 +74,8 @@ class AppServiceProvider extends ServiceProvider
             $paidLoans = Lsubscription::paidLoans(auth()->id());
             $pendingLoans = Lsubscription::pendingLoans(auth()->id());
             $userPrints = Lsubscription::userActivity(auth()->id());
-            $view->with(['paid'=>$paidLoans,'myPendingApp'=>$pendingLoans,'footPrints'=>$userPrints]);
+            $calendar = Lsubscription::myCalendar(auth()->id());
+            $view->with(['paid'=>$paidLoans,'myPendingApp'=>$pendingLoans,'footPrints'=>$userPrints,'calendar'=>$calendar]);
         });
 
         // view()->composer('inc.dashboard-userreviews', function($view){

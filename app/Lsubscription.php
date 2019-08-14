@@ -9,6 +9,7 @@ use App\User;
 use App\Charts\membershipSpread;
 
 use Carbon\Carbon;
+use Calendar;
 
 class Lsubscription extends Model
 {
@@ -214,6 +215,31 @@ public static function userActivity($id){
             $userActivity->labels(['Active','Pending','Reviewed','Paid']);
             $userActivity->dataset('Foot Prints', 'line', [$active,$pending,$reviewed,$paid]);
             return $userActivity;
+}
+
+//Calendar function
+public static function myCalendar($user_id){
+    $events=[];
+    $data = Lsubscription::where('user_id',$user_id)
+                         ->where('loan_status', 'Active')
+                         ->get();
+        if($data->count()) {
+        foreach ($data as $key => $value) {
+        $events[] = Calendar::event(
+        $value->title,
+        true,
+        new Carbon($value->loan_start_date),
+        new Carbon($value->loan_end_date),
+        null,
+        // Add color and link on event
+        [
+        'color' => '#f05050',
+        'url' => 'pass here url and any route',
+        ]
+        );
+            }
+         }
+        return $calendar = Calendar::addEvents($events);
 }
 
 

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?famaily=Open+Sans:300,400,600">
     <link rel="stylesheet" href="<?php echo e(asset('css/portal.css')); ?>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.3.1/main.min.css">
     <title>MIDAS- User Dashboard:: <?php echo e($title); ?></title>
 </head>
 
@@ -52,11 +53,15 @@
     
     <script src="<?php echo e(asset('js/app.js')); ?>"></script>
     <script src="<?php echo e(asset( 'js/echarts.min.js')); ?> "></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.3.1/main.min.js"></script>
     <?php if(isset($footPrints)): ?>
     <?php echo $footPrints->script(); ?>
 
     <?php endif; ?>
+    <?php if(isset($calendar)): ?>
+    <?php echo $calendar->script(); ?>
 
+    <?php endif; ?>
 </body>
 
 </html>
