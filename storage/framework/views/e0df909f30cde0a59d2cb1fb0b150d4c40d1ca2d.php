@@ -205,9 +205,16 @@ $('.deny').click(function(e){
      })
     </script>
     <script src="<?php echo e(asset( 'js/custom.js')); ?> "></script>
+    <?php if(isset($chart)): ?>
     <?php echo $chart->script(); ?>
 
+    <?php endif; ?>
+
+    <?php if(isset($item)): ?>
     <?php echo $item->script(); ?>
+
+    <?php endif; ?>
+
 
 </body>
 <?php echo app('toastr')->render(); ?>
