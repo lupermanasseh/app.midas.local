@@ -52,7 +52,10 @@
     
     <script src="<?php echo e(asset('js/app.js')); ?>"></script>
     <script src="<?php echo e(asset( 'js/echarts.min.js')); ?> "></script>
+    <?php if(isset($footPrints)): ?>
     <?php echo $footPrints->script(); ?>
+
+    <?php endif; ?>
 
 </body>
 
