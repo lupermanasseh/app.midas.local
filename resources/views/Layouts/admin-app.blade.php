@@ -271,8 +271,15 @@ $('.deny').click(function(e){
      })
     </script>
     <script src="{{asset( 'js/custom.js')}} "></script>
+    @isset($chart)
     {!! $chart->script() !!}
+    @endisset
+
+    @isset($item)
     {!! $item->script() !!}
+    @endisset
+
+
 </body>
 @toastr_render
 
