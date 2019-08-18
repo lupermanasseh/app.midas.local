@@ -9,7 +9,14 @@ use App\User;
 use App\Role;
 use App\Nok;
 use App\Bank;
+use Carbon\Carbon;
 use App\Savingreview;
+use App\Exports\UsersExport;
+use App\Imports\UserImport;
+use App\Imports\NokUserImport;
+use App\Imports\BankUserImport;
+use App\Imports\SavingReviewUserImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RegistrationController extends Controller
 {
@@ -220,20 +227,28 @@ public function photoStore(Request $request){
         'photo_image' =>'image|max:1999',
         'user_id' =>'required',
     ]);
-
+        $myFile = $request['photo_image'];
         $filenameWithExt = $request->file('photo_image')->getClientOriginalName();
+        //filename without extension
         $filename = pathinfo($filenameWithExt,PATHINFO_FILENAME);
         $extension = $request->file('photo_image')->getClientOriginalExtension();
         //filename to store
         $filenameToStore = $filename.'_'.time().'.'.$extension;
+
+        //move to public folder as an asset
+        $myFile->move('uploads/userImages',$filenameToStore);
+
+
+
         //image path
-        $path = $request->file('photo_image')->storeAs('public/photos',$filenameToStore);
+        //$path = $request->file('photo_image')->storeAs('public/photos',$filenameToStore);
  
         
         $user_id = $request['user_id'];
         $user = User::find($user_id);
 
-        $user->photo = $filenameToStore;
+        //$user->photo = $filenameToStore;
+        $user->photo = 'uploads/userImages/'.$filenameToStore;
         $user->save();
         if ($user->save()) {
             toastr()->success('Photo uploaded');
@@ -299,5 +314,177 @@ public function deactivateSavingReview($id){
     toastr()->error('Unable to perform requested operation.');
     return back();
 }
+
+//filter users
+
+public function filter(){
+    $title = "Filter Membership";
+    return view('Registration.filterUsers',compact('title'));
+}
+
+public function filterProcess(Request $request){
+    $title = "Filter Membership Result";
+  
+    $this->validate(request(), [
+   // 'payment_type' =>'required',
+    'status' =>'required|string',
+    'cadre' =>'required|string',
+    'end_date' =>'required|date',
+    ]);
+
+    //$payment_type = $request['payment_type'];
+    $status = $request['status'];
+    $end_date = $request['end_date'];
+    $cadre = $request['cadre'];
+    $members = User::filterMembers($status,$end_date,$cadre);
+
+    return view('Registration.filterUsersResult',compact('title','members','status','end_date','cadre'));
+}
+
+//download members
+public function membersDownload($status,$end_date,$cadre){
+    $end_date = new Carbon($end_date);
+    $end_date = $end_date->toDateString();
+    $fileName = 'MIDAS_MEMBERS_AS_AT_'.$end_date.'.xlsx';
+    return Excel::download(new UsersExport($status,$end_date,$cadre), $fileName);
+}
+
+
+//member bulk upload form
+public function uploadForm(){
+$title ="Members Upload form";
+return view('Registration.userBulkUpload',compact('title'));
+}
+
+// bulk upload members
+public function membersUpload(){
+
+        try{
+        Excel::import(new UserImport(),request()->file('user_import'));
+          }catch(\Exception $ex){
+              toastr()->error('Unable to upload bulk user data!');
+                  return back();
+          }catch(\Error $ex){
+              toastr()->error('Something bad has happened');
+              return back();
+          }
+        
+          //update record with password
+          $userColl = User::all();
+          foreach($userColl as $item){
+              $myUser = User::find($item->id);
+              $myUser->password = Hash::make($item->payment_number);
+              $myUser->save();
+          }
+          toastr()->success('Members bulk upload  successful!');
+          //redirect to listing page order by latest
+          return back();
+          //return redirect('/recent/savings');
+      
+      }
+
+      //nok bulk upload
+public function nokUploadForm(){
+    $title ="NOK Upload form";
+    return view('Registration.nokBulk',compact('title'));
+    }
+
+    //Nok bulk upload members
+public function nokBulkUpload(){
+
+    try{
+    Excel::import(new NokUserImport(),request()->file('nok_import'));
+      }catch(\Exception $ex){
+          toastr()->error('Unable to upload bulk NOK data!');
+              return back();
+      }catch(\Error $ex){
+          toastr()->error('Something bad has happened');
+          return back();
+      }
+
+      toastr()->success('NOK bulk data upload  successful!');
+      //redirect to listing page order by latest
+      return back();
+      //return redirect('/recent/savings');
+  }
+
+//bulk upload bank details
+  public function bankUploadForm(){
+    $title ="Bulk Bank Upload Form";
+    return view('Registration.bankBulk',compact('title'));
+    }
+
+    //bank upload process
+    public function bankBulkUpload(){
+
+        try{
+        Excel::import(new BankUserImport(),request()->file('bank_import'));
+          }catch(\Exception $ex){
+              toastr()->error('Unable to upload bulk Bank  data!');
+                  return back();
+          }catch(\Error $ex){
+              toastr()->error('Something bad has happened');
+              return back();
+          }
+    
+          toastr()->success('Bank bulk data upload  successful!');
+          //redirect to listing page order by latest
+          return back();
+          //return redirect('/recent/savings');
+      }
+
+//Saving registration bulk upload form
+public function savingRegUploadForm(){
+    $title = "SAVING REG - BULK UPLOAD";
+    return view('Registration.savingReg',compact('title'));
+}
+
+//
+   //bank upload process
+   public function savingRegUpload(){
+
+    try{
+    Excel::import(new SavingReviewUserImport(),request()->file('savingreg_import'));
+      }catch(\Exception $ex){
+          toastr()->error('Unable to create bulk saving registrations!');
+              return back();
+      }catch(\Error $ex){
+          toastr()->error('Something bad has happened');
+          return back();
+      }
+
+      toastr()->success('Saving registration bulk data uploaded  successfully!');
+      //redirect to listing page order by latest
+      return back();
+      //return redirect('/recent/savings');
+  }
+
+
+  //Target saving registration bulk upload
+public function tsUploadForm(){
+    $title = "TS REG - BULK UPLOAD";
+    return view('Registration.tsBulk',compact('title'));
+}
+
+//
+   //ts upload process
+   public function tsBulkUpload(){
+
+    try{
+    Excel::import(new TsUserImport(),request()->file('ts_import'));
+      }catch(\Exception $ex){
+          toastr()->error('Unable to create bulk target saving registrations!');
+              return back();
+      }catch(\Error $ex){
+          toastr()->error('Something bad has happened');
+          return back();
+      }
+
+      toastr()->success('Target saving registration bulk data upload  successful!');
+      //redirect to listing page order by latest
+      return back();
+      //return redirect('/recent/savings');
+  }
+
 
 }
