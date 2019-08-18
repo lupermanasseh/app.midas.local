@@ -119,6 +119,10 @@ public function store(Request $request){
         'user_id'=>'required|integer',
         'date' =>'required|date',
         'notes' =>'required|string',
+        'bank' =>'required|string',
+        'bank_add' =>'required|string',
+        'depositor' =>'required|string',
+        'teller' =>'required|string',
         'amount' =>'required|numeric|between:0.00,999999999.99',
         ]);
 
@@ -126,6 +130,10 @@ public function store(Request $request){
             $date = $request['date'];
             $notes = $request['notes'];
             $amount = $request['amount'];
+            $bank = $request['bank'];
+            $bank_add = $request['bank_add'];
+            $teller = $request['teller'];
+            $depositor = $request['depositor'];
 
             $tsSaving = new TargetSaving;
             $user = User::find($user_id);
@@ -145,6 +153,10 @@ public function store(Request $request){
             $tsSaving->amount = $amount;
             $tsSaving->entry_date = $date;
             $tsSaving->notes = $notes;
+            $tsSaving->bank_name = $bank;
+            $tsSaving->bank_add = $bank_add;
+            $tsSaving->depositor_name = $depositor;
+            $tsSaving->teller_no = $teller;
             $tsSaving->created_by = auth()->id();
             $tsSaving->save();
             if($tsSaving->save()) {
@@ -155,7 +167,7 @@ public function store(Request $request){
                 $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
                 $to = $phone;
                 $from= 'MIDAS';
-                $message = 'Credit notification. Acct: Target Savings. Amount: N' .number_format($amount,2,'.',',').'. Balance: N'. $currentTsBalance;
+                $message = 'Credit alert. Acct: Target Savings. Amount: N' .number_format($amount,2,'.',',').'. Bal: N'. $currentTsBalance;
                $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
 
                $response = $client->request('GET', $url,['verify'=>false]);
