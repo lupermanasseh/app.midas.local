@@ -93,6 +93,10 @@ public function store(Request $request){
         'user_id'=>'required|integer',
         'date' =>'required|date',
         'notes' =>'required|string',
+        'bank' =>'required|string',
+        'bank_add' =>'required|string',
+        'depositor' =>'required|string',
+        'teller' =>'required|string',
         'amount' =>'required|numeric|between:0.00,999999999.99',
         ]);
 
@@ -100,6 +104,10 @@ public function store(Request $request){
             $date = $request['date'];
             $notes = $request['notes'];
             $amount = $request['amount'];
+            $bank = $request['bank'];
+            $bank_add = $request['bank_add'];
+            $depositor = $request['depositor'];
+            $teller = $request['teller'];
        
             $user = User::find($user_id);
             $phone = $user->phone;
@@ -109,6 +117,10 @@ public function store(Request $request){
             $newsaving->amount_saved = $amount;
             $newsaving->entry_date = $date;
             $newsaving->notes = $notes;
+            $newsaving->bank_name = $bank;
+            $newsaving->bank_add = $bank_add;
+            $newsaving->depositor_name = $depositor;
+            $newsaving->teller_no = $teller;
             $newsaving->created_by = auth()->id();
             $newsaving->save();
             if($newsaving->save()) {
