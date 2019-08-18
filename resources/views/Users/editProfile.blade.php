@@ -136,7 +136,7 @@
                     <label for="phone">Phone</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="dob" name="dob" value="{{$user->dob}}" type="text" class="validate datepicker" required>
+                    <input id="dob" name="dob" value="{{$user->dob}}" type="date" class="validate" required>
                     <label for="dob">DOB</label>
                 </div>
 
