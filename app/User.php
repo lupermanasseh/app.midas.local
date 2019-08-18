@@ -5,6 +5,7 @@ use App\Savingreview;
 use App\Psubscription;
 use App\Lsubscription;
 use App\Charts\membershipSpread;
+use Carbon\Carbon;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -20,7 +21,27 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'payment_number', 'password','email',
+        'username', 
+        'payment_number', 
+        'password',
+        'email',
+        'membership_type',
+        'created_at',
+        'updated_at',
+        'staff_no',
+        'title',
+        'first_name',
+        'last_name',
+        'other_name',
+        'sex',
+        'dept',
+        'email',
+        'phone',
+        'marital_status',
+        'home_add',
+        'dob',
+        'employ_type',
+        'job_cadre',
     ];
 
     /**
@@ -35,6 +56,10 @@ class User extends Authenticatable
     protected $dates = ['created_at', 'updated_at','dob'];
 
 
+    //accessor methods
+    public function getPhotoAttribute($photo){
+        return asset($photo);
+    }
     //Define relationship with roles
     public function roles(){
         return $this->belongsToMany(Role::class,'role_users');
@@ -217,12 +242,29 @@ class User extends Authenticatable
         //Search User
 public function searchUser($param){
             $result = User::where('first_name','like','%'.$param.'%')
-                            ->orWhere('payment_number',$param)
+                            ->orWhere('id',$param)
                             ->get();
                             return $result;
         }
 
+//filter members
+public static function filterMembers($status,$end_date,$cadre){
 
+    $startDate = new Carbon('2016-02-01');
+    if($status=='All' &&  $cadre=='All'){
+        return User::where('created_at','>=',$startDate)
+                    ->where('created_at','<=',$end_date)
+                    ->orderBy('status','asc')
+                    ->paginate(100); 
+    }else{
+    return User::where('created_at','>=',$startDate)
+                    ->where('created_at','<=',$end_date)
+                    ->where('job_cadre','like','%'.$cadre.'%')
+                    ->where('status',$status)
+                    ->orderBy('first_name','asc')
+                    ->paginate(100);
+    }
+}
 
 public static function membershipByGender(){
             // $data = User::groupBy('sex')
