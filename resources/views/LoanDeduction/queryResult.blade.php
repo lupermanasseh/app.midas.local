@@ -15,12 +15,12 @@
             <span>
                 <a class="btn-small purple lighten-1" href="/midasFilterExcel/{{$start_date}}/{{$end_date}}"><i
                         class="fas fa-file-excel"></i>
-                    MIDAS EXCEL</a>
+                    MIDAS INPUTS</a>
             </span>
             <span>
                 <a class="btn-small purple lighten-1" href="/filterExcel/{{$start_date}}/{{$end_date}}"><i
                         class="fas fa-file-excel"></i>
-                    IPPIS EXCEL</a>
+                    IPPIS INPUTS</a>
             </span>
         </div>
     </div>
