@@ -14,8 +14,16 @@
         <div class="col s12 m3 l3 profile">
             {{-- <img src="{{asset('images/andy.jpg')}}" alt="" class="circle"> --}}
             <p class="profile__heading text-grey darken-3">Personal Details</p>
-            <a href="/userDetails/{{$user->id}}"><img src="{{url('storage/photos/'.$user->photo)}}" alt=""
+
+            <a href="/userDetails/{{$user->id}}"><img src="{{$user->photo}}" alt="profile img"
                     class="profile__photo"></a>
+            <span><a href="/photo/{{$user->id}}" class="pink-text darken-2">Edit Photo</a></span>
+
+            {{-- <img src="{{url('images/girl-1.png')}}" alt="profile img" class="profile__photo">
+            <span><a href="/photo/{{$user->id}}" class="pink-text darken-2">Choose Photo</a></span> --}}
+
+
+
             <span class="profile__user-name">{{$user->title}}</span>
             <span class="profile__user-name"><a href="/userDetails/{{$user->id}}">{{$user->first_name}}
                     {{$user->last_name}}</a></span>
@@ -137,6 +145,7 @@
     </div>
     @else
     <p>User has no pending loan applications</p>
+    <span><a href="/loanSub/create" class="btn green">New Loan</a></span>
     @endif
 
     @if ($targetsr->count() >=1)
@@ -165,11 +174,11 @@
             </table>
         </div>
         <p><a href="/ts/withdrawal/{{$user->id}}" class="btn pink darken-3">WITHDRAW</a> <a
-                href="/new/ts/{{$tsr->user_id}}" class="btn">New TS</a></p>
+                href="/new/ts/{{$user->id}}" class="btn">New TS</a></p>
     </div>
     @else
     <p>No available Target Saving subscriptions</p>
-    <p><a href="/new/ts/{{$tsr->user_id}}" class="btn">New TS</a></p>
+    <p><a href="/new/ts/{{$user->id}}" class="btn">Regiser New TS</a></p>
     @endif
 </div>
 @endsection
