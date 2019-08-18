@@ -53,7 +53,12 @@ public function activeTargetsr($user_id){
     $activeTsr = Targetsr::where('user_id',$user_id)
              ->where('status', 'Active')
              ->first();
-    return $activeTsr->id;
+             if($activeTsr==""){
+                 return "";
+             }else{
+                return $activeTsr->id;
+             }
+   
       }
 
       /**
