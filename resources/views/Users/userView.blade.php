@@ -21,13 +21,14 @@
         <div class="col s12 m3 l3 profile">
             {{-- <img src="{{asset('images/andy.jpg')}}" alt="" class="circle"> --}}
             <p class="profile__heading text-grey darken-3">Personal Details</p>
-            @if ($profile->photo)
-            <img src="{{url('storage/photos/'.$profile->photo)}}" alt="" class="profile__photo">
+
+            <img src="{{$profile->photo}}" alt="" class="profile__photo">
             <span><a href="/photo/{{$profile->id}}" class="pink-text darken-2">Edit Photo</a></span>
-            @else
-            <img src="{{url('images/girl-1.png')}}" alt="" class="profile__photo">
-            <span><a href="/photo/{{$profile->id}}" class="pink-text darken-2">Choose Photo</a></span>
-            @endif
+
+
+            {{-- <img src="{{url('images/girl-1.png')}}" alt="" class="profile__photo">
+            <span><a href="/photo/{{$profile->id}}" class="pink-text darken-2">Choose Photo</a></span> --}}
+
 
             <span class="profile__user-name">{{$profile->title}}</span>
             <span class="profile__user-name">{{$profile->first_name}} {{$profile->last_name}}</span>
@@ -174,22 +175,18 @@
             <table class="highlight">
                 <thead>
                     <tr>
-                        <th>Branch</th>
-                        <th>Sort Code</th>
+                        {{-- <th>Branch</th> --}}
+                        <th>Bank Code</th>
                         <th>Acct Name</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{$profile->bank->bank_branch}}</td>
+                        {{-- <td>{{$profile->bank->bank_branch}}</td> --}}
                         <td>{{$profile->bank->sort_code}}</td>
-                        <td>{{$profile->bank->acct_name}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            @else
-            <p>No Record Added Yet</p>
-            @endif
+                        <td>{{$profile->first_name}} {{$profile->last_name}}</</td> </tr> </tbody> </table> @else <p>No
+                            Record Added Yet</p>
+                            @endif
         </div>
         @else
         <div class="add-more-box">
@@ -218,16 +215,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($SavingReview as $item)
+                    @foreach($SavingReview as $reviewItem)
                     <tr>
-                        <td>{{$item->created_at->toDateString()}}</td>
-                        <td>{{number_format($item->current_amount,2,'.',',')}}</td>
-                        <td>{{$item->status}}</td>
+                        <td>{{$reviewItem->created_at->toDateString()}}</td>
+                        <td>{{number_format($reviewItem->current_amount,2,'.',',')}}</td>
+                        <td>{{$reviewItem->status}}</td>
                         <td>
-                            @if ($item->status=='Inactive')
-                            <a href="#" class="btn red darken-3">{{$item->status}}</a>
+                            @if ($reviewItem->status=='Inactive')
+                            <a href="#" class="btn red darken-3">{{$reviewItem->status}}</a>
                             @else
-                            <a href="/saving/inactive/{{$item->id}}" class="btn grey darken-3">Deactivate</a>
+                            <a href="/saving/inactive/{{$reviewItem->id}}" class="btn grey darken-3">Deactivate</a>
                             @endif
                         </td>
                     </tr>
