@@ -278,8 +278,6 @@ $('.deny').click(function(e){
     @isset($item)
     {!! $item->script() !!}
     @endisset
-
-
 </body>
 @toastr_render
 
