@@ -19,32 +19,34 @@
             </div>
 
             <div class="row">
-                <div class="input-field col s4">
+                <div class="input-field col s12 m4 l4">
                     <input id="bank_name" name="bank_name" type="text" class="validate" required>
                     <label for="bank_name">Bank Name</label>
                 </div>
 
-                <div class="input-field col s4">
+                {{-- <div class="input-field col s4">
                     <input id="bank_branch" name="bank_branch" type="text" class="validate" required>
                     <label for="bank_branch">Bank Branch</label>
+                </div> --}}
+                <div class="input-field col s12 m4 l4">
+                    <input id="acct_number" name="acct_number" type="text" class="validate" required>
+                    <label for="acct_number">Account Number</label>
                 </div>
-                <div class="input-field col s4">
+
+                <div class="input-field col s12 m4 l4">
                     <input id="sort_code" name="sort_code" type="text" class="validate" required>
                     <label for="sort_code">Sort Code</label>
                 </div>
             </div>
 
             <div class="row">
-
+                {{-- 
                 <div class="input-field col s6">
                     <input id="acct_name" name="acct_name" type="text" class="validate">
                     <label for="acct_name">Account Name</label>
-                </div>
+                </div> --}}
 
-                <div class="input-field col s6">
-                    <input id="acct_number" name="acct_number" type="text" class="validate" required>
-                    <label for="acct_number">Account Number</label>
-                </div>
+
 
             </div>
 
