@@ -1,4 +1,4 @@
-@extends('Layouts.admin-app') 
+@extends('Layouts.admin-app')
 @section('main-content')
 <div class="container">
     {{--
@@ -6,8 +6,12 @@
     <div class="row">
         <div class="col s12 subject-header">
             <p class="teal-text">EDIT NOK DETAILS</p>
-            <span><a href="/userDetails/{{$nok->user->id}}"><i class="small material-icons tooltipped" data-position="bottom" data-tooltip="Back To User Deatils">arrow_back</i></a></span>
-            <span><a href="/user/all"><i class="small material-icons tooltipped" data-position="bottom" data-tooltip="All Users">group</i></a></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 subject-header">
+            <span><a href="/userDetails/{{$nok->user->id}}"><i class="small material-icons tooltipped"
+                        data-position="bottom" data-tooltip="Back To User Deatils">arrow_back</i></a></span>
         </div>
     </div>
     <div class="row">
@@ -18,32 +22,32 @@
             <div class="row">
                 <div class="input-field col s4">
                     <select id="title" name="title">
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Miss">Miss</option>
-                                <option value="Dr">Dr</option>
+                        <option value="Mr">Mr</option>
+                        <option value="Mrs">Mrs</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Dr">Dr</option>
                     </select>
                     <label>Title</label>
                 </div>
 
                 <div class="input-field col s4">
                     <select id="sex" name="sex">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
                     <label>Gender</label>
                 </div>
                 <div class="input-field col s4">
                     <select id="relationship" name="relationship">
-                                <option value="Spouse">Spouse</option>
-                                <option value="Child">Child</option>
-                                <option value="Brother">Brother</option>
-                                <option value="Sister">Sister</option>
-                                <option value="Niece">Niece</option>
-                                <option value="Cousine">Cousine</option>
-                                <option value="Father">Father</option>
-                                <option value="Mother">Mother</option>
-                            </select>
+                        <option value="Spouse">Spouse</option>
+                        <option value="Child">Child</option>
+                        <option value="Brother">Brother</option>
+                        <option value="Sister">Sister</option>
+                        <option value="Niece">Niece</option>
+                        <option value="Cousine">Cousine</option>
+                        <option value="Father">Father</option>
+                        <option value="Mother">Mother</option>
+                    </select>
                     <label>Relationship</label>
                 </div>
             </div>
@@ -52,12 +56,14 @@
 
 
                 <div class="input-field col s4">
-                    <input id="first_name" name="first_name" value="{{$nok->first_name}}" type="text" class="validate" required>
+                    <input id="first_name" name="first_name" value="{{$nok->first_name}}" type="text" class="validate"
+                        required>
                     <label for="first_name">Surname</label>
                 </div>
 
                 <div class="input-field col s4">
-                    <input id="last_name" name="last_name" value="{{$nok->first_name}}" type="text" class="validate" required>
+                    <input id="last_name" name="last_name" value="{{$nok->last_name}}" type="text" class="validate"
+                        required>
                     <label for="last_name">Last name</label>
                 </div>
                 <div class="input-field col s4">
