@@ -29,6 +29,28 @@
                 </div>
             </div>
 
+            <div class="row">
+
+                <div class="input-field col s12 m3 l3">
+                    <input id="bank" name="bank" type="text" class="validate" required>
+                    <label for="bank">Bank</label>
+                </div>
+
+                <div class="input-field col s12 m3 l3">
+                    <input id="bank_add" name="bank_add" type="text" class="validate" required>
+                    <label for="bank_add">Bank Adress</label>
+                </div>
+
+                <div class="input-field col s12 m3 l3">
+                    <input id="depositor" name="depositor" type="text" class="validate" required>
+                    <label for="depositor">Depositor</label>
+                </div>
+                <div class="input-field col s12 m3 l3">
+                    <input id="teller" name="teller" type="text" class="validate" required>
+                    <label for="teller">Teller</label>
+                </div>
+            </div>
+
             <button type="submit" class="btn">save now</button>
         </form>
     </div>
