@@ -21,7 +21,7 @@ class UsersController extends Controller
     {
         //
         $title = 'All Users';
-        $users = User::orderBy('first_name','asc')->paginate(10);
+        $users = User::orderBy('first_name','asc')->paginate(50);
         return view('Users.listUsers',compact('users','title'));
     }
 
@@ -119,16 +119,16 @@ public function editBank($id){
      //validate the form
      $this->validate(request(), [
         'bank_name' =>'required|string',
-        'bank_branch' =>'required',
+        //'bank_branch' =>'required',
         'sort_code' =>'required|integer',
-        'acct_name' =>'required',
+        //'acct_name' =>'required',
         'acct_number' =>'required|integer|digits:10',
     ]);
     $bankUpdate = Bank::find($id);
     $bankUpdate->bank_name = $request['bank_name'];
-    $bankUpdate->bank_branch = $request['bank_branch'];
+    //$bankUpdate->bank_branch = $request['bank_branch'];
     $bankUpdate->sort_code = $request['sort_code'];
-    $bankUpdate->acct_name = $request['acct_name'];
+    //$bankUpdate->acct_name = $request['acct_name'];
     $bankUpdate->acct_number = $request['acct_number'];
     $bankUpdate->save();
     //find user
@@ -137,7 +137,7 @@ public function editBank($id){
     if ($bankUpdate->save()) {
         toastr()->success('Data has been edited successfully!');
 
-        return view('Users.userView',compact('profile','title'));
+        return redirect('/userDetails/'.$id);
     }
 
     toastr()->error('An error has occurred trying to update, please try again later.');
@@ -181,7 +181,7 @@ public function editBank($id){
         if ($nokUpdate->save()) {
             toastr()->success('Data has been edited successfully!');
     
-            return view('Users.userView',compact('profile','title'));
+            return redirect('/userDetails/'.$id);
         }
     
         toastr()->error('An error has occurred trying to update, please try again later.');
@@ -218,7 +218,7 @@ public function editBank($id){
         //activate user
         public function activateUser($id){
             $user = User::find($id);
-            $user->status = 'Inactive';
+            $user->status = 'Active';
             if($user->save())
             {
                 toastr()->success('User  activated  successfully!');
