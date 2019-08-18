@@ -4,7 +4,7 @@
             {{ csrf_field() }}
 
             <div class="customsearch__item"><input class="custom-input custom-width" type="text" name="search_term"
-                    id="search_term" placeholder="Provide IPPIS or First Name">
+                    id="search_term" placeholder="Reg Number or First Name">
             </div>
             <div class="customsearch__item"><button class="custom-input" type="submit">Search</button></div>
         </form>
@@ -27,7 +27,7 @@
         <div class="col s12 m6 l6">
             <div class="card-panel pink-text center top-banner">
                 <i class="fas fa-user-friends"></i>
-                <div><span><a href="/contributors-list">Active Users</a></span></div>
+                <div><span><a href="/contributors-list">Active Contributors</a></span></div>
             </div>
         </div>
 
