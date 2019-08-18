@@ -22,7 +22,7 @@
                         <th>Surname</th>
                         <th>Last Name</th>
                         <th>Status</th>
-                        <th>Active</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
