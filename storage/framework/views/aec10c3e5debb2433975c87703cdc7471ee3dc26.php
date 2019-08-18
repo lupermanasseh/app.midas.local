@@ -1,13 +1,13 @@
+ 
 <?php $__env->startSection('main-content'); ?>
 <div class="container">
     
     <div class="row subject-header">
         <div class="col s6">
-            <span class="text-teal">SEARCH RESULT</span>
+            <span class="text-teal">ALL USERS</span>
         </div>
         <div class="col s6">
-            <span><a href="/user/all"><i class="small material-icons tooltipped" data-position="bottom"
-                        data-tooltip="All Users">group</i></a></span>
+            <span><a href="/New"><i class="small material-icons">person_add</i></a></span>
         </div>
     </div>
 
@@ -20,7 +20,6 @@
                         <th>Surname</th>
                         <th>Last Name</th>
                         <th>Status</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,15 +28,12 @@
                         <td><a href="/userDetails/<?php echo e($user->id); ?>"><?php echo e($user->first_name); ?></a></td>
                         <td><?php echo e($user->last_name); ?></td>
                         <td><?php echo e($user->status); ?></td>
-                        <td><a href="/saving/new/<?php echo e($user->id); ?>" class="btn blue darken-3">Add Saving</a> <a
-                                href="/targetsaving/new/<?php echo e($user->id); ?>" class="btn purple darken-3">Add
-                                TS</a></td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
-            <?php else: ?>
-            <p>No record found matching your search criteria</p>
+            <?php echo e($users->links()); ?> <?php else: ?>
+            <p>No Users Created Yet</p>
             <?php endif; ?>
         </div>
     </div>

@@ -214,8 +214,6 @@ $('.deny').click(function(e){
     <?php echo $item->script(); ?>
 
     <?php endif; ?>
-
-
 </body>
 <?php echo app('toastr')->render(); ?>
 
