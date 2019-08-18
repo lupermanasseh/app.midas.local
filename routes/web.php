@@ -80,10 +80,22 @@ Route::get('/Dashboard/myPaidLoans/{id}','DashboardController@paidLoans');
         Route::get('/saving/review/{id}','RegistrationController@createSaving');
         Route::post('/saving/review/store','RegistrationController@createSavingStore');
         Route::get('/saving/inactive/{id}','RegistrationController@deactivateSavingReview');
+        Route::get('/filter/users','RegistrationController@filter');
+        Route::post('/filter/users/process','RegistrationController@filterProcess');
+        Route::get('/members/{status}/{end_date}/{cadre}','RegistrationController@membersDownload');
+        Route::get('/users/upload','RegistrationController@uploadForm');
+        Route::post('/users/upload/process','RegistrationController@membersUpload');
+        Route::get('/nok/upload','RegistrationController@nokUploadForm');
+        Route::post('/nok/upload/process','RegistrationController@nokBulkUpload');
+        Route::get('/bank-bulk/upload','RegistrationController@bankUploadForm');
+        Route::post('/bank/upload/process','RegistrationController@bankBulkUpload');
+        Route::get('/saving-reg','RegistrationController@savingRegUploadForm');
+        Route::post('/saving-reg/process','RegistrationController@savingRegUpload');
+        Route::get('/ts-reg','RegistrationController@tsUploadForm'); //awaiting data
+        Route::post('/ts-upload','RegistrationController@savingRegUpload'); //awaiting data
 
 });
 
-   
 //Session/login controller
 Route::get('/login', 'SessionController@create')->name('login');
 Route::post('/signin','SessionController@store');
