@@ -23,7 +23,6 @@
             <td>{{$active->product_id}}</td>
             <td>{{$active->monthly_deduction}}</td>
             <td>{{$active->id}}</td>
-            <td>{{now()->toDateString()}}</td>
         </tr>
         @endforeach
     </tbody>
