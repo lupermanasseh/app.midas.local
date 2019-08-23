@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Saving;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 //use Maatwebsite\Excel\Concerns\WithBatchInserts;
@@ -22,7 +23,8 @@ class SavingsImport implements ToModel, WithHeadingRow //, WithBatchInserts, Wit
             //
             'user_id' => $row['user_id'],
             'amount_saved' => $row['amount'],
-            'entry_date' => $row['date'],
+            'entry_date' =>  \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date']),
+            //$row['date'],
             'notes'=> $row['description'],
             'created_by' => auth()->id(),
         ]);
