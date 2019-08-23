@@ -30,7 +30,7 @@ class UserImport implements ToModel,WithHeadingRow
             'email' => $row['email'],
             'phone'=> $row['phone_no'],
             'home_add' => $row['address'],
-            'dob' => $row['dob'],
+            'dob' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['dob']),
             'employ_type' => $row['employment_type'],
             'job_cadre'=> $row['job_cadre'],
             'marital_status' => $row['status'],
