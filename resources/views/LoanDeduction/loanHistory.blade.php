@@ -25,13 +25,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($loanHistory as $item)
+                    @foreach ($loanHistory as $myItem)
                     <tr>
-                        <td>{{$item->entry_month->toFormattedDateString()}}</td>
-                        <td><a href="/user/page/{{$item->user_id}}">{{$item->user->first_name}}</a></td>
-                        <td>{{$item->product->name}}</td>
-                        <td>{{number_format($item->amount_deducted,2,'.',',')}}</td>
-                        <td>{{$item->notes}}</td>
+                        <td>{{$myItem->entry_month->toFormattedDateString()}}</td>
+                        <td><a href="/user/page/{{$myItem->user_id}}">{{$myItem->user->first_name}}</a></td>
+                        <td>{{$myItem->product->name}}</td>
+                        <td>{{number_format($myItem->amount_deducted,2,'.',',')}}</td>
+                        <td>{{$myItem->notes}}</td>
 
                     </tr>
                     @endforeach
