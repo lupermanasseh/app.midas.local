@@ -26,9 +26,9 @@
                         <th>DATE</th>
                         <th>NAME</th>
                         <th>DESCRIPTION</th>
-                        <th>DEBIT (=N=)</th>
-                        <th>CREDIT (=N=)</th>
-                        <th>BALANCE (=N=)</th>
+                        <th>DEBIT</th>
+                        <th>CREDIT</th>
+                        <th>BALANCE</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,17 +40,17 @@
                         <td></td>
                         <td>{{number_format($saving->openingBalance($fromDate,$userObj->id),2,'.',',')}}</td>
                     </tr>
-                    @foreach ($result as $item)
+                    @foreach ($result as $myItem)
                     <tr>
-                        <td>{{$item->entry_date->toFormattedDateString()}}</td>
-                        <td><a href="/user/page/{{$item->user->id}}">{{$item->user->first_name}}
-                                {{$item->user->last_name}}</a></td>
+                        <td>{{$myItem->entry_date->toFormattedDateString()}}</td>
+                        <td><a href="/user/page/{{$myItem->user->id}}">{{$myItem->user->first_name}}
+                                {{$myItem->user->last_name}}</a></td>
                         <td>
-                            {{$item->notes}}
+                            {{$myItem->notes}}
                         </td>
-                        <td>{{number_format($item->amount_withdrawn,2,'.',',')}}</td>
-                        <td>{{number_format($item->amount_saved,2,'.',',')}}</td>
-                        <td>{{number_format($saving->balanceAsAt($item->amount_saved,$item->amount_withdrawn,$item->id,$userObj->id),2,'.',',')}}
+                        <td>{{number_format($myItem->amount_withdrawn,2,'.',',')}}</td>
+                        <td>{{number_format($myItem->amount_saved,2,'.',',')}}</td>
+                        <td>{{number_format($saving->balanceAsAt($myItem->amount_saved,$myItem->amount_withdrawn,$myItem->id,$userObj->id),2,'.',',')}}
                         </td>
                     </tr>
                     @endforeach
