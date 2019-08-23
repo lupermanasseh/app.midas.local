@@ -136,7 +136,8 @@ class Lsubscription extends Model
             $query->where('loan_status','Active');
         })->with(['product' => function ($query) {
         $query->orderBy('name', 'desc');
-        }])->get();
+        }])
+        ->orderBy('loan_start_date','desc')->get();
     }
 
     //user paid loans
