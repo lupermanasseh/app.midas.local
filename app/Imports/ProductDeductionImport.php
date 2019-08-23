@@ -22,7 +22,8 @@ class ProductDeductionImport implements ToModel,WithHeadingRow //, WithBatchInse
             'user_id' => $row['user_id'],
             'product_id' => $row['product_id'],
             'psubscription_id' => $row['subscription_id'],
-            'entry_date' => $row['date'],
+            'entry_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date']),
+            //$row['date'],
             'monthly_deduction' => $row['monthly_repay'],
             'uploaded_by' => auth()->id(),
 
