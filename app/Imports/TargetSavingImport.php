@@ -22,7 +22,7 @@ class TargetSavingImport implements ToModel, WithHeadingRow //, WithBatchInserts
             'targetsr_id' => $row['service_id'],
             'user_id' => $row['user_id'],
             'amount' => $row['amount'],
-            'entry_date' => $row['date'],
+            'entry_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date']),//  $row['date'],
             'notes' => $row['description'],
             'created_by' => auth()->id(),
         ]);
