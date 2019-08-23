@@ -140,6 +140,37 @@ class User extends Authenticatable
          ->sum('monthly_deduction');
      }
 
+        //Total sum approved loan amount
+
+        public function totalApprovedAmount($id)
+        {
+            return Lsubscription::where('user_id', '=', $id)
+            ->where(function ($query) {
+                $query->where('loan_status', '=', 'Active');
+            })
+            ->sum('amount_approved');
+        }
+
+    
+        //All loan balances
+        public function allLoanBalances($id)
+        {
+            $sumBal=0;
+            $lsub = new Lsubscription;
+            $all_loans = Lsubscription::where('user_id', '=', $id)
+            ->where(function ($query) {
+                $query->where('loan_status', '=', 'Active');
+            })->get();
+        
+            foreach($all_loans as $item){
+                //$totalBal=0;
+                $approved_amt = $item->amount_approved;
+                $deductions = $lsub->totalLoanDeductions($item->id);
+                $bal = $approved_amt-$deductions;
+                $sumBal = $sumBal+$bal;
+            }
+            return $sumBal;
+        }
 
 
     public  function totalSavings($id)
@@ -191,15 +222,15 @@ class User extends Authenticatable
   
 
     //Number of active product subscriptions
-    public  function activeProductSub($id)
-    {
-        //Number of active product subsriptions
-        $activeProdSub = Psubscription::where('user_id', '=', $id)
-        ->where(function ($query) {
-            $query->where('status', '=', 'Active');
-        })->get();
-        return $activeProdSub->count();
-    }
+    // public  function activeProductSub($id)
+    // {
+    //     //Number of active product subsriptions
+    //     $activeProdSub = Psubscription::where('user_id', '=', $id)
+    //     ->where(function ($query) {
+    //         $query->where('status', '=', 'Active');
+    //     })->get();
+    //     return $activeProdSub->count();
+    // }
 
     public function requiredPercent($amt){
         return 0.3 * $amt;
@@ -241,11 +272,19 @@ class User extends Authenticatable
    
         //Search User
 public function searchUser($param){
-            $result = User::where('first_name','like','%'.$param.'%')
-                            ->orWhere('id',$param)
+            $result = User::where('id',$param)
                             ->get();
                             return $result;
         }
+
+//use this search functionality for general search
+        //Search User
+// public function searchUser($param){
+//             $result = User::where('first_name','like','%'.$param.'%')
+//                             ->orWhere('id',$param)
+//                             ->get();
+//                             return $result;
+//         }
 
 //filter members
 public static function filterMembers($status,$end_date,$cadre){
