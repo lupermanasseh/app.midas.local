@@ -20,7 +20,7 @@ class LoanDeductionImport implements ToModel,WithHeadingRow
                 'user_id' => $row['user_id'],
                 'product_id' => $row['product_id'],
                 'lsubscription_id' => $row['subscription_id'],
-                'entry_month' => $row['date'],
+                'entry_month' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date']),//$row['date'],
                 'amount_deducted' => $row['amount'],
                 'notes' => $row['description'],
                 'uploaded_by' => auth()->id(),
