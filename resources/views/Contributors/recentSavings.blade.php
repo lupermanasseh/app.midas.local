@@ -24,16 +24,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($recentUploads as $item)
+                    @foreach ($recentUploads as $myItem)
                     <tr>
-                        <td>{{$item->entry_date->toFormattedDateString()}}</td>
-                        <td><a href="/user/page/{{$item->user->id}}">{{$item->user->first_name}}
-                                {{$item->user->last_name}}</a></td>
-                        <td>{{number_format($item->amount_saved,2,'.',',')}}</td>
-                        <td>{{number_format($item->amount_withdrawn,2,'.',',')}}</td>
+                        <td>{{$myItem->entry_date->toFormattedDateString()}}</td>
+                        <td><a href="/user/page/{{$myItem->user->id}}">{{$myItem->user->first_name}}
+                                {{$myItem->user->last_name}}</a></td>
+                        <td>{{number_format($myItem->amount_saved,2,'.',',')}}</td>
+                        <td>{{number_format($myItem->amount_withdrawn,2,'.',',')}}</td>
                         <td>
-                            <a href="/saving/edit/{{$item->id}}"><i class="small material-icons">edit</i> </a> <a
-                                href="/saving/remove/{{$item->id}}" id="delete"> <i
+                            <a href="/saving/edit/{{$myItem->id}}"><i class="small material-icons">edit</i> </a> <a
+                                href="/saving/remove/{{$myItem->id}}" id="delete"> <i
                                     class="small material-icons red-text">delete</i></a>
                         </td>
 
