@@ -9,6 +9,9 @@ use App\Bank;
 use App\Lsubscription;
 use App\Psubscription;
 use App\Savingreview;
+use App\Saving;
+use App\TargetSaving;
+use App\Targetsr;
 use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
@@ -238,10 +241,25 @@ public function editBank($id){
                 'search_term' =>'required',
             ]);
 
-            $user = new User;
+            //$user = new User;
+            $saving = new Saving;
+            $targetSaving = new TargetSaving;
             $param = $request['search_term'];
-            $users = $user->searchUser($param);
-            return view('Users.userSearch',compact('users','title'));
+            
+            // $users = $user->searchUser($param);
+            $user = User::find($param);
+            if($user==""){
+                toastr()->error('No user associated with this registration number');
+                return back();
+            }else{
+            //Active Product Subscriptions
+            $activeLoans = Lsubscription::activeLoans($param);
+            //User target saving subscriptions
+            $targetsr = Targetsr::where('user_id',$user->id)
+                                ->where('status','Active')
+                                ->get();
+            }
+            return view('Users.userSearch',compact('user','saving','targetsr','targetSaving','activeLoans','title'));
         }
 
         //Password change
