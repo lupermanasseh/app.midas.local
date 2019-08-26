@@ -8,7 +8,7 @@ class Masterdeduction extends Model
 {
     //
     protected $fillable = [
-        'user_id', 
+        'name', 
         'ippis_no', 
         'cumulative_amount',
         'entry_date',
