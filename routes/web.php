@@ -257,5 +257,10 @@ Route::get('/ts/repay/{id}','LoanDeductionsController@tsRepay');
 Route::post('/ts/repay','LoanDeductionsController@tsRepayStore');
 });
 
+//Monthly Target Savings Routes
+Route::middleware(['auth'])->group(function () {
+  Route::get('/ippis-analysis','IppisAnalysisController@ippisAnalysisForm');
+  Route::post('/ippis-analysis-upload','IppisAnalysisController@importIppisAnalysis')->name('ippisanalysis.import');
+  });
 
 
