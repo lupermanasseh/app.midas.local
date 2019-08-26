@@ -75,7 +75,7 @@
     </li>
     <li><a class="subheader">Contributions</a></li>
     <li><a href="/saving-deductions"><i class="fas fa-coins "></i> Deductions</a></li>
-    <li><a href="/saving/create"><i class="fas fa-arrow-alt-circle-up "></i>MIDAS Upload</a></li>
+    <li><a href="/saving/create"><i class="fas fa-arrow-alt-circle-up"></i>MIDAS Upload</a></li>
     <li><a href="/saving/search"><i class="fab fa-searchengin "></i>Search</a></li>
 
 
@@ -86,7 +86,7 @@
     <li><a href="/ippis/savings"><i class="fas fa-coins "></i> Savings</a></li>
     <li><a href="/ippis/loans"><i class="fas fa-arrow-alt-circle-down "></i>Loans</a></li>
     <li><a href="/loan/filter"><i class="fas fa-sort "></i>Filter Loans</a></li>
-    <i class=""></i>
+    <li><a href="/ippis-analysis"><i class="fas fa-arrow-alt-circle-up "></i>Upload IPPIS Analysis</a></li>
 
     <div class="divider"></div>
     </li>
