@@ -35,9 +35,9 @@
                         </div>
                     </div>
                     {{-- user rieview section --}}
-                    <div class="user-reviews">
+                    {{-- <div class="user-reviews">
                         @include('inc.dashboard-userreviews')
-                    </div>
+                    </div> --}}
 
                 </div>
                 {{-- cta section --}}
