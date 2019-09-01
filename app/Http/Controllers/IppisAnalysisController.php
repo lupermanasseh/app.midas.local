@@ -109,8 +109,8 @@ public function importIppisAnalysis(){
                         $remainingDeductible = $remainingDeductible-$remainingDeductible;
                     }
 
-                }else{
-                   //no balance is available, update with 0 values
+                }elseif($remainingDeductible==0){
+                        //no balance is available, update with 0 values
                         $newDeduction = new Ldeduction;
                         $newDeduction->user_id = $sub->user_id;
                         $newDeduction->product_id=$sub->product_id;
@@ -120,7 +120,7 @@ public function importIppisAnalysis(){
                         $newDeduction->notes = $latestMasterDate.' IPPIS loan deduction';
                         $newDeduction->uploaded_by = auth()->id();
                         $newDeduction->save();
-                        $remainingDeductible = $remainingDeductible-$currentAmount;
+                        $remainingDeductible = 0;
                 }
                
             }
@@ -131,7 +131,7 @@ public function importIppisAnalysis(){
         toastr()->error('An error has occurred trying to spread your loan payment.');
         return back();
     }
-    DB::commit();
+   DB::commit();
     toastr()->success('IPPIS Loan deduction inputs processed successfully!');
     //redirect to listing page order by latest
     return redirect('/loanDeduction/listings');
