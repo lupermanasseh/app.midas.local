@@ -24,17 +24,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($recent as $item)
+                    @foreach ($recent as $myItem)
                     <tr>
-                        <td>{{$item->entry_month->toFormattedDateString()}}</td>
-                        <td><a href="/user/page/{{$item->user->id}}">{{$item->user->first_name}}
-                                {{$item->user->last_name}}</a></td>
-                        <td>{{$item->product->name}}</td>
-                        <td>{{number_format($item->amount_deducted,2,'.',',')}}</td>
-                        <td>{{$item->created_at->diffForHumans()}}</td>
+                        <td>{{$myItem->entry_month->toFormattedDateString()}}</td>
+                        <td><a href="/user/page/{{$myItem->user->id}}">{{$myItem->user->first_name}}
+                                {{$myItem->user->last_name}}</a></td>
+                        <td>{{$myItem->product->name}}</td>
+                        <td>{{number_format($myItem->amount_deducted,2,'.',',')}}</td>
+                        <td>{{$myItem->created_at->diffForHumans()}}</td>
                         <td>
-                            <a href="/loanDeduction/edit/{{$item->id}}"><i class="small material-icons">edit</i> </a> <a
-                                href="/loanDeduction/remove/{{$item->id}}" id="delete"> <i
+                            <a href="/loanDeduction/edit/{{$myItem->id}}"><i class="small material-icons">edit</i> </a>
+                            <a href="/loanDeduction/remove/{{$myItem->id}}" id="delete"> <i
                                     class="small material-icons red-text">delete</i></a>
                         </td>
 
