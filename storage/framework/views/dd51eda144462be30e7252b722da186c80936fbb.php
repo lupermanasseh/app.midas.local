@@ -23,8 +23,10 @@
     <div class="row">
         <div class="col s12">
             <?php if(count($members)>=1): ?>
-            <?php echo $__env->make('Registration.display', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> <?php echo e($members->links()); ?><?php else: ?>
-            <p>No active records yet</p>
+            <?php echo $__env->make('Registration.display', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            
+            <?php else: ?>
+            <p>No matching records yet</p>
             <?php endif; ?>
         </div>
     </div>

@@ -5,7 +5,7 @@
 
 
             <div class="customsearch__item"><input class="custom-input custom-width" type="text" name="search_term"
-                    id="search_term" placeholder="Reg Number or First Name">
+                    id="search_term" placeholder="Reg Number e.g 75">
             </div>
             <div class="customsearch__item"><button class="custom-input" type="submit">Search</button></div>
         </form>

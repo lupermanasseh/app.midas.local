@@ -13,12 +13,12 @@
             <span>
                 <a class="btn-small purple lighten-1" href="/midasFilterExcel/<?php echo e($start_date); ?>/<?php echo e($end_date); ?>"><i
                         class="fas fa-file-excel"></i>
-                    MIDAS EXCEL</a>
+                    MIDAS INPUTS</a>
             </span>
             <span>
                 <a class="btn-small purple lighten-1" href="/filterExcel/<?php echo e($start_date); ?>/<?php echo e($end_date); ?>"><i
                         class="fas fa-file-excel"></i>
-                    IPPIS EXCEL</a>
+                    IPPIS INPUTS</a>
             </span>
         </div>
     </div>

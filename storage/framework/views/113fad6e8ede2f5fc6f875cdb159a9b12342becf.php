@@ -12,7 +12,9 @@
 
 <div class="overview__rating">
     <div class="overview__rating-average"><a href="" class="overview__link">N
-            <?php echo e(number_format($tsSaving,2,'.',',')); ?></a>
+            <?php echo e(number_format($tsSaving,2,'.',',')); ?>
+
+        </a>
     </div>
     <div class="overview__rating-count">TS</div>
     <div class="overview__rating-count"><?php echo e(now()->toDateString()); ?></div>

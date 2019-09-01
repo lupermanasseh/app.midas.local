@@ -35,9 +35,7 @@
                         </div>
                     </div>
                     
-                    <div class="user-reviews">
-                        <?php echo $__env->make('inc.dashboard-userreviews', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                    </div>
+                    
 
                 </div>
                 
