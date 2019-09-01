@@ -35,7 +35,7 @@
 
                 <div class="input-field col s12 m4 l4">
                     <input id="sort_code" name="sort_code" type="text" class="validate" required>
-                    <label for="sort_code">Sort Code</label>
+                    <label for="sort_code">Bank Code</label>
                 </div>
             </div>
 
@@ -44,10 +44,8 @@
                 <div class="input-field col s6">
                     <input id="acct_name" name="acct_name" type="text" class="validate">
                     <label for="acct_name">Account Name</label>
-                </div> --}}
-
-
-
+                </div> 
+                --}}
             </div>
 
 
