@@ -37,6 +37,7 @@ class IppisLoandeductionsExport implements FromView
     {
         
         $loanSub = Lsubscription::filterResult($this->start_date,$this->end_date);
+        //select active loans based on date range in the new method
         $activeLoans = Lsubscription::where('loan_status','Active')
                                     ->get();
         // $premResult = Lsubscription::whereBetween('created_at',[$this->start_date,$this->end_date])
