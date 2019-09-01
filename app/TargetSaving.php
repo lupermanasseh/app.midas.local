@@ -39,14 +39,18 @@ public static function myTargetSavings($id){
     /**
      * first find the target saving review that is active where user id is id
      */
+    
     $tr = Targetsr::where('user_id',$id)
     ->where(function ($query) {
     $query->where('status', 'Active');
-    })->get();
-    foreach($tr as $t){
-        $targetsr_id = $t->id;
+    })->first();
+
+    if($tr==""){
+        return 0;
+    }else{
+        $targetid = $tr->id;
+        return TargetSaving::where('targetsr_id',$targetid)->sum('amount');
     }
-    return TargetSaving::where('targetsr_id',$targetsr_id)->sum('amount');
 }
 
 public function activeTargetsr($user_id){
