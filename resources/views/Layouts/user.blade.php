@@ -52,9 +52,9 @@
     {{-- @yield('admin') --}}
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset( 'js/echarts.min.js')}} "></script>
-    @isset($footPrints)
+    {{-- @isset($footPrints)
     {!! $footPrints->script() !!}
-    @endisset
+    @endisset --}}
 
 </body>
 

@@ -4,7 +4,7 @@
 
 <p class="paragraph">MY ACTIVITY</p>
 <div>
-    {!! $footPrints->container() !!}
+    {{-- {!! $footPrints->container() !!} --}}
 </div>
 {{-- <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, velit nemo! Aperiam cum
     reprehenderit
