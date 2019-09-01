@@ -25,8 +25,10 @@
     <div class="row">
         <div class="col s12">
             @if (count($members)>=1)
-            @include('Registration.display') {{$members->links()}}@else
-            <p>No active records yet</p>
+            @include('Registration.display')
+            {{-- {{$members->links()}} --}}
+            @else
+            <p>No matching records yet</p>
             @endif
         </div>
     </div>
