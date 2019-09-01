@@ -185,10 +185,10 @@ public function bankStore (Request $request){
     //validate the form
     $this->validate(request(), [
         'bank_name' =>'required',
-        'bank_branch' =>'required',
+        //'bank_branch' =>'required',
         'user_id' =>'required',
         'sort_code' =>'required',
-        'acct_name' =>'required',
+        //'acct_name' =>'required',
         'acct_number' =>'required|integer|digits:10',
     ]);
 
@@ -197,9 +197,9 @@ public function bankStore (Request $request){
         $user_id = $request['user_id'];
         $user_bank = new Bank();
         $user_bank->bank_name = $request['bank_name'];
-        $user_bank->bank_branch = $request['bank_branch'];
+        //$user_bank->bank_branch = $request['bank_branch'];
         $user_bank->sort_code = $request['sort_code'];
-        $user_bank->acct_name = $request['acct_name'];
+        //$user_bank->acct_name = $request['acct_name'];
         $user_bank->acct_number = $request['acct_number'];
         $user_bank->user_id = $user_id;
         $user_bank->save();
@@ -281,7 +281,7 @@ public function createSavingStore(Request $request){
         if(count($savingrviews)>=1){
             //deactivate here
             toastr()->error('Deactivate previous saving record and try again.');
-            return redirect('/user/page/'.$request['user_id']);
+            return redirect('/userDetails/'.$request['user_id']);
         }
         $saving = new Savingreview;
         $saving->user_id = $request['user_id'];
