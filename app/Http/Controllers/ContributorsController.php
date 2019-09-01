@@ -219,7 +219,7 @@ public function searchProcess(Request $request){
                             ->where('entry_date','<=',$to)
                             ->with('user')
                             ->latest('entry_date')
-                            ->paginate(100);
+                            ->get();
     return view('Contributors.searchResult',compact('result','title'));
 }
 //statement of saving view form
