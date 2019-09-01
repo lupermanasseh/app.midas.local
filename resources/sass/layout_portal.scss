@@ -75,7 +75,7 @@
     background-color: #fff;
     box-shadow: $shadow-light;
     padding: 3rem;
-    flex: 0 0 60%; //occupies 60% of the available width
+    flex: 0 0 100%; //was 60% before occupies 60% of the available width
     margin-right: 4.5rem;
 
     @media only screen and (max-width: $bp-medium) {
