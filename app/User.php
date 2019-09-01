@@ -291,17 +291,17 @@ public static function filterMembers($status,$end_date,$cadre){
 
     $startDate = new Carbon('2016-02-01');
     if($status=='All' &&  $cadre=='All'){
-        return User::where('created_at','>=',$startDate)
-                    ->where('created_at','<=',$end_date)
+        return User::where('date_entry','>=',$startDate)
+                    ->where('date_entry','<=',$end_date)
                     ->orderBy('status','asc')
-                    ->paginate(100); 
+                    ->get(); 
     }else{
-    return User::where('created_at','>=',$startDate)
-                    ->where('created_at','<=',$end_date)
+    return User::where('date_entry','>=',$startDate)
+                    ->where('date_entry','<=',$end_date)
                     ->where('job_cadre','like','%'.$cadre.'%')
                     ->where('status',$status)
                     ->orderBy('first_name','asc')
-                    ->paginate(100);
+                    ->get();
     }
 }
 
