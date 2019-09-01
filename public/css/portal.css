@@ -162,8 +162,8 @@ body {
           box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.06);
   padding: 3rem;
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 60%;
-          flex: 0 0 60%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
   margin-right: 4.5rem;
 }
 
