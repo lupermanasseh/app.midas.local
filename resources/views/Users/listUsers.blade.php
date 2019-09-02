@@ -1,4 +1,4 @@
-@extends('Layouts.admin-app') 
+@extends('Layouts.admin-app')
 @section('main-content')
 <div class="container">
     {{--
@@ -18,6 +18,8 @@
             <table class="highlight">
                 <thead>
                     <tr>
+                        <th>Reg Number</th>
+                        <th>MemberShip Type</th>
                         <th>Surname</th>
                         <th>Last Name</th>
                         <th>Status</th>
@@ -26,6 +28,8 @@
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
+                        <td>{{$user->id}}</td>
+                        <td>{{$user->membership_type}}</td>
                         <td><a href="/userDetails/{{$user->id}}">{{$user->first_name}}</a></td>
                         <td>{{$user->last_name}}</td>
                         <td>{{$user->status}}</td>
