@@ -31,7 +31,9 @@ class Saving extends Model
      * @param int $id
      */
     public function totalDebit($id){
-        return Saving::where('user_id',$id)->sum('amount_withdrawn');
+        return Saving::where('user_id',$id)
+                    ->where('status','Active')
+                    ->sum('amount_withdrawn');
     }
     
     /**
@@ -39,7 +41,9 @@ class Saving extends Model
      * @param int $id
      */
     public function totalCredit($id){
-        return Saving::where('user_id',$id)->sum('amount_saved');
+        return Saving::where('user_id',$id)
+                        ->where('status','Active')
+                        ->sum('amount_saved');
     }
 
     /**
@@ -77,7 +81,8 @@ class Saving extends Model
         // find end of previous month
         // $prevMonthEnd = $prevMonth->endOfMonth();
         //find all saving records of a user by id
-        $savingCollection = Saving::where('user_id',$id);
+        $savingCollection = Saving::where('user_id',$id)
+                                    ->where('status','Active');
         $savingsAt = $savingCollection->where('entry_date','<',$startDate)->sum('amount_saved');
         $debitAt = $savingCollection->where('entry_date','<',$startDate)->sum('amount_withdrawn');
 
