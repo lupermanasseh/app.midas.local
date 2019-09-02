@@ -37,7 +37,8 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$userSavings->links()}} @else
+            {{-- {{$userSavings->links()}} --}}
+            @else
             <p>No Records Available</p>
             @endif
         </div>
