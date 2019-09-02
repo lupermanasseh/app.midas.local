@@ -14,19 +14,18 @@ use Carbon\Carbon;
 class IppisAnalysisController extends Controller
 {
     //
-    public function index(){
-        //
-        $title ='All Active Contributors';
-        $activeUsers= User::where('status','Active')->withCount(['usersavings' => function ($query) {
-            $query->latest('entry_date');
-           }])->paginate(100);
-        return view('Contributors.index',compact('activeUsers','title'));
-    }
+    // public function index(){
+    //     //
+    //     $title ='All Active Contributors';
+    //     $activeUsers= User::where('status','Active')->withCount(['usersavings' => function ($query) {
+    //         $query->latest('entry_date');
+    //        }])->paginate(100);
+    //     return view('Contributors.index',compact('activeUsers','title'));
+    // }
 
     public function ippisAnalysisForm(){
         //
         $title ='Upload Ippis Analysis';
-       
         //dd($allLatestMaster);
         return view('IppisAnalysis.uploadForm',compact('title'));
     }
@@ -49,6 +48,15 @@ public function importIppisAnalysis(){
     DB::commit();
     
 
+    /**
+     * Move the below code to a different route
+     * Add a button to process the current uploaded master
+     * 1. first get the latest IPPIS master upload analysis
+     * 2. get the entry date on that upload
+     * 3. check if entry date exist in the loan deduction, if yes Display link to show records else
+     * 4. Provide a button to trigger the processing
+     * 
+     */
     //begin transaction to process uploads
     DB::beginTransaction();
     try{
