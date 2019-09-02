@@ -20,32 +20,32 @@
 
                 <div class="input-field col s12 m4 l4">
                     <input id="date" name="date" type="text" class="validate datepicker" required>
-                    <label for="date">Date</label>
+                    <label for="date">Date Paid</label>
                 </div>
 
                 <div class="input-field col s12 m4 l4">
                     <input id="notes" name="notes" type="text" class="validate" required>
-                    <label for="notes">Description</label>
+                    <label for="notes">Purpose of Payment</label>
                 </div>
             </div>
 
             <div class="row">
 
-                <div class="input-field col s12 m3 l3">
+                <div class="input-field col s12 m4 l4">
                     <input id="bank" name="bank" type="text" class="validate" required>
-                    <label for="bank">Bank</label>
+                    <label for="bank">Paid From</label>
                 </div>
 
-                <div class="input-field col s12 m3 l3">
+                {{-- <div class="input-field col s12 m3 l3">
                     <input id="bank_add" name="bank_add" type="text" class="validate" required>
                     <label for="bank_add">Bank Adress</label>
-                </div>
+                </div> --}}
 
-                <div class="input-field col s12 m3 l3">
+                <div class="input-field col s12 m4 l4">
                     <input id="depositor" name="depositor" type="text" class="validate" required>
-                    <label for="depositor">Depositor</label>
+                    <label for="depositor">Paid By</label>
                 </div>
-                <div class="input-field col s12 m3 l3">
+                <div class="input-field col s12 m4 l4">
                     <input id="teller" name="teller" type="text" class="validate" required>
                     <label for="teller">Teller</label>
                 </div>
