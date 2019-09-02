@@ -43,9 +43,10 @@ class ContributorsController extends Controller
         
         $title = 'User Saving Listing';
         $userSavings = Saving::where('user_id',$user_id)
-        ->with('user')
-        ->latest('entry_date')
-        ->paginate(50);
+                            ->where('status','Active')
+                            ->with('user')
+                            ->latest('entry_date')
+                            ->get();
 
         
         return view('Contributors.userListings',compact('userSavings','title'));
@@ -80,6 +81,44 @@ class ContributorsController extends Controller
     }
 
 
+    
+//Display pendfing savings that are waiting approval
+public function pending(){
+    $title= "Pending Savings";
+    $pendings = Saving::where('status','Pending')
+                            ->with('user')
+                            ->oldest('entry_date')
+                            ->get();
+    return view('Contributors.pending',compact('title','pendings'));
+}
+
+//Approve savings deposit
+public function approveSaving($id){
+    $saving = Saving::find($id);
+    $user_id = $saving->user->id;
+    $phone = $saving->user->phone;
+    $amount = $saving->amount_saved;
+
+    $saving->status ="Active";
+    $saving->save();
+    if($saving->save()){
+
+        $currentBalance = number_format($saving->netBalance($user_id),2,'.',',');
+        $client = new Client;
+        $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
+        $to = $phone;
+        $from= 'MIDASTOUCH';
+        $message = 'Credit alert. Acct: Savings. Amount: N' .number_format($amount,2,'.',',').'. Balance: N'. $currentBalance;
+       $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
+
+       $response = $client->request('GET', $url,['verify'=>false]);
+    }else{
+
+    }
+}
+
+
+
 //Create new individual saving form
 public function create($id){
     $title= "New Saving";
@@ -94,7 +133,7 @@ public function store(Request $request){
         'date' =>'required|date',
         'notes' =>'required|string',
         'bank' =>'required|string',
-        'bank_add' =>'required|string',
+        //'bank_add' =>'required|string',
         'depositor' =>'required|string',
         'teller' =>'required|string',
         'amount' =>'required|numeric|between:0.00,999999999.99',
@@ -105,7 +144,7 @@ public function store(Request $request){
             $notes = $request['notes'];
             $amount = $request['amount'];
             $bank = $request['bank'];
-            $bank_add = $request['bank_add'];
+            //$bank_add = $request['bank_add'];
             $depositor = $request['depositor'];
             $teller = $request['teller'];
        
@@ -118,24 +157,24 @@ public function store(Request $request){
             $newsaving->entry_date = $date;
             $newsaving->notes = $notes;
             $newsaving->bank_name = $bank;
-            $newsaving->bank_add = $bank_add;
+            $newsaving->status = 'Pending';
             $newsaving->depositor_name = $depositor;
             $newsaving->teller_no = $teller;
             $newsaving->created_by = auth()->id();
             $newsaving->save();
             if($newsaving->save()) {
                     //send saving credit message
-                    $currentBalance = number_format($newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id),2,'.',',');
-                    $client = new Client;
-                    $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
-                    $to = $phone;
-                    $from= 'MIDAS';
-                    $message = 'Credit alert. Acct: Savings. Amount: N' .number_format($amount,2,'.',',').'. Balance: N'. $currentBalance;
-                   $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
+                //     $currentBalance = number_format($newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id),2,'.',',');
+                //     $client = new Client;
+                //     $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
+                //     $to = $phone;
+                //     $from= 'MIDASTOUCH';
+                //     $message = 'Credit alert. Acct: Savings. Amount: N' .number_format($amount,2,'.',',').'. Balance: N'. $currentBalance;
+                //    $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
    
-                   $response = $client->request('GET', $url,['verify'=>false]);
+                //    $response = $client->request('GET', $url,['verify'=>false]);
 
-                toastr()->success('Saving credit record created successfully!');
+                toastr()->success('Saving credit record created successfully, but waiting for approval!');
                 return redirect('/saving/listings/'.$user_id);
             }
         
@@ -232,7 +271,7 @@ public function statementFind(Request $request){
 
     $title = 'Filtered Records';
      $this->validate(request(), [
-    'payment_number'=>'required|integer',
+    'reg_number'=>'required|integer',
      'from' =>'required|date',
      'to' =>'required|date',
      //'category' =>'required|string',
@@ -252,7 +291,7 @@ public function statementFind(Request $request){
 
      $saving = new Saving;
      $heading ='Statement of Savings';
-     $userObj = User::find(User::userID($request['payment_number']));
+     $userObj = User::find($request['reg_number']);
      $user_id = $userObj->id;
 
      $result = $saving->findSavingRecords($fromDate,$toDate,$user_id);
