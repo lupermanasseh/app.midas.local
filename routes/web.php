@@ -198,6 +198,8 @@ Route::get('/saving/statement','ContributorsController@statement');
 Route::post('/saving/statement/process','ContributorsController@statementFind');
 Route::get('/statement/printfile/{from}/{to}/{id}','ContributorsController@printFile');
 Route::get('/statement/printpdf/{from}/{to}/{id}','ContributorsController@printPdf');
+Route::get('/saving/pending','ContributorsController@pending');
+Route::get('/approve/saving/{id}','ContributorsController@approveSaving');
 });
 
 //Monthly Target Savings Routes
