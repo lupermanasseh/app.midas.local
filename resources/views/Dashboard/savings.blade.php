@@ -27,7 +27,7 @@
             <td>
                 {{number_format($active->amount_saved,2,'.',',')}}
             </td>
-            <td>
+            <td>{{number_format($active->balanceAsAt($active->amount_saved,$active->amount_withdrawn,$active->id,auth()->id()))}}
             </td>
         </tr>
         @endforeach
