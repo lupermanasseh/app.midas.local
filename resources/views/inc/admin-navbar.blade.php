@@ -162,6 +162,7 @@
     <li class="divider" tabindex="-1"></li>
     <li><a href="/saving/search" class="orange-text darken-4">Search</a></li>
     <li class="divider" tabindex="-1"></li>
+    <li><a href="/saving/pending" class="orange-text darken-4">Pending</a></li>
 </ul>
 
 {{-- DROP DOWN MENU 3 --}}
