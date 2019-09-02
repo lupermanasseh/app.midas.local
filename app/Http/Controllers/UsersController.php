@@ -24,7 +24,7 @@ class UsersController extends Controller
     {
         //
         $title = 'All Users';
-        $users = User::orderBy('first_name','asc')->paginate(50);
+        $users = User::orderBy('id','asc')->paginate(50);
         return view('Users.listUsers',compact('users','title'));
     }
 
