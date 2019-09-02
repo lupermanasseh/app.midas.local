@@ -52,7 +52,7 @@ class LoanSubscriptionController extends Controller
         {
         //
         $this->validate(request(), [
-            'payment_id'=>'required|integer',
+            'reg_no'=>'required|integer',
             //'product_cat'=>'required|integer',
             'product_item'=>'required|integer',
             'custom_tenor' =>'nullable|integer|between:1,60',
@@ -64,15 +64,24 @@ class LoanSubscriptionController extends Controller
             ]);
 
             
-                $user_id = User::userID(request(['payment_id']));
+                
                 $loan_sub = new Lsubscription();
                 $product = Product::find($request['product_item']);
                 
                 //check fo active users
-                $guarantor1 = User::userID(request(['guarantor_id1']));
-                $guarantor2 = User::userID(request(['guarantor_id2']));
-                if($guarantor1=="" || $guarantor2=="" || $user_id==""){
-                    toastr()->success('One or all the users are inactive');
+                $guarantor1 = User::find(request(['guarantor_id1']));
+                $guarantor2 = User::find(request(['guarantor_id2']));
+                $applicant = User::find(request(['reg_no']));
+                if($guarantor1=="" || $guarantor2=="" || $applicant==""){
+                    toastr()->error('One or more users do not exist');
+                    return redirect('/loanSub/create');
+                }
+                //Check loan eleigibility by total indebtedness
+                $user = new User();
+                $totalIndebtedness = $user->totalApprovedAmount($request['reg_no']);
+                if($totalIndebtedness >=5000000){
+                    //$allowed = 5000000-$totalIndebtedness;
+                    toastr()->error('Maximum loan amount of N 5,000,000 exceeded');
                     return redirect('/loanSub/create');
                 }
 
@@ -92,9 +101,9 @@ class LoanSubscriptionController extends Controller
                 
                 //$loan_sub->productdivision_id = $request['product_cat'];
                 $loan_sub->product_id = $request['product_item'];
-                $loan_sub->user_id = $user_id;
-                $loan_sub->guarantor_id = $guarantor1;
-                $loan_sub->guarantor_id2 = $guarantor2;
+                $loan_sub->user_id = $request['reg_no'];
+                $loan_sub->guarantor_id = $request['guarantor_id1'];
+                $loan_sub->guarantor_id2 = $request['guarantor_id2'];
                 $loan_sub->monthly_deduction = $amtApplied/$tenor;
                 $loan_sub->custom_tenor = $tenor;
                 $loan_sub->amount_applied = $amtApplied;
@@ -108,8 +117,6 @@ class LoanSubscriptionController extends Controller
                 }
                 toastr()->error('An error has occurred trying to create a loan request!');
                 return back();
-            
-       
         }
 
     /**
@@ -127,7 +134,7 @@ class LoanSubscriptionController extends Controller
         ->where(function($query){
             $query->where('loan_status','Pending');
         })->with(['product' => function ($query) {
-          $query->orderBy('description', 'desc');
+          $query->orderBy('name', 'desc');
       }])->paginate(10);
 
         return view('LoanSub.loanSubDetail',compact('loanDetails','title'));
@@ -145,10 +152,10 @@ class LoanSubscriptionController extends Controller
         $title ='Edit Loan Subscription';
         $user = new User;
         $lSub = Lsubscription::find($id);
-        $g1 = $user->userInstance($lSub->guarantor_id)->payment_number;
-        $g2 = $user->userInstance($lSub->guarantor_id2)->payment_number;
-        $paymentNumber = $user->userInstance($lSub->user_id)->payment_number;
-        return view('LoanSub.editLoanSub',compact('lSub','title','g1','g2','paymentNumber'));
+        $g1 = $lSub->guarantor_id;
+        $g2 = $lSub->guarantor_id2;
+        $applicant_reg = $lSub->user_id;
+        return view('LoanSub.editLoanSub',compact('lSub','title','g1','g2','applicant_reg'));
         }
 
     /**
@@ -162,7 +169,7 @@ class LoanSubscriptionController extends Controller
         {
         //
         $this->validate(request(), [
-            'payment_id'=>'required|integer',
+            'reg_no'=>'required|integer',
             //'product_cat'=>'required|integer',
             'product_item'=>'required|integer',
             'custom_tenor' =>'nullable|integer|between:1,60',
@@ -174,15 +181,24 @@ class LoanSubscriptionController extends Controller
             ]);
 
             
-                $user_id = User::userID(request(['payment_id']));
+                
                 $loan_sub = Lsubscription::find($id);
                 $product = Product::find($request['product_item']);
                 
                 //check fo active users
-                $guarantor1 = User::userID(request(['guarantor_id1']));
-                $guarantor2 = User::userID(request(['guarantor_id2']));
-                if($guarantor1=="" || $guarantor2=="" || $user_id==""){
-                    toastr()->success('One or all the users are inactive');
+                $guarantor1 = User::find(request(['guarantor_id1']));
+                $guarantor2 = User::find(request(['guarantor_id2']));
+                $applicant = User::find(request(['reg_no']));
+                if($guarantor1=="" || $guarantor2=="" || $applicant==""){
+                    toastr()->error('One or more users do not exist');
+                    return redirect('/loanSub/create');
+                }
+                //Check loan eleigibility by total indebtedness
+                $user = new User();
+                $totalIndebtedness = $user->totalApprovedAmount($request['reg_no']);
+                if($totalIndebtedness >=5000000){
+                    //$allowed = 5000000-$totalIndebtedness;
+                    toastr()->error('Maximum loan amount of N 5,000,000 exceeded');
                     return redirect('/loanSub/create');
                 }
 
@@ -202,9 +218,9 @@ class LoanSubscriptionController extends Controller
                 
                 //$loan_sub->productdivision_id = $request['product_cat'];
                 $loan_sub->product_id = $request['product_item'];
-                $loan_sub->user_id = $user_id;
-                $loan_sub->guarantor_id = $guarantor1;
-                $loan_sub->guarantor_id2 = $guarantor2;
+                $loan_sub->user_id = $request['reg_no'];
+                $loan_sub->guarantor_id = $request['guarantor_id1'];
+                $loan_sub->guarantor_id2 = $request['guarantor_id2'];
                 $loan_sub->monthly_deduction = $amtApplied/$tenor;
                 $loan_sub->custom_tenor = $tenor;
                 $loan_sub->amount_applied = $amtApplied;
@@ -425,8 +441,7 @@ class LoanSubscriptionController extends Controller
                     // }else{
                     //     toastr()->error('Unable to approve loan! try again');
                     //     return back();
-                    // }
-                   
+                    // } 
                     
                 }
 
