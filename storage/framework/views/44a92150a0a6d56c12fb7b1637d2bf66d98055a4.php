@@ -3,25 +3,29 @@
 <table cl>
     <thead>
         <tr>
-            <th>NAME</th>
-            <th>AMOUNT</th>
-            <th>MODE</th>
             <th>DATE</th>
+            <th>NAME</th>
+            <th>CREDIT</th>
+            <th>DEBIT</th>
+            <th>DESC</th>
+
         </tr>
     </thead>
     <tbody>
         <?php $__currentLoopData = $targetSavingList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $list): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <tr>
+            <td><?php echo e($list->entry_date->toFormattedDateString()); ?></td>
             <td>
                 <?php echo e($list->user->first_name); ?> <?php echo e($list->user->last_name); ?>
 
             </td>
             <td><?php echo e(number_format($list->amount,2,'.',',')); ?></td>
+            <td><?php echo e(number_format($list->withdrawal,2,'.',',')); ?></td>
             <td>
-                <?php echo e($list->target_saving_mode); ?>
+                <?php echo e($list->notes); ?>
 
             </td>
-            <td><?php echo e($list->entry_date->toFormattedDateString()); ?></td>
+
         </tr>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </tbody>

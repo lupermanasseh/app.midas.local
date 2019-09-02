@@ -3,35 +3,38 @@
     
     <div class="row">
         <div class="col s12 subject-header">
-            <p class="teal-text">RECENT SAVING RECORDS</p>
+            <p class="teal-text">PENDING SAVINGS</p>
 
         </div>
     </div>
 
     <div class="row">
         <div class="col s12">
-            <?php if(count($userSavings)>=1): ?>
+            <?php if(count($pendings)>=1): ?>
             <table class="highlight">
                 <thead>
                     <tr>
                         <th>Date</th>
                         <th>Name</th>
-                        <th>Credit</th>
-                        <th>Debit</th>
-                        <th>Notes</th>
+                        <th>Amount</th>
+                        <th>Depositor</th>
+                        <th>Description</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $__currentLoopData = $userSavings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $listing): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $pendings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $listing): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td><?php echo e($listing->entry_date->toFormattedDateString()); ?></td>
                         <td><a href="/user/page/<?php echo e($listing->user->id); ?>"><?php echo e($listing->user->first_name); ?>
 
                                 <?php echo e($listing->user->last_name); ?></a></td>
                         <td><?php echo e(number_format($listing->amount_saved,2,'.',',')); ?></td>
-                        <td><?php echo e(number_format($listing->amount_withdrawn,2,'.',',')); ?></td>
-
+                        <td><?php echo e($listing->depositor_name); ?></td>
                         <td><?php echo e($listing->notes); ?></td>
+                        <td><a href="/approve/saving/<?php echo e($listing->id); ?>"
+                                class="btn green darken-3 approve-saving">Approve</a>
+                        </td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>

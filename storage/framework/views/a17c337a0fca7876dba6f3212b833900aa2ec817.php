@@ -39,9 +39,8 @@
 
                 </div>
                 
-                <div class="cta">
-                    <?php echo $__env->make('inc.dashboard-cta', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-                </div>
+
+                
             </main>
 
         </div>
@@ -50,10 +49,7 @@
     
     <script src="<?php echo e(asset('js/app.js')); ?>"></script>
     <script src="<?php echo e(asset( 'js/echarts.min.js')); ?> "></script>
-    <?php if(isset($footPrints)): ?>
-    <?php echo $footPrints->script(); ?>
-
-    <?php endif; ?>
+    
 
 </body>
 

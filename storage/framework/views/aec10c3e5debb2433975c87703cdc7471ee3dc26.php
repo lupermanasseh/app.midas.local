@@ -1,4 +1,3 @@
- 
 <?php $__env->startSection('main-content'); ?>
 <div class="container">
     
@@ -17,6 +16,8 @@
             <table class="highlight">
                 <thead>
                     <tr>
+                        <th>Reg Number</th>
+                        <th>MemberShip Type</th>
                         <th>Surname</th>
                         <th>Last Name</th>
                         <th>Status</th>
@@ -25,6 +26,8 @@
                 <tbody>
                     <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
+                        <td><?php echo e($user->id); ?></td>
+                        <td><?php echo e($user->membership_type); ?></td>
                         <td><a href="/userDetails/<?php echo e($user->id); ?>"><?php echo e($user->first_name); ?></a></td>
                         <td><?php echo e($user->last_name); ?></td>
                         <td><?php echo e($user->status); ?></td>

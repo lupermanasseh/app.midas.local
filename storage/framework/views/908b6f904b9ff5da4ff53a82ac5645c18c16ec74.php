@@ -1,14 +1,7 @@
 <header class="header">
     
     <img src="<?php echo e(asset('images/logo.png')); ?>" alt="" class="logo"> 
-    <form action="#" class="search">
-        <input type="text" class="search__input" placeholder="Search User">
-        <button class="search__button">
-            <svg class="search__icon">
-                <use xlink:href="<?php echo e(asset('images/sprite.svg#icon-magnifying-glass')); ?>"></use>
-            </svg>
-        </button>
-    </form>
+    
     
     <nav class="user-nav">
         <div class="user-nav__icon-box">

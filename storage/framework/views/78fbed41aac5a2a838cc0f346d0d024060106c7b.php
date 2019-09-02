@@ -30,7 +30,8 @@
                 <?php echo e(number_format($active->amount_saved,2,'.',',')); ?>
 
             </td>
-            <td>
+            <td><?php echo e(number_format($active->balanceAsAt($active->amount_saved,$active->amount_withdrawn,$active->id,auth()->id()))); ?>
+
             </td>
         </tr>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

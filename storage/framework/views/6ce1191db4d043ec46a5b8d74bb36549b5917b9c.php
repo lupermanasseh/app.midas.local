@@ -4,9 +4,9 @@
         <tr>
             <th>DATE</th>
             <th>DESCRIPTION</th>
-            <th>DEBIT (=N=)</th>
-            <th>CREDIT (=N=)</th>
-            <th>BALANCE (=N=)</th>
+            <th>DEBIT</th>
+            <th>CREDIT</th>
+            <th>BALANCE</th>
         </tr>
     </thead>
     <tbody>
