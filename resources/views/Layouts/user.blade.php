@@ -41,9 +41,10 @@
 
                 </div>
                 {{-- cta section --}}
-                <div class="cta">
+
+                {{-- <div class="cta">
                     @include('inc.dashboard-cta')
-                </div>
+                </div> --}}
             </main>
 
         </div>
