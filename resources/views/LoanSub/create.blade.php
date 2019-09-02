@@ -20,17 +20,17 @@
             {{ csrf_field() }}
             <div class="row">
                 <div class="input-field col s12 m4 l4">
-                    <input placeholder="IPPIS or GFMIS" id="payment_id" name="payment_id" type="text" class="validate">
-                    <label for="payment_id">Payment ID</label>
+                    <input placeholder="Reg Number" id="reg_no" name="reg_no" type="text" class="validate">
+                    <label for="reg_no">Applicant's Reg Number</label>
                 </div>
 
                 <div class="input-field col s12 m4 l4">
-                    <input placeholder="GUARANTOR IPPIS" id="guarantor_id1" name="guarantor_id1" type="text"
+                    <input placeholder="Reg Number" id="guarantor_id1" name="guarantor_id1" type="text"
                         class="validate">
                     <label for="guarantor_id1">First Guarantor</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
-                    <input placeholder="GUARANTOR IPPIS" id="guarantor_id2" name="guarantor_id2" type="text"
+                    <input placeholder="Reg Number" id="guarantor_id2" name="guarantor_id2" type="text"
                         class="validate">
                     <label for="guarantor_id2">Second Guarantor</label>
                 </div>
