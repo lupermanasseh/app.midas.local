@@ -1,14 +1,14 @@
 <header class="header">
     {{-- logo --}}
     <img src="{{asset('images/logo.png')}}" alt="" class="logo"> {{-- search box --}}
-    <form action="#" class="search">
+    {{-- <form action="#" class="search">
         <input type="text" class="search__input" placeholder="Search User">
         <button class="search__button">
             <svg class="search__icon">
                 <use xlink:href="{{asset('images/sprite.svg#icon-magnifying-glass')}}"></use>
-            </svg>
-        </button>
-    </form>
+    </svg>
+    </button>
+    </form> --}}
     {{-- user nav --}}
     <nav class="user-nav">
         <div class="user-nav__icon-box">
