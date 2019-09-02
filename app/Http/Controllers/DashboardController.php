@@ -18,7 +18,17 @@ class DashboardController extends Controller
     //
     public function index (){
         $title ="Dashboard Home";
-        return view('Dashboard.home')->with('title', $title);
+
+        $saving = new Saving;
+        $targetSaving = new TargetSaving;
+        $user = User::find(auth()->id());
+         //Active Product Subscriptions
+         $activeLoans = Lsubscription::activeLoans(auth()->id());
+         //User target saving subscriptions
+         $targetsr = Targetsr::where('user_id',$user->id)
+                             ->where('status','Active')
+                             ->get();
+        return view('Dashboard.home',compact('user','saving','activeLoans','targetsr','targetSaving','title'));
     }
 
      //print html savings  statement
@@ -77,8 +87,9 @@ class DashboardController extends Controller
         $title ="All Savings";
         $user_id = auth()->id();
         $saving = Saving::where('user_id',$user_id)
-        ->with('user')
-        ->paginate(12);
+                            ->where('status','Active')
+                            ->with('user')
+                            ->get();
         return view('Dashboard.savings',compact('title','saving'));
     }
 
@@ -122,7 +133,7 @@ class DashboardController extends Controller
         //$user_id = auth()->id();
         $targetSavingList = TargetSaving::where('targetsr_id',$id)
         ->orderBy('entry_date')
-        ->paginate(12);
+        ->get();
         return view('Dashboard.tsListings',compact('targetSavingList','title'));
         
     }
