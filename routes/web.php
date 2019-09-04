@@ -40,7 +40,7 @@ Route::get('/gallery', 'HomeController@gallery');
 
 //ROUTES FOR ADMIN DASHBOARD
 Route::middleware(['auth'])->group(function () {
-Route::get('/Dashboard', 'MadminController@index');
+Route::get('/admin', 'MadminController@index');
 });
 /**
  * Client Dashboard Below
