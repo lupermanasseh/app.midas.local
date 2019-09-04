@@ -38,7 +38,7 @@ class SessionController extends Controller
         $user = User::where('payment_number', request(['payment_number']))->first();
         if($user->checkRole())
         {
-            return redirect('/Dashboard');
+            return redirect('/admin');
         }
             return redirect('/Dashboard/home');
         
