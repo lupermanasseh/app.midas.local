@@ -83,6 +83,7 @@ public function importIppisAnalysis(){
             //user specific subscriptions
             $userSubs = $activeLoans->where('user_id',$user_id);
             //$userSubCount = $userSubs->count();
+            //Find the last  element in the activeLoans array
             $remainingDeductible = $ippisDeductionTotal;
             foreach($userSubs as $sub){
                //actual monthly deduction
@@ -132,7 +133,6 @@ public function importIppisAnalysis(){
                 }
                
             }
-
         }//end of first foreach
     }catch(\Exception $e){
         DB::rollback();
@@ -144,9 +144,11 @@ public function importIppisAnalysis(){
     //redirect to listing page order by latest
     return redirect('/loanDeduction/listings');
 }
+//
 
+//Distribute Uploaded Analysis
+// public function distributeAnalysis(){
 
-
-
+// }
 
 }
