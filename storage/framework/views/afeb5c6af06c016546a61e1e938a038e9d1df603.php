@@ -25,7 +25,7 @@
                 <div class="input-field col s6">
                     <input id="payment_number" name="payment_number" value="<?php echo e($user->payment_number); ?>" type="text"
                         class="validate" required>
-                    <label for="payment_number">Payment Number</label>
+                    <label for="payment_number">IPPIS Number</label>
                 </div>
 
             </div>
