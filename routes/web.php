@@ -263,6 +263,7 @@ Route::post('/ts/repay','LoanDeductionsController@tsRepayStore');
 Route::middleware(['auth'])->group(function () {
   Route::get('/ippis-analysis','IppisAnalysisController@ippisAnalysisForm');
   Route::post('/ippis-analysis-upload','IppisAnalysisController@importIppisAnalysis')->name('ippisanalysis.import');
+  //Route::get('/ippis-analysis/distribute','IppisAnalysisController@distributeAnalysis');
   });
 
 
