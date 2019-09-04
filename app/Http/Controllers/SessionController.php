@@ -14,6 +14,8 @@ class SessionController extends Controller
     public function __constructor(){
         //prevent user from seeing signin page
         $this->middleware('guest', ['except'=>'destroy']);
+        $this->middleware('guest:admin')->except('destroy');
+        //$this->middleware('guest:admin')->except('logout');
     }
     //show login form
     public function create(){
