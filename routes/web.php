@@ -46,7 +46,7 @@ Route::get('/admin', 'MadminController@index');
  * Client Dashboard Below
  * 
  */
-Route::middleware(['auth'])->group(function () {
+//Route::middleware(['auth'])->group(function () {
 Route::get('/Dashboard/home','DashboardController@index');
 Route::get('/Dashboard/user/savings','DashboardController@savings');
 Route::get('/Dashboard/savings/{id}','DashboardController@savingsByYear');
@@ -65,7 +65,8 @@ Route::get('/Dashboard/print/{from}/{to}','DashboardController@printStatement');
 Route::get('/Dashboard/downloadpdf/{from}/{to}','DashboardController@downloadStatement');
 Route::get('/Dashboard/myPendingLoans/{id}','DashboardController@pendingApps');
 Route::get('/Dashboard/myPaidLoans/{id}','DashboardController@paidLoans');
-});
+Route::get('/Dashboard/login','DashboardController@signin');
+//});
 
 //REGISTRATION ROUTES
     Route::middleware(['auth'])->group(function () {
