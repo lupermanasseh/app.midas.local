@@ -15,6 +15,14 @@ use App\Productdeduction;
 
 class DashboardController extends Controller
 {
+
+
+    //login functionality users
+    public function signin(){
+        $title = "Login";
+        return view('Dashboard.signin',compact('title'));
+    }
+
     //
     public function index (){
         $title ="Dashboard Home";
