@@ -20,10 +20,11 @@ public function users(){
 }
 //new role relationshi mappings
 public function admins(){
-    return $this->belongsToMany(User::class,'role_users');
+    return $this->belongsToMany(User::class,'role_admins');
 
 }
 
+//
 public static function allRoles(){
     return static::orderBy('name')->pluck('name','id');
 }
