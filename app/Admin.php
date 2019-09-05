@@ -28,4 +28,24 @@ class Admin extends Authenticatable
      public function roles(){
     return $this->belongsToMany(Role::class,'role_users');
     }
+
+
+    public function hasAccess(array $permissions)
+    {
+        foreach($this->roles as $roles){
+            if($role->hasAccess($permissions)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function inRole($name){
+        return $this->roles()->where('name',$name)
+        ->count()==1;
+    }
+
+    public function checkRole(){
+        return $this->roles()->pluck('name')->count()>=1;
+    }
 }
