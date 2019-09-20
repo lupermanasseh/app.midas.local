@@ -166,6 +166,9 @@ Route::get('/approve/loans/{id}','LoanSubscriptionController@approveLoan');
 Route::get('/approved/loans','LoanSubscriptionController@readyLoans');
 Route::get('/pay/loan/{id}','LoanSubscriptionController@payLoan');
 Route::post('/pay/store/{id}','LoanSubscriptionController@payStore');
+Route::get('/loan/schedule/{id}','LoanSubscriptionController@loanSchedule');
+Route::get('/loan/schedule/print/{id}','LoanSubscriptionController@loanSchedulePrint');
+Route::get('/loan/schedule/printpdf/{id}','LoanSubscriptionController@loanSchedulePdf');
 });
 
 //Monthly Savings Routes
@@ -200,6 +203,8 @@ Route::get('/statement/printfile/{from}/{to}/{id}','ContributorsController@print
 Route::get('/statement/printpdf/{from}/{to}/{id}','ContributorsController@printPdf');
 Route::get('/saving/pending','ContributorsController@pending');
 Route::get('/approve/saving/{id}','ContributorsController@approveSaving');
+Route::get('/savings/liability','ContributorsController@savingsMaster');
+Route::post('/savingliability/find','ContributorsController@savingsMasterFind');
 });
 
 //Monthly Target Savings Routes
