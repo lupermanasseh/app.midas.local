@@ -12,6 +12,7 @@ use  App\Saving;
 use App\Targetsr;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use PDF;
 
 class LoanSubscriptionController extends Controller
 {
@@ -28,6 +29,36 @@ class LoanSubscriptionController extends Controller
             $query->where('loan_status','Pending');
         }])->paginate(5);
         return view('LoanSub.index',compact('loanReq','title'));
+    }
+
+    /**
+     * Payment schedule
+     */
+
+    public function loanSchedule($id){
+        $title = 'Loan Payment Schedule';
+        $loan = Lsubscription::find($id);
+        return view('LoanSub.schedule',compact('title','loan'));
+    }
+
+    //print loan Schedule to file
+    public function loanSchedulePrint($id){
+        $title = 'Loan Payment Schedule';
+        $loan = Lsubscription::find($id);
+        $userObj = User::find($loan->user_id);
+        return view('Prints.loan_schedule_print',compact('title','loan','userObj'));
+    }
+
+    //print loan schedule to pdf
+    public function loanSchedulePdf($id){
+        $title = 'Loan Payment Schedule';
+        $loan = Lsubscription::find($id);
+        $userObj = User::find($loan->user_id);
+     
+
+        $pdf = PDF::loadView('Prints.loan_schedule_pdf',compact('loan','title','userObj'));
+        return $pdf->stream();
+        // return $pdf->download('statementOfSavings.pdf');
     }
 
     /**
@@ -493,7 +524,7 @@ class LoanSubscriptionController extends Controller
                             //    }
                         }else{
                             //not saved
-                            toastr()->error('Unable to activate lloan! try again');
+                            toastr()->error('Unable to activate loan! try again');
                             return back();
                         }
                         
