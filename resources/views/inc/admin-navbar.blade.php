@@ -127,7 +127,7 @@
     </li>
     <li><a class="subheader">Composite Documents</a></li>
     <li><a href="/saving/statement"><i class="material-icons">book</i>Statement</a></li>
-    <li><a href="#!"><i class="material-icons">view_list</i>Master Savings</a></li>
+    <li><a href="/savings/liability"><i class="material-icons">view_list</i>Master Savings</a></li>
     <li>
         <div class="divider"></div>
     </li>
