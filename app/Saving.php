@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use App\Targetsr;
+use App\TargetSaving;
 use Illuminate\Support\Facades\DB;
 
 class Saving extends Model
@@ -139,8 +140,48 @@ class Saving extends Model
                                 ->where('entry_date','<=',$to)
                                 ->get()     
                                 ->sortBy('id');                  
-    //return  $collection = DB::select('select * from savings where entry_date >=? and entry_date <=? and user_id=?',[$from,$to,$id])->orderBy('entry_date','asc');
         }
+
+
+    /**
+     * Find master savings
+     */
+    public function masterSavingsAsAt($to){
+        $from = new Carbon('2016-02-01');
+        $from = $from->toDateString();
+        return  $collection = Saving::
+                                 where('entry_date','>=',$from)
+                                ->where('entry_date','<=',$to)
+                                ->get()     
+                                ->sortBy('id');                  
+        }
+    /**
+     * Method to find user saving aggregate
+     */
+    public function userAggregateAt($collection,$id){
+              $credit = $collection->where('user_id',$id)
+                                    ->sum('amount_saved'); 
+               $debit = $collection->where('user_id',$id)
+                                    ->sum('amount_withdrawn');
+                return $credit+$debit;                               
+            }
+/**
+ * Total saving aggregate
+ */
+    public function savingAggregateAt($to){
+        $from = new Carbon('2016-02-01');
+        $from = $from->toDateString();
+        $collection = Saving::
+                            where('entry_date','>=',$from)
+                            ->where('entry_date','<=',$to)
+                            ->get(); 
+            $credit = $collection
+                    ->sum('amount_saved'); 
+            $debit = $collection
+                    ->sum('amount_withdrawn');
+            return $credit+$debit;                                                      
+    }
+
 
     /**
      * get user saving history
@@ -149,7 +190,7 @@ class Saving extends Model
      */
     public static function savingHistory($id){
         return static::where('user_id',$id)
-        ->latest()->paginate(12);
+        ->latest()->get();
     }
 
     /**
