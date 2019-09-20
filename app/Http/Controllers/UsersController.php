@@ -246,7 +246,7 @@ public function editBank($id){
             $targetSaving = new TargetSaving;
             $param = $request['search_term'];
             
-            // $users = $user->searchUser($param);
+            //$users = $user->searchUser($param);
             $user = User::find($param);
             if($user==""){
                 toastr()->error('No user associated with this registration number');
