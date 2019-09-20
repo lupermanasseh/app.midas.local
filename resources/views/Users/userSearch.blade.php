@@ -15,8 +15,10 @@
 
     <div class="row">
         <div class="col s6">
-            <a href="/saving/new/{{$user->id}}" class="btn blue darken-3">Add Saving</a> <a
-                href="/targetsaving/new/{{$user->id}}" class="btn purple darken-3">Add
+            <a href="/saving/new/{{$user->id}}" class="btn blue darken-3">Add Saving</a>
+        </div>
+        <div class="col s6">
+            <a href="/targetsaving/new/{{$user->id}}" class="btn purple darken-3">Add
                 TS</a>
         </div>
     </div>
@@ -75,15 +77,20 @@
     </div>
 
     <div class="row">
+        @if(count($activeLoans)>=1)
         <div class="col s12">
             <h6>ACTIVE LOANS | <span> <a href="/user/page/{{$user->id}}" class="btn green darken-3">GOT TO
                         PRODUCT(s)</a></span></h6>
 
         </div>
+        @else
+        @endif
     </div>
     <div class="row">
         <div class="col s12">
+
             <table class="">
+                @if(count($activeLoans)>=1)
                 <thead>
                     <tr>
                         <th>#</th>
@@ -95,12 +102,11 @@
                         <th>Amt</th>
                         <th>Repymt</th>
                         <th>Bal</th>
+                        <th>Schedule</th>
                     </tr>
                 </thead>
                 <tbody>
 
-
-                    @if(count($activeLoans)>=1)
                     @foreach ($activeLoans as $myProduct)
                     <tr>
                         <td>{{substr($user->membership_type,0,1)}}/{{$user->id}}</td>
@@ -116,6 +122,7 @@
                         <td><a
                                 href="/loanDeduction/history/{{$myProduct->id}}">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
                         </td>
+                        <td><a href="/loan/schedule/{{$myProduct->id}}" target="_blank">Get</a></td>
                     </tr>
                     @endforeach
                     @else
@@ -130,7 +137,6 @@
                     </tr>
                     @else
                     @endif
-
                 </tbody>
             </table>
         </div>
