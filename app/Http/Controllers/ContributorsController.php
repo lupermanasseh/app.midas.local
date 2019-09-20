@@ -17,7 +17,7 @@ class ContributorsController extends Controller
         $title ='All Active Contributors';
         $activeUsers= User::where('status','Active')->withCount(['usersavings' => function ($query) {
             $query->latest('entry_date');
-           }])->paginate(100);
+           }])->get();
         return view('Contributors.index',compact('activeUsers','title'));
     }
 
@@ -25,7 +25,7 @@ class ContributorsController extends Controller
         $title = 'Inactive Users';
         $inactiveUsers= User::where('status','Inactive')->withCount(['usersavings' => function ($query) {
      $query->orderBy('entry_date', 'desc');
-    }])->paginate(100);
+    }])->get();
     return view('Contributors.inactiveContributors',compact('inactiveUsers','title'));
 
     }
@@ -362,6 +362,19 @@ public function printFile($from,$to,$id){
         // return $pdf->download('statementOfSavings.pdf');
     
     }
+
+    //savings Master
+public function savingsMaster(){
+    $title = 'Savings Liability';
+    return view('Contributors.masterSaving',compact('title'));
+}
+
+public function savingsMasterFind($to){
+    $title = 'Savings Liability';
+    $saving = new Saving;
+    $savingsCollection = $saving->masterSavingsAsAt($to);
+    return view('Contributors.masterSaving',compact('title','savingsCollection'));
+}
 
     //delete saving
     public function destroy($id)
