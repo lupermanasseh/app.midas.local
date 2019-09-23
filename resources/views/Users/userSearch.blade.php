@@ -81,7 +81,6 @@
         <div class="col s12">
             <h6>ACTIVE LOANS | <span> <a href="/user/page/{{$user->id}}" class="btn green darken-3">GOT TO
                         PRODUCT(s)</a></span></h6>
-
         </div>
         @else
         @endif
@@ -127,7 +126,6 @@
                     @endforeach
                     @else
                     @endif
-
                     @if(count($activeLoans)>=1)
                     <tr>
                         <th colspan="6">Summary</th>
