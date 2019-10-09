@@ -15,14 +15,14 @@ class CreateNoksTable extends Migration
     {
         Schema::create('noks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('gender');
-            $table->string('relationship');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('title')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('relationship')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('other_name')->nullable();
-            $table->string('email')->unique();
-            $table->string('phone')->unique();
+            $table->string('email')->unique()->nullable();
+            $table->string('phone')->unique()->nullable();
             $table->integer('user_id')->unique();
             $table->timestamps();
         });
