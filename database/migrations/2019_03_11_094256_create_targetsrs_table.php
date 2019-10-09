@@ -17,7 +17,7 @@ class CreateTargetsrsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->decimal('monthly_saving',12,3)->nullable();
-            $table->string('status')->default('Pending');
+            $table->string('status')->default('Active');
             $table->date('start_date');
             $table->date('end_date');
             $table->date('review_date')->nullable();

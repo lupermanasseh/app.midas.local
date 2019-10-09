@@ -16,9 +16,9 @@ class CreateSavingreviewsTable extends Migration
         Schema::create('savingreviews', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->decimal('prev_amount',12,3);
-            $table->decimal('current_amount',12,3);
-            $table->string('status')->default('Pending');
+            //$table->decimal('prev_amount',12,3);
+            $table->decimal('current_amount',12,3)->nullable();
+            $table->string('status')->default('Active');
             $table->integer('created_by');
             $table->timestamps();
         });

@@ -15,21 +15,25 @@ class CreateLsubscriptionsTable extends Migration
     {
         Schema::create('lsubscriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('loan_id');
+            $table->integer('product_id');
             $table->integer('user_id');
             $table->integer('guarantor_id');
             $table->integer('guarantor_id2');
             $table->integer('custom_tenor')->nullable();
+            $table->integer('units',10)->nullable();
             $table->decimal('amount_applied',12,2);
             $table->decimal('amount_approved',12,2)->nullable();
             $table->decimal('monthly_deduction',20,9)->nullable();
             $table->string('repayment_mode',10);
             $table->decimal('net_pay',12,2);
             $table->string('loan_status')->default('Pending');
+            $table->date('review_date')->nullable();
+            $table->date('approved_date')->nullable();
             $table->date('loan_start_date')->nullable();
             $table->date('loan_end_date')->nullable();
             $table->mediumText('review_comment')->nullable();
             $table->integer('created_by'); //ID of the logged in staff
+            $table->integer('approve_by')->nullable(); 
             $table->integer('review_by')->nullable(); //ID of the logged in staff that reviewed loan
             $table->timestamps();
         });

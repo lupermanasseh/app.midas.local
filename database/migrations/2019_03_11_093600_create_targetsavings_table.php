@@ -19,6 +19,7 @@ class CreateTargetsavingsTable extends Migration
             $table->integer('user_id');
             $table->integer('targetsr_id');
             $table->decimal('amount',12,3);
+            $table->decimal('withdrawal',12,3);
             $table->date('entry_date');
             $table->string('target_saving_mode',10)->default('IPPIS');
             $table->string('bank_name',30)->nullable();

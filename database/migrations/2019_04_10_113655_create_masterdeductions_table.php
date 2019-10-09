@@ -15,9 +15,9 @@ class CreateMasterdeductionsTable extends Migration
     {
         Schema::create('masterdeductions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->string('name',100);
             $table->integer('ippis_no');
-            $table->decimal('cumulative_amount',12,3);
+            $table->decimal('cumulative_amount',12,9);
             $table->date('entry_date');
             $table->integer('created_by');
             $table->timestamps();

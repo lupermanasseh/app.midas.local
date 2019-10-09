@@ -16,16 +16,16 @@ class CreateLdeductionsTable extends Migration
         Schema::create('ldeductions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id'); 
-            $table->integer('loan_id'); 
+            $table->integer('product_id'); 
             $table->integer('lsubscription_id');
             $table->decimal('amount_deducted',20,9);
             $table->date('entry_month');
-            $table->string('repayment_mode',10)->default('IPPIS');
+            $table->string('repayment_mode',10) ;
             $table->string('bank_name',30)->nullable();
             $table->string('bank_add',50)->nullable();
             $table->string('depositor_name',50)->nullable();
             $table->integer('teller_no')->nullable();
-            $table->string('notes',20)->default('Normal Deductions');
+            $table->string('notes',50);
             $table->integer('uploaded_by');
             $table->timestamps();
         });
