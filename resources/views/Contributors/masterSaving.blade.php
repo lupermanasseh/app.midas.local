@@ -23,7 +23,7 @@
 
                 <div class="input-field col s12 m12 l12">
                     <input id="to" name="to" type="date" class="validate" required>
-                    <label for="to">AS AT</label>
+                    <label for="to">To</label>
                 </div>
 
             </div>
