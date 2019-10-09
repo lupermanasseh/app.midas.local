@@ -8,7 +8,8 @@ use App\Saving;
 use Carbon\Carbon;
 use PDF;
 use GuzzleHttp\Client;
-
+use App\Exports\MasterSavingExport;
+use Maatwebsite\Excel\Facades\Excel;
 class ContributorsController extends Controller
 {
     //
@@ -369,11 +370,37 @@ public function savingsMaster(){
     return view('Contributors.masterSaving',compact('title'));
 }
 
-public function savingsMasterFind($to){
+public function savingsMasterFind(Request $request){
     $title = 'Savings Liability';
     $saving = new Saving;
+    $this->validate(request(), [
+         'to' =>'required|date',
+         ]);
+         $to = $request['to'];
     $savingsCollection = $saving->masterSavingsAsAt($to);
-    return view('Contributors.masterSaving',compact('title','savingsCollection'));
+    $contributors = Saving::where('status','Active')->get();
+    $uniqueContributors = $contributors->unique('user_id');
+    return view('Contributors.masterSavingResult',compact('title','savingsCollection','to','saving','uniqueContributors'));
+}
+
+//master saving excel download
+public function masterSavingExport($to){
+    $fileName = 'MIDAS_SAVINGS_AT_'.$to.'.xlsx';
+    return Excel::download(new MasterSavingExport($to), $fileName);
+}
+
+//Master Saving PDF Print
+public function masterSavingPdf($to){
+    $title = 'Master Saving';
+    $saving = new Saving;
+    $savingsCollection = $saving->masterSavingsAsAt($to);
+    $contributors = Saving::where('status','Active')->get();
+    $uniqueContributors = $contributors->unique('user_id');
+
+    $pdf = PDF::loadView('Prints.masterSavingPdf',compact('title','savingsCollection','to','saving','uniqueContributors'));
+    return $pdf->stream();
+    // return $pdf->download('statementOfSavings.pdf');
+
 }
 
     //delete saving
@@ -384,7 +411,6 @@ public function savingsMasterFind($to){
             toastr()->success('Saving has been discard successfully!');
             return redirect('/recent/savings');
         }
-    
         toastr()->error('An error has occurred trying to remove saving record, please try again later.');
         return back();
     }
