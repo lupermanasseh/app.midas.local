@@ -149,12 +149,16 @@ class Saving extends Model
     public function masterSavingsAsAt($to){
         $from = new Carbon('2016-02-01');
         $from = $from->toDateString();
+        $destDate = new Carbon($to);
+        $to = $destDate->toDateString();
         return  $collection = Saving::
                                  where('entry_date','>=',$from)
                                 ->where('entry_date','<=',$to)
+                                ->where('status','Active')
                                 ->get()     
                                 ->sortBy('id');                  
         }
+        
     /**
      * Method to find user saving aggregate
      */
@@ -163,7 +167,8 @@ class Saving extends Model
                                     ->sum('amount_saved'); 
                $debit = $collection->where('user_id',$id)
                                     ->sum('amount_withdrawn');
-                return $credit+$debit;                               
+                return $credit+$debit;
+                                    
             }
 /**
  * Total saving aggregate
@@ -171,6 +176,8 @@ class Saving extends Model
     public function savingAggregateAt($to){
         $from = new Carbon('2016-02-01');
         $from = $from->toDateString();
+        $endDate = new Carbon($to);
+        $to = $endDate->toDateString();
         $collection = Saving::
                             where('entry_date','>=',$from)
                             ->where('entry_date','<=',$to)
