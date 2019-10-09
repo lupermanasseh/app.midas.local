@@ -31,6 +31,7 @@ class UserImport implements ToModel,WithHeadingRow
             'phone'=> $row['phone_no'],
             'home_add' => $row['address'],
             'dob' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['dob']),
+            'dofa' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['dofa']),
             'employ_type' => $row['employment_type'],
             'job_cadre'=> $row['job_cadre'],
             'marital_status' => $row['status'],
