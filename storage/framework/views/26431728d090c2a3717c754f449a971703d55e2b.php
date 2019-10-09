@@ -79,7 +79,6 @@
         <div class="col s12">
             <h6>ACTIVE LOANS | <span> <a href="/user/page/<?php echo e($user->id); ?>" class="btn green darken-3">GOT TO
                         PRODUCT(s)</a></span></h6>
-
         </div>
         <?php else: ?>
         <?php endif; ?>
@@ -125,7 +124,6 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <?php else: ?>
                     <?php endif; ?>
-
                     <?php if(count($activeLoans)>=1): ?>
                     <tr>
                         <th colspan="6">Summary</th>
