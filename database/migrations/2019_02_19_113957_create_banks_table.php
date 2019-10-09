@@ -16,10 +16,10 @@ class CreateBanksTable extends Migration
         Schema::create('banks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('bank_name');
-            $table->string('bank_branch');
-            $table->bigInteger('sort_code')->unique();
-            $table->string('acct_name');
-            $table->bigInteger('acct_number')->unique();
+            //$table->string('bank_branch');
+            $table->string('sort_code')->nullable();
+            //$table->string('acct_name');
+            $table->bigInteger('acct_number');
             $table->integer('user_id')->unique();
             $table->timestamps();
         });
