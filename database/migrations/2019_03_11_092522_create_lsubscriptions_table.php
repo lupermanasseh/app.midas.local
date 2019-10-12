@@ -15,12 +15,12 @@ class CreateLsubscriptionsTable extends Migration
     {
         Schema::create('lsubscriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
-            $table->integer('user_id');
-            $table->integer('guarantor_id');
-            $table->integer('guarantor_id2');
-            $table->integer('custom_tenor')->nullable();
-            $table->integer('units',10)->nullable();
+            $table->integer('product_id',false,true)->length(10);
+            $table->integer('user_id',false,true)->length(10);
+            $table->integer('guarantor_id1',false,true)->length(10)->nullable();
+            $table->integer('guarantor_id2',false,true)->length(10)->nullable();
+            $table->integer('custom_tenor',false,true)->length(10)->nullable();
+            $table->integer('units',false,true)->length(10)->nullable();
             $table->decimal('amount_applied',12,2);
             $table->decimal('amount_approved',12,2)->nullable();
             $table->decimal('monthly_deduction',20,9)->nullable();
