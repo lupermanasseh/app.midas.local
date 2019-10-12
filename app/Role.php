@@ -13,11 +13,15 @@ class Role extends Model
         'permissions',
         
    ];
-//Define relationships with Users
-public function users(){
-    return $this->belongsToMany(User::class,'role_users');
+   //Define relationships with Users
+public function admins(){
+    return $this->belongsToMany(Admin::class,'role_admins');
 
 }
+//Define relationships with Users
+// public function users(){
+//     return $this->belongsToMany(User::class,'role_users');
+// }
 
 public static function allRoles(){
     return static::orderBy('name')->pluck('name','id');
