@@ -60,10 +60,10 @@ class User extends Authenticatable
     public function getPhotoAttribute($photo){
         return asset($photo);
     }
-    //Define relationship with roles
-    public function roles(){
-        return $this->belongsToMany(Role::class,'role_users');
-    }
+    // //Define relationship with roles
+    // public function roles(){
+    //     return $this->belongsToMany(Role::class,'role_users');
+    // }
 
     //define relationship with next of kin
     public function nok(){
