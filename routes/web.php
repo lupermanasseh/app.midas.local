@@ -47,7 +47,7 @@ Route::get('/admin', 'MadminController@index');
  * 
  */
 Route::middleware(['auth'])->group(function () {
-Route::get('/Dashboard/home','DashboardController@index');
+Route::get('/Dashboard','DashboardController@index');
 Route::get('/Dashboard/user/savings','DashboardController@savings');
 Route::get('/Dashboard/savings/{id}','DashboardController@savingsByYear');
 Route::get('/Dashboard/user/savingsummary','DashboardController@savingsGroup');
@@ -68,7 +68,7 @@ Route::get('/Dashboard/myPaidLoans/{id}','DashboardController@paidLoans');
 });
 
 //REGISTRATION ROUTES
-    Route::middleware(['auth'])->group(function () {
+    // Route::middleware(['auth'])->group(function () {
         Route::get('/New','RegistrationController@createUser');
         Route::post('/Create','RegistrationController@storeUser');
         Route::get('/Nok/{id}','RegistrationController@nextOfKin');
@@ -93,8 +93,9 @@ Route::get('/Dashboard/myPaidLoans/{id}','DashboardController@paidLoans');
         Route::post('/saving-reg/process','RegistrationController@savingRegUpload');
         Route::get('/ts-reg','RegistrationController@tsUploadForm'); //awaiting data
         Route::post('/ts-upload','RegistrationController@savingRegUpload'); //awaiting data
-
-});
+        Route::get('/add/user','RegistrationController@addUser');
+        Route::post('/add/user/store','RegistrationController@addUserStore');  
+// });
 
 //Session/login controller
 Route::get('/login', 'SessionController@create')->name('login');
