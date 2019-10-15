@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
           //view composer for new user
-          view()->composer(['Registration.newUser','Users.editProfile'], function($view){
+          view()->composer(['Registration.newUser','Registration.newStaff','Users.editProfile'], function($view){
             $view->with('roles', Role::allRoles());
         });
         
