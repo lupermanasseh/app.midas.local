@@ -65,7 +65,7 @@ class User extends Authenticatable
     //     return $this->belongsToMany(Role::class,'role_users');
     // }
 
-    //define relationship with next of kin
+    //define relationship with next of kin 
     public function nok(){
         return $this->hasOne(Nok::class);
     }
