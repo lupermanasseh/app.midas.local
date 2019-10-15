@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
             $table->string('employ_type');
             $table->string('job_cadre');
             $table->string('status')->default('Active');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->rememberToken();
             $table->date('date_entry');
             $table->timestamps();
