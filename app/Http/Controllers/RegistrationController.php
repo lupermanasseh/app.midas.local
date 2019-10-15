@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 use App\User;
+use App\Admin;
 use App\Role;
 use App\Nok;
 use App\Bank;
@@ -26,46 +27,69 @@ class RegistrationController extends Controller
     $this->middleware('auth');
     }
 
-  
+  //Register  new staff
+  public function addUser (){
+    $title ="Add Staff";
+    return view('Registration.newStaff',compact('title'));
+}
 
-    //Register  new staff
+  //Store  new staff
+  public function addUserStore (Request $request){
+    //validate the form
+    $this->validate(request(), [
+        'password' =>'required|confirmed',
+        'email' =>'email',
+        //'title'=>'required',
+        'first_name'=>'required|string',
+        'last_name'=>'required|string',
+        'other_name'=>'required|string',
+        'phone'=>'required',
+        //'dob'=>'required|date',
+        //'home_add'=>'required|max:100',
+        //'res_add'=>'required|max:100',
+        'sex'=>'required',
+    ]);
+    
+
+    $admin = new Admin();
+
+    $admin->password = Hash::make($request['password']);
+    $admin->email = $request['email'];
+    //$user->title = $request['title'];
+    $admin->first_name = $request['first_name'];
+    $admin->last_name = $request['last_name'];
+    $admin->other_name = $request['other_name'];
+    $admin->phone = $request['phone'];
+    //$user->dob = $request['dob'];
+    //$user->home_add = $request['home_add'];
+    //$user->res_add = $request['res_add'];
+    $admin->sex = $request['sex'];
+    $admin->save();
+    //Create the staff
+   // $user = User::create(request(['payment_number','password','email']));
+    $admin->roles()->attach(request(['role']));
+
+    if ($admin->save()) {
+       // $user_id = $user->userID($payment_number);
+        toastr()->success('Data has been saved successfully!');
+        return back();
+        //return redirect()->route('posts.index');
+       // return redirect('/userDetails/'.$user_id);
+    }
+
+    toastr()->error('An error has occurred please try again later.');
+    return back();
+}
+
+    //Register  new  member
     public function createUser (){
         $title ="New User";
         return view('Registration.newUser',compact('title'));
     }
+    
 
-    //Example
-    // public function store(Request $request)
-
-    // {
-
-    //     $request->validate([
-
-    //             'name' => 'required',
-
-    //             'password' => 'required|min:5',
-
-    //             'email' => 'required|email|unique:users'
-
-    //         ], [
-
-    //             'name.required' => 'Name is required',
-
-    //             'password.required' => 'Password is required'
-
-    //         ]);
-
-    //     $input = request()->all();
-
-    //     $input['password'] = bcrypt($input['password']);
-
-    //     $user = User::create($input);
-
-    //     return back()->with('success', 'User created successfully.');
-
-    // }
-
-   //Store  new staff
+ 
+   //Store  new member
    public function storeUser (Request $request){
     //validate the form
     $this->validate(request(), [
