@@ -138,7 +138,7 @@ class RegistrationController extends Controller
     $user->save();
     //Create the staff
    // $user = User::create(request(['payment_number','password','email']));
-    $user->roles()->attach(request(['role']));
+    //$user->roles()->attach(request(['role']));
 
     if ($user->save()) {
         $user_id = $user->userID($payment_number);
