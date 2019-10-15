@@ -1,10 +1,10 @@
-@extends('Layouts.signinLayout') 
+@extends('Layouts.signinLayout')
 @section('signin-content')
 
 <div class="container">
     <div class="row center-align">
         <div class="col s12 m8 offset-m2 l6 offset-l3">
-            <p><a href="/"><img height="60"  src="{{asset('images/logo.png')}}" alt="logo"></a></p>
+            <p><a href="/"><img height="60" src="{{asset('images/logo.png')}}" alt="logo"></a></p>
             <h5 class="teal-text">Sign In</h5>
         </div>
     </div>
@@ -24,13 +24,14 @@
 
 
                     <div class="input-field col s10 offset-s1">
-                        <input id="payment_number" name="payment_number" type="text" class="validate" required>
-                        <label for="payment_number">Payment ID</label>
+                        <input id="email" name="email" type="text" class="validate" required>
+                        <label for="email">Email</label>
                     </div>
                 </div>
                 <div class="row center-align">
                     <div class="col s12 m8 offset-m2 l6 offset-l3">
-                        <button type="submit" class="waves-effect waves-light waves-red btn-small red darken-4">Sign In</button>
+                        <button type="submit" class="waves-effect waves-light waves-red btn-small red darken-4">Sign
+                            In</button>
                     </div>
                 </div>
 
