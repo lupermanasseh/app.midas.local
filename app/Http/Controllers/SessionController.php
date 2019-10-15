@@ -27,20 +27,25 @@ class SessionController extends Controller
             'password' =>'required',
             'payment_number' =>'required',
         ]);
+
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+
+            return redirect()->intended('/admin');
+        }
        
         //attempt to login
-        if(!Auth::attempt(request(['password','payment_number']))){
-            return back()->withErrors([
-                'message'=>'Please check your login credentials and try again.'
-            ]);
-        } 
-        //check to see if user has roles
-        $user = User::where('payment_number', request(['payment_number']))->first();
-        if($user->checkRole())
-        {
-            return redirect('/admin');
-        }
-            return redirect('/Dashboard/home');
+        // if(!Auth::attempt(request(['password','payment_number']))){
+        //     return back()->withErrors([
+        //         'message'=>'Please check your login credentials and try again.'
+        //     ]);
+        // } 
+        // //check to see if user has roles
+        // $user = User::where('payment_number', request(['payment_number']))->first();
+        // if($user->checkRole())
+        // {
+        //     return redirect('/admin');
+        // }
+        //     return redirect('/Dashboard/home');
         
         
         //check if id exist in role
@@ -54,7 +59,6 @@ class SessionController extends Controller
     }
 
     //logout
-    //show login form
     public function destroy(){
         auth()->logout();
         return redirect('/login');
