@@ -23,16 +23,20 @@ class SessionController extends Controller
     }
 
     //log user in
-    public function store(){
+    public function store(Request $request){
         $this->validate(request(), [
             'password' =>'required',
-            'payment_number' =>'required',
+            'email' =>'required',
         ]);
 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-
-            return redirect()->intended('/admin');
+            //return '1234567';
+            return redirect('/admin');
+            
         }
+        return back()->withErrors([
+            'message'=>'Wrong Password or Email, Try Again!.'
+        ]);
        
         //attempt to login
         // if(!Auth::attempt(request(['password','payment_number']))){
