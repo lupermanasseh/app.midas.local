@@ -39,7 +39,7 @@ Route::get('/news', 'HomeController@news');
 Route::get('/gallery', 'HomeController@gallery');
 
 //ROUTES FOR ADMIN DASHBOARD
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
 Route::get('/admin', 'MadminController@index');
 });
 /**
@@ -68,7 +68,7 @@ Route::get('/Dashboard/myPaidLoans/{id}','DashboardController@paidLoans');
 });
 
 //REGISTRATION ROUTES
-    // Route::middleware(['auth'])->group(function () {
+    // Route::middleware(['auth:admin'])->group(function () {
         Route::get('/New','RegistrationController@createUser');
         Route::post('/Create','RegistrationController@storeUser');
         Route::get('/Nok/{id}','RegistrationController@nextOfKin');
@@ -103,7 +103,7 @@ Route::post('/signin','SessionController@store');
 Route::get('/logout','SessionController@destroy');
 
 //Manage Users  Controller
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
 Route::get('/user/all','UsersController@index');
 Route::get('/user/bank','UsersController@bankList');
 Route::get('/user/nok','UsersController@nokList');
@@ -122,7 +122,7 @@ Route::post('/password/store','UsersController@passwordStore');
 });
 
 //Product category routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
 Route::get('/product/category','ProductCategoryController@index');
 Route::get('/product/category/add','ProductCategoryController@create');
 Route::post('/product/category/store','ProductCategoryController@store');
@@ -132,7 +132,7 @@ Route::get('/category/items/{id}','ProductCategoryController@categoryItems');
 });
 
 //Products routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
 Route::get('/products','ProductsController@index');
 Route::get('/deactivate/{id}','ProductsController@deactivate');
 Route::get('/activate/{id}','ProductsController@activate');
@@ -146,7 +146,7 @@ Route::get('/product/items/{id}','ProductsController@getItems');
 
 
 //Loan Subscription Routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
 Route::get('/loan-subscriptions','LoanSubscriptionController@index');
 Route::get('/loanSub/create','LoanSubscriptionController@create');
 Route::post('/loanSub/store','LoanSubscriptionController@store');
@@ -173,7 +173,7 @@ Route::get('/loan/schedule/printpdf/{id}','LoanSubscriptionController@loanSchedu
 });
 
 //Monthly Savings Routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
 Route::get('/saving-deductions','MonthlySavingController@index');
 Route::get('/savings/export','MonthlySavingController@export')->name('saving.export');
 Route::get('/usersaving/export','MonthlySavingController@export_view')->name('usersaving.export');
@@ -184,7 +184,7 @@ Route::get('/ippis/savings/export','MonthlySavingController@ippisSavingExport')-
 });
 
 //Contributors
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
 Route::get('/contributors-list','ContributorsController@index');
 Route::get('/inactive-contributors','ContributorsController@inactiveUsers');
 Route::get('/recent/savings','ContributorsController@recentUploads');
@@ -212,7 +212,7 @@ Route::get('/savingliability/pdf/{to}','ContributorsController@masterSavingPdf')
 });
 
 //Monthly Target Savings Routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
 Route::get('/targetsaving-deductions','TargetSavingController@index');
 Route::get('/targetsaving/export','TargetSavingController@export')->name('ts.export');
 Route::get('/targetsaving/create','TargetSavingController@tsUpload')->name('ts.create');//upload bulk
@@ -235,7 +235,7 @@ Route::post('/ts/search/process','TargetSavingController@searchProcess');
 
 //Loan Deductions
 //Unfiltered loan deductions for MIDAS UPLOAD
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
 Route::get('/loan/deductions','LoanDeductionsController@index');
 Route::get('/loanDeductions/export','LoanDeductionsController@export')->name('loans.export');
 
@@ -269,7 +269,7 @@ Route::post('/ts/repay','LoanDeductionsController@tsRepayStore');
 });
 
 //Monthly Target Savings Routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
   Route::get('/ippis-analysis','IppisAnalysisController@ippisAnalysisForm');
   Route::post('/ippis-analysis-upload','IppisAnalysisController@importIppisAnalysis')->name('ippisanalysis.import');
   //Route::get('/ippis-analysis/distribute','IppisAnalysisController@distributeAnalysis');
