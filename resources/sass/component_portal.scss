@@ -750,3 +750,19 @@ th {
     display: flex;
     align-items: center;
 }
+
+//Signin Styles
+.logo-usersignin {
+    height: 3.25rem;
+}
+.user-signinlogocontainer {
+    text-align: center;
+}
+
+.user-signinform {
+    width: 60%;
+    margin: auto;
+    border: 3px solid gray;
+    border-radius: 3px;
+    padding: 2px;
+}
