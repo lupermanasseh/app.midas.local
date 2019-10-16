@@ -5,11 +5,11 @@
     <img src="{{asset('images/logo.png')}}" alt="" class="logo-usersignin">
 </div>
 <div class="user-signinform">
-    <form class="user-customsearch" method="POST" action="/Dashboard/login">
+    <form class="user-customsearch" method="POST" action="/member/access">
         {{ csrf_field() }}
 
-        <div class="user-customsearch__item"><input class="custom-input" type="text" name="username" id="username"
-                placeholder="Username"></div>
+        <div class="user-customsearch__item"><input class="custom-input" type="text" name="email" id="email"
+                placeholder="E Mail"></div>
 
         <div class="user-customsearch__item"><input class="custom-input" type="password" name="password" id="password"
                 placeholder="Password"></div>
