@@ -36,36 +36,13 @@ class SessionController extends Controller
         }
         return back()->withErrors([
             'message'=>'Wrong Password or Email, Try Again!.'
-        ]);
-       
-        //attempt to login
-        // if(!Auth::attempt(request(['password','payment_number']))){
-        //     return back()->withErrors([
-        //         'message'=>'Please check your login credentials and try again.'
-        //     ]);
-        // } 
-        // //check to see if user has roles
-        // $user = User::where('payment_number', request(['payment_number']))->first();
-        // if($user->checkRole())
-        // {
-        //     return redirect('/admin');
-        // }
-        //     return redirect('/Dashboard/home');
-        
-        
-        //check if id exist in role
-        //if true, then staff and user, create a link to show user portal for staff only
-        //otherwise redirect to user portal
-
-
-        //redirect
-        //return redirect('/Dashboard');
+        ]);    
         
     }
 
     //logout
-    public function destroy(){
-        auth()->logout();
+    public function logout(){
+        Auth::guard('admin')->logout();
         return redirect('/login');
     }
 }
