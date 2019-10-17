@@ -4,6 +4,11 @@
 <div class="user-signinlogocontainer">
     <img src="{{asset('images/logo.png')}}" alt="" class="logo-usersignin">
 </div>
+<div class="user-signinlogocontainer">
+    @if(count($errors)>0) @foreach ($errors->all() as $error)
+    <p class="red-text darken-3">{{$error}}</p>
+    @endforeach @endif
+</div>
 <div class="user-signinform">
     <form class="user-customsearch" method="POST" action="/member/access">
         {{ csrf_field() }}
