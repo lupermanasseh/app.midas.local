@@ -100,9 +100,10 @@ Route::get('/Dashboard/myPaidLoans/{id}','DashboardController@paidLoans');
 //Session/login controller
 Route::get('/login', 'SessionController@create')->name('login');
 Route::post('/signin','SessionController@store');
-Route::get('/logout','SessionController@destroy');
+Route::get('/logout','SessionController@logout');
 Route::get('/member/login','MemberController@memberLogin');
 Route::post('/member/access','MemberController@memberAccess');
+Route::get('/signout','MemberController@destroy');
 
 //Manage Users  Controller
 Route::middleware(['auth:admin'])->group(function () {
