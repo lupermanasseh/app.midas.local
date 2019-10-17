@@ -3,6 +3,11 @@
 <div class="user-signinlogocontainer">
     <img src="<?php echo e(asset('images/logo.png')); ?>" alt="" class="logo-usersignin">
 </div>
+<div class="user-signinlogocontainer">
+    <?php if(count($errors)>0): ?> <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <p class="red-text darken-3"><?php echo e($error); ?></p>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?>
+</div>
 <div class="user-signinform">
     <form class="user-customsearch" method="POST" action="/member/access">
         <?php echo e(csrf_field()); ?>
