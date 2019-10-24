@@ -68,7 +68,7 @@ Route::get('/Dashboard/myPaidLoans/{id}','DashboardController@paidLoans');
 });
 
 //REGISTRATION ROUTES
-    // Route::middleware(['auth:admin'])->group(function () {
+        Route::middleware(['auth:admin'])->group(function () {
         Route::get('/New','RegistrationController@createUser');
         Route::post('/Create','RegistrationController@storeUser');
         Route::get('/Nok/{id}','RegistrationController@nextOfKin');
@@ -95,7 +95,7 @@ Route::get('/Dashboard/myPaidLoans/{id}','DashboardController@paidLoans');
         Route::post('/ts-upload','RegistrationController@savingRegUpload'); //awaiting data
         Route::get('/add/user','RegistrationController@addUser');
         Route::post('/add/user/store','RegistrationController@addUserStore');  
-// });
+        });
 
 //Session/login controller
 Route::get('/login', 'SessionController@create')->name('login');
