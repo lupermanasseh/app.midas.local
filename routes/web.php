@@ -34,7 +34,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/about', 'HomeController@about');
 Route::get('/committee', 'HomeController@committee'); 
 Route::get('/board', 'HomeController@board');
-Route::get('/products', 'HomeController@products');
+Route::get('/product-offers', 'HomeController@products');
 Route::get('/news', 'HomeController@news');
 Route::get('/gallery', 'HomeController@gallery');
 
