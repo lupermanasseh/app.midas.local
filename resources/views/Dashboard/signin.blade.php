@@ -10,7 +10,7 @@
     @endforeach @endif
 </div>
 <div class="user-signinform">
-    <form class="user-customsearch" method="POST" action="/member/access">
+    <form class="user-customsearch" method="POST" action="/Dashboard/access">
         {{ csrf_field() }}
 
         <div class="user-customsearch__item"><input class="custom-input" type="text" name="email" id="email"
