@@ -18,15 +18,15 @@
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="input-field col s10 offset-s1">
+                        <input id="email" name="email" type="text" class="validate" required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field col s10 offset-s1">
                         <input id="password" name="password" type="password" class="validate" required>
                         <label for="password">Password</label>
                     </div>
 
 
-                    <div class="input-field col s10 offset-s1">
-                        <input id="email" name="email" type="text" class="validate" required>
-                        <label for="email">Email</label>
-                    </div>
                 </div>
                 <div class="row center-align">
                     <div class="col s12 m8 offset-m2 l6 offset-l3">
