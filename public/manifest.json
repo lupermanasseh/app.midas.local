@@ -1,0 +1,29 @@
+{
+    "name": "MIDASConnect",
+    "short_name": "MIDASConnect",
+    "icons": [
+        {
+            "src": "/images/icons/android-chrome-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/icons/apple-touch-icon.png",
+            "sizes": "120x120",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/icons/mstile-150x150.png",
+            "sizes": "150x150",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#501414",
+    "background_color": "#501414",
+    "start_url": "/Dashboard/login",
+    "display": "standalone",
+    "orientation": "landscape",
+    "scope": "/Dashboard",
+    "lang": "en-US",
+    "dir": "ltr"
+}
