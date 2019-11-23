@@ -23,7 +23,8 @@ class MemberController extends Controller
     {
         $this->validate(request(), [
             'email'   => 'required|email',
-            'password' => 'required|min:2'
+            'password' => 'required'
+            //'password' => 'required|min:6'
         ]);
 
         if (Auth::attempt(request(['email', 'password']))) {
@@ -38,6 +39,6 @@ class MemberController extends Controller
 
     public function destroy(){
         auth()->logout();
-        return redirect('/member/login');
+        return redirect('/Dashboard/login');
     }
 }
