@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <ul class="side-nav">
         <li class="side-nav__item side-nav__item--active">
-            <a href="/Dashboard/home" class="side-nav__link">
+            <a href="/Dashboard" class="side-nav__link">
                 <svg class="side-nav__icon">
                     <use xlink:href="{{asset('images/sprite.svg#icon-home')}}"></use>
                 </svg>
@@ -42,7 +42,7 @@
             </a>
         </li>
         <li class="side-nav__item">
-            <a href="/logout" class="side-nav__link">
+            <a href="/Dashboard/signout" class="side-nav__link">
                 <svg class="side-nav__icon">
                     <use xlink:href="{{asset('images/sprite.svg#icon-key')}}"></use>
                 </svg>
