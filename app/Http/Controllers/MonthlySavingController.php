@@ -70,7 +70,7 @@ class MonthlySavingController extends Controller
         $savings = Savingreview::where('status','Active')
                                 ->oldest()
                                 ->with(['user'])
-                                ->paginate(50);
+                                ->get();
 
         return view('MonthlySaving.ippisSavings',compact('savings','title','ts'));
     }
