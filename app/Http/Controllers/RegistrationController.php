@@ -402,8 +402,8 @@ public function membersUpload(){
           }
           toastr()->success('Members bulk upload  successful!');
           //redirect to listing page order by latest
-          return back();
-          //return redirect('/recent/savings');
+          //return back();
+          return redirect('/user/all');
       
       }
 
@@ -428,8 +428,8 @@ public function nokBulkUpload(){
 
       toastr()->success('NOK bulk data upload  successful!');
       //redirect to listing page order by latest
-      return back();
-      //return redirect('/recent/savings');
+      //return back();
+      return redirect('/user/nok');
   }
 
 //bulk upload bank details
@@ -453,8 +453,8 @@ public function nokBulkUpload(){
     
           toastr()->success('Bank bulk data upload  successful!');
           //redirect to listing page order by latest
-          return back();
-          //return redirect('/recent/savings');
+          //return back();
+          return redirect('/user/bank');
       }
 
 //Saving registration bulk upload form
