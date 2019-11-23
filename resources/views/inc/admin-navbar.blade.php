@@ -59,6 +59,13 @@
         </div>
     </li>
 
+    <li><a class="subheader">Staff</a></li>
+    <li><a href="/add/user"><i class="fas fa-plus"></i> Add Staff</a></li>
+    <li><a href="/manage/staff"><i class="fas fa-ellipsis-v"></i> Manage Staff</a></li>
+    <li>
+        <div class="divider"></div>
+    </li>
+
     <li><a class="subheader">Users</a></li>
     <li><a href="/New"><i class="fas fa-plus"></i> New User</a></li>
     <li><a href="/user/all"><i class="fas fa-ellipsis-v"></i> List Users</a></li>
@@ -146,6 +153,7 @@
     <li><a href="/New" class="orange-text darken-4">New</a></li>
     <li class="divider" tabindex="-1"></li>
     <li><a href="/user/all" class="orange-text darken-4">All</a></li>
+    <li><a href="/add/user" class="orange-text darken-4">New Staff</a></li>
     <li class="divider" tabindex="-1"></li>
     {{--
     <li><a href="#!"></a></li>
