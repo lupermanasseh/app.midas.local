@@ -1,4 +1,0 @@
-[2019-10-13 16:08:26] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Hashing\\HashServiceProvider.php:7)
-[stacktrace]
-#0 {main}
-"} 

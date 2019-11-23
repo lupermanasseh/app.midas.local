@@ -9,7 +9,7 @@
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?>
 </div>
 <div class="user-signinform">
-    <form class="user-customsearch" method="POST" action="/member/access">
+    <form class="user-customsearch" method="POST" action="/Dashboard/access">
         <?php echo e(csrf_field()); ?>
 
 
