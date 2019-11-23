@@ -5,7 +5,7 @@
     @include('inc.messages') --}}
     <div class="row">
         <div class="col s12 subject-header">
-            <p class="teal-text">Active Members</p> 
+            <p class="teal-text">Active Members</p>
         </div>
     </div>
 
@@ -30,7 +30,8 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$activeUsers->links()}} @else
+            {{-- {{$activeUsers->links()}} --}}
+            @else
             <p>No Records Yet</p>
             @endif
         </div>
