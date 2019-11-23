@@ -41,11 +41,10 @@
 <ul class="sidenav teal accent-4" id="mobile-demo">
   <li><a href="/"><i class="material-icons left">home</i>Home</a></li>
   <li><a href="/about"><i class="material-icons left">history</i>About Us</a></li>
-  <li><a href="/products"><i class="material-icons left">shopping_basket</i>Products</a></li>
+  <li><a href="/product-offers"><i class="material-icons left">shopping_basket</i>Products</a></li>
   <li><a href="/committee"><i class="material-icons left">supervisor_account</i>Commitee</a></li>
   <li><a href="/board"><i class="material-icons left">view_stream</i>Board</a></li>
-  <li><a href="/press-release"><i class="material-icons left">library_books</i>Press</a></li>
+  <li><a href="/news"><i class="material-icons left">library_books</i>Press</a></li>
   <li><a href="/gallery"><i class="material-icons left">movie</i>Gallery</a></li>
-  <li><a href="/user/login"><i class="material-icons left">no_encryption</i>User</a></li>
-  <li><a href="/staff/login"><i class="material-icons left">vpn_lock</i>Staff</a></li>
+  <li><a href="/login"><i class="material-icons left">no_encryption</i>Login</a></li>
 </ul>
