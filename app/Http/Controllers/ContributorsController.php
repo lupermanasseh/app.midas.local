@@ -19,6 +19,9 @@ class ContributorsController extends Controller
         $activeUsers= User::where('status','Active')->withCount(['usersavings' => function ($query) {
             $query->latest('entry_date');
            }])->get();
+        // $activeUsers= User::where('status','Active')
+        //                     ->latest('date_entry')
+        //                     ->get();
         return view('Contributors.index',compact('activeUsers','title'));
     }
 
