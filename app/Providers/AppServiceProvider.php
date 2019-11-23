@@ -44,9 +44,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         //view composer for loan product list
-        view()->composer(['LoanSub.create','LoanSub.editLoanSub','LoanSub.newLoan'], function($view){
-            $view->with('loanProd', Loan::loanProducts());
-        });
+        // view()->composer(['LoanSub.create','LoanSub.editLoanSub','LoanSub.newLoan'], function($view){
+        //     $view->with('loanProd', Loan::loanProducts());
+        // });
 
         //product items view composer
         view()->composer(['Products.newProduct','Products.editProducts','ProductSub.create','LoanSub.create','LoanSub.editLoanSub'], function($view){
