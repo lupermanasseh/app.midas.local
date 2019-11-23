@@ -32,6 +32,13 @@ class DashboardController extends Controller
         return view('Dashboard.home',compact('user','saving','activeLoans','targetsr','targetSaving','title'));
     }
 
+
+    //offline 
+    public function offline (){
+        $title ="Offline";
+        return view('Dashboard.offline',compact('title'));
+    }
+
      //print html savings  statement
      public function printStatement($from,$to){
         
