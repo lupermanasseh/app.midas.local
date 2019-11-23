@@ -1,3 +1,19 @@
+//registering promise
+if (!window.Promise) {
+    window.Promise = Promise;
+}
+//Registering  service worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+        .register('/sw.js')
+        .then(function () {
+            console.log('Service worker registered!');
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+  }
+
 //custom js file
 $(document).ready(function() {
     // Department Change
