@@ -67,7 +67,9 @@ class Saving extends Model
     //TODO
     //CHECCK METHOD
     public function netBalance($id){
+        
         return $this->totalCredit($id)-$this->totalDebit($id);
+         
     }
 
     /**
