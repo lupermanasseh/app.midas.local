@@ -26,6 +26,7 @@ class NokUserImport implements ToModel,WithHeadingRow
             'email' => $row['nok_email'],
             'phone'=> $row['nok_phone'],
             'relationship' => $row['relationship'],
+            //'my_id' => auth()->id(),
         ]);
     }
 }
