@@ -1,0 +1,12 @@
+[2019-11-26 16:47:01] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\yoeunes\\toastr\\src\\ToastrServiceProvider.php:11)
+[stacktrace]
+#0 {main}
+"} 
+[2019-11-26 16:50:46] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Grammars\\MySqlGrammar.php:10)
+[stacktrace]
+#0 {main}
+"} 
+[2019-11-26 17:40:53] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\ConnectionFactory.php:15)
+[stacktrace]
+#0 {main}
+"} 
