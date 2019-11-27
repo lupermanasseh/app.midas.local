@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
-                        <h5 class="header">Shimakaa, Iorlumun Andrew</h5>
+                        <h5 class="header">Shimakaa, Iorlumun Andrew, Ph.D</h5>
                         <span class="grey-text">President</span>
                         <p>He is a clinical psychologist in the department of Clinical Psychology.</p>
                     </div>
