@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Admin;
 use App\Role;
@@ -382,29 +382,28 @@ return view('Registration.userBulkUpload',compact('title'));
 
 // bulk upload members
 public function membersUpload(){
-
         try{
         Excel::import(new UserImport(),request()->file('user_import'));
-          }catch(\Exception $ex){
+        }catch(\Exception $ex){
               toastr()->error('Unable to upload bulk user data!');
-                  return back();
-          }catch(\Error $ex){
+            return back();
+        }catch(\Error $ex){
               toastr()->error('Something bad has happened');
               return back();
-          }
-        
-          //update record with password
-          $userColl = User::all();
-          foreach($userColl as $item){
-              $myUser = User::find($item->id);
-              $myUser->password = Hash::make($item->payment_number);
-              $myUser->save();
-          }
+        }
+
+        //update record with password
+        //   $userColl = User::all();
+        //   foreach($userColl as $item){
+        //       $myUser = User::find($item->id);
+        //       $myUser->password = Hash::make($item->payment_number);
+        //       $myUser->save();
+        //   }
+
           toastr()->success('Members bulk upload  successful!');
           //redirect to listing page order by latest
           //return back();
           return redirect('/user/all');
-      
       }
 
       //nok bulk upload
@@ -415,17 +414,19 @@ public function nokUploadForm(){
 
     //Nok bulk upload members
 public function nokBulkUpload(){
-
+   
     try{
     Excel::import(new NokUserImport(),request()->file('nok_import'));
       }catch(\Exception $ex){
+       
           toastr()->error('Unable to upload bulk NOK data!');
               return back();
       }catch(\Error $ex){
+        
           toastr()->error('Something bad has happened');
           return back();
       }
-
+  
       toastr()->success('NOK bulk data upload  successful!');
       //redirect to listing page order by latest
       //return back();
@@ -440,17 +441,19 @@ public function nokBulkUpload(){
 
     //bank upload process
     public function bankBulkUpload(){
-
+       
         try{
         Excel::import(new BankUserImport(),request()->file('bank_import'));
           }catch(\Exception $ex){
+              
               toastr()->error('Unable to upload bulk Bank  data!');
                   return back();
           }catch(\Error $ex){
+             
               toastr()->error('Something bad has happened');
               return back();
           }
-    
+          
           toastr()->success('Bank bulk data upload  successful!');
           //redirect to listing page order by latest
           //return back();
@@ -466,17 +469,19 @@ public function savingRegUploadForm(){
 //
    //bank upload process
    public function savingRegUpload(){
-
-    try{
+  
+    try{ 
     Excel::import(new SavingReviewUserImport(),request()->file('savingreg_import'));
       }catch(\Exception $ex){
+        
           toastr()->error('Unable to create bulk saving registrations!');
               return back();
       }catch(\Error $ex){
+        
           toastr()->error('Something bad has happened');
           return back();
       }
-
+     
       toastr()->success('Saving registration bulk data uploaded  successfully!');
       //redirect to listing page order by latest
       return back();
@@ -493,17 +498,19 @@ public function tsUploadForm(){
 //
    //ts upload process
    public function tsBulkUpload(){
-
+   
     try{
     Excel::import(new TsUserImport(),request()->file('ts_import'));
       }catch(\Exception $ex){
+          
           toastr()->error('Unable to create bulk target saving registrations!');
               return back();
       }catch(\Error $ex){
+         
           toastr()->error('Something bad has happened');
           return back();
       }
-
+     
       toastr()->success('Target saving registration bulk data upload  successful!');
       //redirect to listing page order by latest
       return back();
