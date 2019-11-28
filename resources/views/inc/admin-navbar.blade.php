@@ -179,6 +179,10 @@
     <li class="divider" tabindex="-1"></li>
     <li><a href="/loan/uploadForm" class="orange-text darken-4">Upload</a></li>
     <li class="divider" tabindex="-1"></li>
+    <li><a href="/pendingLoans" class="orange-text darken-4">Pending</a></li>
+    <li><a href="/audited/loans" class="orange-text darken-4">Audited</a></li>
+    <li><a href="/approved/loans" class="orange-text darken-4">Approved</a></li>
+    <li><a href="/activeLoans" class="orange-text darken-4">Active</a></li>
 </ul>
 
 {{-- DROP DOWN MENU 4 --}}
