@@ -9,7 +9,8 @@ class Savingreview extends Model
     //
     protected $fillable = [
         'user_id', 
-        'current_amount', 
+        'current_amount',
+        'created_by', 
     ];
     //Each saving review belongs to a user
     public function user(){
