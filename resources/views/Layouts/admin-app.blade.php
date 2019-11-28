@@ -27,13 +27,13 @@
         {{--
     @include('inc.messages') --}}
         <div class="row">
-            <div class="col s12 m10 l10 user-profiles">
+            <div class="col s12 user-profiles">
                 <div class="white">
                     @include('inc.messages')
                     @yield('main-content')
                 </div>
             </div>
-            @include('inc.admin-side-section')
+            {{-- @include('inc.admin-side-section') --}}
         </div>
     </section>
     {{-- @yield('admin-content') --}}
