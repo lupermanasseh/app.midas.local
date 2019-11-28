@@ -25,13 +25,13 @@
     <section class="section section-content-details">
         
         <div class="row">
-            <div class="col s12 m10 l10 user-profiles">
+            <div class="col s12 user-profiles">
                 <div class="white">
                     <?php echo $__env->make('inc.messages', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                     <?php echo $__env->yieldContent('main-content'); ?>
                 </div>
             </div>
-            <?php echo $__env->make('inc.admin-side-section', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            
         </div>
     </section>
     

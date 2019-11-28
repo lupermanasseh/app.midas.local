@@ -1,16 +1,12 @@
- 
 <?php $__env->startSection('main-content'); ?>
 <div class="container">
     
-    <div class="row subject-header">
+    <div class="row">
         <div class="col s6">
             <h5 class="teal-text">All Bank Details | </h5>
             <div class="divider"></div>
         </div>
-        <div class="col s6">
-            <h5 class="teal-text"><a href="/bank"><i class="material-icons">add</i> New</a></h5>
-            <div class="divider"></div>
-        </div>
+
     </div>
 
     <div class="row">
@@ -22,7 +18,8 @@
                         <th>Surname</th>
                         <th>Last Name</th>
                         <th>Bank</th>
-                        <th>Action</th>
+                        <th>Acct Number</th>
+                        
                     </tr>
                 </thead>
 
@@ -31,8 +28,9 @@
                     <tr>
                         <td><?php echo e($user->first_name); ?></td>
                         <td><?php echo e($user->last_name); ?></td>
-                        <td><a href="/user/userDetails/<?php echo e($user->id); ?>"><?php echo e($user->bank->bank_name); ?></a></td>
-                        <td><a class="waves-effect waves-light btn-small  blue darken-1" href="/userBankEdit/<?php echo e($user->bank->id); ?>"><i class="material-icons tiny">mode_edit</i></a></td>
+                        <td><?php echo e($user->bank->bank_name); ?></td>
+                        <td><?php echo e($user->bank->acct_number); ?></td>
+                        
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
