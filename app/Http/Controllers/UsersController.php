@@ -12,9 +12,17 @@ use App\Savingreview;
 use App\Saving;
 use App\TargetSaving;
 use App\Targetsr;
+use App\Admin;
 use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
+
+
+    public function allAdmin(){
+        $title =  'All Staff';
+        $allStaff = Admin::all();
+        return view('Users.allStaff', compact('allStaff','title'));
+    }
     /**
      * Display a listing of the resource.
      *
