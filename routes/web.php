@@ -109,6 +109,7 @@ Route::get('/Dashboard/signout','MemberController@destroy');
 //Manage Users  Controller
 Route::middleware(['auth:admin'])->group(function () {
 Route::get('/user/all','UsersController@index');
+Route::get('/user/admin','UsersController@allAdmin');
 Route::get('/user/bank','UsersController@bankList');
 Route::get('/user/nok','UsersController@nokList');
 Route::get('/userDetails/{id}','UsersController@profileDetails');
