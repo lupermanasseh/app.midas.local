@@ -13,8 +13,7 @@
 
         <div class="container">
             <div class="nav-wrapper">
-                <a href="/Dashboard" class="brand-logo"><img height="30" src="{{asset('images/logo2.svg')}}"
-                        alt="logo"></a>
+                <a href="/admin" class="brand-logo"><img height="30" src="{{asset('images/logo2.svg')}}" alt="logo"></a>
 
                 <a href="#" data-target="slide-out" class="sidenav-trigger right show-on-large orange-text darken-4"><i
                         class="material-icons">menu</i></a>
