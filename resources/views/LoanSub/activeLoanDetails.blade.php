@@ -68,23 +68,25 @@
                     <thead>
                         <tr>
                             <th>NAME</th>
-                            <th>Payment#</th>
-                            <th>Phone</th>
+                            <th>IPPIS</th>
+                            <th>PHONE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{$userLoan->user->userInstance($userLoan->guarantor_id)->first_name}}
-                                {{$userLoan->user->userInstance($userLoan->guarantor_id)->last_name}}
+                            <td>{{$userLoan->user->userInstance($userLoan->guarantor_id1)->first_name}}
+                                {{$userLoan->user->userInstance($userLoan->guarantor_id1)->last_name}}
+                                [{{$userLoan->user->userInstance($userLoan->guarantor_id1)->id}}]
                             </td>
-                            <td>{{$userLoan->user->userInstance($userLoan->guarantor_id)->payment_number}}
+                            <td>{{$userLoan->user->userInstance($userLoan->guarantor_id1)->payment_number}}
                             </td>
-                            <td>{{$userLoan->user->userInstance($userLoan->guarantor_id)->phone}}
+                            <td>{{$userLoan->user->userInstance($userLoan->guarantor_id1)->phone}}
                             </td>
                         </tr>
                         <tr>
                             <td>{{$userLoan->user->userInstance($userLoan->guarantor_id2)->first_name}}
                                 {{$userLoan->user->userInstance($userLoan->guarantor_id2)->last_name}}
+                                [{{$userLoan->user->userInstance($userLoan->guarantor_id2)->id}}]
                             </td>
                             <td>{{$userLoan->user->userInstance($userLoan->guarantor_id2)->payment_number}}
                             </td>
