@@ -3,23 +3,29 @@
 <div class="container">
     {{--
     @include('inc.messages') --}}
-    <div class="row subject-header">
-        <div class="col s6">
-            <span class="text-teal">ALL USERS</span>
+    <div class="row">
+        <div class="col s12">
+            <span class="teal-text">ALL USERS</span>
         </div>
-        <div class="col s6">
-            <span><a href="/New"><i class="small material-icons">person_add</i></a></span>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col s12">
+            <span><a href="/New" class="btn blue">New Staff</a></span>
         </div>
     </div>
 
     <div class="row">
         <div class="col s12">
-            @if (count($users)>=1)
+            @if (count($allStaff)>=1)
             <table class="highlight">
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th>Role</th>
+                        <th>Email</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -27,15 +33,18 @@
                 <tbody>
                     @foreach ($allStaff as $staff)
                     <tr>
-                        <td>{{$staff->first_name}} {{$staff->first_name}}</td>
-                        <td>{{$staff->roles()->name}}</td>
+                        <td>{{$staff->first_name}} {{$staff->last_name}}</td>
+                        @foreach ($staff->roles as $role)
+                        <td>{{$role->name}}</td>
+                        @endforeach
+                        <td>{{$staff->email}}</td>
                         <td>{{$staff->status}}</td>
-                        <td>Action</td>
+                        <td><a href="" class="btn">Deactivate</a></td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            {{$users->links()}} @else
+            @else
             <p>No Users Created Yet</p>
             @endif
         </div>
