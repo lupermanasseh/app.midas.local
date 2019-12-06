@@ -13,6 +13,7 @@ use App\Saving;
 use App\TargetSaving;
 use App\Targetsr;
 use App\Admin;
+use App\Role;
 use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
