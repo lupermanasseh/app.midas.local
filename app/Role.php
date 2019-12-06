@@ -16,7 +16,6 @@ class Role extends Model
    //Define relationships with Users
 public function admins(){
     return $this->belongsToMany(Admin::class,'role_admins');
-
 }
 //Define relationships with Users
 // public function users(){
