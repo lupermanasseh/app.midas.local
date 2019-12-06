@@ -17,7 +17,7 @@
 
     <div class="row user-profiles">
         <div class="col s12 m3 l3 profile">
-            <p class="profile__heading text-grey darken-3">PAYMENT ID</p>
+            <p class="profile__heading text-grey darken-3">SAVING DETAILS</p>
             <span><i class="small material-icons pink-text lighten-4">looks</i></span>
             <span class="profile__user-name">{{$review->user->payment_number}}</span>
             <span class="profile__user-name">{{$review->user->first_name}} {{$review->user->last_name}}</span>
@@ -33,7 +33,7 @@
             <span><i class="small material-icons pink-text lighten-4">looks</i></span>
             <span class="profile__user-name">{{$review->product->name}}</span>
             <span class="profile__user-name">Tenor {{$review->product->tenor}} [ {{$review->custom_tenor}} ]</span>
-            <span class="profile__user-name">REQ %
+            <span class="profile__user-name">REQ .3%
                 {{number_format($review->user->requiredPercent($review->amount_applied),2,'.',',')}}</span>
             <span class="profile__user-name">AVAIL %
                 {{number_format($review->user->availablePercent($review->user_id),2,'.',',')}}</span>
@@ -42,8 +42,8 @@
             <p class="profile__heading text-grey darken-3">PRODUCT SUMMARY</p>
             <span><i class="small material-icons pink-text lighten-4">looks</i></span>
             <span class="profile__user-name">Guarantor 1:
-                {{$review->user->userInstance($review->guarantor_id)->first_name}} (<a
-                    href="/#">{{$review->user->loanGuarantorCount($review->guarantor_id)}}</a>)
+                {{$review->user->userInstance($review->guarantor_id1)->first_name}} (<a
+                    href="/#">{{$review->user->loanGuarantorCount($review->guarantor_id1)}}</a>)
             </span>
             <span class="profile__user-name">Guarantor 2:
                 {{$review->user->userInstance($review->guarantor_id2)->first_name}} (<a
