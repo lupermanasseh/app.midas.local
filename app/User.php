@@ -264,7 +264,7 @@ class User extends Authenticatable
 
    //Loan guarantor count
    public function loanGuarantorCount($id){
-    return Lsubscription::where('guarantor_id', '=', $id)
+    return Lsubscription::where('guarantor_id1', '=', $id)
                         ->orWhere('guarantor_id2',$id)
                         ->count();
 }
