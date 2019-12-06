@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Role;
+use App\Admin;
 
 class SessionController extends Controller
 { 
@@ -29,14 +30,27 @@ class SessionController extends Controller
             'email' =>'required',
         ]);
 
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            //return '1234567';
-            return redirect('/admin');
-            
-        }
-        return back()->withErrors([
-            'message'=>'Wrong Password or Email, Try Again!.'
-        ]);    
+        //Check for active user
+        $activeAdmin = Admin::where('email',$request->email)
+                            ->where('status','Active')
+                            ->get();
+                        if($activeAdmin){
+                            if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+                                //return '1234567';
+                                return redirect('/admin');
+                                
+                            }
+                            return back()->withErrors([
+                                'message'=>'Wrong Password or Email, Try Again!.'
+                            ]);    
+                        }
+
+                        //
+                        return back()->withErrors([
+                            'message'=>'This user is inactive!.'
+                        ]);    
+
+        
         
     }
 
