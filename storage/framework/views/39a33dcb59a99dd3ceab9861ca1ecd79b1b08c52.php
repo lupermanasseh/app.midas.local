@@ -15,7 +15,7 @@
 
     <div class="row user-profiles">
         <div class="col s12 m3 l3 profile">
-            <p class="profile__heading text-grey darken-3">PAYMENT ID</p>
+            <p class="profile__heading text-grey darken-3">SAVING DETAILS</p>
             <span><i class="small material-icons pink-text lighten-4">looks</i></span>
             <span class="profile__user-name"><?php echo e($review->user->payment_number); ?></span>
             <span class="profile__user-name"><?php echo e($review->user->first_name); ?> <?php echo e($review->user->last_name); ?></span>
@@ -31,7 +31,7 @@
             <span><i class="small material-icons pink-text lighten-4">looks</i></span>
             <span class="profile__user-name"><?php echo e($review->product->name); ?></span>
             <span class="profile__user-name">Tenor <?php echo e($review->product->tenor); ?> [ <?php echo e($review->custom_tenor); ?> ]</span>
-            <span class="profile__user-name">REQ %
+            <span class="profile__user-name">REQ .3%
                 <?php echo e(number_format($review->user->requiredPercent($review->amount_applied),2,'.',',')); ?></span>
             <span class="profile__user-name">AVAIL %
                 <?php echo e(number_format($review->user->availablePercent($review->user_id),2,'.',',')); ?></span>
@@ -40,7 +40,7 @@
             <p class="profile__heading text-grey darken-3">PRODUCT SUMMARY</p>
             <span><i class="small material-icons pink-text lighten-4">looks</i></span>
             <span class="profile__user-name">Guarantor 1:
-                <?php echo e($review->user->userInstance($review->guarantor_id)->first_name); ?> (<a
+                <?php echo e($review->user->userInstance($review->guarantor_id1)->first_name); ?> (<a
                     href="/#"><?php echo e($review->user->loanGuarantorCount($review->guarantor_id)); ?></a>)
             </span>
             <span class="profile__user-name">Guarantor 2:

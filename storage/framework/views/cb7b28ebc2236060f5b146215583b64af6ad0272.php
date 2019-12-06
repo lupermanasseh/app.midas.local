@@ -13,8 +13,7 @@
 
         <div class="container">
             <div class="nav-wrapper">
-                <a href="/Dashboard" class="brand-logo"><img height="30" src="<?php echo e(asset('images/logo2.svg')); ?>"
-                        alt="logo"></a>
+                <a href="/admin" class="brand-logo"><img height="30" src="<?php echo e(asset('images/logo2.svg')); ?>" alt="logo"></a>
 
                 <a href="#" data-target="slide-out" class="sidenav-trigger right show-on-large orange-text darken-4"><i
                         class="material-icons">menu</i></a>
@@ -61,7 +60,7 @@
 
     <li><a class="subheader">Staff</a></li>
     <li><a href="/add/user"><i class="fas fa-plus"></i> Add Staff</a></li>
-    <li><a href="/manage/staff"><i class="fas fa-ellipsis-v"></i> Manage Staff</a></li>
+    <li><a href="/user/admin"><i class="fas fa-ellipsis-v"></i> View Staff</a></li>
     <li>
         <div class="divider"></div>
     </li>

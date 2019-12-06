@@ -9,7 +9,6 @@
                 Because without you there will be no us that is why we strive to render services and solutions that set
                 us apart
                 from the pack. Its easy to enjoy this unique feeling from us. Why not join us today...</h6>
-
             <span><a href="" class="btn get-started">Get Started</a></span>
         </div>
     </div>
