@@ -133,7 +133,7 @@ class LoanSubscriptionController extends Controller
                 //$loan_sub->productdivision_id = $request['product_cat'];
                 $loan_sub->product_id = $request['product_item'];
                 $loan_sub->user_id = $request['reg_no'];
-                $loan_sub->guarantor_id = $request['guarantor_id1'];
+                $loan_sub->guarantor_id1 = $request['guarantor_id1'];
                 $loan_sub->guarantor_id2 = $request['guarantor_id2'];
                 $loan_sub->monthly_deduction = $amtApplied/$tenor;
                 $loan_sub->custom_tenor = $tenor;
@@ -354,7 +354,7 @@ class LoanSubscriptionController extends Controller
             $title ='All Active Loans';
             $activeLoans = Lsubscription::where('loan_status','Active')
             ->orderBy('user_id','asc')
-            ->with(['loan','user'])
+            ->with(['user'])
             ->paginate(100);
             return view('LoanSub.activeLoans',compact('activeLoans','title'));
             }
