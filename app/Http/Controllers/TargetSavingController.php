@@ -226,7 +226,7 @@ public function regTsStore(Request $request){
         $saving->end_date=$request['end_date'];
         $saving->review_by = auth()->id();
         if($saving->save()){
-            toastr()->success('Target Saving amount created successfully');
+            toastr()->success('Target Saving registration completed successfully');
             return redirect('/user/page/'.$request['user_id']);
         }
         toastr()->error('Unable to create saving amount.');
