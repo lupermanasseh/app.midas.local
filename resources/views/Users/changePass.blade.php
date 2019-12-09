@@ -12,12 +12,12 @@
         <div class="col s12">
             <div class="card-panel white">
 
-                <form class="" method="POST" action="/signin">
+                <form class="" method="POST" action="/password/store">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="payment_number" name="payment_number" type="text" class="validate" required>
-                            <label for="payment_number">Payment ID</label>
+                            <input id="reg_number" name="reg_number" type="text" class="validate" required>
+                            <label for="reg_number">Registration Number</label>
                         </div>
                         <div class="input-field col s12">
                             <input id="password" name="password" type="password" class="validate" required>
