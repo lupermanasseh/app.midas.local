@@ -279,20 +279,21 @@ public function editBank($id){
 
         public function passwordStore(Request $request){
             $this->validate(request(), [
-                'payment_number'=>'required|integer',
+                'reg_number'=>'required|integer',
                 'password' =>'required|confirmed',
             ]);
 
             
-            $payment_number = $request['payment_number'];
-            $user_id = User::userID($payment_number);
-            $user = User::find($user_id);
+            // $payment_number = $request['payment_number'];
+            // $user_id = User::userID($payment_number);
+            //find the user by id to edit
+            $user = User::find($request['reg_number']);
 
             $user->password = Hash::make($request['password']);
             if ($user->save()) {
                 toastr()->success('Password changed successfully!');
                 //return redirect()->route('posts.index');
-                return redirect('/userDetails/'.$user_id);
+                return redirect('/userDetails/'.$request['payment_number']);
             }
             toastr()->error('An error has occurred please try again later.');
             return back();
