@@ -15,7 +15,7 @@
 
     <div class="row user-profiles">
         <div class="col s12 m3 l3 profile">
-            <p class="profile__heading text-grey darken-3">PAYMENT DETAILS</p>
+            <p class="profile__heading text-grey darken-3">SAVING DETAILS</p>
             <span><i class="small material-icons pink-text lighten-4">looks</i></span>
             <span class="profile__user-name"><?php echo e($review->user->payment_number); ?></span>
             <span class="profile__user-name"><?php echo e($review->user->first_name); ?> <?php echo e($review->user->last_name); ?></span>

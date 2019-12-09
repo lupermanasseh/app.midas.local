@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col s12">
             <?php if(count($savings)>=1): ?>
-            <?php echo $__env->make('MonthlySaving.ippisSavingTable', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> <?php echo e($savings->links()); ?> <?php else: ?>
+            <?php echo $__env->make('MonthlySaving.ippisSavingTable', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?> <?php else: ?>
             <p>No active saving records yet</p>
             <?php endif; ?>
         </div>
