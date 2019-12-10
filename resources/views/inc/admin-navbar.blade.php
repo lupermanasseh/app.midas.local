@@ -93,6 +93,7 @@
     <li><a href="/ippis/loans"><i class="fas fa-arrow-alt-circle-down "></i>Loans</a></li>
     <li><a href="/loan/filter"><i class="fas fa-sort "></i>Filter Loans</a></li>
     <li><a href="/ippis-analysis"><i class="fas fa-arrow-alt-circle-up "></i>Upload IPPIS Analysis</a></li>
+    <li><a href="/saving-master-upload-form"><i class="fas fa-arrow-alt-circle-up "></i>Upload IPPIS Savings</a></li>
 
     <div class="divider"></div>
     </li>
