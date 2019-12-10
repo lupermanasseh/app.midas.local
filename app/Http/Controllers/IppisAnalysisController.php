@@ -23,6 +23,30 @@ class IppisAnalysisController extends Controller
     //     return view('Contributors.index',compact('activeUsers','title'));
     // }
 
+    //Saving master upload form
+    public function savingMasterForm(){
+        $title ='Upload Saving Master';
+        return view('IppisAnalysis.savingUploadForm', compact('title'));
+    }
+
+    //saving master upload functionality
+    public function importSavingMaster(){
+               //begin transaction
+    DB::beginTransaction();
+    try{
+    Excel::import(new SavingMasterImport(),request()->file('savingmaster_import'));
+    }catch(\Exception $ex){
+        DB::rollback();
+       toastr()->error('An error has occurred trying to import Master Saving IPPIS inputs');
+        return back();
+    }catch(\Error $ex){
+        DB::rollback();
+        toastr()->error('Something bad has happened');
+        return back();
+    }
+    DB::commit();
+    }
+
     public function ippisAnalysisForm(){
         //
         $title ='Upload Ippis Analysis';
