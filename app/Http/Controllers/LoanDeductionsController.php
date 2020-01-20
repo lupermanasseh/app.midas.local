@@ -124,8 +124,18 @@ public function export(){
     public function loanDeductions(){
         $title = 'Recent Loan Deductions';
         //List recent uploads 
-        $recent= Ldeduction::with('user','loan')->latest()->orderBy('user_id','desc')->paginate(100);
+        $recent= Ldeduction::with('user')->latest()->orderBy('user_id','desc')->paginate(1);
         return view('LoanDeduction.recentLoanDeduction',compact('recent','title'));
+    }
+
+     //User Recent loan deduction upload
+     public function userLoanDeductions($id){
+        $title = 'User Loan Deductions';
+        //List recent uploads 
+        $recent= Ldeduction::
+                            where('user_id',$id)
+                            ->paginate(5);
+        return view('LoanDeduction.userLoanDeductions',compact('recent','title'));
     }
 
     public function edit($id){
