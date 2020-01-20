@@ -31,6 +31,11 @@ class Lsubscription extends Model
         public function loandeductions(){
           return $this->hasMany(Ldeduction::class);
       }
+
+       //A loan subscription may have many defaults
+       public function loandefault(){
+        return $this->hasMany(Defaultcharge::class);
+    }
     
     protected $dates = ['created_at', 'updated_at','loan_start_date','loan_end_date'];
 
