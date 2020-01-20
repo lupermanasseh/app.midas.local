@@ -24,7 +24,7 @@ class TargetSavingImport implements ToModel, WithHeadingRow //, WithBatchInserts
             'amount' => $row['amount'],
             'entry_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date']),//  $row['date'],
             'notes' => $row['description'],
-            'created_by' => auth()->id(),
+            'created_by' => auth()->user()->first_name,
         ]);
     }
 }
