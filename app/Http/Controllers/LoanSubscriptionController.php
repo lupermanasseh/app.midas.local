@@ -140,7 +140,7 @@ class LoanSubscriptionController extends Controller
                 $loan_sub->amount_applied = $amtApplied;
                 $loan_sub->units = $request['units'];
                 $loan_sub->net_pay = $request['net_pay'];
-                $loan_sub->created_by = auth()->id();
+                $loan_sub->created_by = auth()->user()->first_name;
                 $loan_sub->save();
                 if($loan_sub->save()) {
                     toastr()->success('Loan request has been saved successfully!');
@@ -257,7 +257,7 @@ class LoanSubscriptionController extends Controller
                 $loan_sub->amount_applied = $amtApplied;
                 $loan_sub->units = $request['units'];
                 $loan_sub->net_pay = $request['net_pay'];
-                $loan_sub->created_by = auth()->id();
+                $loan_sub->created_by = auth()->user()->first_name;
                 $loan_sub->save();
                 if($loan_sub->save()) {
                     toastr()->success('Loan request has been updated successfully!');
@@ -327,7 +327,7 @@ class LoanSubscriptionController extends Controller
                 $loan_sub->review_date =$rev_date;
                 $loan_sub->monthly_deduction =$approved_amt/$tenor;
                 $loan_sub->review_comment = $notes;
-                $loan_sub->review_by = auth()->id();
+                $loan_sub->review_by = auth()->user()->first_name;
                 $loan_sub->save();
                 if($loan_sub->save()) {
                     toastr()->success('Loan request has been reviewed successfully!');
@@ -453,7 +453,7 @@ class LoanSubscriptionController extends Controller
 
                     $userLoan->loan_status ="Approved";
                     $userLoan->approved_date= now()->toDateString();
-                    $userLoan->approve_by = auth()->id();
+                    $userLoan->approve_by = auth()->user()->first_name;
                     $userLoan->save();
                     //send message of approval 
                     // if($userLoan->save()){
