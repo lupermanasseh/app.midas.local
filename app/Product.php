@@ -38,6 +38,10 @@ class Product extends Model
         return $this->hasMany(Ldeduction::class);
     }
     
+     //A product can have more than one loan default charge
+     public function defaultcharge(){
+        return $this->hasMany(Deafultcharge::class);
+    }
 
     //List all products
     public static function  productList(){
