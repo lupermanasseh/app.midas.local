@@ -260,6 +260,7 @@ Route::get('/midasFilterExcel/{start_date}/{end_date}','LoanDeductionsController
 Route::get('/loan/uploadForm','LoanDeductionsController@importForm');
 Route::post('/loan/deductionsImport','LoanDeductionsController@importLoanDeductions')->name('deductions.import');
 Route::get('/loanDeduction/listings','LoanDeductionsController@loanDeductions');
+Route::get('/user/loanDeduction/{id}','LoanDeductionsController@userLoanDeductions');
 Route::get('/loanDeduction/edit/{id}','LoanDeductionsController@edit');
 Route::post('/loanDeduction/update/{id}','LoanDeductionsController@update');
 Route::get('/loanDeduction/remove/{id}','LoanDeductionsController@destroy');
@@ -277,8 +278,13 @@ Route::post('/ts/repay','LoanDeductionsController@tsRepayStore');
 Route::middleware(['auth:admin'])->group(function () {
   Route::get('/ippis-analysis','IppisAnalysisController@ippisAnalysisForm');
   Route::post('/ippis-analysis-upload','IppisAnalysisController@importIppisAnalysis')->name('ippisanalysis.import');
+  Route::get('/recentIppisInputs/listing','IppisAnalysisController@recentIppisLoanInputs');//1
+  Route::get('/savingMaster/listing','IppisAnalysisController@recentMasterSaving');
+  Route::get('/post/loans','IppisAnalysisController@recentIppisLoanInputs'); //2. same with 1 check
+  Route::get('/loan/distribute/{id}','IppisAnalysisController@postLoan');
+  Route::get('/saving/distribute/{id}','IppisAnalysisController@postSaving'); 
   Route::get('/saving-master-upload-form','IppisAnalysisController@savingMasterForm');
-  Route::post('/saving-master-store','IppisAnalysisController@importIppisAnalysis')->name('savingmasterstore.import');
+  Route::post('/saving-master-store','IppisAnalysisController@importSavingMaster')->name('savingmasterstore.import');
   //Route::get('/ippis-analysis/distribute','IppisAnalysisController@distributeAnalysis');
   });
 
