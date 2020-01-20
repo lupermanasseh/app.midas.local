@@ -88,10 +88,12 @@
     <li>
         <div class="divider"></div>
     </li>
-    <li><a class="subheader">IPPIS Downloads</a></li>
+    <li><a class="subheader">IPPIS Inputs Management</a></li>
     <li><a href="/ippis/savings"><i class="fas fa-coins "></i> Savings</a></li>
-    <li><a href="/ippis/loans"><i class="fas fa-arrow-alt-circle-down "></i>Loans</a></li>
-    <li><a href="/loan/filter"><i class="fas fa-sort "></i>Filter Loans</a></li>
+    <li><a href="/savingMaster/listing"><i class="fas fa-coins "></i> Post Savings</a></li>
+    <li><a href="/ippis/loans"><i class="fas fa-arrow-alt-circle-down "></i> Loans</a></li>
+    <li><a href="/post/loans"><i class="fas fa-coins "></i> Post Loans</a></li>
+    <li><a href="/loan/filter"><i class="fas fa-sort "></i> Filter Loans</a></li>
     <li><a href="/ippis-analysis"><i class="fas fa-arrow-alt-circle-up "></i>Upload IPPIS Analysis</a></li>
     <li><a href="/saving-master-upload-form"><i class="fas fa-arrow-alt-circle-up "></i>Upload IPPIS Savings</a></li>
 
