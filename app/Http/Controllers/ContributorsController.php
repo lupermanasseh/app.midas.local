@@ -51,8 +51,6 @@ class ContributorsController extends Controller
                             ->with('user')
                             ->latest('entry_date')
                             ->get();
-
-        
         return view('Contributors.userListings',compact('userSavings','title'));
 
     }
@@ -73,7 +71,7 @@ class ContributorsController extends Controller
 
                 $saving = Saving::find($id);
                 $saving->amount_saved = $request['amount_saved'];
-                $saving->created_by = auth()->id();
+                $saving->created_by = auth()->user()->first_name;
                 $saving->save();
                 if($saving->save()) {
                     toastr()->success('Saving record has been edited successfully!');
@@ -164,7 +162,7 @@ public function store(Request $request){
             $newsaving->status = 'Pending';
             $newsaving->depositor_name = $depositor;
             $newsaving->teller_no = $teller;
-            $newsaving->created_by = auth()->id();
+            $newsaving->created_by = auth()->user()->first_name;
             $newsaving->save();
             if($newsaving->save()) {
                     //send saving credit message
@@ -223,7 +221,7 @@ public function withdrawalStore(Request $request){
             $newsaving->amount_withdrawn = $amt;
             $newsaving->entry_date = $date;
             $newsaving->notes = $notes;
-            $newsaving->created_by = auth()->id();
+            $newsaving->created_by = auth()->user()->first_name;
             $newsaving->save();
             if($newsaving->save()) {
                  //send saving debit message
