@@ -23,8 +23,9 @@ class MonthlySavingController extends Controller
         $title = 'Active Deductions';
         //list active contributors with their dedcutions
 
-        $savings = Savingreview::where('status','Active')->oldest()->with(['user'])
-        ->paginate(50);
+        $savings = Savingreview::where('status','Active')
+                                ->oldest()->with(['user'])
+                                ->paginate(50);
         return view('MonthlySaving.index',compact('savings','title'));
     }
 
