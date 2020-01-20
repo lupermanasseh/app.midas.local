@@ -6,6 +6,7 @@
             <th>IPPIS NUMBER</th>
             <th>NAME</th>
             <th>AMOUNT</th>
+            <th>ENTRY DATE</th>
             <th>END DATE</th>
         </tr>
     </thead>
@@ -18,6 +19,7 @@
             </td>
             <td><?php echo e($active->totalIppisDeductions($active->user_id,$activeLoans)); ?></td>
             
+            <td></td>
             <td><?php echo e($active->loanEndDate($active->user_id)->toFormattedDateString()); ?>
 
             </td>

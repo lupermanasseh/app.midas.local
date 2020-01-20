@@ -1,4 +1,16 @@
-[2019-11-29 12:24:51] local.ERROR: Undefined variable: users (View: C:\wamp64\www\app.midas.local\resources\views\Users\allStaff.blade.php) {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (ErrorException(code: 0): Undefined variable: users (View: C:\\wamp64\\www\\app.midas.local\esources\\views\\Users\\allStaff.blade.php) at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\4821c8b7fac11d08853f4d12d15d5a7d10f91de5.php:15, ErrorException(code: 0): Undefined variable: users at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\4821c8b7fac11d08853f4d12d15d5a7d10f91de5.php:15)
+[2020-01-13 09:55:18] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\SerializesModels.php:8)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-13 10:20:52] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Collection.php:13)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-13 12:17:32] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-13 12:18:06] local.ERROR: count(): Parameter must be an array or an object that implements Countable (View: C:\wamp64\www\app.midas.local\resources\views\LoanDeduction\userLoanDeductions.blade.php) {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (ErrorException(code: 0): count(): Parameter must be an array or an object that implements Countable (View: C:\\wamp64\\www\\app.midas.local\esources\\views\\LoanDeduction\\userLoanDeductions.blade.php) at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\ada2282f81dfda5c1e0d6e86c2518e27b9033713.php:12, ErrorException(code: 0): count(): Parameter must be an array or an object that implements Countable at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\ada2282f81dfda5c1e0d6e86c2518e27b9033713.php:12)
 [stacktrace]
 #0 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(45): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(ErrorException), 1)
 #1 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('C:\\\\wamp64\\\\www\\\\a...', Array)
@@ -61,7 +73,7 @@
 #58 C:\\wamp64\\www\\app.midas.local\\server.php(21): require_once('C:\\\\wamp64\\\\www\\\\a...')
 #59 {main}
 "} 
-[2019-11-29 12:25:48] local.ERROR: Undefined property: Illuminate\Database\Eloquent\Relations\BelongsToMany::$name (View: C:\wamp64\www\app.midas.local\resources\views\Users\allStaff.blade.php) {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (ErrorException(code: 0): Undefined property: Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany::$name (View: C:\\wamp64\\www\\app.midas.local\esources\\views\\Users\\allStaff.blade.php) at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\4821c8b7fac11d08853f4d12d15d5a7d10f91de5.php:29, ErrorException(code: 0): Undefined property: Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany::$name at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\4821c8b7fac11d08853f4d12d15d5a7d10f91de5.php:29)
+[2020-01-13 12:23:19] local.ERROR: count(): Parameter must be an array or an object that implements Countable (View: C:\wamp64\www\app.midas.local\resources\views\LoanDeduction\userLoanDeductions.blade.php) {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (ErrorException(code: 0): count(): Parameter must be an array or an object that implements Countable (View: C:\\wamp64\\www\\app.midas.local\esources\\views\\LoanDeduction\\userLoanDeductions.blade.php) at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\ada2282f81dfda5c1e0d6e86c2518e27b9033713.php:12, ErrorException(code: 0): count(): Parameter must be an array or an object that implements Countable at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\ada2282f81dfda5c1e0d6e86c2518e27b9033713.php:12)
 [stacktrace]
 #0 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(45): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(ErrorException), 1)
 #1 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('C:\\\\wamp64\\\\www\\\\a...', Array)
@@ -124,7 +136,11 @@
 #58 C:\\wamp64\\www\\app.midas.local\\server.php(21): require_once('C:\\\\wamp64\\\\www\\\\a...')
 #59 {main}
 "} 
-[2019-11-29 12:26:39] local.ERROR: Undefined variable: users (View: C:\wamp64\www\app.midas.local\resources\views\Users\allStaff.blade.php) {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (ErrorException(code: 0): Undefined variable: users (View: C:\\wamp64\\www\\app.midas.local\esources\\views\\Users\\allStaff.blade.php) at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\4821c8b7fac11d08853f4d12d15d5a7d10f91de5.php:34, ErrorException(code: 0): Undefined variable: users at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\4821c8b7fac11d08853f4d12d15d5a7d10f91de5.php:34)
+[2020-01-13 12:23:44] local.ERROR: Maximum execution time of 60 seconds exceeded {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\filp\\whoops\\src\\Whoops\\Handler\\PrettyPageHandler.php:189)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-13 12:25:01] local.ERROR: count(): Parameter must be an array or an object that implements Countable (View: C:\wamp64\www\app.midas.local\resources\views\LoanDeduction\userLoanDeductions.blade.php) {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (ErrorException(code: 0): count(): Parameter must be an array or an object that implements Countable (View: C:\\wamp64\\www\\app.midas.local\esources\\views\\LoanDeduction\\userLoanDeductions.blade.php) at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\ada2282f81dfda5c1e0d6e86c2518e27b9033713.php:12, ErrorException(code: 0): count(): Parameter must be an array or an object that implements Countable at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\ada2282f81dfda5c1e0d6e86c2518e27b9033713.php:12)
 [stacktrace]
 #0 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(45): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(ErrorException), 1)
 #1 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('C:\\\\wamp64\\\\www\\\\a...', Array)
@@ -187,7 +203,11 @@
 #58 C:\\wamp64\\www\\app.midas.local\\server.php(21): require_once('C:\\\\wamp64\\\\www\\\\a...')
 #59 {main}
 "} 
-[2019-11-29 12:27:00] local.ERROR: Method Illuminate\Database\Eloquent\Collection::links does not exist. (View: C:\wamp64\www\app.midas.local\resources\views\Users\allStaff.blade.php) {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (ErrorException(code: 0): Method Illuminate\\Database\\Eloquent\\Collection::links does not exist. (View: C:\\wamp64\\www\\app.midas.local\esources\\views\\Users\\allStaff.blade.php) at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Macroable.php:100, BadMethodCallException(code: 0): Method Illuminate\\Database\\Eloquent\\Collection::links does not exist. at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Macroable.php:100)
+[2020-01-13 14:09:51] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Pagination\\PaginationServiceProvider.php:7)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-13 14:14:38] local.ERROR: Method Illuminate\Database\Eloquent\Collection::links does not exist. (View: C:\wamp64\www\app.midas.local\resources\views\LoanDeduction\userLoanDeductions.blade.php) {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (ErrorException(code: 0): Method Illuminate\\Database\\Eloquent\\Collection::links does not exist. (View: C:\\wamp64\\www\\app.midas.local\esources\\views\\LoanDeduction\\userLoanDeductions.blade.php) at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Macroable.php:100, BadMethodCallException(code: 0): Method Illuminate\\Database\\Eloquent\\Collection::links does not exist. at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Macroable.php:100)
 [stacktrace]
 #0 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(45): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(BadMethodCallException), 1)
 #1 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('C:\\\\wamp64\\\\www\\\\a...', Array)
@@ -249,4 +269,28 @@
 #57 C:\\wamp64\\www\\app.midas.local\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #58 C:\\wamp64\\www\\app.midas.local\\server.php(21): require_once('C:\\\\wamp64\\\\www\\\\a...')
 #59 {main}
+"} 
+[2020-01-13 14:29:16] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\barryvdh\\laravel-dompdf\\config\\dompdf.php:14)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-13 14:31:07] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Grammars\\MySqlGrammar.php:9)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-13 14:32:20] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Concerns\\ManagesStacks.php:7)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-13 14:33:49] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-13 14:52:42] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\storage\\framework\\views\\2edf7e49478388077a1c7c4d6d25c5d07babd09a.php:1)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-13 15:14:24] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
+[stacktrace]
+#0 {main}
 "} 

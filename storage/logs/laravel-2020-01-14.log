@@ -1,22 +1,22 @@
-[2019-12-09 07:48:26] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\symfony\\var-dumper\\Cloner\\VarCloner.php:17)
+[2020-01-14 09:35:20] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteAction.php:10)
 [stacktrace]
 #0 {main}
 "} 
-[2019-12-09 07:50:08] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\symfony\outing\\RouteCompiler.php:20)
+[2020-01-14 11:06:04] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php:13)
 [stacktrace]
 #0 {main}
 "} 
-[2019-12-09 07:51:35] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Store.php:12)
+[2020-01-14 11:29:47] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Contracts\\Routing\\UrlGenerator.php:5)
 [stacktrace]
 #0 {main}
 "} 
-[2019-12-09 08:19:08] local.ERROR: Undefined variable: user_id {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (ErrorException(code: 0): Undefined variable: user_id at C:\\wamp64\\www\\app.midas.local\\app\\Http\\Controllers\\UsersController.php:296)
+[2020-01-14 11:30:37] local.ERROR: Undefined variable: remainingDeductible {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (ErrorException(code: 0): Undefined variable: remainingDeductible at C:\\wamp64\\www\\app.midas.local\\app\\Http\\Controllers\\IppisAnalysisController.php:320)
 [stacktrace]
-#0 C:\\wamp64\\www\\app.midas.local\\app\\Http\\Controllers\\UsersController.php(296): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Undefined varia...', 'C:\\\\wamp64\\\\www\\\\a...', 296, Array)
-#1 [internal function]: App\\Http\\Controllers\\UsersController->passwordStore(Object(Illuminate\\Http\\Request))
+#0 C:\\wamp64\\www\\app.midas.local\\app\\Http\\Controllers\\IppisAnalysisController.php(320): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Undefined varia...', 'C:\\\\wamp64\\\\www\\\\a...', 320, Array)
+#1 [internal function]: App\\Http\\Controllers\\IppisAnalysisController->postAnalysis('1')
 #2 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): call_user_func_array(Array, Array)
-#3 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('passwordStore', Array)
-#4 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(212): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\UsersController), 'passwordStore')
+#3 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ControllerDispatcher.php(45): Illuminate\\Routing\\Controller->callAction('postAnalysis', Array)
+#4 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(212): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\IppisAnalysisController), 'postAnalysis')
 #5 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php(169): Illuminate\\Routing\\Route->runController()
 #6 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(679): Illuminate\\Routing\\Route->run()
 #7 C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php(30): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
@@ -70,11 +70,23 @@
 #55 C:\\wamp64\\www\\app.midas.local\\server.php(21): require_once('C:\\\\wamp64\\\\www\\\\a...')
 #56 {main}
 "} 
-[2019-12-09 08:27:43] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Grammar.php:8)
+[2020-01-14 11:41:40] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\GuardHelpers.php:11)
 [stacktrace]
 #0 {main}
 "} 
-[2019-12-09 16:33:24] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php:9)
+[2020-01-14 14:56:36] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteDependencyResolverTrait.php:10)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-14 15:12:18] local.ERROR: Maximum execution time of 60 seconds exceeded {"userId":1,"email":"lupertivkaa@gmail.com","exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\ImplicitRouteBinding.php:9)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-14 16:03:57] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\consoletvs\\charts\\src\\ChartsServiceProvider.php:8)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-14 16:12:26] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\symfony\\var-dumper\\Cloner\\AbstractCloner.php:168)
 [stacktrace]
 #0 {main}
 "} 
