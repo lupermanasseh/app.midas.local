@@ -26,7 +26,7 @@ class SavingsImport implements ToModel, WithHeadingRow //, WithBatchInserts, Wit
             'entry_date' =>  \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date']),
             //$row['date'],
             'notes'=> $row['description'],
-            'created_by' => auth()->id(),
+            'created_by' => auth()->user()->first_name,
         ]);
 
         // return new Saving([
