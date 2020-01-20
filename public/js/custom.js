@@ -3,16 +3,16 @@ if (!window.Promise) {
     window.Promise = Promise;
 }
 //Registering  service worker
-if ('serviceWorker' in navigator) {
+if ("serviceWorker" in navigator) {
     navigator.serviceWorker
-        .register('/sw.js')
-        .then(function () {
-            console.log('Service worker registered!');
+        .register("/sw.js")
+        .then(function() {
+            console.log("Service worker registered!");
         })
-        .catch(function (err) {
+        .catch(function(err) {
             console.log(err);
         });
-  }
+}
 
 //custom js file
 $(document).ready(function() {
@@ -70,6 +70,35 @@ $(document).ready(function() {
                 myObj.text("Approve");
             });
     });
+
+    //post loan repayment
+    $(".post-loan").on("click", function(e) {
+        // Department id
+        e.preventDefault();
+        //change text
+        var myButtonObj = $(this);
+        $(this).text("posting...");
+        //get url
+        var url_link = $(this).attr("href");
+
+        // AJAX request
+        $.get({
+            url: url_link
+            //type: "get",
+            //dataType: "html"
+        })
+            .done(function(data) {
+                myButtonObj.text("Processed")
+                           .addClass('disable');
+                //reload page
+                //location.reload(true);
+            })
+            .fail(function() {
+                myButtonObj.text("Post Loan");
+            });
+    });
+
+    //end post loan repayment
 
     //Approve savings deposit
     $(".approve-saving").on("click", function(e) {
