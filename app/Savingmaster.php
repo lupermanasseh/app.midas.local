@@ -13,6 +13,7 @@ class Savingmaster extends Model
         'saving_cumulative',
         'ts_cumulative',
         'total',
+        'status',
         'entry_date',
         'created_by',
     ];
