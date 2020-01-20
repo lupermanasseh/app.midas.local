@@ -6,6 +6,7 @@
             <th>NAME</th>
             <th>SAVING</th>
             <th>TS</th>
+            <th>DATE</th>
             <th>AMOUNT</th>
         </tr>
     </thead>
@@ -17,9 +18,9 @@
             <td>{{$active->user->first_name}} {{$active->user->last_name}}</td>
             <td>{{$active->current_amount}}</td>
             <td>{{$active->tsActiveAmount($active->user_id,$ts)}}</td>
+            <td></td>
             <td>{{$active->ippisSavingSum($active->current_amount,$active->tsActiveAmount($active->user_id,$ts))}}
             </td>
-
         </tr>
         @endforeach
     </tbody>
