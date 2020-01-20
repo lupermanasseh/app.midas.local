@@ -157,7 +157,7 @@ public function store(Request $request){
             $tsSaving->bank_add = $bank_add;
             $tsSaving->depositor_name = $depositor;
             $tsSaving->teller_no = $teller;
-            $tsSaving->created_by = auth()->id();
+            $tsSaving->created_by = auth()->user()->first_name;
             $tsSaving->save();
             if($tsSaving->save()) {
 
@@ -224,7 +224,7 @@ public function regTsStore(Request $request){
         $saving->monthly_saving=$request['amount'];
         $saving->start_date=$request['start_date'];
         $saving->end_date=$request['end_date'];
-        $saving->review_by = auth()->id();
+        $saving->review_by = auth()->user()->first_name;
         if($saving->save()){
             toastr()->success('Target Saving registration completed successfully');
             return redirect('/user/page/'.$request['user_id']);
@@ -273,7 +273,7 @@ public function tsWithdrawalStore(Request $request){
             $tsSaving->withdrawal = $amt;
             $tsSaving->entry_date = $date;
             $tsSaving->notes = $notes;
-            $tsSaving->created_by = auth()->id();
+            $tsSaving->created_by = auth()->user()->first_name;
             $tsSaving->save();
             if($tsSaving->save()) {
                  //send saving debit message
