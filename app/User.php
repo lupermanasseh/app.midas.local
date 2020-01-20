@@ -116,6 +116,11 @@ class User extends Authenticatable
         return $this->hasMany(Productdeduction::class);
     }
 
+    //Relationship with loan default (defaultcharge)
+    public function loandefault(){
+        return $this->hasMany(Defaultcharge::class);
+    }
+
     //Total sum deductible for product subscription
     // public function productSubscriptionTotal($id)
     // {
