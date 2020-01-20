@@ -5,7 +5,7 @@
     @include('inc.messages') --}}
     <div class="row">
         <div class="col s12 subject-header">
-            <h6 class="teal-text">IMPORT IPPIS ANALYSIS LOAN DEDUCTIONS</h6>
+            <h6 class="teal-text">IMPORT IPPIS SAVING INPUT(S)</h6>
         </div>
     </div>
 
