@@ -20,7 +20,7 @@ class SavingReviewUserImport implements ToModel,WithHeadingRow
             //
             'current_amount' => $row['contribution'],
             'user_id' => $row['reg_no'],
-            'created_by' => auth()->id(),
+            'created_by' => auth()->user()->first_name,
         ]);
     }
 }
