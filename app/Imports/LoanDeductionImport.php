@@ -24,7 +24,7 @@ class LoanDeductionImport implements ToModel,WithHeadingRow
                 //$row['date'],
                 'amount_deducted' => $row['amount'],
                 'notes' => $row['description'],
-                'uploaded_by' => auth()->id(),
+                'uploaded_by' => auth()->user()->first_name,
         ]);
     }
 }
