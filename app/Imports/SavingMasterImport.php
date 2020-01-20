@@ -4,8 +4,9 @@ namespace App\Imports;
 
 use App\Savingmaster;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class SavingMasterImport implements ToModel
+class SavingMasterImport implements ToModel,WithHeadingRow
 {
     /**
     * @param array $row
@@ -16,15 +17,15 @@ class SavingMasterImport implements ToModel
     {
         return new Savingmaster([
             //
-            'ippis_no' => $row['ippis_number'],
+            'ippis_no' => $row['ippis_no'],
             'name' => $row['name'],
             'entry_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date']),
             //$row['date'],
-            'saving_cumulative' => $row['amount'],
-            'ts_cumulative' => $row['amount'],
+            'saving_cumulative' => $row['saving'],
+            'ts_cumulative' => $row['ts'],
             'total' => $row['amount'],
             //'notes' => $row['description'],
-            'created_by' => auth()->id(),
+            'created_by' => auth()->user()->first_name,
         ]);
     }
 }
