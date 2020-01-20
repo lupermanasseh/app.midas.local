@@ -6,6 +6,7 @@
             <th>IPPIS NUMBER</th>
             <th>NAME</th>
             <th>AMOUNT</th>
+            <th>ENTRY DATE</th>
             <th>END DATE</th>
         </tr>
     </thead>
@@ -18,6 +19,7 @@
             </td>
             <td>{{$active->totalIppisDeductions($active->user_id,$activeLoans)}}</td>
             {{-- <td>{{now()->addMonths(1)->toDateString()}}</td> --}}
+            <td></td>
             <td>{{$active->loanEndDate($active->user_id)->toFormattedDateString()}}
             </td>
         </tr>
