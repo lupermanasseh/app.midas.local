@@ -30,9 +30,9 @@ class Ldeduction extends Model
     }
 
       //Each loan deduction belongs to a loan Product
-      public function loan(){
-        return $this->belongsTo(Loan::class);
-    }
+    //   public function loan(){
+    //     return $this->belongsTo(Loan::class);
+    // }
 
     //Each loan deduction belongs to a loan Product
     public function product(){
