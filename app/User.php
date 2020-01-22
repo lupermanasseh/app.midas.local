@@ -55,7 +55,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    protected $dates = ['created_at', 'updated_at','dob'];
+    protected $dates = ['created_at', 'updated_at','dob','date_entry','dofa'];
 
 
     //accessor methods
