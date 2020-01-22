@@ -40,6 +40,8 @@ class User extends Authenticatable
         'marital_status',
         'home_add',
         'dob',
+        'dofa',
+        'date_entry',
         'employ_type',
         'job_cadre',
     ];
