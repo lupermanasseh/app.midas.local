@@ -382,24 +382,20 @@ return view('Registration.userBulkUpload',compact('title'));
 
 // bulk upload members
 public function membersUpload(){
+    DB::beginTransaction();
         try{
         Excel::import(new UserImport(),request()->file('user_import'));
         }catch(\Exception $ex){
+            DB::rollback();
               toastr()->error('Unable to upload bulk user data!');
             return back();
         }catch(\Error $ex){
+            DB::rollback();
               toastr()->error('Something bad has happened');
               return back();
         }
 
-        //update record with password
-        //   $userColl = User::all();
-        //   foreach($userColl as $item){
-        //       $myUser = User::find($item->id);
-        //       $myUser->password = Hash::make($item->payment_number);
-        //       $myUser->save();
-        //   }
-
+            DB::commit();
           toastr()->success('Members bulk upload  successful!');
           //redirect to listing page order by latest
           //return back();
@@ -414,19 +410,19 @@ public function nokUploadForm(){
 
     //Nok bulk upload members
 public function nokBulkUpload(){
-   
+   DB::beginTransaction();
     try{
     Excel::import(new NokUserImport(),request()->file('nok_import'));
       }catch(\Exception $ex){
-       
+       DB::rollback();
           toastr()->error('Unable to upload bulk NOK data!');
               return back();
       }catch(\Error $ex){
-        
+        DB::rollback();
           toastr()->error('Something bad has happened');
           return back();
       }
-  
+  DB::commit();
       toastr()->success('NOK bulk data upload  successful!');
       //redirect to listing page order by latest
       //return back();
@@ -441,19 +437,19 @@ public function nokBulkUpload(){
 
     //bank upload process
     public function bankBulkUpload(){
-       
+       DB::beginTransaction();
         try{
         Excel::import(new BankUserImport(),request()->file('bank_import'));
           }catch(\Exception $ex){
-              
-              toastr()->error('Unable to upload bulk Bank  data!');
+              DB::rollback();
+              toastr()->error('Unable to upload bulk Bank data!');
                   return back();
           }catch(\Error $ex){
-             
+             DB::rollback();
               toastr()->error('Something bad has happened');
               return back();
           }
-          
+          DB::commit();
           toastr()->success('Bank bulk data upload  successful!');
           //redirect to listing page order by latest
           //return back();
@@ -469,20 +465,20 @@ public function savingRegUploadForm(){
 //
    //bank upload process
    public function savingRegUpload(){
-  
+  DB::beginTransaction();
     try{ 
     Excel::import(new SavingReviewUserImport(),request()->file('savingreg_import'));
       }catch(\Exception $ex){
-        
+        DB::rollback();
           toastr()->error('Unable to create bulk saving registrations!');
               return back();
       }catch(\Error $ex){
-        
+        DB::rollback();
           toastr()->error('Something bad has happened');
           return back();
       }
-     
-      toastr()->success('Saving registration bulk data uploaded  successfully!');
+     DB::commit();
+      toastr()->success('Monthly  contribution amount uploaded  successfully!');
       //redirect to listing page order by latest
       return back();
       //return redirect('/recent/savings');
