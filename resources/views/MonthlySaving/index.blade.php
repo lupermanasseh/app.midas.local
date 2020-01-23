@@ -20,7 +20,8 @@
     <div class="row">
         <div class="col s12">
             @if (count($savings)>=1)
-            @include('MonthlySaving.savingsTable',$savings) {{$savings->links()}} @else
+            @include('MonthlySaving.savingsTable',$savings)
+            @else
             <p>No active saving records yet</p>
             @endif
         </div>
