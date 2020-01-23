@@ -3,6 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use App\Targetsr;
+use App\TargetSaving;
+use Illuminate\Support\Facades\DB;
 
 class Savingreview extends Model
 {
@@ -18,13 +22,19 @@ class Savingreview extends Model
     }
 
     //find active Target saving amount
-    public function tsActiveAmount($user_id,$ts){
+    public function tsActiveAmount($user_id){
+        
         //
-        $userData = $ts->where('user_id',$user_id);
-
-        foreach($userData as $data){
-            return $data->monthly_saving;
-        }
+        $userData = Targetsr::where('user_id',$user_id)
+                        ->where('status','Active')
+                        ->get();
+        if($userData->isNotEmpty()){
+            foreach($userData as $data){
+                return $data->monthly_saving;
+            }
+        }else{
+            return 0;
+        }   
        
     }
 
