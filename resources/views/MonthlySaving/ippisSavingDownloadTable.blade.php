@@ -15,11 +15,10 @@
         <tr>
             {{-- <td>{{$loop->iteration}}</td> --}}
             <td>{{$active->user->payment_number}}</td>
-            <td>{{$active->user->first_name}} {{$active->user->last_name}}</td>
-            <td>{{$active->current_amount}}</td>
-            <td>{{$active->tsActiveAmount($active->user_id,$ts)}}</td>
-            <td></td>
-            <td>{{$active->ippisSavingSum($active->current_amount,$active->tsActiveAmount($active->user_id,$ts))}}
+            <td>{{$active->user->last_name}} {{$active->user->first_name}}</td>
+            <td>{{number_format($active->current_amount,2,'.',',')}}</td>
+            <td>{{number_format($active->tsActiveAmount($active->user_id),2,'.',',')}}</td>
+            <td>{{number_format($active->current_amount + $active->tsActiveAmount($active->user_id))}}
             </td>
         </tr>
         @endforeach
