@@ -22,14 +22,11 @@ class ippisSavingsDeductionsExport implements FromView
 
     public function view():View
     {
-        $ts = Targetsr::where('status','Active')
-        ->get();
+        
 
         $savings = Savingreview::where('status','Active')
-                  ->oldest()
-                  ->with(['user'])
-                  ->get();
+                                ->get();
 
-        return view('MonthlySaving.ippisSavingDownloadTable',compact('savings','ts'));
+        return view('MonthlySaving.ippisSavingDownloadTable',compact('savings'));
     }
 }
