@@ -24,8 +24,7 @@ class MonthlySavingController extends Controller
         //list active contributors with their dedcutions
 
         $savings = Savingreview::where('status','Active')
-                                ->oldest()->with(['user'])
-                                ->paginate(50);
+                                ->get();
         return view('MonthlySaving.index',compact('savings','title'));
     }
 
@@ -65,15 +64,13 @@ class MonthlySavingController extends Controller
     //IPPIS SAVINGS DOWNLOAD DISPLAY
         public function ippisSavings(){
         $title = 'IPPIS Active Deductions';
-        $ts = Targetsr::where('status','Active')
-                      ->get();
+        //$ts = Targetsr::where('status','Active')
+                      //->get();
      
         $savings = Savingreview::where('status','Active')
-                                ->oldest()
-                                ->with(['user'])
                                 ->get();
 
-        return view('MonthlySaving.ippisSavings',compact('savings','title','ts'));
+        return view('MonthlySaving.ippisSavings',compact('savings','title'));
     }
 
     //IPPIS DOWNLOAD EXPORT
