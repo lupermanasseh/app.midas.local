@@ -17,6 +17,7 @@
             <table class="highlight">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Member</th>
                         <th>Next Of Kin</th>
                     </tr>
@@ -24,7 +25,8 @@
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <td>{{$user->first_name}} {{$user->last_name}}</td>
+                        <td>{{$user->id}}</td>
+                        <td>{{$user->last_name}} {{$user->first_name}}</td>
 
                         <td>{{$user->nok->first_name}} {{$user->nok->last_name}}</td>
                         {{-- <td><a class="waves-effect waves-light btn-small  blue darken-1"
@@ -34,7 +36,8 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$users->links()}} @else
+            {{-- {{$users->links()}} --}}
+            @else
             <p>No Record Yet</p>
             @endif
         </div>
