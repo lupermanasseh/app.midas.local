@@ -15,6 +15,7 @@
             <table class="highlight">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Member</th>
                         <th>Next Of Kin</th>
                     </tr>
@@ -22,7 +23,8 @@
                 <tbody>
                     <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td><?php echo e($user->first_name); ?> <?php echo e($user->last_name); ?></td>
+                        <td><?php echo e($user->id); ?></td>
+                        <td><?php echo e($user->last_name); ?> <?php echo e($user->first_name); ?></td>
 
                         <td><?php echo e($user->nok->first_name); ?> <?php echo e($user->nok->last_name); ?></td>
                         
@@ -30,7 +32,8 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
-            <?php echo e($users->links()); ?> <?php else: ?>
+            
+            <?php else: ?>
             <p>No Record Yet</p>
             <?php endif; ?>
         </div>

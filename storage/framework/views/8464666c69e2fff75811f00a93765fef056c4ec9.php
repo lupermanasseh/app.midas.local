@@ -15,11 +15,11 @@
         <tr>
             
             <td><?php echo e($active->user->payment_number); ?></td>
-            <td><?php echo e($active->user->first_name); ?> <?php echo e($active->user->last_name); ?></td>
+            <td><?php echo e($active->user->last_name); ?> <?php echo e($active->user->first_name); ?></td>
             <td><?php echo e($active->current_amount); ?></td>
-            <td><?php echo e($active->tsActiveAmount($active->user_id,$ts)); ?></td>
-            <td></td>
-            <td><?php echo e($active->ippisSavingSum($active->current_amount,$active->tsActiveAmount($active->user_id,$ts))); ?>
+            <td><?php echo e($active->tsActiveAmount($active->user_id)); ?></td>
+            <td><?php echo e(now()->toDateString()); ?></td>
+            <td><?php echo e($active->current_amount + $active->tsActiveAmount($active->user_id)); ?>
 
             </td>
         </tr>
