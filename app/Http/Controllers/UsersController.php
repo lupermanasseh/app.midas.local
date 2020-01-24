@@ -47,7 +47,7 @@ class UsersController extends Controller
     //NOK Details
     public function nokList(){
         $title = "User's NOK";
-        $users = User::orderBy('first_name','asc')->paginate(10);
+        $users = User::all();
         return view('Users.listUsersNok',compact('users','title'));
     }
 
