@@ -5,7 +5,7 @@
     @include('inc.messages') --}}
     <div class="row">
         <div class="col s6">
-            <h5 class="teal-text">All Bank Details | </h5>
+            <h5 class="teal-text">All Bank Details</h5>
             <div class="divider"></div>
         </div>
 
@@ -28,7 +28,6 @@
                     @foreach ($users as $user)
                     <tr>
                         <td>{{$user->last_name}} {{$user->first_name}} {{$user->other_name}}</td>
-                        <td></td>
                         <td>{{$user->bank->bank_name}}</td>
                         <td>{{$user->bank->acct_number}}</td>
                         {{-- <td><a class="waves-effect waves-light btn-small  blue darken-1"
