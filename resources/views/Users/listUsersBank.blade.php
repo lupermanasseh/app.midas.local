@@ -17,8 +17,7 @@
             <table class="highlight">
                 <thead>
                     <tr>
-                        <th>Surname</th>
-                        <th>Last Name</th>
+                        <th>Acct Name</th>
                         <th>Bank</th>
                         <th>Acct Number</th>
                         {{-- <th>Action</th> --}}
@@ -28,8 +27,8 @@
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <td>{{$user->first_name}}</td>
-                        <td>{{$user->last_name}}</td>
+                        <td>{{$user->last_name}} {{$user->first_name}} {{$user->other_name}}</td>
+                        <td></td>
                         <td>{{$user->bank->bank_name}}</td>
                         <td>{{$user->bank->acct_number}}</td>
                         {{-- <td><a class="waves-effect waves-light btn-small  blue darken-1"
