@@ -176,17 +176,20 @@
                 <thead>
                     <tr>
                         {{-- <th>Branch</th> --}}
-                        <th>Bank Code</th>
+                        {{-- <th>Bank Code</th> --}}
                         <th>Acct Name</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         {{-- <td>{{$profile->bank->bank_branch}}</td> --}}
-                        <td>{{$profile->bank->sort_code}}</td>
-                        <td>{{$profile->first_name}} {{$profile->last_name}}</</td> </tr> </tbody> </table> @else <p>No
-                            Record Added Yet</p>
-                            @endif
+                        {{-- <td>{{$profile->bank->sort_code}}</td> --}}
+                        <td>{{$profile->last_name}} {{$profile->first_name}} {{$profile->other_name}}</td>
+                    </tr>
+                </tbody>
+            </table> @else <p>No
+                Record Added Yet</p>
+            @endif
         </div>
         @else
         <div class="add-more-box">
