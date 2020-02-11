@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Psubscription;
 use App\Ldeduction;
+use App\Defaultcharge;
 use App\User;
 use App\Charts\membershipSpread;
 
@@ -63,20 +64,27 @@ class Lsubscription extends Model
     }
 
     //distinct user loan subscriptions
+    //TODO : Include the orWhere clause to cater for defaulted loans
     public static function distinctUserLoanSub(){
         $records = static::where('loan_status', 'Active')
-        ->with(['user','product'])
-        ->get();
+                        //->orWhere('loan_status','Defaulted')
+                        ->with(['user','product'])
+                        ->get();
        return $records->unique('user_id');
    }
 
     //Sum cumulative amount of IPPIS
     public  function totalIppisDeductions($_id,$activeLoans)
     {
-                    return $activeLoans->where('user_id',$_id)
+                    $monthly_Deductions = $activeLoans->where('user_id',$_id)
                                        ->sum('monthly_deduction');
+                    $totalDeficit = Defaultcharge::deficitTotal($_id);
+                    $totalDefaultCharge = Defaultcharge::defaultChargesTotal($_id);
+                     return $monthly_Deductions + $totalDeficit + $totalDefaultCharge;
                             
     }
+
+  
 
     //user loan end date
     public function loanEndDate($_id){
