@@ -21,10 +21,10 @@ class SavingMasterImport implements ToModel,WithHeadingRow
             'name' => $row['name'],
             'entry_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date']),
             //$row['date'],
-            'saving_cumulative' => $row['saving'],
-            'ts_cumulative' => $row['ts'],
-            'total' => $row['amount'],
-            //'notes' => $row['description'],
+            'saving_cumulative' => $row['contribution'],
+            //'ts_cumulative' => $row['bam'],
+            ///'total' => $row['total'],
+            'notes' => $row['description'],
             'created_by' => auth()->user()->first_name,
         ]);
     }
