@@ -46,7 +46,7 @@ class MonthlySavingController extends Controller
     public function savingImport(){
 
         try{
-      Excel::import(new SavingsImport(),request()->file('saving_import'));
+        Excel::import(new SavingsImport(),request()->file('saving_import'));
         }catch(\Exception $ex){
             toastr()->error('An error has occurred trying to import savings');
                 return back();
