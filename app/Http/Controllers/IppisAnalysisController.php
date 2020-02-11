@@ -20,14 +20,15 @@ use Carbon\Carbon;
 class IppisAnalysisController extends Controller
 {
     //
-    // public function index(){
-    //     //
-    //     $title ='All Active Contributors';
-    //     $activeUsers= User::where('status','Active')->withCount(['usersavings' => function ($query) {
-    //         $query->latest('entry_date');
-    //        }])->paginate(100);
-    //     return view('Contributors.index',compact('activeUsers','title'));
-    // }
+    public function masterSavingSummary(){
+        //
+        $title ='Master Saving Summary';
+        $masterRecords= Savingmaster::where('status','Active')
+                            ->groupBy('entry_date')
+                            ->selectRaw('sum(saving_cumulative) as saving, entry_date')
+                            ->get();
+        return view('IppisAnalysis.uploadSummary',compact('masterRecords','title'));
+    }
 
     //Saving master upload form
     public function savingMasterForm(){
@@ -37,32 +38,33 @@ class IppisAnalysisController extends Controller
 
     //saving master upload functionality
     public function importSavingMaster(){
-               //begin transaction
+    //begin transaction
     DB::beginTransaction();
     try{
     Excel::import(new SavingMasterImport(),request()->file('savingmaster_import'));
     }catch(\Exception $ex){
-        DB::rollback();
+    DB::rollback();
        toastr()->error('An error has occurred trying to import Master Saving IPPIS inputs');
         return back();
     }catch(\Error $ex){
-        DB::rollback();
+      DB::rollback();
         toastr()->error('Something bad has happened');
         return back();
     }
     DB::commit();
-    return redirect ('/savingMaster/listing');
+    return redirect ('/mastersaving/summary');
     }
 
 
     //list master saving records
-    public function recentMasterSaving(){
+    public function recentMasterSaving($date){
         $title = 'Recent IPPIS Savings Inputs';
-
+        $entry_date = new Carbon($date);
+        $_date = $entry_date->toDateString();
         //find all recent upload by date created
-        $savingMaster = Savingmaster::where('status','Active')
-                                    ->oldest('entry_date')
-                                    ->paginate(20);
+        $savingMaster = Savingmaster::where('entry_date','=',$_date)
+                                     ->where('status','Active')
+                                     ->paginate(100);
     
         return view('IppisAnalysis.masterSavingListings',compact('savingMaster','title'));
     }
@@ -111,68 +113,48 @@ public function recentIppisLoanInputs(){
 
 //Post Analysis
 
-public function postSaving($id){
+public function postSaving($date){
     
     DB::beginTransaction();
     try{
 
-        //TODO
         /**
-         * 1. Get a  collection of recent master saving uploads
-         * 2. Get the TS in a variable
-         * 3. Test the value of TS if its empty then skip the block else persist  both ts and savings
+         * Get the saving records from the master by entry date
+         * loop through them and find user_id using the ippis number
+         * if user_id is not found based on ippis number, then flag the record in the master
          */
+        
+        $dateEntry= new Carbon($date);
+        $_date = $dateEntry->toDateString();
 
-        $masterSaving = Savingmaster::find($id);
-        $ts = $masterSaving->ts_cumulative;
-        $saving = $masterSaving->saving_cumulative;
-        //find the user id using the IPPIS NUMBER
-        $user_id = User::userID($masterSaving->ippis_no);
-        //instantiate ts and saving objects
-        $mySaving = new Saving;
-        $myTs = new TargetSaving;
-        if(!$user_id){
-        toastr()->error('An error has occured, please verify your IPPIS number and try again.');
-        return back();
-        }
-
-        if(!$ts){
-            
+        //find all recent upload by date created
+        $savingsList = Savingmaster::where('entry_date','=',$_date)
+                                    ->get();
+    
+        
+        //foreach loop
+        foreach($savingsList as $listItem){
+            //find the user id using the IPPIS NUMBER
+            //TODO: Check for error on the userid returned
+            $mySaving = new Saving;
+            $user_id = User::userID($listItem->ippis_no);
+        
+        if($user_id!=0){
             $mySaving->user_id = $user_id;
-            $mySaving->amount_saved = $saving;
-            $mySaving->entry_date = $masterSaving->entry_date;
-            $mySaving->notes = $masterSaving->entry_date->toFormattedDateString() . ' saving';
+            $mySaving->amount_saved = $listItem->saving_cumulative;
+            $mySaving->entry_date = $listItem->entry_date;
+            $mySaving->notes = $listItem->notes;
+            $mySaving->status = 'Active';
             $mySaving->created_by = auth()->user()->first_name;
             $mySaving->save();
 
-            //change record to Inactive
+            //Change the status of the record
+            $masterSaving = Savingmaster::find($listItem->id);
             $masterSaving->status =  'Inactive';
             $masterSaving->save();
+            }
 
-        }else{
-            //
-            $mySaving->user_id = $user_id;
-            $mySaving->amount_saved = $saving;
-            $mySaving->entry_date = $masterSaving->entry_date;
-            $mySaving->notes = $masterSaving->entry_date->toFormattedDateString() . ' saving';
-            $mySaving->created_by = auth()->user()->first_name;
-            $mySaving->save();
-
-            //create ts record
-
-            $myTs->user_id = $user_id;
-            $myTs->amount = $ts;
-            $myTs->entry_date = $masterSaving->entry_date;
-            $myTs->notes = $masterSaving->entry_date->toFormattedDateString() . ' Target Saving';
-            $myTs->created_by = auth()->user()->first_name;
-            $myTs->save();
-
-            //change record to Inactive
-            $masterSaving->status =  'Inactive';
-            $masterSaving->save();
-         
         }
-
 
     }catch(\Exception $e){
         DB::rollback();
@@ -182,9 +164,48 @@ public function postSaving($id){
     DB::commit();
     toastr()->success('Saving records posted successfully!');
     //redirect to listing page order by latest
-    return redirect('/savingMaster/listing');
+    return back();
 }
 
+//Post savings individually
+public function postMySaving($id){
+    
+    DB::beginTransaction();
+    try{
+
+        //find user master saaving
+        $savingList = Savingmaster::find($id);
+                                    
+            //find the user id using the IPPIS NUMBER
+            //TODO: Check for error on the userid returned
+            $mySaving = new Saving;
+            $user_id = User::userID($savingList->ippis_no);
+        
+        if($user_id!=0){
+            $mySaving->user_id = $user_id;
+            $mySaving->amount_saved = $savingList->saving_cumulative;
+            $mySaving->entry_date = $savingList->entry_date;
+            $mySaving->notes = $savingList->notes;
+            $mySaving->status = 'Active';
+            $mySaving->created_by = auth()->user()->first_name;
+            $mySaving->save();
+
+            //Change the status of the record
+            
+            $savingList->status =  'Inactive';
+            $savingList->save();
+            }
+
+    }catch(\Exception $e){
+    DB::rollback();
+        toastr()->error('An error has occured posting your savings.');
+        return back();
+    }
+   DB::commit();
+    toastr()->success('Saving records posted successfully!');
+    //redirect to listing page order by latest
+    return back();
+}
 
 //post loans
 public function postLoan($id){
@@ -202,16 +223,20 @@ try{
 
     //find the user id using the IPPIS NUMBER
     $user_id = User::userID($ippis_no);
+    if($user_id==0){
+        toastr()->error('Wrong IPPIS Number, please check.');
+        return back(); 
+    }
 
     //find all active loan subscription order by oldest loans
     /**
      * Find all active loans by a user
      */
-    
+    //TODO: Check for loans that are actve or defaulted
     $activeLoans = Lsubscription::where('loan_status','Active')
                                   ->where('user_id',$user_id)
-                                ->oldest('loan_start_date')
-                                ->get();
+                                  ->oldest('loan_start_date')
+                                  ->get();
 
     $myActualLoanAmount = $myLoanSubscription->totalIppisDeductions($user_id,$activeLoans);
  
@@ -256,6 +281,7 @@ try{
             $product_name = Product::find($sub->product_id)->name;
 
             //actual monthly deduction
+            //TODO: add the deficit to the currentAmount
             $currentAmount = $sub->monthly_deduction;
 
             if($remainingDeductible !=0 && $differenceLeft !=0)
