@@ -37,6 +37,22 @@ class Saving extends Model
                     ->sum('amount_withdrawn');
     }
     
+    // /**
+    //  * Total debit by the user
+    //  * @param int $id
+    //  */
+    // public function totalCredit($id){
+    //     return Saving::where('user_id',$id)
+    //                     ->where('status','Active')
+    //                     ->sum('amount_saved');
+    // }
+
+    // public function totalDebit($id){
+    //     return Saving::where('user_id',$id)
+    //                 ->where('status','Active')
+    //                 ->sum('amount_withdrawn');
+    // }
+    
     /**
      * Total debit by the user
      * @param int $id
