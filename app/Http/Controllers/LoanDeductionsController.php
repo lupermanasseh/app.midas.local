@@ -66,6 +66,8 @@ public function export(){
         $title = 'User Loan Deductions';
         $loanSub = Lsubscription::distinctUserLoanSub();
         $activeLoans = Lsubscription::where('loan_status','Active')
+                                    ->orWhere('loan_status','Defaulted')
+                                    ->with(['user','product'])
                                      ->get();
                                 
         return view ('LoanDeduction.ippis', compact('title','loanSub','activeLoans'));
