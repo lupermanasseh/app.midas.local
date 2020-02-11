@@ -50,7 +50,7 @@
                         <td><?php echo e($user->status); ?></td>
                         <td>
                             <a
-                                href="/saving/listings/<?php echo e($user->id); ?>"><?php echo e(number_format($saving->mySavings($user->id),2,'.',',')); ?></a>
+                                href="/saving/listings/<?php echo e($user->id); ?>"><?php echo e(number_format($saving->netBalance($user->id),2,'.',',')); ?></a>
                         </td>
                     </tr>
                     <?php if(count($targetsr)>=1): ?>

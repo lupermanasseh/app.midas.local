@@ -17,8 +17,6 @@
                         <th>NAME</th>
                         <th>IPPIS</th>
                         <th>SAVING</th>
-                        <th>TS</th>
-                        <th>TOTAL</th>
                         <th>CREATED</th>
                         <th>ACTION</th>
                     </tr>
@@ -30,11 +28,9 @@
                         <td><?php echo e($myItem->name); ?></td>
                         <td><?php echo e($myItem->ippis_no); ?></td>
                         <td><?php echo e(number_format($myItem->saving_cumulative,2,'.',',')); ?></td>
-                        <td><?php echo e(number_format($myItem->ts_cumulative,2,'.',',')); ?></td>
-                        <td><?php echo e(number_format($myItem->total,2,'.',',')); ?></td>
                         <td><?php echo e($myItem->created_at->diffForHumans()); ?></td>
                         <td>
-                            <a href="/saving/distribute/<?php echo e($myItem->id); ?>" class="btn green darken-3 post-looan">Post
+                            <a href="/saving/post/<?php echo e($myItem->id); ?>" class="btn green darken-3 post-looan">Post
                                 Saving</a>
                         </td>
                     </tr>

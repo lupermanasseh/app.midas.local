@@ -190,4 +190,5 @@
     <li><a href="/ippis/loans" class="orange-text darken-4">Loans</a></li>
     <li class="divider" tabindex="-1"></li>
     <li><a href="/loan/filter" class="orange-text darken-4">Filter</a></li>
+    <li><a href="/mastersaving/summary" class="orange-text darken-4">Master Saving</a></li>
 </ul>

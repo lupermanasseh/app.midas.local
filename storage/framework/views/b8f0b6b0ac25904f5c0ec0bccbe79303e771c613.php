@@ -173,17 +173,20 @@
                 <thead>
                     <tr>
                         
-                        <th>Bank Code</th>
+                        
                         <th>Acct Name</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         
-                        <td><?php echo e($profile->bank->sort_code); ?></td>
-                        <td><?php echo e($profile->first_name); ?> <?php echo e($profile->last_name); ?></</td> </tr> </tbody> </table> <?php else: ?> <p>No
-                            Record Added Yet</p>
-                            <?php endif; ?>
+                        
+                        <td><?php echo e($profile->last_name); ?> <?php echo e($profile->first_name); ?> <?php echo e($profile->other_name); ?></td>
+                    </tr>
+                </tbody>
+            </table> <?php else: ?> <p>No
+                Record Added Yet</p>
+            <?php endif; ?>
         </div>
         <?php else: ?>
         <div class="add-more-box">

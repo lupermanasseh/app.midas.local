@@ -15,8 +15,7 @@
             <table class="highlight">
                 <thead>
                     <tr>
-                        <th>Surname</th>
-                        <th>Last Name</th>
+                        <th>Acct Name</th>
                         <th>Bank</th>
                         <th>Acct Number</th>
                         
@@ -26,8 +25,8 @@
                 <tbody>
                     <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td><?php echo e($user->first_name); ?></td>
-                        <td><?php echo e($user->last_name); ?></td>
+                        <td><?php echo e($user->last_name); ?> <?php echo e($user->first_name); ?> <?php echo e($user->other_name); ?></td>
+                        <td></td>
                         <td><?php echo e($user->bank->bank_name); ?></td>
                         <td><?php echo e($user->bank->acct_number); ?></td>
                         

@@ -1,0 +1,44 @@
+[2020-01-31 10:21:45] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\AggregateServiceProvider.php:5)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-31 10:34:43] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\symfony\\var-dumper\\VarDumper.php:19)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-31 10:38:24] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\BladeCompiler.php:8)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-31 10:39:57] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Grammars\\MySqlGrammar.php:10)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-31 10:41:46] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php:16)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-31 18:00:26] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Compilers\\BladeCompiler.php:8)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-31 18:25:09] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php:21)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-31 18:41:03] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Providers\\FormRequestServiceProvider.php:10)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-31 18:47:14] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\maatwebsite\\excel\\src\\Excel.php:12)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-31 19:28:03] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\symfony\\var-dumper\\Dumper\\ContextProvider\\ContextProviderInterface.php:19)
+[stacktrace]
+#0 {main}
+"} 
+[2020-01-31 21:11:48] local.ERROR: Maximum execution time of 60 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 60 seconds exceeded at C:\\wamp64\\www\\app.midas.local\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteParameterBinder.php:7)
+[stacktrace]
+#0 {main}
+"} 
