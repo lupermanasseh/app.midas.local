@@ -255,7 +255,13 @@ class User extends Authenticatable
         $user = static::where('payment_number', '=', $ippis)
                         ->where('status', '=', 'Active')
                         ->first();
-            return $user->id;
+            $id = $user->id;
+            if($id !='' && $id!=0){
+                return $id;
+            }else{
+                return 0;
+            }
+            
    }
 
    //GET USER OBJECT BY ID
