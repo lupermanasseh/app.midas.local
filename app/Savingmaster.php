@@ -16,6 +16,7 @@ class Savingmaster extends Model
         'status',
         'entry_date',
         'created_by',
+        'notes',
     ];
     protected $dates = ['created_at', 'updated_at','entry_date'];
 }
