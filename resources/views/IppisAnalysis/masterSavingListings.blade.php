@@ -19,8 +19,6 @@
                         <th>NAME</th>
                         <th>IPPIS</th>
                         <th>SAVING</th>
-                        <th>TS</th>
-                        <th>TOTAL</th>
                         <th>CREATED</th>
                         <th>ACTION</th>
                     </tr>
@@ -32,11 +30,9 @@
                         <td>{{$myItem->name}}</td>
                         <td>{{$myItem->ippis_no}}</td>
                         <td>{{number_format($myItem->saving_cumulative,2,'.',',')}}</td>
-                        <td>{{number_format($myItem->ts_cumulative,2,'.',',')}}</td>
-                        <td>{{number_format($myItem->total,2,'.',',')}}</td>
                         <td>{{$myItem->created_at->diffForHumans()}}</td>
                         <td>
-                            <a href="/saving/distribute/{{$myItem->id}}" class="btn green darken-3 post-looan">Post
+                            <a href="/saving/post/{{$myItem->id}}" class="btn green darken-3 post-looan">Post
                                 Saving</a>
                         </td>
                     </tr>
