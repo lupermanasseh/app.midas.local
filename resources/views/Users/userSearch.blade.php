@@ -52,7 +52,7 @@
                         <td>{{$user->status}}</td>
                         <td>
                             <a
-                                href="/saving/listings/{{$user->id}}">{{number_format($saving->mySavings($user->id),2,'.',',')}}</a>
+                                href="/saving/listings/{{$user->id}}">{{number_format($saving->netBalance($user->id),2,'.',',')}}</a>
                         </td>
                     </tr>
                     @if(count($targetsr)>=1)
