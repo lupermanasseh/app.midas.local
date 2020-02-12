@@ -24,7 +24,7 @@
                         <th>DATE</th>
                         <th>SAVING TOTAL</th>
                         <th>POST</th>
-                        <th>DELETE</th>
+                        {{-- <th>DELETE</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -39,9 +39,9 @@
                         <td>
                             <a href="/saving/distribute/{{$myItem->entry_date}}">POST</a>
                         </td>
-                        <td>
+                        {{-- <td>
                             <a href="/delete/savings/{{$myItem->entry_date}}">DELETE</a>
-                        </td>
+                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>
