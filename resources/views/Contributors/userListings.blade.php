@@ -20,7 +20,8 @@
                         <th>Name</th>
                         <th>Credit</th>
                         <th>Debit</th>
-                        <th>Notes</th>
+                        <th>Description</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,11 @@
                         <td>{{number_format($listing->amount_withdrawn,2,'.',',')}}</td>
 
                         <td>{{$listing->notes}}</td>
+                        <td>
+                            <a href="/saving/edit/{{$listing->id}}"><i class="small material-icons">edit</i> </a> <a
+                                href="/saving/remove/{{$listing->id}}" id="delete"> <i
+                                    class="small material-icons red-text">delete</i></a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
