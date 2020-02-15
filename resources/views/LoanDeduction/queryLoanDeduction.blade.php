@@ -27,12 +27,12 @@
                 </div> --}}
 
                 <div class="input-field col s12 m6 l6">
-                    <input id="start_date" name="start_date" type="date" class="validate" required>
+                    <input id="start_date" name="start_date" type="date" class="validate datepicker" required>
                     <label for="start_date">Start Date</label>
                 </div>
 
                 <div class="input-field col s12 m6 l6">
-                    <input id="end_date" name="end_date" type="date" class="validate" required>
+                    <input id="end_date" name="end_date" type="date" class="validate datepicker" required>
                     <label for="end_date">End Date</label>
                 </div>
 

@@ -22,7 +22,7 @@
                 </div> --}}
 
                 <div class="input-field col s12 m12 l12">
-                    <input id="to" name="to" type="date" class="validate" required>
+                    <input id="to" name="to" type="date" class="validate datepicker" required>
                     <label for="to">To</label>
                 </div>
 
