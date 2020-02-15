@@ -269,8 +269,7 @@ public function statement(){
     return view('Contributors.statement',compact('title'));
 }
 
-public function statementFind(Request $request){
-
+public function statementFind(Request $request){ 
     $title = 'Filtered Records';
      $this->validate(request(), [
     'reg_number'=>'required|integer',
