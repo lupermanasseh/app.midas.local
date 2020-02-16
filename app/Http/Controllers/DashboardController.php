@@ -79,12 +79,15 @@ class DashboardController extends Controller
      */
     public function savingsGroup(){
         $title ="Saving Summmary";
+        // $savingSummary = Saving::where('user_id',auth()->id())
+        // ->orderBy('created_at')
+        // ->get()
+        // ->groupBy(function($item) {
+        //     return $item->created_at->format('Y');
+        // });
         $savingSummary = Saving::where('user_id',auth()->id())
-        ->orderBy('created_at')
-        ->get()
-        ->groupBy(function($item) {
-            return $item->created_at->format('Y');
-        });
+        ->orderBy('entry_date','asc')
+        ->get();
         return view('Dashboard.savingIndex',compact('title','savingSummary'));
     }
    
