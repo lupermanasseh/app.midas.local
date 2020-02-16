@@ -9,21 +9,21 @@
             </a>
         </li>
         <li class="side-nav__item">
-            <a href="/Dashboard/user/savingsummary" class="side-nav__link">
+            <a href="/Dashboard/user/savings" class="side-nav__link">
                 <svg class="side-nav__icon">
                     <use xlink:href="{{asset('images/sprite.svg#icon-people')}}"></use>
                 </svg>
                 <span>Saving</span>
             </a>
         </li>
-        <li class="side-nav__item">
+        {{-- <li class="side-nav__item">
             <a href="/Dashboard/user/targetsavings" class="side-nav__link">
                 <svg class="side-nav__icon">
                     <use xlink:href="{{asset('images/sprite.svg#icon-database')}}"></use>
-                </svg>
-                <span>Target Saving</span>
-            </a>
-        </li>
+        </svg>
+        <span>Target Saving</span>
+        </a>
+        </li> --}}
         {{--
             <li class="side-nav__item">
                 <a href="#" class="side-nav__link">
