@@ -24,7 +24,7 @@
             <span class="user-nav__notification">13</span>
         </div>
         <div class="user-nav__user">
-            <img src="{{asset('images/boy.png')}}" alt="user photo" class="user-nav__user-photo">
+            <img src='{{auth()->user()->photo}}' alt="user photo" class="user-nav__user-photo">
             <span class="user-nav__user-name">@if (Auth::check()){{auth()->user()->first_name}}@endif</span>
 
 
