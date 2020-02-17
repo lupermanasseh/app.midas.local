@@ -211,12 +211,12 @@ public function withdrawalStore(Request $request){
 
             $newsaving = new Saving;
             //find 25% of balance on total saving
-            $balanceOnSaving = $newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id);
-           $twentyFivePercent = $balanceOnSaving*0.25;
-           if($amt > $twentyFivePercent){
-            toastr()->error('You are only allowed to withdraw 25% of total savings!');
-            return back(); 
-           }
+        //    $balanceOnSaving = $newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id);
+        //    $twentyFivePercent = $balanceOnSaving*0.25;
+        //    if($amt > $twentyFivePercent){
+        //     toastr()->error('You are only allowed to withdraw 25% of total savings!');
+        //     return back(); 
+        //    }
             $newsaving->user_id = $user_id;
             $newsaving->amount_withdrawn = $amt;
             $newsaving->entry_date = $date;
@@ -225,15 +225,15 @@ public function withdrawalStore(Request $request){
             $newsaving->save();
             if($newsaving->save()) {
                  //send saving debit message
-                 $currentBalance = number_format($newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id),2,'.',',');
-                 $client = new Client;
-                 $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
-                 $to = $phone;
-                 $from= 'MIDAS';
-                 $message = 'Debit alert. Acct: Savings. Amount: N' .number_format($amt,2,'.',',').'. Balance: N'. $currentBalance;
-                $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
+                //  $currentBalance = number_format($newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id),2,'.',',');
+                //  $client = new Client;
+                //  $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
+                //  $to = $phone;
+                //  $from= 'MIDAS';
+                //  $message = 'Debit alert. Acct: Savings. Amount: N' .number_format($amt,2,'.',',').'. Balance: N'. $currentBalance;
+                // $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
 
-                $response = $client->request('GET', $url,['verify'=>false]);
+                // $response = $client->request('GET', $url,['verify'=>false]);
                 toastr()->success('Saving account debited successfully!');
                 return redirect('/recent/savings');
             }
