@@ -221,6 +221,7 @@ public function withdrawalStore(Request $request){
             $newsaving->amount_withdrawn = $amt;
             $newsaving->entry_date = $date;
             $newsaving->notes = $notes;
+            $newsaving->status = 'Active';
             $newsaving->created_by = auth()->user()->first_name;
             $newsaving->save();
             if($newsaving->save()) {
