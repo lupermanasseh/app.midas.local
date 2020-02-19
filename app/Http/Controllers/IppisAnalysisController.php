@@ -140,8 +140,12 @@ public function postSaving($date){
             $user_id = User::userID($listItem->ippis_no);
         
         if($user_id!=0){
+            //find the netbalance of user here
+            $currentBalances = Saving::mySavings($user_id);
+            $totalBalance = $currentBalances+$listItem->saving_cumulative;
             $mySaving->user_id = $user_id;
             $mySaving->amount_saved = $listItem->saving_cumulative;
+            $mySaving->balances = $totalBalance;
             $mySaving->entry_date = $listItem->entry_date;
             $mySaving->notes = $listItem->notes;
             $mySaving->status = 'Active';
@@ -182,8 +186,12 @@ public function postMySaving($id){
             $user_id = User::userID($savingList->ippis_no);
         
         if($user_id!=0){
+            //find the netbalance of user here
+            $currentBalances = Saving::mySavings($user_id);
+            $totalBalance = $currentBalances+$listItem->saving_cumulative;
             $mySaving->user_id = $user_id;
             $mySaving->amount_saved = $savingList->saving_cumulative;
+            $mySaving->balances = $totalBalance;
             $mySaving->entry_date = $savingList->entry_date;
             $mySaving->notes = $savingList->notes;
             $mySaving->status = 'Active';
