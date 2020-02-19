@@ -188,7 +188,7 @@ public function postMySaving($id){
         if($user_id!=0){
             //find the netbalance of user here
             $currentBalances = Saving::mySavings($user_id);
-            $totalBalance = $currentBalances+$listItem->saving_cumulative;
+            $totalBalance = $currentBalances+$savingList->saving_cumulative;
             $mySaving->user_id = $user_id;
             $mySaving->amount_saved = $savingList->saving_cumulative;
             $mySaving->balances = $totalBalance;
