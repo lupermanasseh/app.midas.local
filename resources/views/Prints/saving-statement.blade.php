@@ -72,7 +72,7 @@
 
                         <td align="left" style="width:20%; border:0;">
 
-                            <span>
+                            <span style="font-size:11px;">
                                 <br />
                                 Name: {{$userObj->first_name}} {{$userObj->last_name}}
                                 <br />
