@@ -70,7 +70,7 @@
                 <tbody>
                     <tr>
 
-                        <td style="text-align:right; width:30%; border:0;">
+                        <td style="text-align:left; width:30%; border:0;">
 
                             <span>
                                 <br />
