@@ -430,6 +430,12 @@ return redirect('/post/loans');
 }
 
 
+//filter records
+
+public function getUserActive(){
+    return User::where('status','Active')
+                ->get();
+}
 //legacy code
 // public function oldcode($id){
 //     /**
