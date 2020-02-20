@@ -156,8 +156,9 @@ class Saving extends Model
         return  $collection = Saving::where('user_id',$id)
                                 ->where('entry_date','>=',$from)
                                 ->where('entry_date','<=',$to)
-                                ->get()     
-                                ->sortBy('id');                  
+                                ->oldest('entry_date')
+                                ->get();     
+                               // ->sortBy('id');                  
         }
 
 
