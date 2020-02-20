@@ -77,7 +77,7 @@
                                 Name: {{$userObj->first_name}} {{$userObj->last_name}}
                                 <br />
                                 Membership No: {{$userObj->id}}<br />
-                                Membership Type: {{$userObj->Membership_type}}<br>
+                                Membership Type: {{$userObj->membership_type}}<br>
                                 Address: {{$userObj->home_add}}<br>
                             </span>
                         </td>
@@ -113,23 +113,27 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td align="right">{{$Saving->openingDate($from)}}</td>
-                        <td align="right">Openning Balance</td>
+                        <td style="text-align:right; margin-right:1em;">{{$Saving->openingDate($from)}}</td>
+                        <td style="text-align:right; margin-right:1em;">Openning Balance</td>
                         <td>
                         </td>
                         <td></td>
-                        <td align="right">{{number_format($Saving->openingBalance($from,$userObj->id),2,'.',',')}}</td>
+                        <td style="text-align:right; margin-right:1em;">
+                            {{number_format($Saving->openingBalance($from,$userObj->id),2,'.',',')}}</td>
                     </tr>
                     @foreach($statementCollection as $statement)
                     <tr>
-                        <td align="right">{{$statement->entry_date->toFormattedDateString()}}</td>
-                        <td align="right">
+                        <td style="text-align:right; margin-right:1em;">
+                            {{$statement->entry_date->toFormattedDateString()}}</td>
+                        <td style="text-align:right; margin-right:1em;">
                             {{$statement->notes}}
                         </td>
-                        <td align="right">{{number_format($statement->amount_withdrawn,2,'.',',')}}</td>
-                        <td align="right">{{number_format($statement->amount_saved,2,'.',',')}}
+                        <td style="text-align:right; margin-right:1em;">
+                            {{number_format($statement->amount_withdrawn,2,'.',',')}}</td>
+                        <td style="text-align:right; margin-right:1em;">
+                            {{number_format($statement->amount_saved,2,'.',',')}}
                         </td>
-                        <td align="right">
+                        <td style="text-align:right; margin-right:1em;">
                             {{number_format($Saving->balanceAsAt($statement->amount_saved,$statement->amount_withdrawn,$statement->id,$userObj->id),2,'.',',')}}
                         </td>
                     </tr>
