@@ -379,7 +379,9 @@ public function savingsMasterFind(Request $request){
          ]);
          $to = $request['to'];
     $savingsCollection = $saving->masterSavingsAsAt($to);
-    $contributors = Saving::where('status','Active')->get();
+    $contributors = Saving::where('status','Active')
+                            ->orderBy('user_id','asc')
+                            ->get();
     $uniqueContributors = $contributors->unique('user_id');
     return view('Contributors.masterSavingResult',compact('title','savingsCollection','to','saving','uniqueContributors'));
 }
