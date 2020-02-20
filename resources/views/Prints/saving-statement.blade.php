@@ -70,9 +70,9 @@
                 <tbody>
                     <tr>
 
-                        <td align="left" style="width:20%; border:0;">
+                        <td style="text-align:right; width:30%; border:0;">
 
-                            <span style="font-size:11px;">
+                            <span>
                                 <br />
                                 Name: {{$userObj->first_name}} {{$userObj->last_name}}
                                 <br />
@@ -85,10 +85,10 @@
 
                         </td>
                         <td style=" border:0;"></td>
-                        <td align="right" style="border:0;">
+                        <td style="border:0;">
 
                         </td>
-                        <td align="right" style="border:0;">
+                        <td style="border:0;">
                             <span><br />
                                 Total Debit: {{number_format($Saving->totalDebit($userObj->id),2,'.',',')}}<br />
                                 Total Credit: {{number_format($Saving->mySavings($userObj->id),2,'.',',')}}<br />
