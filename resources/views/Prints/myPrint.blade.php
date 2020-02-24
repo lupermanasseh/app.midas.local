@@ -3,11 +3,11 @@
 <table>
     <thead>
         <tr>
-            <th>DATE</th>
-            <th>DESCRIPTION</th>
-            <th>DEBIT</th>
-            <th>CREDIT</th>
-            <th>BALANCE</th>
+            <th style="text-align:right; margin-right:1em;">DATE</th>
+            <th style="text-align:right; margin-right:1em;">DESCRIPTION</th>
+            <th style="text-align:right; margin-right:1em;">DEBIT</th>
+            <th style="text-align:right; margin-right:1em;">CREDIT</th>
+            <th style="text-align:right; margin-right:1em;">BALANCE</th>
         </tr>
     </thead>
     <tbody>
