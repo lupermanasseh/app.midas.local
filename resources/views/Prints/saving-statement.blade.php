@@ -35,7 +35,7 @@
                     <tr>
                         <td style="width:20%; border:0;"><img src="images/logo2.png" alt="" class="logo">
                         </td>
-                        <td align="left" style="width:16%; border:0;">
+                        <td style="text-align:left; width:16%; border:0;">
 
                             <span>
                                 <br />
@@ -49,7 +49,7 @@
 
                         </td>
                         <td style=" border:0;"></td>
-                        <td align="left" style=" border:0;">
+                        <td style=" border:0;">
                             <span class="profile-name">PERIOD</span><br />
                             <span>From: {{$from}}</span><br />
                             <span>To: {{$to}}</span><br />
@@ -88,7 +88,7 @@
                         <td style="border:0;">
 
                         </td>
-                        <td style="border:0;">
+                        <td style="text-align:left; border:0;">
                             <span><br />
                                 Total Debit: {{number_format($Saving->totalDebit($userObj->id),2,'.',',')}}<br />
                                 Total Credit: {{number_format($Saving->mySavings($userObj->id),2,'.',',')}}<br />
@@ -104,11 +104,11 @@
             <table>
                 <thead>
                     <tr>
-                        <th>DATE</th>
-                        <th>DESCRIPTION</th>
-                        <th>DEBIT</th>
-                        <th>CREDIT</th>
-                        <th>BALANCE</th>
+                        <th style="text-align:right; margin-right:1em;">DATE</th>
+                        <th style="text-align:right; margin-right:1em;">DESCRIPTION</th>
+                        <th style="text-align:right; margin-right:1em;">DEBIT</th>
+                        <th style="text-align:right; margin-right:1em;">CREDIT</th>
+                        <th style="text-align:right; margin-right:1em;">BALANCE</th>
                     </tr>
                 </thead>
                 <tbody>
