@@ -103,20 +103,21 @@ public function approveSaving($id){
 
     $saving->status ="Active";
     $saving->save();
-    if($saving->save()){
+    //commented out code
+    // if($saving->save()){
 
-        $currentBalance = number_format($saving->netBalance($user_id),2,'.',',');
-        $client = new Client;
-        $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
-        $to = $phone;
-        $from= 'MIDASTOUCH';
-        $message = 'Credit alert. Acct: Savings. Amount: N' .number_format($amount,2,'.',',').'. Balance: N'. $currentBalance;
-       $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
+    //     $currentBalance = number_format($saving->netBalance($user_id),2,'.',',');
+    //     $client = new Client;
+    //     $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
+    //     $to = $phone;
+    //     $from= 'MIDASTOUCH';
+    //     $message = 'Credit alert. Acct: Savings. Amount: N' .number_format($amount,2,'.',',').'. Balance: N'. $currentBalance;
+    //    $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
 
-       $response = $client->request('GET', $url,['verify'=>false]);
-    }else{
+    //    $response = $client->request('GET', $url,['verify'=>false]);
+    // }else{
 
-    }
+    // }
 }
 
 
@@ -154,8 +155,12 @@ public function store(Request $request){
             $phone = $user->phone;
             //
             $newsaving = new Saving;
+              //find the netbalance of user here
+            $currentBalances = Saving::mySavings($user_id);
+            $totalBalance = $currentBalances+$amount;
             $newsaving->user_id = $user_id;
             $newsaving->amount_saved = $amount;
+            $newsaving->balances = $totalBalance;
             $newsaving->entry_date = $date;
             $newsaving->notes = $notes;
             $newsaving->bank_name = $bank;
@@ -210,6 +215,9 @@ public function withdrawalStore(Request $request){
         $phone = $user->phone;
 
             $newsaving = new Saving;
+            //find the netbalance of user here
+            $currentBalances = Saving::mySavings($user_id);
+            $totalBalance = $currentBalances-$amt;
             //find 25% of balance on total saving
         //    $balanceOnSaving = $newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id);
         //    $twentyFivePercent = $balanceOnSaving*0.25;
@@ -221,6 +229,7 @@ public function withdrawalStore(Request $request){
             $newsaving->amount_withdrawn = $amt;
             $newsaving->entry_date = $date;
             $newsaving->notes = $notes;
+            $newsaving->balances = $totalBalance;
             $newsaving->status = 'Active';
             $newsaving->created_by = auth()->user()->first_name;
             $newsaving->save();
