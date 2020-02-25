@@ -45,8 +45,9 @@
                                 +234 80-900-987-090<br>
                             </span>
                         </td>
-                        <td style=" border:0;">
-
+                        <td style="text-align:center; border:0;">
+                            {{-- qrcode here --}}
+                            {!!QrCode::size(200)->generate('MIDAS-TOUCH COOP SOCIETY- '.$userObj->last_name);!!}
                         </td>
                         <td style=" border:0;"></td>
                         <td style=" border:0;">
