@@ -412,8 +412,8 @@ public function masterSavingPdf($to){
     $uniqueContributors = $contributors->unique('user_id');
 
     $pdf = PDF::loadView('Prints.masterSavingPdf',compact('title','savingsCollection','to','saving','uniqueContributors'));
-    return $pdf->stream();
-    // return $pdf->download('statementOfSavings.pdf');
+    //return $pdf->stream();
+    return $pdf->download('master-savings'.$to.'.pdf');
 
 }
 
