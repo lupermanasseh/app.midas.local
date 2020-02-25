@@ -19,7 +19,7 @@
                     <tr>
                         <td style="width:20%; border:0;"><img src="images/logo2.png" alt="" class="logo">
                         </td>
-                        <td align="left" style="width:16%; border:0;">
+                        <td style="text-align:left; margin-left:1em; width:16%; border:0;">
 
                             <span>
                                 <br />
@@ -30,13 +30,12 @@
                             </span>
                         </td>
                         <td style=" border:0;">
-
                         </td>
                         <td style=" border:0;"></td>
-                        <td align="left" style=" border:0;">
+                        <td style="text-align:left; margin-left:1em; border:0;">
                             <span class="profile-name">PERIOD</span><br />
                             {{-- <span>From: {{$from}}</span><br /> --}}
-                            <span>To: {{$to}}</span><br />
+                            <span>Closing: {{$to}}</span><br />
                             <span>Date Printed: {{now()->toFormattedDateString()}}</span><br />
                         </td>
                     </tr>
@@ -61,7 +60,6 @@
                         <th>NAME</th>
                         <th>IPPIS NO</th>
                         <th>MEMBER TYPE</th>
-                        <th>CLOSING DATE</th>
                         <th>BALANCE</th>
                     </tr>
                 </thead>
@@ -72,13 +70,12 @@
                         <td>{{$listing->user->first_name}} {{$listing->user->last_name}}</td>
                         <td>{{$listing->user->payment_number}}</td>
                         <td>{{$listing->user->membership_type}}</td>
-                        <td>{{$to}}</td>
                         <td>{{$listing->userAggregateAt($savingsCollection,$listing->user_id)}}
                         </td>
                     </tr>
                     @endforeach
                     <tr>
-                        <th colspan="5">Summary</th>
+                        <th colspan="5">TOTAL</th>
                         <th>{{number_format($saving->savingAggregateAt($to),2,'.',',')}}</th>
                     </tr>
                 </tbody>
