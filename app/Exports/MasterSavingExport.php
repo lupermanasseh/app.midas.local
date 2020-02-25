@@ -27,7 +27,9 @@ class MasterSavingExport implements FromView
         $saving = new Saving;
         $to = $this->to;
         $savingsCollection = $saving->masterSavingsAsAt($this->to);
-        $contributors = Saving::where('status','Active')->get();
+        $contributors = Saving::where('status','Active')
+                                ->orderBy('user_id','asc')
+                                ->get();
         $uniqueContributors = $contributors->unique('user_id');
                                  
         return view('Contributors.masterSavingDownload',compact('savingsCollection','to','saving','uniqueContributors'));
