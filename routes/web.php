@@ -211,7 +211,7 @@ Route::get('/saving/pending','ContributorsController@pending');
 Route::get('/approve/saving/{id}','ContributorsController@approveSaving');
 Route::get('/savings/liability','ContributorsController@savingsMaster');
 Route::post('/savingliability/find','ContributorsController@savingsMasterFind');
-Route::get('/savings/liability','ContributorsController@savingsMaster');
+Route::get('/savings/master/search','ContributorsController@savingsMasterSearch');
 Route::get('/savingliability/excel/{to}','ContributorsController@masterSavingExport');
 Route::get('/savingliability/pdf/{to}','ContributorsController@masterSavingPdf');
 });
