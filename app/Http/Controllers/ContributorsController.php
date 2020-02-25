@@ -406,7 +406,9 @@ public function masterSavingPdf($to){
     $title = 'Master Saving';
     $saving = new Saving;
     $savingsCollection = $saving->masterSavingsAsAt($to);
-    $contributors = Saving::where('status','Active')->get();
+    $contributors = Saving::where('status','Active')
+                            ->orderBy('user_id','asc')
+                            ->get();
     $uniqueContributors = $contributors->unique('user_id');
 
     $pdf = PDF::loadView('Prints.masterSavingPdf',compact('title','savingsCollection','to','saving','uniqueContributors'));
