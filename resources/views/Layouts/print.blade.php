@@ -24,7 +24,7 @@
                     <span class="profile-item">1 Hospital Road, Mission Ward</span>
                     <span class="profile-item">Makurdi, Benue State</span>
                     <span class="profile-item">mindastouch@gmail.com</span>
-                    <span class="profile-item">+234 80-900-987-090</span>
+                    <span class="profile-item">+234 8118901411</span>
                 </div>
             </section>
 
@@ -35,6 +35,9 @@
                 <span class="profile-item">Printed On: {{now()->toFormattedDateString()}}</span>
             </section>
         </header>
+        <section style="text-align:left;">
+            {!!QrCode::size(200)->generate('MIDAS TOUCH MULTIPURPOSE COOP. SOCIETY, FMC MKD');!!}
+        </section>
         <section class="statement-title">
             <h4>STATEMENT OF SAVINGS</h4>
         </section>

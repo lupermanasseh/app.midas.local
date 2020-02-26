@@ -42,7 +42,7 @@
                                 1 Hospital Road, Mission Ward<br />
                                 Makurdi, Benue State<br />
                                 mindastouch@gmail.com<br>
-                                +234 80-900-987-090<br>
+                                +234 8118901411<br>
                             </span>
                         </td>
                         <td style=" border:0;">
@@ -59,6 +59,9 @@
 
                 </tbody>
             </table>
+        </section>
+        <section style="text-align:left;">
+            {!!QrCode::size(200)->generate('MIDAS TOUCH MULTIPURPOSE COOP. SOCIETY, FMC MKD');!!}
         </section>
 
         <section>
@@ -108,7 +111,7 @@
                         <th style="text-align:right; margin-right:1em;">DESCRIPTION</th>
                         <th style="text-align:right; margin-right:1em;">DEBIT</th>
                         <th style="text-align:right; margin-right:1em;">CREDIT</th>
-                        <th style="text-align:right; margin-right:1em;">BALANCE</th>
+                        <th style="text-align:right; margin-right:1em;">BAL</th>
                     </tr>
                 </thead>
                 <tbody>

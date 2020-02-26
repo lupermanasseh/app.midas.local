@@ -7,7 +7,7 @@
             <th style="text-align:right; margin-right:1em;">DESCRIPTION</th>
             <th style="text-align:right; margin-right:1em;">DEBIT</th>
             <th style="text-align:right; margin-right:1em;">CREDIT</th>
-            <th style="text-align:right; margin-right:1em;">BALANCE</th>
+            <th style="text-align:right; margin-right:1em;">BAL</th>
         </tr>
     </thead>
     <tbody>
