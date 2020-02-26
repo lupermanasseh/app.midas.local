@@ -369,8 +369,8 @@ public function printFile($from,$to,$id){
         $statementCollection = $Saving->findSavingRecords($from,$to,$user_id);
 
         $pdf = PDF::loadView('Prints.saving-statement',compact('Saving','title','statementCollection','from','to','userObj'));
-        return $pdf->stream();
-        // return $pdf->download('statementOfSavings.pdf');
+        //return $pdf->stream();
+        return $pdf->download($userObj->last_name.'_statementOfSavings.pdf');
     
     }
 
