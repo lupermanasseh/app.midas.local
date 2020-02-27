@@ -26,7 +26,7 @@
                                 1 Hospital Road, Mission Ward<br />
                                 Makurdi, Benue State<br />
                                 mindastouch@gmail.com<br>
-                                +234 80-900-987-090<br>
+                                +234 8118901411<br>
                             </span>
                         </td>
                         <td style=" border:0;">
