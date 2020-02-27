@@ -1,6 +1,15 @@
 <table class="highlight">
     <thead>
         <tr>
+            <th colspan="6">MIDAS TOUCH MULTIPURPOSE COOPERATIVE SOCIETY LTD</th>
+        </tr>
+        <tr>
+            <th colspan="6">FEDERAL MEDICAL CENTER, MAKURDI</th>
+        </tr>
+        <tr>
+            <th colspan="6">MASTER SAVING REPORT AS AT {{$to}}</th>
+        </tr>
+        <tr>
             <th>REG NO</th>
             <th>NAME</th>
             <th>IPPIS NO</th>
@@ -22,7 +31,7 @@
         </tr>
         @endforeach
         <tr>
-            <th colspan="5">Summary</th>
+            <th colspan="5">Total</th>
             <th>{{number_format($saving->savingAggregateAt($to),2,'.',',')}}</th>
         </tr>
     </tbody>
