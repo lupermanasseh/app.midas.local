@@ -36,7 +36,7 @@
             </section>
         </header>
         <section style="text-align:left;">
-            {!!QrCode::size(200)->generate('MIDAS TOUCH MULTIPURPOSE COOP. SOCIETY, FMC MKD');!!}
+            {!!QrCode::size(100)->generate($userObj->last_name.'/'.$userObj->membership_type.'/'.$userObj->id);!!}
         </section>
         <section class="statement-title">
             <h4>STATEMENT OF SAVINGS</h4>
