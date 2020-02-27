@@ -60,8 +60,9 @@
                 </tbody>
             </table>
         </section>
-        <section style="text-align:left;">
-            {!!QrCode::size(200)->generate('MIDAS TOUCH MULTIPURPOSE COOP. SOCIETY, FMC MKD');!!}
+        <section style="text-align:left; padding-left:3em;">
+            <img
+                src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->size(100)->generate($userObj->last_name.'/'.$userObj->membership_type.'/'.$userObj->id)) }} ">
         </section>
 
         <section>
@@ -146,6 +147,7 @@
                     @endforeach
                 </tbody>
             </table>
+
         </section>
 
     </div>
