@@ -47,7 +47,7 @@
                     @endforeach
                     @if (count($uniqueContributors)>=1)
                     <tr>
-                        <th colspan="5">Summary</th>
+                        <th colspan="5">Total</th>
                         <th>{{number_format($saving->savingAggregateAt($to),2,'.',',')}}</th>
                     </tr>
                     @else
