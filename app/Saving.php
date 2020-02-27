@@ -186,7 +186,7 @@ class Saving extends Model
                                     ->sum('amount_saved'); 
                $debit = $collection->where('user_id',$id)
                                     ->sum('amount_withdrawn');
-                return $credit+$debit;
+                return $credit-$debit;
                                     
             }
 /**
