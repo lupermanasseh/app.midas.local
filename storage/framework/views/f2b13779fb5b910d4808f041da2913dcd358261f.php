@@ -20,21 +20,21 @@
                     <tr>
                         <td style="width:20%; border:0;"><img src="images/logo2.png" alt="" class="logo">
                         </td>
-                        <td align="left" style="width:16%; border:0;">
+                        <td style="text-align:left; width:16%; border:0;">
 
                             <span>
                                 <br />
                                 1 Hospital Road, Mission Ward<br />
                                 Makurdi, Benue State<br />
                                 mindastouch@gmail.com<br>
-                                +234 80-900-987-090<br>
+                                +234 8118901411<br>
                             </span>
                         </td>
                         <td style=" border:0;">
 
                         </td>
                         <td style=" border:0;"></td>
-                        <td align="left" style=" border:0;">
+                        <td style=" border:0;">
                             <span class="profile-name">PERIOD</span><br />
                             <span>From: <?php echo e($from); ?></span><br />
                             <span>To: <?php echo e($to); ?></span><br />
@@ -44,6 +44,10 @@
 
                 </tbody>
             </table>
+        </section>
+        <section style="text-align:left; padding-left:3em;">
+            <img
+                src="data:image/png;base64, <?php echo e(base64_encode(QrCode::format('png')->size(100)->generate('MIDAS TOUCH MULTIPURPOSE COOP SOCIETY, FMC MAKURDI'))); ?> ">
         </section>
 
         <section>
@@ -55,7 +59,7 @@
                 <tbody>
                     <tr>
 
-                        <td align="left" style="width:16%; border:0;">
+                        <td style="text-align:left; width:30%; border:0;">
 
                             <span>
                                 <br />
@@ -63,7 +67,7 @@
 
                                 <br />
                                 Membership No: <?php echo e($userObj->id); ?><br />
-                                Membership Type: <?php echo e($userObj->Membership_type); ?><br>
+                                Membership Type: <?php echo e($userObj->membership_type); ?><br>
                                 Address: <?php echo e($userObj->home_add); ?><br>
                             </span>
                         </td>
@@ -71,10 +75,10 @@
 
                         </td>
                         <td style=" border:0;"></td>
-                        <td align="right" style="border:0;">
+                        <td style="border:0;">
 
                         </td>
-                        <td align="right" style="border:0;">
+                        <td style="text-align:left; border:0;">
                             <span><br />
                                 Total Debit: <?php echo e(number_format($Saving->totalDebit($userObj->id),2,'.',',')); ?><br />
                                 Total Credit: <?php echo e(number_format($Saving->mySavings($userObj->id),2,'.',',')); ?><br />
@@ -90,40 +94,47 @@
             <table>
                 <thead>
                     <tr>
-                        <th>DATE</th>
-                        <th>DESCRIPTION</th>
-                        <th>DEBIT</th>
-                        <th>CREDIT</th>
-                        <th>BALANCE</th>
+                        <th style="text-align:right; margin-right:1em;">DATE</th>
+                        <th style="text-align:right; margin-right:1em;">DESCRIPTION</th>
+                        <th style="text-align:right; margin-right:1em;">DEBIT</th>
+                        <th style="text-align:right; margin-right:1em;">CREDIT</th>
+                        <th style="text-align:right; margin-right:1em;">BAL</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?php echo e($Saving->openingDate($from)); ?></td>
-                        <td>Openning Balance</td>
+                        <td style="text-align:right; margin-right:1em;"><?php echo e($Saving->openingDate($from)); ?></td>
+                        <td style="text-align:right; margin-right:1em;">Openning Balance</td>
                         <td>
                         </td>
                         <td></td>
-                        <td><?php echo e(number_format($Saving->openingBalance($from,$userObj->id),2,'.',',')); ?></td>
+                        <td style="text-align:right; margin-right:1em;">
+                            <?php echo e(number_format($Saving->openingBalance($from,$userObj->id),2,'.',',')); ?></td>
                     </tr>
                     <?php $__currentLoopData = $statementCollection; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $statement): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td><?php echo e($statement->entry_date->toFormattedDateString()); ?></td>
-                        <td>
+                        <td style="text-align:right; margin-right:1em;">
+                            <?php echo e($statement->entry_date->toFormattedDateString()); ?></td>
+                        <td style="text-align:right; margin-right:1em;">
                             <?php echo e($statement->notes); ?>
 
                         </td>
-                        <td><?php echo e(number_format($statement->amount_withdrawn,2,'.',',')); ?></td>
-                        <td><?php echo e(number_format($statement->amount_saved,2,'.',',')); ?>
+                        <td style="text-align:right; margin-right:1em;">
+                            <?php echo e(number_format($statement->amount_withdrawn,2,'.',',')); ?></td>
+                        <td style="text-align:right; margin-right:1em;">
+                            <?php echo e(number_format($statement->amount_saved,2,'.',',')); ?>
 
                         </td>
-                        <td><?php echo e(number_format($Saving->balanceAsAt($statement->amount_saved,$statement->amount_withdrawn,$statement->id,$userObj->id),2,'.',',')); ?>
+                        <td style="text-align:right; margin-right:1em;">
+                            <?php echo e(number_format($statement->balances,2,'.',',')); ?>
 
                         </td>
+                        
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
+
         </section>
 
     </div>

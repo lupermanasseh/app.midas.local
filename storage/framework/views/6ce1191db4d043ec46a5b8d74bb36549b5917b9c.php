@@ -2,33 +2,38 @@
 <table>
     <thead>
         <tr>
-            <th>DATE</th>
-            <th>DESCRIPTION</th>
-            <th>DEBIT</th>
-            <th>CREDIT</th>
-            <th>BALANCE</th>
+            <th style="text-align:right; margin-right:1em;">DATE</th>
+            <th style="text-align:right; margin-right:1em;">DESCRIPTION</th>
+            <th style="text-align:right; margin-right:1em;">DEBIT</th>
+            <th style="text-align:right; margin-right:1em;">CREDIT</th>
+            <th style="text-align:right; margin-right:1em;">BAL</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td><?php echo e($Saving->openingDate($from)); ?></td>
-            <td>Openning Balance</td>
+            <td style="text-align:right; margin-right:1em;"><?php echo e($Saving->openingDate($from)); ?></td>
+            <td style="text-align:right; margin-right:1em;">Openning Balance</td>
             <td></td>
             <td></td>
-            <td><?php echo e(number_format($Saving->openingBalance($from,$userObj->id),2,'.',',')); ?></td>
+            <td style="text-align:right; margin-right:1em;">
+                <?php echo e(number_format($Saving->openingBalance($from,$userObj->id),2,'.',',')); ?></td>
         </tr>
         <?php $__currentLoopData = $statementCollection; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $statement): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <tr>
-            <td><?php echo e($statement->entry_date->toFormattedDateString()); ?></td>
-            <td>
+            <td style="text-align:right; margin-right:1em;"><?php echo e($statement->entry_date->toFormattedDateString()); ?></td>
+            <td style="text-align:right; margin-right:1em;">
                 <?php echo e($statement->notes); ?>
 
             </td>
-            <td><?php echo e(number_format($statement->amount_withdrawn),2,'.',','); ?></td>
-            <td><?php echo e(number_format($statement->amount_saved,2,'.',',')); ?>
+            <td style="text-align:right; margin-right:1em;"><?php echo e(number_format($statement->amount_withdrawn),2,'.',','); ?>
 
             </td>
-            <td><?php echo e(number_format($Saving->balanceAsAt($statement->amount_saved,$statement->amount_withdrawn,$statement->id,$userObj->id),2,'.',',')); ?>
+            <td style="text-align:right; margin-right:1em;"><?php echo e(number_format($statement->amount_saved,2,'.',',')); ?>
+
+            </td>
+            
+            <td style="text-align:right; margin-right:1em;">
+                <?php echo e(number_format($statement->balances,2,'.',',')); ?>
 
             </td>
         </tr>
