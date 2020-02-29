@@ -10,22 +10,28 @@ use PDF;
 use GuzzleHttp\Client;
 use App\Exports\MasterSavingExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\Datatables\Datatables;
 class ContributorsController extends Controller
 {
     //
     public function index(){
         //
         $title ='All Active Contributors';
-        $activeUsers= User::where('status','Active')->withCount(['usersavings' => function ($query) {
-            $query->latest('entry_date');
-           }])->get();
-        // $activeUsers= User::where('status','Active')
-        //                     ->latest('date_entry')
-        //                     ->get();
+        $activeUsers= User::all()->toJson();
         return view('Contributors.index',compact('activeUsers','title'));
     }
 
-    public function inactiveUsers(){
+    /**
+ * Process datatables ajax request.
+ *
+ * @return \Illuminate\Http\JsonResponse
+ */
+public function usersData()
+{
+    return Datatables::of(User::query())->make(true);
+}
+
+public function inactiveUsers(){
         $title = 'Inactive Users';
         $inactiveUsers= User::where('status','Inactive')->withCount(['usersavings' => function ($query) {
      $query->orderBy('entry_date', 'desc');
