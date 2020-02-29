@@ -128,7 +128,9 @@ public function postSaving($date){
         $_date = $dateEntry->toDateString();
 
         //find all recent upload by date created
+        //TODO
         $savingsList = Savingmaster::where('entry_date','=',$_date)
+                                    ->where('status','Active')
                                     ->get();
     
         
