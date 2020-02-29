@@ -17,7 +17,7 @@ class ContributorsController extends Controller
     public function index(){
         //
         $title ='All Active Contributors';
-        $activeUsers= User::all()->toJson();
+        $activeUsers= User::all();
         return view('Contributors.index',compact('activeUsers','title'));
     }
 
@@ -30,6 +30,8 @@ public function usersData()
 {
     return Datatables::of(User::query())->make(true);
 }
+
+
 
 public function inactiveUsers(){
         $title = 'Inactive Users';
