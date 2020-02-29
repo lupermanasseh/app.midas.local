@@ -27,7 +27,7 @@
         <div class="col s12 m6 l6">
             <div class="card-panel pink-text center top-banner">
                 <i class="fas fa-user-friends"></i>
-                <div><span><a href="/contributors-list">Active Contributors</a></span></div>
+                <div><span><a href="/contributors-list">Membership Register</a></span></div>
             </div>
         </div>
 
