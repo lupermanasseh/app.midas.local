@@ -10,7 +10,7 @@ use PDF;
 use GuzzleHttp\Client;
 use App\Exports\MasterSavingExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Datatables;
+use Yajra\Datatables\Datatables;
 class ContributorsController extends Controller
 {
     //
@@ -48,7 +48,7 @@ public function inactiveUsers(){
         // List recent uploads 
         $recentUploads= Saving::with('user')->latest()->paginate(100);
         return view('Contributors.recentSavings',compact('recentUploads','title'));
-
+  
     }
 
     public function userListings($user_id){
