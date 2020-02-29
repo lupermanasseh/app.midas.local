@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}"> --}}
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     {{-- install sweet alert css --}}
 
     <title>MIDAS- {{$title}}</title>
@@ -165,6 +166,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{asset( 'js/echarts.min.js')}} "></script>
+    <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    @stack('scripts')
     <script>
         //HIDE ALL SECTIONS
     //$('.section').hide();
