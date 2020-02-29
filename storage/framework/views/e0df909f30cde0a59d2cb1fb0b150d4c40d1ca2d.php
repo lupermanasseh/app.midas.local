@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/midas-styles.css')); ?>"> 
     <link rel="stylesheet" href="<?php echo e(asset('css/custom.css')); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     
 
     <title>MIDAS- <?php echo e($title); ?></title>
@@ -99,6 +100,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="<?php echo e(asset( 'js/echarts.min.js')); ?> "></script>
+    <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <?php echo $__env->yieldPushContent('scripts'); ?>
     <script>
         //HIDE ALL SECTIONS
     //$('.section').hide();

@@ -3,37 +3,48 @@
     
     <div class="row">
         <div class="col s12 subject-header">
-            <p class="teal-text">Active Members</p>
+            <p class="teal-text">Membership Register</p>
         </div>
     </div>
 
     <div class="row">
         <div class="col s12">
-            <?php if(count($activeUsers)>=1): ?>
-            <table class="highlight">
+            <table class="highlight" id="users-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th>Saving Items</th>
+                        <th>REG ID</th>
+                        <th>LAST NAME</th>
+                        <th>FIRST NAME</th>
+                        <th>MEMBERSHIP TYPE</th>
+                        <th>IPPIS</th>
+                        <th>STATUS</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php $__currentLoopData = $activeUsers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <tr>
-                        <td><a href="/saving/listings/<?php echo e($user->id); ?>"><?php echo e($user->first_name); ?> <?php echo e($user->last_name); ?></a></td>
-                        <td><?php echo e($user->status); ?></td>
-                        <td><?php echo e($user->usersavings_count); ?></td>
-                    </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </tbody>
+                
             </table>
             
-            <?php else: ?>
-            <p>No Records Yet</p>
-            <?php endif; ?>
+            
         </div>
     </div>
 </div>
 <?php $__env->stopSection(); ?>
+<?php $__env->startPush('scripts'); ?>
+<script>
+    $(function() {
+    $('#users-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '<?php echo route('users.data'); ?>',
+        columns: [
+            { data: 'id', name: 'id' },
+            { data: 'last_name', name: 'last_name' },
+            { data: 'first_name', name: 'first_name' },
+            { data: 'membership_type', name: 'membership_type' },
+            { data: 'payment_number', name: 'payment_number' },
+            { data: 'status', name: 'status' }
+        ]
+    });
+});
+</script>
+<?php $__env->stopPush(); ?>
 <?php echo $__env->make('Layouts.admin-app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
