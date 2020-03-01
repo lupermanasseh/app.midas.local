@@ -173,6 +173,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        \Barryvdh\Cors\HandleCors::class,
         //Yajra\Datatables\DatatablesServiceProvider::class,
 
     ],
