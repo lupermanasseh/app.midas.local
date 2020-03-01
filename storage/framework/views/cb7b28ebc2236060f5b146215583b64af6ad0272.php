@@ -152,7 +152,8 @@
 
     <li><a href="/New" class="orange-text darken-4">New</a></li>
     <li class="divider" tabindex="-1"></li>
-    <li><a href="/user/all" class="orange-text darken-4">All</a></li>
+    <li><a href="/contributors-list" class="orange-text darken-4">Register</a></li>
+    
     <li><a href="/add/user" class="orange-text darken-4">New Staff</a></li>
     <li class="divider" tabindex="-1"></li>
     
