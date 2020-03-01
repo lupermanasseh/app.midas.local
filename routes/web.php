@@ -191,7 +191,7 @@ Route::get('/ippis/savings/export','MonthlySavingController@ippisSavingExport')-
 //Contributors
 Route::middleware(['auth:admin'])->group(function () {
 Route::get('/contributors-list','ContributorsController@index');
-Route::get('/usersData','ContributorsController@usersData')->name('users.data');
+Route::get('/usersData','ContributorsController@usersData');
 Route::get('/inactive-contributors','ContributorsController@inactiveUsers');
 Route::get('/recent/savings','ContributorsController@recentUploads');
 Route::get('/saving/listings/{id}','ContributorsController@userListings');
