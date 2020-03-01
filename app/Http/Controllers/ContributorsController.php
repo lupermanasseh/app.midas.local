@@ -10,14 +10,14 @@ use PDF;
 use GuzzleHttp\Client;
 use App\Exports\MasterSavingExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Datatables;
+use Yajra\Datatables\Datatables;
 class ContributorsController extends Controller
 {
     //
     public function index(){
         //
         $title ='All Active Contributors';
-        $activeUsers= User::all();
+        $activeUsers= User::all()->toJson();
         return view('Contributors.index',compact('activeUsers','title'));
     }
 
