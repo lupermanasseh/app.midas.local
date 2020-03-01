@@ -10,7 +10,7 @@ use PDF;
 use GuzzleHttp\Client;
 use App\Exports\MasterSavingExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Datatables;
+//use Datatables;
 class ContributorsController extends Controller
 {
     //
