@@ -1,10 +1,7 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
+    "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -18,7 +15,6 @@
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
         "simplesoftwareio/simple-qrcode": "^2.0",
-        "yajra/laravel-datatables": "^1.5",
         "yoeunes/toastr": "^1.1"
     },
     "require-dev": {
@@ -45,7 +41,8 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+            ]
         }
     },
     "scripts": {
