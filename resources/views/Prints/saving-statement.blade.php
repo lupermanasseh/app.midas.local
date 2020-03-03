@@ -60,10 +60,11 @@
                 </tbody>
             </table>
         </section>
-        <section style="text-align:left; padding-left:3em;">
+        {{-- <section style="text-align:left; padding-left:3em;">
             <img
-                src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->size(100)->generate($userObj->last_name.'/'.$userObj->membership_type.'/'.$userObj->id)) }} ">
-        </section>
+                src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->size(100)->generate($userObj->last_name.'/'.$userObj->membership_type.'/'.$userObj->id)) }}
+        ">
+        </section> --}}
 
         <section>
             <h4 class="statement-title">STATEMENT OF SAVINGS</h4>
