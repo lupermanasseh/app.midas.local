@@ -36,7 +36,7 @@
             </section>
         </header>
         <section style="text-align:left;">
-            <?php echo QrCode::size(200)->generate('MIDAS TOUCH MULTIPURPOSE COOP. SOCIETY, FMC MKD');; ?>
+            <?php echo QrCode::size(100)->generate($userObj->last_name.'/'.$userObj->membership_type.'/'.$userObj->id);; ?>
 
         </section>
         <section class="statement-title">

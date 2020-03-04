@@ -46,8 +46,9 @@
             </table>
         </section>
         <section style="text-align:left; padding-left:3em;">
-            <img
-                src="data:image/png;base64, <?php echo e(base64_encode(QrCode::format('png')->size(100)->generate('MIDAS TOUCH MULTIPURPOSE COOP SOCIETY, FMC MAKURDI'))); ?> ">
+            <img src="data:image/png;base64, <?php echo e(base64_encode(QrCode::format('png')->size(100)->generate($userObj->last_name.'/'.$userObj->membership_type.'/'.$userObj->id))); ?>
+
+        ">
         </section>
 
         <section>
