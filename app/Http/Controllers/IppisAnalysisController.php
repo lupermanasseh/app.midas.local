@@ -39,7 +39,7 @@ class IppisAnalysisController extends Controller
     //saving master upload functionality
     public function importSavingMaster(){
     //begin transaction
-    DB::beginTransaction();
+   DB::beginTransaction();
     try{
     Excel::import(new SavingMasterImport(),request()->file('savingmaster_import'));
     }catch(\Exception $ex){
