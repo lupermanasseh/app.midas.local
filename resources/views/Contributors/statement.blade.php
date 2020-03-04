@@ -17,12 +17,12 @@
                     <label for="reg_number">Registration Number</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
-                    <input id="from" name="from" type="date" class="validate datepicker" required>
+                    <input id="from" name="from" class="validate datepicker" required>
                     <label for="from">From</label>
                 </div>
 
                 <div class="input-field col s12 m4 l4">
-                    <input id="to" name="to" type="date" class="validate datepicker" required>
+                    <input id="to" name="to" class="validate datepicker" required>
                     <label for="to">To</label>
                 </div>
 
