@@ -12,6 +12,16 @@
             <button data-target="modal1" class="btn modal-trigger">Find Master Saving</button>
         </div>
     </div>
+    <div class="row">
+        <div class="col s12 subject-header">
+            <span>Issues From Upload
+                <a href="#"><?php if(count($filteredIppis)): ?>
+                    <?php else: ?>
+                    <span>0</span>
+                    <?php endif; ?></a>
+            </span>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col s12">
@@ -22,7 +32,7 @@
                         <th>DATE</th>
                         <th>SAVING TOTAL</th>
                         <th>POST</th>
-                        <th>DELETE</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -38,9 +48,7 @@
                         <td>
                             <a href="/saving/distribute/<?php echo e($myItem->entry_date); ?>">POST</a>
                         </td>
-                        <td>
-                            <a href="/delete/savings/<?php echo e($myItem->entry_date); ?>">DELETE</a>
-                        </td>
+                        
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
