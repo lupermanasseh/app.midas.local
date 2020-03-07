@@ -14,6 +14,16 @@
             <button data-target="modal1" class="btn modal-trigger">Find Master Saving</button>
         </div>
     </div>
+    {{-- <div class="row">
+        <div class="col s12 subject-header">
+            <span>Issues From Upload
+                <a href="#">@if(count($filteredIppis))
+                    @else
+                    <span>0</span>
+                    @endif</a>
+            </span>
+        </div>
+    </div> --}}
 
     <div class="row">
         <div class="col s12">
