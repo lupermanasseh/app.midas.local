@@ -140,6 +140,7 @@
                         <td style="text-align:right; margin-right:1em;">
                             {{number_format($statement->balances,2,'.',',')}}
                         </td>
+
                         {{-- <td style="text-align:right; margin-right:1em;">
                             {{number_format($Saving->balanceAsAt($statement->amount_saved,$statement->amount_withdrawn,$statement->id,$userObj->id),2,'.',',')}}
                         </td> --}}
