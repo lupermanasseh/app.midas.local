@@ -19,10 +19,19 @@ use App\Defaultcharge;
 use Carbon\Carbon;
 class IppisAnalysisController extends Controller
 {
+
+    public function ippisError(){
+        $errors = DB::table('users')->pluck('payment_number');
+        $listIppis = Savingmaster::where('status','Active')->get();
+
+        $filtered = $listIppis->whereNotInStrict('ippis_no',$errors);
+        return $filtered;
+    }
     //
     public function masterSavingSummary(){
         //
         $title ='Master Saving Summary';
+        //$filteredIppis = $this->ippisError();
         $masterRecords= Savingmaster::where('status','Active')
                             ->groupBy('entry_date')
                             ->selectRaw('sum(saving_cumulative) as saving, entry_date')
@@ -47,7 +56,7 @@ class IppisAnalysisController extends Controller
        toastr()->error('An error has occurred trying to import Master Saving IPPIS inputs');
         return back();
     }catch(\Error $ex){
-      DB::rollback();
+     DB::rollback();
         toastr()->error('Something bad has happened');
         return back();
     }
