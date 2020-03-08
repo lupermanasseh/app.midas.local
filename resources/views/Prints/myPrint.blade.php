@@ -22,7 +22,7 @@
         @foreach($statementCollection as $statement)
         <tr>
             <td style="text-align:right; margin-right:1em;">{{$statement->entry_date->toFormattedDateString()}}</td>
-            <td style="text-align:right; margin-right:1em;">
+            <td style="text-align:left; margin-right:1em;">
                 {{$statement->notes}}
             </td>
             <td style="text-align:right; margin-right:1em;">{{number_format($statement->amount_withdrawn),2,'.',','}}
