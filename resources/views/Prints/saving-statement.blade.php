@@ -109,7 +109,7 @@
                 <thead>
                     <tr>
                         <th style="text-align:right; margin-right:1em;">DATE</th>
-                        <th style="text-align:right; margin-right:1em;">DESCRIPTION</th>
+                        <th style="text-align:left; margin-right:1em;">DESCRIPTION</th>
                         <th style="text-align:right; margin-right:1em;">DEBIT</th>
                         <th style="text-align:right; margin-right:1em;">CREDIT</th>
                         <th style="text-align:right; margin-right:1em;">BAL</th>
