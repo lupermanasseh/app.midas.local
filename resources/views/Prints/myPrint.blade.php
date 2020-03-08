@@ -13,10 +13,10 @@
     <tbody>
         <tr>
             <td style="text-align:right; margin-right:1em;">{{$Saving->openingDate($from)}}</td>
-            <td style="text-align:right; margin-right:1em;">Openning Balance</td>
+            <td style="text-align:left; margin-left:1em;">Openning Balance</td>
             <td></td>
             <td></td>
-            <td style="text-align:left; margin-left:1em;">
+            <td style="text-align:right; margin-right:1em;">
                 {{number_format($Saving->openingBalance($from,$userObj->id),2,'.',',')}}</td>
         </tr>
         @foreach($statementCollection as $statement)
