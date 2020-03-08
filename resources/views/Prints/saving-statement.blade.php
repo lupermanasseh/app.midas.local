@@ -109,7 +109,7 @@
                 <thead>
                     <tr>
                         <th style="text-align:right; margin-right:1em;">DATE</th>
-                        <th style="text-align:left; margin-right:1em;">DESCRIPTION</th>
+                        <th style="text-align:left; margin-left:1em;">DESCRIPTION</th>
                         <th style="text-align:right; margin-right:1em;">DEBIT</th>
                         <th style="text-align:right; margin-right:1em;">CREDIT</th>
                         <th style="text-align:right; margin-right:1em;">BAL</th>
@@ -118,7 +118,7 @@
                 <tbody>
                     <tr>
                         <td style="text-align:right; margin-right:1em;">{{$Saving->openingDate($from)}}</td>
-                        <td style="text-align:right; margin-right:1em;">Openning Balance</td>
+                        <td style="text-align:left; margin-left:1em;">Openning Balance</td>
                         <td>
                         </td>
                         <td></td>

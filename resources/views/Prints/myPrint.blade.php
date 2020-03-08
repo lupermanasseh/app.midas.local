@@ -4,7 +4,7 @@
     <thead>
         <tr>
             <th style="text-align:right; margin-right:1em;">DATE</th>
-            <th style="text-align:left; margin-right:1em;">DESCRIPTION</th>
+            <th style="text-align:left; margin-left:1em;">DESCRIPTION</th>
             <th style="text-align:right; margin-right:1em;">DEBIT</th>
             <th style="text-align:right; margin-right:1em;">CREDIT</th>
             <th style="text-align:right; margin-right:1em;">BAL</th>
@@ -16,7 +16,7 @@
             <td style="text-align:right; margin-right:1em;">Openning Balance</td>
             <td></td>
             <td></td>
-            <td style="text-align:right; margin-right:1em;">
+            <td style="text-align:left; margin-left:1em;">
                 {{number_format($Saving->openingBalance($from,$userObj->id),2,'.',',')}}</td>
         </tr>
         @foreach($statementCollection as $statement)
