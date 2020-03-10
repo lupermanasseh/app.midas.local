@@ -34,7 +34,7 @@
     $('#users-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '<?php echo route('users.data'); ?>',
+        ajax: '<?php echo route('user.data'); ?>',
         columns: [
             { data: 'id', name: 'id' },
             { data: 'last_name', name: 'last_name' },
