@@ -12,10 +12,27 @@ use App\User;
 use App\Ldeduction;
 use App\Lsubscription;
 use App\Productdeduction;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
 
+    public function onboarding(){
+        $title ="Onboarding";
+        return view('Dashboard.onboarding-change',compact('title'));
+    }
+
+    public function onboardingChange(Request $request,$id){
+        $this->validate(request(), [
+            'password' =>'required|confirmed|min:6|max:8',
+             ]);
+            $profile =User::find($id);
+            $profile->password = Hash::make($request['password']);
+            if ($profile->save()) {
+                //toastr()->success('Data has been edited successfully!');
+                return redirect('/Dashboard');
+            }
+    }
     //
     public function index (){
         $title ="Dashboard Home";
