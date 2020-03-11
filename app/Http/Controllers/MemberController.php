@@ -28,6 +28,11 @@ class MemberController extends Controller
         ]);
 
         if (Auth::attempt(request(['email', 'password']))) {
+            //check for default password
+            if(auth()->user()->password=='$2y$10$rw9maVUQyXpKPwyo47/UlO.6GQRvVOYmnGN4UvzBwjoQgwxlw8uAG'){
+                
+                return redirect('/Dashboard/onboarding');
+            }
             
             return redirect('/Dashboard');
             

@@ -66,6 +66,8 @@ Route::get('/Dashboard/print/{from}/{to}','DashboardController@printStatement');
 Route::get('/Dashboard/downloadpdf/{from}/{to}','DashboardController@downloadStatement');
 Route::get('/Dashboard/myPendingLoans/{id}','DashboardController@pendingApps');
 Route::get('/Dashboard/myPaidLoans/{id}','DashboardController@paidLoans');
+Route::get('/Dashboard/onboarding','DashboardController@onboarding');
+Route::post('/Dashboard/onboarding/{id}','DashboardController@onboardingChange');
 });
 
 //REGISTRATION ROUTES
