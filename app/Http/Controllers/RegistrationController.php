@@ -164,7 +164,7 @@ public function nokStore (Request $request){
     
     //validate the form
     $this->validate(request(), [
-        'email' =>'email',
+        //'email' =>'email',
         'title'=>'required',
         'sex'=>'required',
         'user_id'=>'required',
