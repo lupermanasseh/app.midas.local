@@ -214,7 +214,7 @@ public function bankStore (Request $request){
         'sort_code' =>'required',
         //'acct_name' =>'required',
         //'acct_number' =>'required|integer|digits:10',
-        'acct_number' =>'required|integer',
+        'acct_number' =>'required|digits:10',
     ]);
 
  
