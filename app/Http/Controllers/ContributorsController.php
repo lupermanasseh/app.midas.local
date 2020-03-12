@@ -26,7 +26,7 @@ class ContributorsController extends Controller
         
         $client = new Client;
         $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
-        $to = '07036190112';
+        $to = '09030518818';
         $from= 'MIDASTOUCH';
         $message = 'Dear ' .$name .',  visit midastouchonline.co/Dashboard/login  using a registered email with us. Your default password is  user';
        $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
