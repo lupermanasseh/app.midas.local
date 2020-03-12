@@ -30,6 +30,7 @@ class ContributorsController extends Controller
         $from= 'MIDASTOUCH';
         $message = 'Dear ' .$name .'.,  visit midastouchonline.co/Dashboard/login  using a registered email with us and password:  user';
        $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
+       $response = $client->request('GET', $url,['verify'=>false]);
         //}
 
         toastr()->success('Messages sent successfully!');
