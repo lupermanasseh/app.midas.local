@@ -22,7 +22,7 @@ class ContributorsController extends Controller
             $phone = $user->phone;
             $name = $user->last_name;
         
-        $name = $name;
+        $name = $user->last_name;
         
         $client = new Client;
         $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
