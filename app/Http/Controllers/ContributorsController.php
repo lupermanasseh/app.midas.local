@@ -13,6 +13,29 @@ use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Datatables;
 class ContributorsController extends Controller
 {
+    
+    public function smsOnboarding(){
+        // $users = User::all();
+
+        // foreach($users as $user){
+        //     //$email = $user->email;
+        //     $phone = $user->phone;
+        //$name = $user->last_name;
+        
+            $name = 'Tivkaa';
+        
+        $client = new Client;
+        $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
+        $to = '07036190112';
+        $from= 'MIDASTOUCH';
+        $message = 'Dear ' .$name .'.,  visit midastouchonline.co/Dashboard/login  using a registered email with us and password:  user';
+       $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
+        //}
+
+        toastr()->success('Messages sent successfully!');
+        return redirect('/contributors-list');
+        
+    }
     //
     public function index(){
         //
