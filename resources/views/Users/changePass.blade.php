@@ -5,7 +5,7 @@
     @include('inc.messages') --}}
     <div class="row">
         <div class="col s12 subject-header">
-            <p class="teal-text">CHANGE PASSWORD</p>
+            <p class="teal-text">CHANGE USER PASSWORD</p>
         </div>
     </div>
     <div class="row">

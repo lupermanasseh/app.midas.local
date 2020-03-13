@@ -293,7 +293,7 @@ public function editBank($id){
             if ($user->save()) {
                 toastr()->success('Password changed successfully!');
                 //return redirect()->route('posts.index');
-                return redirect('/userDetails/'.$request['payment_number']);
+                return redirect('/userDetails/'.$request['reg_number']);
             }
             toastr()->error('An error has occurred please try again later.');
             return back();
