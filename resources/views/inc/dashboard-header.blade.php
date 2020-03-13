@@ -11,18 +11,18 @@
     </form> --}}
     {{-- user nav --}}
     <nav class="user-nav">
-        <div class="user-nav__icon-box">
+        {{-- <div class="user-nav__icon-box">
             <svg class="user-nav__icon">
                 <use xlink:href="{{asset('images/sprite.svg#icon-bookmark')}}"></use>
-            </svg>
-            <span class="user-nav__notification">7</span>
-        </div>
-        <div class="user-nav__icon-box">
+        </svg>
+        <span class="user-nav__notification">7</span>
+        </div> --}}
+        {{-- <div class="user-nav__icon-box">
             <svg class="user-nav__icon">
                 <use xlink:href="{{asset('images/sprite.svg#icon-chat')}}"></use>
-            </svg>
-            <span class="user-nav__notification">13</span>
-        </div>
+        </svg>
+        <span class="user-nav__notification">13</span>
+        </div> --}}
         <div class="user-nav__user">
             <img src='{{auth()->user()->photo}}' alt="user photo" class="user-nav__user-photo">
             <span class="user-nav__user-name">@if (Auth::check()){{auth()->user()->first_name}}@endif</span>
