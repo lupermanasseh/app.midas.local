@@ -61,7 +61,7 @@ class ProductsController extends Controller
         $product->tenor = $request['tenor'];
         $product->interest = $request['interest'];
         $product->status = 'Active';
-        $product->save();
+        //$product->save();
     
         if($product->save()) {
             toastr()->success('Product has been saved successfully!');
