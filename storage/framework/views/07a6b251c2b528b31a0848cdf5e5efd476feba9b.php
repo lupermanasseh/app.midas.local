@@ -34,8 +34,13 @@
                             In</button>
                     </div>
                 </div>
-
             </form>
+
+            <div class="row center-align">
+                <div class="col s12 m8 offset-m2 l6 offset-l3">
+                    <a href="/Dashboard/login">Member Login</a>
+                </div>
+            </div>
 
         </div>
     </div>
