@@ -69,11 +69,11 @@
     <li><a href="/New"><i class="fas fa-plus"></i> New User</a></li>
     <li><a href="/user/all"><i class="fas fa-ellipsis-v"></i> List Users</a></li>
     <li><a href="/filter/users"><i class="fas fa-sort "></i>Filter Members</a></li>
-    <li><a href="/users/upload"><i class="fas fa-cloud-upload-alt"></i>Member Bulk Uploads</a></li>
+    {{-- <li><a href="/users/upload"><i class="fas fa-cloud-upload-alt"></i>Member Bulk Uploads</a></li>
     <li><a href="/nok/upload"><i class="fas fa-cloud-upload-alt"></i>NOK Bulk Uploads</a></li>
     <li><a href="/bank-bulk/upload"><i class="fas fa-cloud-upload-alt"></i>Bank Bulk Uploads</a></li>
     <li><a href="/saving-reg"><i class="fas fa-cloud-upload-alt"></i>Bulk Saving Registration</a></li>
-    <li><a href="/ts-reg"><i class="fas fa-cloud-upload-alt"></i>Bulk TS Registration</a></li>
+    <li><a href="/ts-reg"><i class="fas fa-cloud-upload-alt"></i>Bulk TS Registration</a></li> --}}
     <li><a href="/change/password"><i class="fas fa-cogs"></i> Change Password</a></li>
 
     <li>
