@@ -291,6 +291,8 @@ Route::middleware(['auth:admin'])->group(function () {
   Route::get('/saving/post/{id}','IppisAnalysisController@postMySaving'); 
   Route::get('/saving-master-upload-form','IppisAnalysisController@savingMasterForm');
   Route::post('/saving-master-store','IppisAnalysisController@importSavingMaster')->name('savingmasterstore.import');
+  Route::get('/legacy-loans','IppisAnalysisController@legacyLoan');
+  Route::post('/legacy-loans-store','IppisAnalysisController@legacyLoanStore')->name('legacyloan.import');
   //Route::get('/ippis-analysis/distribute','IppisAnalysisController@distributeAnalysis');
   });
 
