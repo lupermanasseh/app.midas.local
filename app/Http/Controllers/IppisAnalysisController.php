@@ -444,7 +444,7 @@ return redirect('/post/loans');
 //form to upload legacy loan information
  public function legacyLoan(){
     $title ='Upload Loan Information';
-    return view('IppisAnalysis.uploadForm',compact('title'));
+    return view('IppisAnalysis.legacyLoanForm',compact('title'));
 }
 
 //store legacy loan
