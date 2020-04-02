@@ -17,7 +17,6 @@ class LegacyLoanImport implements ToModel,WithHeadingRow
     {
         return new Lsubscription([
             //
-               //
                'product_id' => $row['product_id'],
                'user_id' => $row['reg_no'],
                'guarantor_id1' => $row['guarantor_one'],
