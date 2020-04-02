@@ -90,7 +90,7 @@
     </li>
     <li><a class="subheader">IPPIS Inputs Management</a></li>
     <li><a href="/ippis/savings"><i class="fas fa-coins "></i> Savings</a></li>
-    <li><a href="/savingMaster/listing"><i class="fas fa-coins "></i> Post Savings</a></li>
+    <li><a href="/mastersaving/summary"><i class="fas fa-coins "></i> Post Savings</a></li>
     <li><a href="/ippis/loans"><i class="fas fa-arrow-alt-circle-down "></i> Loans</a></li>
     <li><a href="/post/loans"><i class="fas fa-coins "></i> Post Loans</a></li>
     <li><a href="/loan/filter"><i class="fas fa-sort "></i> Filter Loans</a></li>
