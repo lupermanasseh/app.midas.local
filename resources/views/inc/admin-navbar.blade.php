@@ -100,7 +100,8 @@
     <li><a href="/legacy-loans"><i class="fas fa-arrow-alt-circle-up"></i>Legacy Loans</a>
     </li>
 
-    <div class="divider"></div>
+    <li>
+        <div class="divider"></div>
     </li>
 
     <li><a class="subheader">MIDAS Loan Deductions </a></li>
