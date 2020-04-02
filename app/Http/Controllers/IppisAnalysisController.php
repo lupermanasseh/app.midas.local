@@ -215,7 +215,7 @@ public function postMySaving($id){
             $savingList->save();
             }
 
-    }catch(\Exception $e){
+    }catch(\Exception $ex){
     DB::rollback();
         toastr()->error('An error has occured posting your savings.');
         return back();
@@ -441,12 +441,42 @@ return redirect('/post/loans');
 }
 
 
+//form to upload legacy loan information
+ public function legacyLoan(){
+    $title ='Upload Loan Information';
+    return view('IppisAnalysis.uploadForm',compact('title'));
+}
+
+//store legacy loan
+public function legacyLonStore(){
+    //begin transaction
+    DB::beginTransaction();
+    try{
+    Excel::import(new LegacyLoanImport(),request()->file('legacyloan_import'));
+    }catch(\Exception $ex){
+        DB::rollback();
+       toastr()->error($ex->getMessage());
+        return back();
+    }catch(\Error $ex){
+        DB::rollback();
+        toastr()->error($ex->getMessage());
+        return back();
+    }
+    DB::commit();
+    
+    return redirect ('/legacy-loans');
+        
+}
+
+
+
 //filter records
 
 public function getUserActive(){
     return User::where('status','Active')
                 ->get();
 }
+
 //legacy code
 // public function oldcode($id){
 //     /**
