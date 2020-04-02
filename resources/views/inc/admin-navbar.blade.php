@@ -94,8 +94,11 @@
     <li><a href="/ippis/loans"><i class="fas fa-arrow-alt-circle-down "></i> Loans</a></li>
     <li><a href="/post/loans"><i class="fas fa-coins "></i> Post Loans</a></li>
     <li><a href="/loan/filter"><i class="fas fa-sort "></i> Filter Loans</a></li>
-    <li><a href="/ippis-analysis"><i class="fas fa-arrow-alt-circle-up "></i>Upload IPPIS Analysis</a></li>
-    <li><a href="/saving-master-upload-form"><i class="fas fa-arrow-alt-circle-up "></i>Upload IPPIS Savings</a></li>
+    <li><a href="/ippis-analysis"><i class="fas fa-arrow-alt-circle-up "></i>Upload Loan Deductions</a></li>
+    <li><a href="/saving-master-upload-form"><i class="fas fa-arrow-alt-circle-up"></i>Upload Saving Deductions</a>
+    </li>
+    <li><a href="/legacy-loans"><i class="fas fa-arrow-alt-circle-up"></i>Legacy Loans</a>
+    </li>
 
     <div class="divider"></div>
     </li>
