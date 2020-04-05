@@ -69,11 +69,7 @@
     <li><a href="/New"><i class="fas fa-plus"></i> New User</a></li>
     <li><a href="/user/all"><i class="fas fa-ellipsis-v"></i> List Users</a></li>
     <li><a href="/filter/users"><i class="fas fa-sort "></i>Filter Members</a></li>
-    <li><a href="/users/upload"><i class="fas fa-cloud-upload-alt"></i>Member Bulk Uploads</a></li>
-    <li><a href="/nok/upload"><i class="fas fa-cloud-upload-alt"></i>NOK Bulk Uploads</a></li>
-    <li><a href="/bank-bulk/upload"><i class="fas fa-cloud-upload-alt"></i>Bank Bulk Uploads</a></li>
-    <li><a href="/saving-reg"><i class="fas fa-cloud-upload-alt"></i>Bulk Saving Registration</a></li>
-    <li><a href="/ts-reg"><i class="fas fa-cloud-upload-alt"></i>Bulk TS Registration</a></li>
+    
     <li><a href="/change/password"><i class="fas fa-cogs"></i> Change Password</a></li>
 
     <li>
@@ -90,14 +86,17 @@
     </li>
     <li><a class="subheader">IPPIS Inputs Management</a></li>
     <li><a href="/ippis/savings"><i class="fas fa-coins "></i> Savings</a></li>
-    <li><a href="/savingMaster/listing"><i class="fas fa-coins "></i> Post Savings</a></li>
+    <li><a href="/mastersaving/summary"><i class="fas fa-coins "></i> Post Savings</a></li>
     <li><a href="/ippis/loans"><i class="fas fa-arrow-alt-circle-down "></i> Loans</a></li>
     <li><a href="/post/loans"><i class="fas fa-coins "></i> Post Loans</a></li>
     <li><a href="/loan/filter"><i class="fas fa-sort "></i> Filter Loans</a></li>
-    <li><a href="/ippis-analysis"><i class="fas fa-arrow-alt-circle-up "></i>Upload IPPIS Analysis</a></li>
-    <li><a href="/saving-master-upload-form"><i class="fas fa-arrow-alt-circle-up "></i>Upload IPPIS Savings</a></li>
+    <li><a href="/ippis-analysis"><i class="fas fa-arrow-alt-circle-up "></i>Upload Loan Inputs</a></li>
+    <li><a href="/saving-master-upload-form"><i class="fas fa-arrow-alt-circle-up"></i>Upload Saving Inputs</a>
+    </li>
+    <li><a href="/legacy-loans"><i class="fas fa-arrow-alt-circle-up"></i>Legacy Loans</a></li>
 
-    <div class="divider"></div>
+    <li>
+        <div class="divider"></div>
     </li>
 
     <li><a class="subheader">MIDAS Loan Deductions </a></li>

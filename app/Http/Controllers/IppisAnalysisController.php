@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\IppisAnalysisImport;
 use App\Imports\SavingMasterImport;
+use App\Imports\LegacyLoanImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use App\Masterdeduction;
@@ -448,7 +449,7 @@ return redirect('/post/loans');
 }
 
 //store legacy loan
-public function legacyLonStore(){
+public function legacyLoanStore(){
     //begin transaction
     DB::beginTransaction();
     try{
