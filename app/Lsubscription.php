@@ -14,10 +14,21 @@ use Carbon\Carbon;
 class Lsubscription extends Model
 {
     //
-    //relationship with product
+    protected $fillable = [
+        'product_id',
+        'guarantor_id1',
+        'guarantor_id2',
+        'amount_approved',
+        'loan_start_date',
+        'loan_end_date',
+    ];
+
+
+        //relationship with product
         public function product(){
         return $this->belongsTo(Product::class,'product_id');
         }
+
       //relationship with user
         public function user(){
         return $this->belongsTo(User::class);
