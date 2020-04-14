@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Lsubscription;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Carbon\Carbon;
 
 class LegacyLoanImport implements ToModel,WithHeadingRow
 {
@@ -15,6 +16,7 @@ class LegacyLoanImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
+        $rand = $this->randomString();
         return new Lsubscription([
             //
                'product_id' => $row['product_id'],
@@ -24,7 +26,16 @@ class LegacyLoanImport implements ToModel,WithHeadingRow
                'amount_approved' => $row['amount'],
                'loan_start_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['start']),
                'loan_end_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['end']),
+               'ref' => $rand,
           
         ]);
+    }
+
+    public function randomString(){
+        $randomString = rand(10,100);
+       
+        $dateNow = Carbon::now();
+        $formattedDate = $dateNow->toDateString();
+        return $randomString.'-'.$formattedDate;
     }
 }
