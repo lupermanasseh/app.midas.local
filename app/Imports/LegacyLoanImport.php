@@ -14,9 +14,16 @@ class LegacyLoanImport implements ToModel,WithHeadingRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    public function __construct($rand){
+     
+        $this->string = $rand;
+       
+    }
+
     public function model(array $row)
     {
-        $rand = $this->randomString();
+        
+        
         return new Lsubscription([
             //
                'product_id' => $row['product_id'],
@@ -26,16 +33,10 @@ class LegacyLoanImport implements ToModel,WithHeadingRow
                'amount_approved' => $row['amount'],
                'loan_start_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['start']),
                'loan_end_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['end']),
-               'ref' => $rand,
+               'ref' => $this->$string,
           
         ]);
     }
 
-    public function randomString(){
-        $randomString = rand(10,100);
-       
-        $dateNow = Carbon::now();
-        $formattedDate = $dateNow->toDateString();
-        return $randomString.'-'.$formattedDate;
-    }
+
 }
