@@ -16,6 +16,8 @@ class Lsubscription extends Model
     //
     protected $fillable = [
         'product_id',
+        'user_id',
+        'ref',
         'guarantor_id1',
         'guarantor_id2',
         'amount_approved',
