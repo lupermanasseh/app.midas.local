@@ -451,9 +451,10 @@ return redirect('/post/loans');
 //store legacy loan
 public function legacyLoanStore(){
     //begin transaction
+    $rand = $this->randomString();
     DB::beginTransaction();
     try{
-    Excel::import(new LegacyLoanImport(),request()->file('legacyloan_import'));
+    Excel::import(new LegacyLoanImport($rand),request()->file('legacyloan_import'));
     }catch(\Exception $ex){
         DB::rollback();
        toastr()->error($ex->getMessage());
@@ -469,7 +470,14 @@ public function legacyLoanStore(){
         
 }
 
-
+//random string
+public function randomString(){
+    $randomString = rand(10,1000);
+   
+    $dateNow = Carbon::now();
+    $formattedDate = $dateNow->toDateString();
+    return $randomString.'-'.$formattedDate;
+}
 
 //filter records
 
