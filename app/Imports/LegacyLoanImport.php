@@ -26,16 +26,10 @@ class LegacyLoanImport implements ToModel,WithHeadingRow
                'amount_approved' => $row['amount'],
                'loan_start_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['start']),
                'loan_end_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['end']),
-               'ref' => $this->randomString(),
+               'ref' => Carbon::now(),
           
         ]);
     }
 
-    public function randomString(){
-        $randomString = rand(10,100);
-       
-        $dateNow = Carbon::now();
-        $formattedDate = $dateNow->toDateString();
-        return $randomString.'-'.$formattedDate;
-    }
+   
 }
