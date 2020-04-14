@@ -33,7 +33,7 @@ class LegacyLoanImport implements ToModel,WithHeadingRow
                'amount_approved' => $row['amount'],
                'loan_start_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['start']),
                'loan_end_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['end']),
-               'ref' => $this->$string,
+               'ref' => $this->string,
           
         ]);
     }
