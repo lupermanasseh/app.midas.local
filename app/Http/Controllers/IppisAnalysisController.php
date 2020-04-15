@@ -34,8 +34,9 @@ class IppisAnalysisController extends Controller
         $title ='Master Saving Summary';
         //$filteredIppis = $this->ippisError();
         $masterRecords= Savingmaster::where('status','Active')
-                            ->groupBy('entry_date')
-                            ->selectRaw('sum(saving_cumulative) as saving, entry_date')
+                            //->groupBy('entry_date')
+                            ->groupBy(['ref_identification','entry_date'])
+                            ->selectRaw('sum(saving_cumulative) as saving, entry_date,ref_identification')
                             ->get();
         return view('IppisAnalysis.uploadSummary',compact('masterRecords','title'));
     }
@@ -49,30 +50,32 @@ class IppisAnalysisController extends Controller
     //saving master upload functionality
     public function importSavingMaster(){
     //begin transaction
-   //DB::beginTransaction();
-    //try{
-    Excel::import(new SavingMasterImport(),request()->file('savingmaster_import'));
-    //}catch(\Exception $ex){
-    //DB::rollback();
-       toastr()->error('An error has occurred trying to import Master Saving IPPIS inputs');
+    $rand = $this->randomString();
+    DB::beginTransaction();
+    try{
+    Excel::import(new SavingMasterImport($rand),request()->file('savingmaster_import'));
+    }catch(\Exception $ex){
+    DB::rollback();
+       toastr()->error($ex->getMessage());
         return back();
-    //}catch(\Error $ex){
-     //DB::rollback();
-        toastr()->error('Something bad has happened');
+    }catch(\Error $ex){
+     DB::rollback();
+        toastr()->error($ex->getMessage());
         return back();
-    //}
-    //DB::commit();
+    }
+    DB::commit();
     return redirect ('/mastersaving/summary');
     }
 
 
     //list master saving records
-    public function recentMasterSaving($date){
+    public function recentMasterSaving($date,$reference){
         $title = 'Recent IPPIS Savings Inputs';
         $entry_date = new Carbon($date);
         $_date = $entry_date->toDateString();
         //find all recent upload by date created
         $savingMaster = Savingmaster::where('entry_date','=',$_date)
+                                     ->where('ref_identification','=',$reference)
                                      ->where('status','Active')
                                      ->paginate(100);
     
@@ -95,11 +98,11 @@ public function importIppisAnalysis(){
     Excel::import(new IppisAnalysisImport(),request()->file('ippisanalysis_import'));
     }catch(\Exception $ex){
         DB::rollback();
-       toastr()->error('An Error Has Occurred Trying To Import IPPIS Loan Analysis Inputs');
+       toastr()->error($ex->getMessage());
         return back();
     }catch(\Error $ex){
         DB::rollback();
-        toastr()->error('Something bad has happened');
+        toastr()->error($ex->getMessage());
         return back();
     }
     DB::commit();
@@ -123,8 +126,8 @@ public function recentIppisLoanInputs(){
 
 //Post Analysis
 
-public function postSaving($date){
-    
+public function postSaving($date,$ref){
+    //explore possibility to pass a ref string to the function
     DB::beginTransaction();
     try{
 
@@ -140,6 +143,7 @@ public function postSaving($date){
         //find all recent upload by date created
         //TODO
         $savingsList = Savingmaster::where('entry_date','=',$_date)
+                                    ->where('ref_identification','=',$ref)
                                     ->where('status','Active')
                                     ->get();
     
@@ -161,6 +165,7 @@ public function postSaving($date){
             $mySaving->entry_date = $listItem->entry_date;
             $mySaving->notes = $listItem->notes;
             $mySaving->status = 'Active';
+            $mySaving->ref_string = $ref;
             $mySaving->created_by = auth()->user()->first_name;
             $mySaving->save();
 
@@ -174,7 +179,7 @@ public function postSaving($date){
 
     }catch(\Exception $e){
         DB::rollback();
-        toastr()->error('An error has occured posting your savings.');
+        toastr()->error($e->getMessage());
         return back();
     }
     DB::commit();
@@ -206,6 +211,7 @@ public function postMySaving($id){
             $mySaving->balances = $totalBalance;
             $mySaving->entry_date = $savingList->entry_date;
             $mySaving->notes = $savingList->notes;
+            $mySaving->ref_string = $savingList->ref_identification;
             $mySaving->status = 'Active';
             $mySaving->created_by = auth()->user()->first_name;
             $mySaving->save();
@@ -218,7 +224,7 @@ public function postMySaving($id){
 
     }catch(\Exception $ex){
     DB::rollback();
-        toastr()->error('An error has occured posting your savings.');
+        toastr()->error($ex->getMessage());
         return back();
     }
    DB::commit();
