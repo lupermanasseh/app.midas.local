@@ -31,6 +31,7 @@
             <table class="highlight">
                 <thead>
                     <tr>
+                        <th>REF</th>
                         <th>DATE</th>
                         <th>SAVING TOTAL</th>
                         <th>POST</th>
@@ -41,13 +42,17 @@
                     @foreach ($masterRecords as $myItem)
                     <tr>
                         <td>
-                            <a href="/savingMaster/listing/{{$myItem->entry_date}}">
-                                {{$myItem->entry_date->toFormattedDateString()}}
+                            <a href="/savingMaster/listing/{{$myItem->entry_date}}/{{$myItem->ref_identification}}">
+                                {{$myItem->ref_identification}}
                             </a>
+                        </td>
+                        <td>
+                            {{$myItem->entry_date->toFormattedDateString()}}
                         </td>
                         <td>{{number_format($myItem->saving,2,'.',',')}}</td>
                         <td>
-                            <a href="/saving/distribute/{{$myItem->entry_date}}">POST</a>
+                            <a
+                                href="/saving/distribute/{{$myItem->entry_date}}/{{$myItem->ref_identification}}">POST</a>
                         </td>
                         {{-- <td>
                             <a href="/delete/savings/{{$myItem->entry_date}}">DELETE</a>
