@@ -14,6 +14,7 @@ class Savingmaster extends Model
         'ts_cumulative',
         'total',
         'status',
+        'ref_identification',
         'entry_date',
         'created_by',
         'notes',
