@@ -15,6 +15,7 @@
             <table class="highlight">
                 <thead>
                     <tr>
+                        <th>REF</th>
                         <th>DATE</th>
                         <th>NAME</th>
                         <th>IPPIS</th>
@@ -26,6 +27,7 @@
                 <tbody>
                     @foreach ($savingMaster as $myItem)
                     <tr>
+                        <td>{{$myItem->ref_identification}}</td>
                         <td>{{$myItem->entry_date->toFormattedDateString()}}</td>
                         <td>{{$myItem->name}}</td>
                         <td>{{$myItem->ippis_no}}</td>
