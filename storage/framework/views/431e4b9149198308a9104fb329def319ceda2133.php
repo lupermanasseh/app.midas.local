@@ -3,7 +3,7 @@
     
     <div class="row">
         <div class="col s12 subject-header">
-            <h6 class="teal-text">IMPORT IPPIS SAVING INPUT(S)</h6>
+            <h6 class="teal-text">IMPORT MASTER IPPIS SAVING INPUT(S)</h6>
         </div>
     </div>
 
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn">UPLOAD SAVING ANALYSIS</button>
+            <button type="submit" class="btn">UPLOAD SAVING MASTER</button>
         </form>
     </div>
 </div>

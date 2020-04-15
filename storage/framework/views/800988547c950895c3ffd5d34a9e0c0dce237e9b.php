@@ -13,6 +13,7 @@
             <table class="highlight">
                 <thead>
                     <tr>
+                        <th>REF</th>
                         <th>DATE</th>
                         <th>NAME</th>
                         <th>IPPIS</th>
@@ -24,6 +25,7 @@
                 <tbody>
                     <?php $__currentLoopData = $savingMaster; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $myItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
+                        <td><?php echo e($myItem->ref_identification); ?></td>
                         <td><?php echo e($myItem->entry_date->toFormattedDateString()); ?></td>
                         <td><?php echo e($myItem->name); ?></td>
                         <td><?php echo e($myItem->ippis_no); ?></td>
