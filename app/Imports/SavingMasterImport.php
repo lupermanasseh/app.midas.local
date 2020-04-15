@@ -13,6 +13,12 @@ class SavingMasterImport implements ToModel,WithHeadingRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+
+    public function __construct($rand){
+     
+        $this->string = $rand;
+       
+    }
     public function model(array $row)
     {
         return new Savingmaster([
@@ -22,7 +28,7 @@ class SavingMasterImport implements ToModel,WithHeadingRow
             'entry_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date']),
             //$row['date'],
             'saving_cumulative' => $row['contribution'],
-            //'ts_cumulative' => $row['bam'],
+            'ref_identification' => $this->string,
             ///'total' => $row['total'],
             'notes' => $row['description'],
             'created_by' => auth()->user()->first_name,
