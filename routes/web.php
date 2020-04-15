@@ -284,10 +284,10 @@ Route::middleware(['auth:admin'])->group(function () {
   Route::get('/mastersaving/summary','IppisAnalysisController@masterSavingSummary');
   Route::post('/ippis-analysis-upload','IppisAnalysisController@importIppisAnalysis')->name('ippisanalysis.import');
   Route::get('/recentIppisInputs/listing','IppisAnalysisController@recentIppisLoanInputs');//1
-  Route::get('/savingMaster/listing/{date}','IppisAnalysisController@recentMasterSaving');
+  Route::get('/savingMaster/listing/{date}/{reference}','IppisAnalysisController@recentMasterSaving');
   Route::get('/post/loans','IppisAnalysisController@recentIppisLoanInputs'); //2. same with 1 check
   Route::get('/loan/distribute/{id}','IppisAnalysisController@postLoan');
-  Route::get('/saving/distribute/{date}','IppisAnalysisController@postSaving');
+  Route::get('/saving/distribute/{date}/{ref}','IppisAnalysisController@postSaving');
   Route::get('/saving/post/{id}','IppisAnalysisController@postMySaving'); 
   Route::get('/saving-master-upload-form','IppisAnalysisController@savingMasterForm');
   Route::post('/saving-master-store','IppisAnalysisController@importSavingMaster')->name('savingmasterstore.import');
