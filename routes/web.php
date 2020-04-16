@@ -280,7 +280,7 @@ Route::post('/ts/repay','LoanDeductionsController@tsRepayStore');
 
 //Monthly Target Savings Routes
 Route::middleware(['auth:admin'])->group(function () {
-  Route::get('/ippis-analysis','IppisAnalysisController@ippisAnalysisForm');
+  Route::get('/ippis-analysis','IppisAnalysisController@ippisAnalysisForm'); //upload loan inputs
   Route::get('/mastersaving/summary','IppisAnalysisController@masterSavingSummary');
   Route::post('/ippis-analysis-upload','IppisAnalysisController@importIppisAnalysis')->name('ippisanalysis.import');
   Route::get('/recentIppisInputs/listing','IppisAnalysisController@recentIppisLoanInputs');//1
