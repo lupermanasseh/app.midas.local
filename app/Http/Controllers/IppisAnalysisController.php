@@ -321,7 +321,7 @@ try{
                 $newDeduction->over_deduction = $differenceLeft; //store over deduction amount
                 $newDeduction->overdeduction_status = 'Active'; //store over deduction status
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '. $product_name.  'MIDAS loan deduction';
+                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '. $product_name.  ' MIDAS loan deduction';
                 $newDeduction->uploaded_by = auth()->user()->first_name;
                 $newDeduction->save();
                 $remainingDeductible = $remainingDeductible-$currentAmount;
@@ -342,7 +342,7 @@ try{
                 $remainingDeductible = $remainingDeductible-$currentAmount;
 
             }
-
+            //explore changinging status of master deduction here
         }
     //CHANGE STATUS OF THE MASTER DEDUCTION HERE
     $cumulativeDeduct->status = 'Inactive';
@@ -425,7 +425,7 @@ try{
                 $newDeduction->lsubscription_id =$sub->id;
                 $newDeduction->amount_deducted = $currentAmount;
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString().' '.$product_name. 'MIDAS loan deduction';
+                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString().' '.$product_name. ' MIDAS loan deduction';
                 $newDeduction->uploaded_by = auth()->user()->first_name;
                 $newDeduction->save();
                 $remainingDeductible = $remainingDeductible-$currentAmount;
@@ -437,7 +437,7 @@ try{
               
 }catch(\Exception $e){
     DB::rollback();
-    toastr()->error('An error has occured paying your loan.');
+    toastr()->error($e->getMessage());
     return back();
 }
 DB::commit();
