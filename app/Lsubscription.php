@@ -23,6 +23,10 @@ class Lsubscription extends Model
         'amount_approved',
         'loan_start_date',
         'loan_end_date',
+        'custom_tenor',
+        'amount_applied',
+        'monthly_deduction',
+        'net_pay',
     ];
 
 
