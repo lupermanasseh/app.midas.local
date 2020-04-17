@@ -12,7 +12,7 @@
 <ul id="dropdown1" class="dropdown-content orange darken-3">
   <li><a href="/product-offers" class="white-text"><i class="material-icons left">shopping_basket</i>Products</a></li>
   <li><a href="/committee" class="white-text"><i class="material-icons left">supervisor_account</i>Exco</a></li>
-  <li><a href="/board" class="white-text"><i class="material-icons left">view_stream</i>Board</a></li>
+  
   
 </ul>
 
