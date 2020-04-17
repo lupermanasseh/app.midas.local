@@ -94,6 +94,7 @@
     <li><a href="/saving-master-upload-form"><i class="fas fa-arrow-alt-circle-up"></i>Upload Saving Inputs</a>
     </li>
     <li><a href="/legacy-loans"><i class="fas fa-arrow-alt-circle-up"></i>Legacy Loans</a></li>
+    <li><a href="/legacy-loandeduct-form"><i class="fas fa-arrow-alt-circle-up"></i>Legacy Loan Deduct</a></li>
 
     <li>
         <div class="divider"></div>
