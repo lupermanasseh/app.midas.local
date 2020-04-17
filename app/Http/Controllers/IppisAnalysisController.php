@@ -93,9 +93,10 @@ class IppisAnalysisController extends Controller
 //Import IPPIS LOAN deduction analysis
 public function importIppisAnalysis(){
     //begin transaction
+    $rand = $this->randomString();
     DB::beginTransaction();
     try{
-    Excel::import(new IppisAnalysisImport(),request()->file('ippisanalysis_import'));
+    Excel::import(new IppisAnalysisImport($rand),request()->file('ippisanalysis_import'));
     }catch(\Exception $ex){
         DB::rollback();
        toastr()->error($ex->getMessage());
@@ -114,8 +115,6 @@ public function importIppisAnalysis(){
 //recent ippis upload
 public function recentIppisLoanInputs(){
     $title = 'Recent IPPIS  Loan Inputs';
-
-    
     //find all recent upload by date created
     $loanMaster = Masterdeduction::where('status','Active')
                                 ->oldest('entry_date')
@@ -320,8 +319,9 @@ try{
                 $newDeduction->amount_deducted = $currentAmount;
                 $newDeduction->over_deduction = $differenceLeft; //store over deduction amount
                 $newDeduction->overdeduction_status = 'Active'; //store over deduction status
+                $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '. $product_name.  ' MIDAS loan deduction';
+                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '. $product_name.  ' MIDAS deduction';
                 $newDeduction->uploaded_by = auth()->user()->first_name;
                 $newDeduction->save();
                 $remainingDeductible = $remainingDeductible-$currentAmount;
@@ -336,7 +336,8 @@ try{
                 $newDeduction->lsubscription_id =$sub->id;
                 $newDeduction->amount_deducted = $currentAmount;
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'  '. $product_name . ' MIDAS loan deduction';
+                $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'  '. $product_name . ' MIDAS deduction';
                 $newDeduction->uploaded_by = auth()->user()->first_name;
                 $newDeduction->save();
                 $remainingDeductible = $remainingDeductible-$currentAmount;
@@ -369,7 +370,8 @@ try{
                 $newDeduction->lsubscription_id =$sub->id;
                 $newDeduction->amount_deducted = $currentAmount;
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'  '. $product_name. ' MIDAS loan deduction';
+                $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'  '. $product_name. ' MIDAS deduction';
                 $newDeduction->uploaded_by = auth()->user()->first_name;
                 $newDeduction->save();
                 $remainingDeductible = $remainingDeductible-$currentAmount;
@@ -381,7 +383,8 @@ try{
                 $newDeduction->lsubscription_id =$sub->id;
                 $newDeduction->amount_deducted = $remainingDeductible;
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '. $product_name. ' MIDAS loan deduction';
+                $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '.  $product_name. '  MIDAS deduction';
                 $newDeduction->uploaded_by = auth()->user()->first_name;
                 $newDeduction->save();
                 
@@ -395,6 +398,7 @@ try{
                 $chargeDefault->lsubscription_id =$sub->id;
                 $chargeDefault->default_charge = $percentageDeficit;
                 $chargeDefault->deficit = $deficit;
+                $chargeDefault->default_reference = $cumulativeDeduct->master_reference;
                 $chargeDefault->entry_date = $cumulativeDeduct->entry_date;
                 $chargeDefault->status = 'Active';
                 $chargeDefault->created_by = auth()->user()->first_name;
@@ -425,6 +429,7 @@ try{
                 $newDeduction->lsubscription_id =$sub->id;
                 $newDeduction->amount_deducted = $currentAmount;
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+                $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
                 $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString().' '.$product_name. ' MIDAS loan deduction';
                 $newDeduction->uploaded_by = auth()->user()->first_name;
                 $newDeduction->save();
@@ -461,6 +466,36 @@ public function legacyLoanStore(){
     DB::beginTransaction();
     try{
     Excel::import(new LegacyLoanImport($rand),request()->file('legacyloan_import'));
+    }catch(\Exception $ex){
+        DB::rollback();
+       toastr()->error($ex->getMessage());
+        return back();
+    }catch(\Error $ex){
+        DB::rollback();
+        toastr()->error($ex->getMessage());
+        return back();
+    }
+    DB::commit();
+    
+    return redirect ('/legacy-loans');
+        
+}
+
+//upload form legacy loan deductions
+public function legacyLoanDeductionForm(){
+    //
+    $title ='Upload Legacy Loan Deductions';
+    
+    return view('IppisAnalysis.uploadLegacyLoanDeductions',compact('title'));
+}
+
+//legacy loan deductions import
+public function legacyLoanDeductions(){
+    //begin transaction
+    $rand = $this->randomString();
+    DB::beginTransaction();
+    try{
+    Excel::import(new LegacyLoanDeductionImport($rand),request()->file('legacyloandeduction_import'));
     }catch(\Exception $ex){
         DB::rollback();
        toastr()->error($ex->getMessage());
