@@ -14,10 +14,9 @@ class IppisAnalysisImport implements ToModel,WithHeadingRow
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     public function __construct($rand){
-     
-        $this->string = $rand;
-       
+        $this->string = $rand; 
     }
+    
     public function model(array $row)
     {
         return new Masterdeduction([
