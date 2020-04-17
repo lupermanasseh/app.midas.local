@@ -514,7 +514,7 @@ class LoanSubscriptionController extends Controller
                                 $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
                                 $to = $phone;
                                 $from= 'MIDAS TOUCH';
-                                $message = 'Your '.$product.' facility of N'. $amt_approved.' has been paid and is now active. Thank you.';
+                                $message = 'Your '.$product.' facility of N'. $amt_approved.' has been paid and is now active. Thank you. MIDAS TEAM';
                                $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
         
                                $response = $client->request('GET', $url,['verify'=>false]);
