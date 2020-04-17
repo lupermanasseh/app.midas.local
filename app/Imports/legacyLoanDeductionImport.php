@@ -4,8 +4,10 @@ namespace App\Imports;
 
 use App\Ldeduction;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Carbon\Carbon;
 
-class legacyLoanDeductionImport implements ToModel
+class legacyLoanDeductionImport implements ToModel,WithHeadingRow
 {
     /**
     * @param array $row
