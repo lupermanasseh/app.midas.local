@@ -13,6 +13,11 @@ class IppisAnalysisImport implements ToModel,WithHeadingRow
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    public function __construct($rand){
+     
+        $this->string = $rand;
+       
+    }
     public function model(array $row)
     {
         return new Masterdeduction([
@@ -20,10 +25,8 @@ class IppisAnalysisImport implements ToModel,WithHeadingRow
             'ippis_no' => $row['ippis_number'],
             'name' => $row['name'],
             'entry_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['entry_date']),
-            //'cumulative_enddate' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['end_date']),
-            //$row['date'],
             'cumulative_amount' => $row['amount'],
-            //'notes' => $row['description'],
+            'master_reference' => $this->string,
             'created_by' => auth()->user()->first_name,
         ]);
     }
