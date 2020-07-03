@@ -477,7 +477,7 @@ public function legacyLoanStore(){
         return back();
     }
     DB::commit();
-    
+    toastr()->success('Loan subscription(s) created successfully!');
     return redirect ('/legacy-loans');
         
 }
