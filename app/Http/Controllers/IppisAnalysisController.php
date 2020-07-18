@@ -243,10 +243,10 @@ try{
     //Find user cumulative deduction by id
     $cumulativeDeduct = Masterdeduction::find($id);
     $ippis_no = $cumulativeDeduct->ippis_no;
-
+    
     //get total ippis deduction 
     $ippisCumulativeDeduction = $cumulativeDeduct->cumulative_amount;
-
+  
     //find the user id using the IPPIS NUMBER
     $user_id = User::userID($ippis_no);
     if($user_id==0){
@@ -263,105 +263,139 @@ try{
                                   ->where('user_id',$user_id)
                                   ->oldest('loan_start_date')
                                   ->get();
+   
 
-    $myActualLoanAmount = $myLoanSubscription->totalIppisDeductions($user_id,$activeLoans);
- 
-    /**
-     * Check for the existence of a default charge
-     * If any pay for it before proceeding 
-     * Write a function to find all active defaults
-     */
-    $defaultCharges = Defaultcharge::where('user_id',$user_id)
-                                    ->where('status','Active')
-                                    ->oldest('entry_date')
-                                    ->get();
-    if($defaultCharges->isNotEmpty()){
 
-        foreach($defaultCharges as $charge){
-            //charged amaount
-            $charged_amount = $charge->default_charge;
+
+        $myActualLoanAmount = $myLoanSubscription->totalIppisDeductions($user_id,$activeLoans);
             
-            if($ippisCumulativeDeduction !=0 && $charged_amount < $ippisCumulativeDeduction){
-                $myDefaultCharge = Defaultcharge::find($charge->id);
-                $myDefaultCharge->status = 'Paid';
-                $myDefaultCharge->created_by = auth()->user()->first_name;
-                $myDefaultCharge->save();
-                $ippisCumulativeDeduction = $ippisCumulativeDeduction-$charged_amount;
-                //$differenceLeft = $differenceLeft-$differenceLeft;
-               }
-        }
+            /**
+        * Check for the existence of a default charge
+        * If any pay for it before proceeding 
+        * Write a function to find all active defaults
+        */
 
-    } 
 
-    //over deduction 
-    if($ippisCumulativeDeduction > $myActualLoanAmount){
         
+        /**
+         * comment out default charge code for now end at ###9
+         */
+
+        // $defaultCharges = Defaultcharge::where('user_id',$user_id)
+        // ->where('status','Active')
+        // ->oldest('entry_date')
+        // ->get();
+
+        // if($defaultCharges->isNotEmpty()){
+
+        //     foreach($defaultCharges as $charge){
+        //         //charged amaount
+        //         $charged_amount = $charge->default_charge;
+                
+        //         if($ippisCumulativeDeduction !=0 && $charged_amount < $ippisCumulativeDeduction){
+        //             $myDefaultCharge = Defaultcharge::find($charge->id);
+        //             $myDefaultCharge->status = 'Paid';
+        //             $myDefaultCharge->created_by = auth()->user()->first_name;
+        //             $myDefaultCharge->save();
+        //             $ippisCumulativeDeduction = $ippisCumulativeDeduction-$charged_amount;
+        //             //$differenceLeft = $differenceLeft-$differenceLeft;
+        //            }
+        //     }
     
+        // ###9 } 
+      
+        //over deduction 
+        if($ippisCumulativeDeduction > $myActualLoanAmount){
+           
+            
         //find the difference of over deduction
-        $differenceLeft = $ippisCumulativeDeduction-$myActualLoanAmount;
-
-        $remainingDeductible = $ippisCumulativeDeduction-$differenceLeft;
-
+        //$differenceLeft = $ippisCumulativeDeduction-$myActualLoanAmount;
+        
+        //$remainingDeductible = $ippisCumulativeDeduction-$differenceLeft;
+        $remainingDeductible = $ippisCumulativeDeduction;
+        
         foreach($activeLoans as $sub){
-            //product
+         
+            $subDate = $sub->loan_start_date->toDateString();
+            $entryDate = $cumulativeDeduct->entry_date->toDateString();
+
+            //$dueLoan = $this->startLoan($subDate,$entryDate);
+
+        if($subDate > $entryDate){
+            continue;
+        }else{
+            
+            //allow for loan to deduct
+            //product name
             $product_name = Product::find($sub->product_id)->name;
-
-            //actual monthly deduction
-            //TODO: add the deficit to the currentAmount
             $currentAmount = $sub->monthly_deduction;
-
             if($remainingDeductible !=0 && $differenceLeft !=0)
             {
-               //check for over deduction balance if it exist please attach it to the first loan paid
-                $newDeduction = new Ldeduction;
-                $newDeduction->user_id = $sub->user_id;
-                $newDeduction->product_id=$sub->product_id;
-                $newDeduction->lsubscription_id =$sub->id;
-                $newDeduction->amount_deducted = $currentAmount;
-                $newDeduction->over_deduction = $differenceLeft; //store over deduction amount
-                $newDeduction->overdeduction_status = 'Active'; //store over deduction status
-                $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
-                $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '. $product_name.  ' MIDAS deduction';
-                $newDeduction->uploaded_by = auth()->user()->first_name;
-                $newDeduction->save();
-                $remainingDeductible = $remainingDeductible-$currentAmount;
-                $differenceLeft = $differenceLeft-$differenceLeft;
-               
-            }elseif($currentAmount <= $remainingDeductible){
-                //there is enough to deduct exact value of expected deduction
-                //create a new deduction
-                $newDeduction = new Ldeduction;
-                $newDeduction->user_id = $sub->user_id;
-                $newDeduction->product_id=$sub->product_id;
-                $newDeduction->lsubscription_id =$sub->id;
-                $newDeduction->amount_deducted = $currentAmount;
-                $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-                $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'  '. $product_name . ' MIDAS deduction';
-                $newDeduction->uploaded_by = auth()->user()->first_name;
-                $newDeduction->save();
-                $remainingDeductible = $remainingDeductible-$currentAmount;
-
-            }
-            //explore changinging status of master deduction here
-        }
+           //check for over deduction balance if it exist please attach it to the first loan paid
+            $newDeduction = new Ldeduction;
+            $newDeduction->user_id = $sub->user_id;
+            $newDeduction->product_id=$sub->product_id;
+            $newDeduction->lsubscription_id =$sub->id;
+            $newDeduction->amount_deducted = $currentAmount;
+            //$newDeduction->over_deduction = $differenceLeft; //store over deduction amount
+            //$newDeduction->overdeduction_status = 'Active'; //store over deduction status
+            $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+            $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+            $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '. $product_name.  ' MIDAS deduction';
+            $newDeduction->uploaded_by = auth()->user()->first_name;
+            $newDeduction->save();
+            $remainingDeductible = $remainingDeductible-$currentAmount;
+            $differenceLeft = $differenceLeft-$differenceLeft;
+           
+        }elseif($currentAmount <= $remainingDeductible){
+            //there is enough to deduct exact value of expected deduction
+            //create a new deduction
+            $newDeduction = new Ldeduction;
+            $newDeduction->user_id = $sub->user_id;
+            $newDeduction->product_id=$sub->product_id;
+            $newDeduction->lsubscription_id =$sub->id;
+            $newDeduction->amount_deducted = $currentAmount;
+            $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+            $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+            $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'  '. $product_name . ' MIDAS deduction';
+            $newDeduction->uploaded_by = auth()->user()->first_name;
+            $newDeduction->save();
+            $remainingDeductible = $remainingDeductible-$currentAmount;
+        } 
+    }//checck date
+            //explore changing status of master deduction here
+}
     //CHANGE STATUS OF THE MASTER DEDUCTION HERE
     $cumulativeDeduct->status = 'Inactive';
     $cumulativeDeduct->save();
     
-    }elseif($ippisCumulativeDeduction < $myActualLoanAmount){
+}
+
+    //**** */
+    elseif($ippisCumulativeDeduction < $myActualLoanAmount){
         //under deduction
         $remainingDeductible = $ippisCumulativeDeduction;
-
+        
+        
         foreach($activeLoans as $sub){
+            
+            
+            $subDate = $sub->loan_start_date->toDateString();
+            $entryDate = $cumulativeDeduct->entry_date->toDateString();
+
+            //$dueLoan = $this->startLoan($subDate,$entryDate);
+
+            if($subDate >$entryDate)
+            {
+              continue;  
+            }
+            else{
+
             //product
             $product_name = Product::find($sub->product_id)->name;
-
             //actual monthly deduction
             $currentAmount = $sub->monthly_deduction;
-             
-               // 
+                //allow for deductions
                if($currentAmount <= $remainingDeductible){
                 //there is enough to deduct exact value of expected deduction
                 //create a new deduction
@@ -387,60 +421,76 @@ try{
                 $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
                 $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '.  $product_name. '  MIDAS deduction';
                 $newDeduction->uploaded_by = auth()->user()->first_name;
-                $newDeduction->save();
-                
+                $newDeduction->save();                
                 //create records in default table
-                $deficit = $currentAmount-$remainingDeductible;
-                $percentageDeficit = $deficit*0.1;
-                $chargeDefault = new Defaultcharge;
-                $chargeDefault->user_id = $sub->user_id;
-                $chargeDefault->product_id = $sub->product_id;
-                $chargeDefault->ippis_no = $ippis_no;
-                $chargeDefault->lsubscription_id =$sub->id;
-                $chargeDefault->default_charge = $percentageDeficit;
-                $chargeDefault->deficit = $deficit;
-                $chargeDefault->default_reference = $cumulativeDeduct->master_reference;
-                $chargeDefault->entry_date = $cumulativeDeduct->entry_date;
-                $chargeDefault->status = 'Active';
-                $chargeDefault->created_by = auth()->user()->first_name;
-                $chargeDefault->save();
-                $remainingDeductible = $remainingDeductible-$remainingDeductible;
+                // $deficit = $currentAmount-$remainingDeductible;
+                // $percentageDeficit = $deficit*0.1;
+                // $chargeDefault = new Defaultcharge;
+                // $chargeDefault->user_id = $sub->user_id;
+                // $chargeDefault->product_id = $sub->product_id;
+                // $chargeDefault->ippis_no = $ippis_no;
+                // $chargeDefault->lsubscription_id =$sub->id;
+                // $chargeDefault->default_charge = $percentageDeficit;
+                // $chargeDefault->deficit = $deficit;
+                // $chargeDefault->default_reference = $cumulativeDeduct->master_reference;
+                // $chargeDefault->entry_date = $cumulativeDeduct->entry_date;
+                // $chargeDefault->status = 'Active';
+                // $chargeDefault->created_by = auth()->user()->first_name;
+                // $chargeDefault->save();
+                // $remainingDeductible = $remainingDeductible-$remainingDeductible;
             }
-
+            }
+               
         }
-
         $cumulativeDeduct->status = 'Inactive';
         $cumulativeDeduct->save();
+    }
+    ///////
 
-    }elseif($myActualLoanAmount == $ippisCumulativeDeduction){
+    elseif($myActualLoanAmount == $ippisCumulativeDeduction){
         //equal deduction
         $remainingDeductible = $ippisCumulativeDeduction;
-        foreach($activeLoans as $sub){
+       foreach($activeLoans as $sub){
+
             $product_name = Product::find($sub->product_id)->name;
 
             //actual monthly deduction
             $currentAmount = $sub->monthly_deduction;
                // 
-               if($currentAmount <= $remainingDeductible){
-                //there is enough to deduct exact value of expected deduction
-                //create a new deduction
-                $newDeduction = new Ldeduction;
-                $newDeduction->user_id = $sub->user_id;
-                $newDeduction->product_id = $sub->product_id;
-                $newDeduction->lsubscription_id =$sub->id;
-                $newDeduction->amount_deducted = $currentAmount;
-                $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-                $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString().' '.$product_name. ' MIDAS loan deduction';
-                $newDeduction->uploaded_by = auth()->user()->first_name;
-                $newDeduction->save();
-                $remainingDeductible = $remainingDeductible-$currentAmount;
-                }
+            
+               $subDate = $sub->loan_start_date->toDateString();
+               $entryDate = $cumulativeDeduct->entry_date->toDateString();
+   
+               
+   
+               if($subDate >$entryDate){
+                continue;
+               }else
+               {
+                   
+                if($currentAmount <= $remainingDeductible){
+                    //there is enough to deduct exact value of expected deduction
+                    //create a new deduction
+                    $newDeduction = new Ldeduction;
+                    $newDeduction->user_id = $sub->user_id;
+                    $newDeduction->product_id = $sub->product_id;
+                    $newDeduction->lsubscription_id =$sub->id;
+                    $newDeduction->amount_deducted = $currentAmount;
+                    $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+                    $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+                    $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString().' '.$product_name. ' MIDAS loan deduction';
+                    $newDeduction->uploaded_by = auth()->user()->first_name;
+                    $newDeduction->save();
+                    $remainingDeductible = $remainingDeductible-$currentAmount;
+                    }
+               }      
         }
         $cumulativeDeduct->status = 'Inactive';
         $cumulativeDeduct->save();
     }
-              
+
+
+     /** */         
 }catch(\Exception $e){
     DB::rollback();
     toastr()->error($e->getMessage());
@@ -507,8 +557,8 @@ public function legacyLoanDeductions(){
         return back();
     }
     DB::commit();
-    
-    return redirect ('/legacy-loans');
+    toastr()->success('Loan deductions(s) created successfully!');
+    return redirect ('/legacy-loandeduct-form');
         
 }
 
@@ -522,10 +572,23 @@ public function randomString(){
 }
 
 //filter records
-
 public function getUserActive(){
     return User::where('status','Active')
                 ->get();
+}
+
+//check for loan deduction start date
+public function startLoan($sub_date,$entry_date){
+    $bolean_value= TRUE;
+  
+    //check for date comparison
+    if($sub_date < $entry_date){
+        //allow loan to deduct
+        return $bolean_value;
+    }else{
+        //do not allow loan to deduct
+        return !$bolean_value;
+    }
 }
 
 //legacy code
