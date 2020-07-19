@@ -329,7 +329,9 @@ try{
             //product name
             $product_name = Product::find($sub->product_id)->name;
             $currentAmount = $sub->monthly_deduction;
-            if($remainingDeductible !=0 && $differenceLeft !=0)
+            //old code commented out
+            //if($remainingDeductible !=0 && $differenceLeft !=0)
+            if($remainingDeductible !=0)
             {
            //check for over deduction balance if it exist please attach it to the first loan paid
             $newDeduction = new Ldeduction;
