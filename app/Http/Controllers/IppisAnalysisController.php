@@ -327,7 +327,7 @@ try{
             
             //allow for loan to deduct
             //product name
-            $product_name = Product::find($sub->product_id)->name;
+            //$product_name = Product::find($sub->product_id)->name;
             $currentAmount = $sub->monthly_deduction;
             //old code commented out
             //if($remainingDeductible !=0 && $differenceLeft !=0)
@@ -343,11 +343,11 @@ try{
             //$newDeduction->overdeduction_status = 'Active'; //store over deduction status
             $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
             $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-            $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '. $product_name.  ' MIDAS deduction';
+            $newDeduction->notes = $cumulativeDeduct->description;
             $newDeduction->uploaded_by = auth()->user()->first_name;
             $newDeduction->save();
             $remainingDeductible = $remainingDeductible-$currentAmount;
-            $differenceLeft = $differenceLeft-$differenceLeft;
+            //$differenceLeft = $differenceLeft-$differenceLeft;
            
         }elseif($currentAmount <= $remainingDeductible){
             //there is enough to deduct exact value of expected deduction
@@ -359,7 +359,7 @@ try{
             $newDeduction->amount_deducted = $currentAmount;
             $newDeduction->entry_month = $cumulativeDeduct->entry_date;
             $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
-            $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'  '. $product_name . ' MIDAS deduction';
+            $newDeduction->notes = $cumulativeDeduct->description;
             $newDeduction->uploaded_by = auth()->user()->first_name;
             $newDeduction->save();
             $remainingDeductible = $remainingDeductible-$currentAmount;
@@ -394,7 +394,7 @@ try{
             else{
 
             //product
-            $product_name = Product::find($sub->product_id)->name;
+            //$product_name = Product::find($sub->product_id)->name;
             //actual monthly deduction
             $currentAmount = $sub->monthly_deduction;
                 //allow for deductions
@@ -408,7 +408,7 @@ try{
                 $newDeduction->amount_deducted = $currentAmount;
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
                 $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'  '. $product_name. ' MIDAS deduction';
+                $newDeduction->notes = $cumulativeDeduct->description;
                 $newDeduction->uploaded_by = auth()->user()->first_name;
                 $newDeduction->save();
                 $remainingDeductible = $remainingDeductible-$currentAmount;
@@ -421,7 +421,7 @@ try{
                 $newDeduction->amount_deducted = $remainingDeductible;
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
                 $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
-                $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString() .'   '.  $product_name. '  MIDAS deduction';
+                $newDeduction->notes = $cumulativeDeduct->description;
                 $newDeduction->uploaded_by = auth()->user()->first_name;
                 $newDeduction->save();                
                 //create records in default table
@@ -463,7 +463,6 @@ try{
                $subDate = $sub->loan_start_date->toDateString();
                $entryDate = $cumulativeDeduct->entry_date->toDateString();
    
-               
    
                if($subDate >$entryDate){
                 continue;
@@ -480,7 +479,7 @@ try{
                     $newDeduction->amount_deducted = $currentAmount;
                     $newDeduction->entry_month = $cumulativeDeduct->entry_date;
                     $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
-                    $newDeduction->notes = $cumulativeDeduct->entry_date->toFormattedDateString().' '.$product_name. ' MIDAS loan deduction';
+                    $newDeduction->notes = $cumulativeDeduct->description;
                     $newDeduction->uploaded_by = auth()->user()->first_name;
                     $newDeduction->save();
                     $remainingDeductible = $remainingDeductible-$currentAmount;

@@ -24,6 +24,7 @@ class IppisAnalysisImport implements ToModel,WithHeadingRow
             'ippis_no' => $row['ippis_number'],
             'name' => $row['name'],
             'entry_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['entry_date']),
+            'description' => $row['description'],
             'cumulative_amount' => $row['amount'],
             'master_reference' => $this->string,
             'created_by' => auth()->user()->first_name,

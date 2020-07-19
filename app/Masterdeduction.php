@@ -13,6 +13,7 @@ class Masterdeduction extends Model
         'cumulative_amount',
         'entry_date',
         'cumulative_enddate',
+        'description',
         'master_reference',
         'created_by',
     ];
