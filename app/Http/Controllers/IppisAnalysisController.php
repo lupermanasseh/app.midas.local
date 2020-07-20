@@ -348,6 +348,8 @@ try{
             $newDeduction->save();
             $remainingDeductible = $remainingDeductible-$currentAmount;
             //$differenceLeft = $differenceLeft-$differenceLeft;
+            //stop loan
+            $myLoanSubscription->loanBalance($sub->id);
            
         }elseif($currentAmount <= $remainingDeductible){
             //there is enough to deduct exact value of expected deduction
@@ -363,6 +365,8 @@ try{
             $newDeduction->uploaded_by = auth()->user()->first_name;
             $newDeduction->save();
             $remainingDeductible = $remainingDeductible-$currentAmount;
+              //stop loan
+              $myLoanSubscription->loanBalance($sub->id);
         } 
     }//checck date
             //explore changing status of master deduction here
@@ -412,6 +416,10 @@ try{
                 $newDeduction->uploaded_by = auth()->user()->first_name;
                 $newDeduction->save();
                 $remainingDeductible = $remainingDeductible-$currentAmount;
+
+                  //stop loan
+                  $myLoanSubscription->loanBalance($sub->id);
+
                 }elseif($currentAmount > $remainingDeductible){
                 //there is not enough to deduct store the value available
                 $newDeduction = new Ldeduction;
@@ -440,6 +448,10 @@ try{
                 // $chargeDefault->created_by = auth()->user()->first_name;
                 // $chargeDefault->save();
                 // $remainingDeductible = $remainingDeductible-$remainingDeductible;
+
+                  //stop loan
+                  $myLoanSubscription->loanBalance($sub->id);
+
             }
             }
                
@@ -454,8 +466,7 @@ try{
         $remainingDeductible = $ippisCumulativeDeduction;
        foreach($activeLoans as $sub){
 
-            $product_name = Product::find($sub->product_id)->name;
-
+          
             //actual monthly deduction
             $currentAmount = $sub->monthly_deduction;
                // 
@@ -483,6 +494,10 @@ try{
                     $newDeduction->uploaded_by = auth()->user()->first_name;
                     $newDeduction->save();
                     $remainingDeductible = $remainingDeductible-$currentAmount;
+
+                    //stop loan
+                    $myLoanSubscription->loanBalance($sub->id);
+
                     }
                }      
         }

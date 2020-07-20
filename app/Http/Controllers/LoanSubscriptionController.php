@@ -408,7 +408,7 @@ class LoanSubscriptionController extends Controller
                 toastr()->error('You can not stop this facility, please check details');
                 return back();
 
-        }
+    }
 
             //Loan Details
             public function loanDetails($id){

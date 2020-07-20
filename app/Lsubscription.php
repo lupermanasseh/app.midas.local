@@ -74,7 +74,7 @@ class Lsubscription extends Model
      //Filter loan subscriptions
      public static function filterResult($start_date,$end_date){
         return static::where('loan_start_date','>=',$start_date)
-                        ->where('loan_start_date','<=',$end_date)
+                        ->where('loan_end_date','<=',$end_date)
                         ->where('loan_status','Active')
                         ->get();
         //return $result->where('repayment_mode',$pay_type);
@@ -101,7 +101,27 @@ class Lsubscription extends Model
                             
     }
 
-  
+  //method to check loan payment
+  public function loanBalance($id){
+
+    $loanSub = Lsubscription::find($id);
+    
+    $loanAmount = $loanSub->amount_approved;
+    //3 get sum deductions for the product
+    $totalDeductions = $loanSub->totalLoanDeductions($id);
+    //find the diff
+    $diffRslt = $loanAmount-$totalDeductions;
+    if($diffRslt <= 0){
+        //update the subj obj status to inactive
+        //return to active Sub page
+        $loanSub->status = 'Inactive';
+        $loanSub->loan_end_date = now()->toDateString();
+        //$loanSub->review_by = auth()->id();
+            $loanSub->save();
+    }
+
+}
+
 
     //user loan end date
     public function loanEndDate($_id){
