@@ -108,13 +108,13 @@ class Lsubscription extends Model
     
     $loanAmount = $loanSub->amount_approved;
     //3 get sum deductions for the product
-    $totalDeductions = $loanSub->totalLoanDeductions($id);
+    $totalDeductions =  $loanSub->totalLoanDeductions($id);
     //find the diff
     $diffRslt = $loanAmount-$totalDeductions;
     if($diffRslt <= 0){
         //update the subj obj status to inactive
         //return to active Sub page
-        $loanSub->status = 'Inactive';
+        $loanSub->loan_status = 'Inactive';
         $loanSub->loan_end_date = now()->toDateString();
         //$loanSub->review_by = auth()->id();
             $loanSub->save();
