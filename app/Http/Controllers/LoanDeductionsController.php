@@ -215,7 +215,8 @@ public function export(){
 
     //Store loan deduction repayment
     public function repayStore(Request $request){
-    
+
+        
         //Save loan repayment
         $this->validate(request(), [
         'amount' =>'required|numeric|between:0.00,999999999.99',
@@ -234,33 +235,43 @@ public function export(){
             $amtApproved = $loanSub->amount_approved;
             $totalDeductions = $loanSub->totalLoanDeductions($subid);
 
-            if($totalDeductions >= $amtApproved){
-                //check loan
-                toastr()->error('An error has occurred trying to repay loan, check please.');
-                return redirect('/user/page/'.$loanSub->user_id);
-            }else{
-
-                $loanRepay = new Ldeduction;
-                $loanRepay->amount_deducted = $request['amount'];
-                $loanRepay->bank_name = $request['bank_name'];
-                $loanRepay->user_id = $loanSub->user_id;
-                $loanRepay->product_id = $loanSub->product_id;
-                $loanRepay->lsubscription_id = $request['sub_id'];
-                $loanRepay->entry_month = $request['entry_date'];
-                $loanRepay->teller_no = $request['teller_number'];
-                $loanRepay->depositor_name = $request['depositor_name'];
-                $loanRepay->notes = $request['notes'];
-                $loanRepay->bank_add = $request['bank_add'];
-                $loanRepay->uploaded_by = auth()->id();
-                $loanRepay->save();
-                if($loanRepay->save()) {
-                    toastr()->success('Loan Repayment Successful');
-                    return redirect('/loanDeduction/history/'.$request['sub_id']);
+            //begin transaction to process uploads
+            DB::beginTransaction();
+            try{
+                if($totalDeductions >= $amtApproved){
+                    //check loan
+                    toastr()->error('An error has occurred trying to repay loan, check please.');
+                    return redirect('/user/page/'.$loanSub->user_id);
+                }else{
+    
+                    $loanRepay = new Ldeduction;
+                    $loanRepay->amount_deducted = $request['amount'];
+                    $loanRepay->bank_name = $request['bank_name'];
+                    $loanRepay->user_id = $loanSub->user_id;
+                    $loanRepay->product_id = $loanSub->product_id;
+                    $loanRepay->lsubscription_id = $request['sub_id'];
+                    $loanRepay->entry_month = $request['entry_date'];
+                    $loanRepay->teller_no = $request['teller_number'];
+                    $loanRepay->depositor_name = $request['depositor_name'];
+                    $loanRepay->notes = $request['notes'];
+                    $loanRepay->bank_add = $request['bank_add'];
+                    $loanRepay->uploaded_by = auth()->user()->first_name;
+                    $loanRepay->save();
+                    //check for loan balance
+                    $loanSub->loanBalance($subid);
                 }
-            
-                toastr()->error('An error has occurred trying to record payment.');
-                return back();
             }
+            catch(\Exception $e){
+            DB::rollback();
+            toastr()->error($e->getMessage());
+            return back();
+            }
+            DB::commit();
+            toastr()->success('Loan deduction inputs processed successfully!');
+            //redirect to listing page order by latest
+            //return redirect('/post/loans');
+            return redirect('/loanDeduction/history/'.$request['sub_id']);
+        
         
     }
 
@@ -329,11 +340,13 @@ public function export(){
             $loanDeduction->amount_deducted = $amt;
             $loanDeduction->entry_month = $date;
             $loanDeduction->notes = $notes;
-            $loanDeduction->uploaded_by = auth()->id();
+            $loanDeduction->uploaded_by = auth()->user()->first_name;
             $loanDeduction->save();
+            //check for loan balance
+            $subscription->loanBalance($sub_id);
             }catch(\Exception $e){
             DB::rollback();
-            toastr()->error('An error has occurred trying to persist your deductions.');
+            toastr()->error($e->getMessage());
             return back();
             }
             DB::commit();
@@ -352,7 +365,6 @@ public function export(){
 
                        $response = $client->request('GET', $url,['verify'=>false]);
                     
-
                         //send loan deduction notification
 
                         $client = new Client;

@@ -284,13 +284,13 @@ class LoanSubscriptionController extends Controller
         $pendingLoans = Lsubscription::pendingLoans($id);
         
         //User target saving subscriptions
-        $targetsr = Targetsr::where('user_id',$id)
-                            ->get();
+        //$targetsr = Targetsr::where('user_id',$id)
+                           // ->get();
 
         //User pending products subscriptions
         //$userPendingProducts = Psubscription::pendingProducts($id); 
 
-        return view('LoanSub.userLoanSub',compact('title','activeLoans','pendingLoans','user','saving','targetsr'));
+        return view('LoanSub.userLoanSub',compact('title','activeLoans','pendingLoans','user','saving'));
     }
 
 

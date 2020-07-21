@@ -204,7 +204,7 @@ class Lsubscription extends Model
 public static function pendingLoans($id){
   return static::where('user_id',$id)
         ->where(function ($query){
-            $query->where('loan_status','!=','Active');
+            $query->where('loan_status','=','Pending');
         })->with(['product' => function ($query) {
         $query->orderBy('name', 'desc');
         }])->get();

@@ -148,7 +148,7 @@
     <span><a href="/loanSub/create" class="btn green">New Loan</a></span>
     @endif
 
-    @if ($targetsr->count() >=1)
+    {{-- @if ($targetsr->count() >=1)
     <div class="row user-profiles">
         <div class="col s12 m12 l12  profile-detail">
             <p class="profile__heading text-grey darken-3">
@@ -165,20 +165,20 @@
                     @foreach($targetsr as $tsr)
                     <tr>
                         <td>{{$tsr->created_at->toDateString()}}</td>
-                        <td><a href="/tsSub/detail/{{$tsr->id}}">{{number_format($tsr->monthly_saving,2,'.',',')}}</a>
-                        </td>
-                        <td>{{$tsr->status}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <p><a href="/ts/withdrawal/{{$user->id}}" class="btn pink darken-3">WITHDRAW</a> <a
-                href="/new/ts/{{$user->id}}" class="btn">New TS</a></p>
-    </div>
-    @else
-    <p>No available Target Saving subscriptions</p>
-    <p><a href="/new/ts/{{$user->id}}" class="btn">Regiser New TS</a></p>
-    @endif
+    <td><a href="/tsSub/detail/{{$tsr->id}}">{{number_format($tsr->monthly_saving,2,'.',',')}}</a>
+    </td>
+    <td>{{$tsr->status}}</td>
+    </tr>
+    @endforeach
+    </tbody>
+    </table>
+</div>
+<p><a href="/ts/withdrawal/{{$user->id}}" class="btn pink darken-3">WITHDRAW</a> <a href="/new/ts/{{$user->id}}"
+        class="btn">New TS</a></p>
+</div>
+@else
+<p>No available Target Saving subscriptions</p>
+<p><a href="/new/ts/{{$user->id}}" class="btn">Regiser New TS</a></p>
+@endif --}}
 </div>
 @endsection
