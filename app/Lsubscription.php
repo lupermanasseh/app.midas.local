@@ -105,12 +105,13 @@ class Lsubscription extends Model
   public function loanBalance($id){
 
     $loanSub = Lsubscription::find($id);
-    
+    //number_format($active->totalLoanDeductions($active->id),2,'.',',')
     $loanAmount = $loanSub->amount_approved;
     //3 get sum deductions for the product
     $totalDeductions =  $loanSub->totalLoanDeductions($id);
     //find the diff
     $diffRslt = $loanAmount-$totalDeductions;
+    dd($diffRslt);
     if($diffRslt <= 0){
         //update the subj obj status to inactive
         //return to active Sub page
