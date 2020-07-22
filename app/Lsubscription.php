@@ -111,7 +111,7 @@ class Lsubscription extends Model
     $totalDeductions =  $loanSub->totalLoanDeductions($id);
     //find the diff
     $diffRslt = $loanAmount-$totalDeductions;
-    dd($diffRslt);
+    dd($totalDeductions);
     if($diffRslt <= 0){
         //update the subj obj status to inactive
         //return to active Sub page
