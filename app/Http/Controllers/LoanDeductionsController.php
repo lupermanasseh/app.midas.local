@@ -234,7 +234,7 @@ public function export(){
             $loanSub = Lsubscription::find($subid);
             $amtApproved = $loanSub->amount_approved;
             $totalDeductions = $loanSub->totalLoanDeductions($subid);
-
+            dd($totalDeductions);
             //begin transaction to process uploads
             DB::beginTransaction();
             try{
