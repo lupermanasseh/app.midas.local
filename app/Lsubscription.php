@@ -106,16 +106,14 @@ class Lsubscription extends Model
 
     $loanSub = Lsubscription::find($id);
      $loanAmount = $loanSub->amount_approved;
-     
-    $loanAmount = number_format($loanAmount,2,'.',',');
-       
+        
     //3 get sum deductions for the product
     
    $totalDeductions =  $loanSub->totalLoanDeductions($id);
    //$totalDeductions =  number_format($totalDeductions,2,'.',',');
     //find the diff
     $diffRslt = $loanAmount-$totalDeductions;
-    dd($loanAmount);
+    dd($totalDeductions);
     if($diffRslt <= 0){
         //update the subj obj status to inactive
         $loanSub->loan_status = 'Inactive';
