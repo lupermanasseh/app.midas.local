@@ -106,7 +106,7 @@ class Lsubscription extends Model
 
     $loanSub = Lsubscription::find($id);
      $loanAmount = $loanSub->amount_approved;
-    //$loanAmount =number_format($loanAmount,2,'.',',');
+    $loanAmount =number_format($loanAmount,2);
     //$loanAmount = $loanSub->amount_approved;
     //3 get sum deductions for the product
     
