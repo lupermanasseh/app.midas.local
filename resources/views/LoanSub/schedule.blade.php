@@ -48,7 +48,7 @@
                     @for($i=2; $i<=$loan->custom_tenor; $i++)
                         <tr>
                             <td>{{$i}}</td>
-                            <td>{{$loan->loan_start_date->addMonths($i-1)->toFormattedDateString()}}
+                            <td>{{$loan->loan_start_date->addMonths($i-1)->endOfMonth()->toFormattedDateString()}}
                             </td>
                             <td>{{$loan->user->first_name}} {{$loan->user->last_name}}</td>
                             <td>{{$loan->product->name}}</td>

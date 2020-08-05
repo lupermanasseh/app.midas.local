@@ -47,7 +47,7 @@
                     <?php for($i=2; $i<=$loan->custom_tenor; $i++): ?>
                         <tr>
                             <td><?php echo e($i); ?></td>
-                            <td><?php echo e($loan->loan_start_date->addMonths($i-1)->toFormattedDateString()); ?>
+                            <td><?php echo e($loan->loan_start_date->addMonths($i-1)->endOfMonth()->toFormattedDateString()); ?>
 
                             </td>
                             <td><?php echo e($loan->user->first_name); ?> <?php echo e($loan->user->last_name); ?></td>
