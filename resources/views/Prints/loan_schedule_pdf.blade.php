@@ -98,7 +98,7 @@
                                 Loan Amount: {{number_format($loan->amount_approved,2,'.',',')}}<br />
                                 Tenor: {{$loan->custom_tenor}} Mnth(s)<br />
                                 Monthly Repymnt: {{number_format($loan->monthly_deduction,2,'.',',')}}<br />
-                                start Date: {{$loan->loan_start_date->toFormattedDateString()}}<br />
+                                Start Date: {{$loan->loan_start_date->toFormattedDateString()}}<br />
                                 End Date: {{$loan->loan_end_date->toFormattedDateString()}}
                                 <br />
                             </span>
