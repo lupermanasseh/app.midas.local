@@ -322,7 +322,7 @@ public function statementFind(Request $request){
 
      $from = $request['from'];
      $to = $request['to'];
-     $pay_number = $request['payment_number'];
+     //$pay_number = $request['payment_number'];
      //$category = $request['category'];
     
 
@@ -336,7 +336,6 @@ public function statementFind(Request $request){
      $heading ='Statement of Savings';
      $userObj = User::find($request['reg_number']);
      $user_id = $userObj->id;
-
      $result = $saving->findSavingRecords($fromDate,$toDate,$user_id);
 
      return view ('Contributors.statementResult',compact('title','result','fromDate','toDate','saving','userObj','user_id'));

@@ -269,6 +269,8 @@ Route::get('/loanDeduction/edit/{id}','LoanDeductionsController@edit');
 Route::post('/loanDeduction/update/{id}','LoanDeductionsController@update');
 Route::get('/loanDeduction/remove/{id}','LoanDeductionsController@destroy');
 Route::get('/loanDeduction/history/{id}','LoanDeductionsController@loanDeductionHistory');
+Route::get('/loan/deductions/print/{id}','LoanDeductionsController@loanDeductionsPrint');
+Route::get('/loan/deductions/printpdf/{id}','LoanDeductionsController@loanDeductionsPdf');
 Route::get('/loan/payment/{id}','LoanDeductionsController@loanPaymentHome');
 Route::get('/bank/repay/{id}','LoanDeductionsController@repay');
 Route::post('/loanRepay/store','LoanDeductionsController@repayStore');

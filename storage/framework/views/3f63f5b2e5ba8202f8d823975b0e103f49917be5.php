@@ -146,38 +146,7 @@
     <span><a href="/loanSub/create" class="btn green">New Loan</a></span>
     <?php endif; ?>
 
-    <?php if($targetsr->count() >=1): ?>
-    <div class="row user-profiles">
-        <div class="col s12 m12 l12  profile-detail">
-            <p class="profile__heading text-grey darken-3">
-                Available Target Saving Subscription(s) </p>
-            <table class="highlight">
-                <thead>
-                    <tr>
-                        <th>Date Reg</th>
-                        <th>Amount (NGN)</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $__currentLoopData = $targetsr; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tsr): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <tr>
-                        <td><?php echo e($tsr->created_at->toDateString()); ?></td>
-                        <td><a href="/tsSub/detail/<?php echo e($tsr->id); ?>"><?php echo e(number_format($tsr->monthly_saving,2,'.',',')); ?></a>
-                        </td>
-                        <td><?php echo e($tsr->status); ?></td>
-                    </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </tbody>
-            </table>
-        </div>
-        <p><a href="/ts/withdrawal/<?php echo e($user->id); ?>" class="btn pink darken-3">WITHDRAW</a> <a
-                href="/new/ts/<?php echo e($user->id); ?>" class="btn">New TS</a></p>
-    </div>
-    <?php else: ?>
-    <p>No available Target Saving subscriptions</p>
-    <p><a href="/new/ts/<?php echo e($user->id); ?>" class="btn">Regiser New TS</a></p>
-    <?php endif; ?>
+    
 </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('Layouts.admin-app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -43,12 +43,31 @@
                 <span class="profile-item">Name: <?php echo e($userObj->first_name); ?> <?php echo e($userObj->last_name); ?>
 
                     <?php echo e($userObj->other_name); ?></span>
-                <span class="profile-item">Membership No: <?php echo e($userObj->id); ?></span>
-                <span class="profile-item">Membership Type: <?php echo e($userObj->membership_type); ?></span>
-                <span class="profile-item">Address: <?php echo e($userObj->home_add); ?></span>
+                <span class="profile-item">Membership No: <?php echo e($userObj->membership_type); ?>/<?php echo e($userObj->id); ?></span>
+                <span class="profile-item">Loan Type: <?php echo e($loan->product->name); ?></span>
+                <span class="profile-item">Interest Rate: <?php echo e($loan->product->interest*100); ?>%</span>
+                <span class="profile-item">Interest:
+                    <?php echo e(number_format($loan->product->interest*$loan->amount_approved,2,'.',',')); ?></span>
+                
+                
             </div>
             <div class="membership-details precision-right">
-                
+                <span class="profile-item">Loan Amount:
+                    <?php echo e(number_format($loan->amount_approved,2,'.',',')); ?></span>
+                <span class="profile-item">Tenor:
+                    <?php echo e($loan->custom_tenor); ?> Mnths</span>
+                <span class="profile-item">Monthly Rpymt:
+                    <?php echo e(number_format($loan->monthly_deduction,2,'.',',')); ?>
+
+                </span>
+                <span class="profile-item">Start Date:
+                    <?php echo e($loan->loan_start_date->toFormattedDateString()); ?>
+
+                </span>
+                <span class="profile-item">End Date:
+                    <?php echo e($loan->loan_end_date->toFormattedDateString()); ?>
+
+                </span>
             </div>
         </section>
         <section class="print-area">

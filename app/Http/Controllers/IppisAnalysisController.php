@@ -335,10 +335,13 @@ try{
             {
            //check for over deduction balance if it exist please attach it to the first loan paid
             $newDeduction = new Ldeduction;
+            //total loan balances
+            $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
             $newDeduction->user_id = $sub->user_id;
             $newDeduction->product_id=$sub->product_id;
             $newDeduction->lsubscription_id =$sub->id;
             $newDeduction->amount_deducted = $currentAmount;
+            $newDeduction->balances = $loanDeductionBalance + $currentAmount;
             //$newDeduction->over_deduction = $differenceLeft; //store over deduction amount
             //$newDeduction->overdeduction_status = 'Active'; //store over deduction status
             $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
@@ -355,10 +358,14 @@ try{
             //there is enough to deduct exact value of expected deduction
             //create a new deduction
             $newDeduction = new Ldeduction;
+
+            //total loan balances
+            $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
             $newDeduction->user_id = $sub->user_id;
             $newDeduction->product_id=$sub->product_id;
             $newDeduction->lsubscription_id =$sub->id;
             $newDeduction->amount_deducted = $currentAmount;
+            $newDeduction->balances = $loanDeductionBalance + $currentAmount;
             $newDeduction->entry_month = $cumulativeDeduct->entry_date;
             $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
             $newDeduction->notes = $cumulativeDeduct->description;
@@ -406,10 +413,13 @@ try{
                 //there is enough to deduct exact value of expected deduction
                 //create a new deduction
                 $newDeduction = new Ldeduction;
+                //total loan balances
+                $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
                 $newDeduction->user_id = $sub->user_id;
                 $newDeduction->product_id = $sub->product_id;
                 $newDeduction->lsubscription_id =$sub->id;
                 $newDeduction->amount_deducted = $currentAmount;
+                $newDeduction->balances = $loanDeductionBalance + $currentAmount;
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
                 $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
                 $newDeduction->notes = $cumulativeDeduct->description;
@@ -423,10 +433,13 @@ try{
                 }elseif($currentAmount > $remainingDeductible){
                 //there is not enough to deduct store the value available
                 $newDeduction = new Ldeduction;
+                //total loan balances
+                $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
                 $newDeduction->user_id = $sub->user_id;
                 $newDeduction->product_id=$sub->product_id;
                 $newDeduction->lsubscription_id =$sub->id;
                 $newDeduction->amount_deducted = $remainingDeductible;
+                $newDeduction->balances = $loanDeductionBalance + $remainingDeductible;
                 $newDeduction->entry_month = $cumulativeDeduct->entry_date;
                 $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
                 $newDeduction->notes = $cumulativeDeduct->description;
@@ -484,10 +497,13 @@ try{
                     //there is enough to deduct exact value of expected deduction
                     //create a new deduction
                     $newDeduction = new Ldeduction;
+                    //total loan balances
+                    $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
                     $newDeduction->user_id = $sub->user_id;
                     $newDeduction->product_id = $sub->product_id;
                     $newDeduction->lsubscription_id =$sub->id;
                     $newDeduction->amount_deducted = $currentAmount;
+                    $newDeduction->balances = $loanDeductionBalance + $currentAmount;
                     $newDeduction->entry_month = $cumulativeDeduct->entry_date;
                     $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
                     $newDeduction->notes = $cumulativeDeduct->description;

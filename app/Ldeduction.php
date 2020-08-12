@@ -26,7 +26,7 @@ class Ldeduction extends Model
 
     //Each loan deduction belongs to a loan subscription
     public function loansubscription(){
-        return $this->belongsTo(Lsubscription::class);
+        return $this->belongsTo(Lsubscription::class,'lsubscription_id');
     }
 
       //Each loan deduction belongs to a loan Product
@@ -45,7 +45,37 @@ class Ldeduction extends Model
         return static::where('lsubscription_id',$id)
         ->with(['product' => function ($query) {
         $query->orderBy('name', 'desc');
-        }])->latest()->get();
+        }])->oldest()->get();
     }
+
+     /**
+     * Total debit by the user using lsubscription id
+     * @param int $id
+     */
+    public function totalLoanDebit($id){
+        return Ldeduction::where('lsubscription_id',$id)
+                           ->sum('amount_debited');
+    }
+
+    /**
+     * Total debit by the user using lsubcription id
+     * @param int $id
+     */
+    public function totalLoanCredit($id){
+        return Ldeduction::where('lsubscription_id',$id)
+                         ->sum('amount_deducted');
+    }
+
+
+    /**
+     * Get user total loan deductions
+     * pass in user id
+     * @param int $subid
+     */
+    public static function myLoanDeductions($subid){
+        $ldeductionObj = new Ldeduction;
+        //$totalSaving = Saving::where('user_id',$id)->sum('amount_saved');
+        return $totalDeductions = $ldeductionObj->totalLoanCredit($subid)-$ldeductionObj->totalLoanDebit($subid);
+      }
 
 }

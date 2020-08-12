@@ -36,14 +36,14 @@
             </section>
         </header>
         <section class="statement-title">
-            <h4>LOAN REPAYMENT SCHEDULE</h4>
+            <h4>LOAN DEDUCTION HISTORY</h4>
         </section>
 
         <section class="header-content">
             <div class="membership-details precision-left">
-                <span class="profile-item">Name: {{$userObj->first_name}} {{$userObj->last_name}}
-                    {{$userObj->other_name}}</span>
-                <span class="profile-item">Membership No: {{$userObj->membership_type}}/{{$userObj->id}}</span>
+                <span class="profile-item">Name: {{$loan->user->first_name}} {{$loan->user->last_name}}
+                    {{$loan->user->other_name}}</span>
+                <span class="profile-item">Membership No: {{$loan->user->membership_type}}/{{$loan->user->id}}</span>
                 <span class="profile-item">Loan Type: {{$loan->product->name}}</span>
                 <span class="profile-item">Interest Rate: {{$loan->product->interest*100}}%</span>
                 <span class="profile-item">Interest:

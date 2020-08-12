@@ -245,7 +245,10 @@ public function export(){
                 }else{
     
                     $loanRepay = new Ldeduction;
+                    //total loan Balances
+                    $loanBalances = $loanRepay->myLoanDeductions($subid);
                     $loanRepay->amount_deducted = $request['amount'];
+                    $loanRepay->balances = $loanBalances + $request['amount'];
                     $loanRepay->bank_name = $request['bank_name'];
                     $loanRepay->user_id = $loanSub->user_id;
                     $loanRepay->product_id = $loanSub->product_id;
@@ -320,6 +323,7 @@ public function export(){
             try{
             //Step 1 : debit savings account
             $saving->amount_withdrawn = $amt;
+            $saving->balances = $saving->netBalance($user_id)-$amt;
             $saving->entry_date = $date;
             $saving->user_id = $user_id;
             $saving->notes = 'Paying loan from my savings account';
@@ -338,6 +342,7 @@ public function export(){
             $loanDeduction->product_id = $subscription->product_id;
             $loanDeduction->lsubscription_id = $sub_id;
             $loanDeduction->amount_deducted = $amt;
+            $loanDeduction->balances = $total_Deductions + $amt;
             $loanDeduction->entry_month = $date;
             $loanDeduction->notes = $notes;
             $loanDeduction->uploaded_by = auth()->user()->first_name;
@@ -518,9 +523,30 @@ public function export(){
      */
     public function loanDeductionHistory($id){
         $title = 'Loan Deduction History';
+        $loan = Lsubscription::find($id);
         $loanHistory = Ldeduction::loanHistory($id);
-        return view ('LoanDeduction.loanHistory',compact('title','loanHistory'));
+        return view ('LoanDeduction.loanHistory',compact('title','loanHistory','loan'));
 
+    }
+
+     //print loan deductions to file
+     public function loanDeductionsPrint($id){
+        $title = 'Loan Deductions History';
+        $loan = Lsubscription::find($id);
+        $loanHistory = Ldeduction::loanHistory($id);
+        //$userObj = User::find($loan->user_id);
+        return view('Prints.loan_deductions_print',compact('title','loan','loanHistory'));
+    }
+
+    //print loan deduction to pdf
+    public function loanDeductionsPdf($id){
+        $title = 'Loan Deductions History';
+        $loan = Lsubscription::find($id);
+        $loanHistory = Ldeduction::loanHistory($id);
+        //$userObj = User::find($loan->user_id);
+     
+        $pdf = PDF::loadView('Prints.loan_deductions_pdf',compact('loan','title','loanHistory'));
+        return $pdf->stream();
     }
      
 }

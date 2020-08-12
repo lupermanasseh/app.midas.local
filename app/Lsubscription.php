@@ -216,8 +216,12 @@ public static function pendingLoans($id){
 //Pass in loan subscription id
 public  function totalLoanDeductions($loan_id)
 {
-    return Ldeduction::where('lsubscription_id',$loan_id)
-                       ->sum('amount_deducted');
+    $loanDeductObj = new Ldeduction;
+    $loanCredit = $loanDeductObj->totalLoanCredit($loan_id);
+    $loanDebit = $loanDeductObj->totalLoanDebit($loan_id);
+   return $loanBalance = $loanCredit - $loanDebit;
+    //return Ldeduction::where('lsubscription_id',$loan_id)
+                       //->sum('amount_deducted');
 }
 
    //Product guarantor count

@@ -62,7 +62,7 @@
         </section>
 
         <section>
-            <h4 class="statement-title">LOAN REPAYMENT SCHEDULE</h4>
+            <h4 class="statement-title">LOAN DEDUCTION HISTORY</h4>
         </section>
 
 
@@ -75,9 +75,9 @@
 
                             <span>
                                 <br />
-                                Name: {{$userObj->first_name}} {{$userObj->last_name}}
+                                Name: {{$loan->user->first_name}} {{$loan->user->last_name}}
                                 <br />
-                                Reg No: {{$userObj->membership_type}}/{{$userObj->id}}<br />
+                                Reg No: {{$loan->user->membership_type}}/{{$loan->user->id}}<br />
                                 Loan Type: {{$loan->product->name}}<br>
                                 Interest Rate: {{$loan->product->interest*100}}%<br>
                                 Interest:
@@ -112,36 +112,35 @@
             <table>
                 <thead>
                     <tr>
-                        <th>S/N</th>
+                        {{-- <th>S/N</th> --}}
                         <th>DATE</th>
-                        <th>PRINCIPAL</th>
-                        <th>MONTHLY REPAYMENT</th>
-                        <th>CUMM. PAYMENT</th>
+                        <th>DESCRIPTION</th>
+                        <th>DEBIT</th>
+                        <th>CREDIT</th>
                         <th>BAL</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{1}}</td>
-                        <td>{{$loan->loan_start_date->endOfMonth()->toFormattedDateString()}}</td>
+                        {{-- <td>{{1}}</td> --}}
+                        <td>{{$loan->loan_start_date->toFormattedDateString()}}</td>
+                        <td>Normal Loan Disbursement</td>
                         <td>{{number_format($loan->amount_approved,2,'.',',')}}</td>
-                        <td>{{number_format($loan->monthly_deduction,2,'.',',')}}</td>
-                        <td>{{number_format($loan->monthly_deduction,2,'.',',')}}</td>
-                        <td>{{number_format($loan->amount_approved - $loan->monthly_deduction,2,'.',',')}}
+                        <td>-</td>
+                        <td>{{number_format($loan->amount_approved,2,'.',',')}}
                         </td>
                     </tr>
-                    @for($i=2; $i<=$loan->custom_tenor; $i++)
-                        <tr>
-                            <td>{{$i}}</td>
-                            <td>{{$loan->loan_start_date->addMonths($i-1)->endOfMonth()->toFormattedDateString()}}
-                            </td>
-                            <td>{{number_format($loan->amount_approved,2,'.',',')}}</td>
-                            <td>{{number_format($loan->monthly_deduction,2,'.',',')}}</td>
-                            <td>{{number_format($loan->monthly_deduction*$i,2,'.',',')}}</td>
-                            <td>{{number_format($loan->amount_approved-$loan->monthly_deduction*$i,2,'.',',')}}
-                            </td>
-                        </tr>
-                        @endfor
+                    @foreach($loanHistory as $myItem)
+                    <tr>
+                        {{-- <td>{{$i}}</td> --}}
+                        <td>{{$myItem->entry_month->toFormattedDateString()}}</td>
+                        <td>{{$myItem->notes}}</td>
+                        {{-- <td><a href="/user/page/{{$myItem->user_id}}">{{$myItem->user->first_name}}</a></td> --}}
+                        <td>-</td>
+                        <td>{{number_format($myItem->amount_deducted,2,'.',',')}}</td>
+                        <td>{{number_format($loan->amount_approved-$myItem->balances,2,'.',',')}}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </section>

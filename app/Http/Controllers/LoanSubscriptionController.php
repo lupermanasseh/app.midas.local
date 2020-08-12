@@ -56,7 +56,6 @@ class LoanSubscriptionController extends Controller
         $loan = Lsubscription::find($id);
         $userObj = User::find($loan->user_id);
      
-
         $pdf = PDF::loadView('Prints.loan_schedule_pdf',compact('loan','title','userObj'));
         return $pdf->stream();
         // return $pdf->download('statementOfSavings.pdf');

@@ -33,7 +33,7 @@ class Saving extends Model
      */
     public function totalDebit($id){
         return Saving::where('user_id',$id)
-                    ->where('status','Active')
+                    //->where('status','Active')
                     ->sum('amount_withdrawn');
     }
     
@@ -59,7 +59,7 @@ class Saving extends Model
      */
     public function totalCredit($id){
         return Saving::where('user_id',$id)
-                        ->where('status','Active')
+                        //->where('status','Active')
                         ->sum('amount_saved');
     }
 
@@ -80,11 +80,12 @@ class Saving extends Model
      * from the begining of transactions
      * @param int $id
      */
+
     //TODO
-    //CHECCK METHOD
+    //CHECK METHOD
     public function netBalance($id){
         
-        return $this->totalCredit($id)-$this->totalDebit($id);
+    return $this->totalCredit($id)-$this->totalDebit($id);
          
     }
 
@@ -156,8 +157,9 @@ class Saving extends Model
         return  $collection = Saving::where('user_id',$id)
                                 ->where('entry_date','>=',$from)
                                 ->where('entry_date','<=',$to)
+                                ->get(); 
                                 //->oldest('entry_date')
-                                ->get();     
+                                //->get();     
                                // ->sortBy('id');                  
         }
 
