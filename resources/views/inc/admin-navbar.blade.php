@@ -130,10 +130,10 @@
     <li>
         <div class="divider"></div>
     </li>
-    <li><a class="subheader">Target Savings</a></li>
+    {{-- <li><a class="subheader">Target Savings</a></li>
     <li><a href="/targetsaving-deductions"><i class="fas fa-database "></i>TS Deductions</a></li>
     <li><a href="/targetsaving/create"><i class="fas fa-arrow-alt-circle-up "></i>Upload</a></li>
-    <li><a href="/ts/search"><i class="fab fa-searchengin "></i>Search TS</a></li>
+    <li><a href="/ts/search"><i class="fab fa-searchengin "></i>Search TS</a></li> --}}
 
     <li>
         <div class="divider"></div>

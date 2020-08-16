@@ -278,6 +278,7 @@ Route::get('/saving/repay/{id}','LoanDeductionsController@savingRepay');
 Route::post('/saving/repay','LoanDeductionsController@savingRepayStore');
 Route::get('/ts/repay/{id}','LoanDeductionsController@tsRepay');
 Route::post('/ts/repay','LoanDeductionsController@tsRepayStore');
+Route::get('/loanbalances/find','LoanDeductionsController@findLoanBalances');
 });
 
 //Monthly Target Savings Routes
