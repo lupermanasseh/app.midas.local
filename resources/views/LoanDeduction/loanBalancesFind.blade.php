@@ -18,12 +18,12 @@
                 </div>  -->
                 <div class="input-field col s12 m6 l6">
                     <input id="from" name="from" type="date" class="validate" required>
-                    <label for="from">From</label>
+                    <label for="from">Start Date</label>
                 </div>
 
                 <div class="input-field col s12 m6 l6">
                     <input id="to" name="to" type="date" class="validate" required>
-                    <label for="to">To</label>
+                    <label for="to">End Date</label>
                 </div>
 
             </div>
