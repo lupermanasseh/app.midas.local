@@ -126,16 +126,14 @@
     <li>
         <div class="divider"></div>
     </li>
-    <li><a class="subheader">Target Savings</a></li>
-    <li><a href="/targetsaving-deductions"><i class="fas fa-database "></i>TS Deductions</a></li>
-    <li><a href="/targetsaving/create"><i class="fas fa-arrow-alt-circle-up "></i>Upload</a></li>
-    <li><a href="/ts/search"><i class="fab fa-searchengin "></i>Search TS</a></li>
+    
 
     <li>
         <div class="divider"></div>
     </li>
-    <li><a class="subheader">Composite Documents</a></li>
+    <li><a class="subheader">Reports</a></li>
     <li><a href="/saving/statement"><i class="material-icons">book</i>Statement</a></li>
+    <li><a href="/loanbalances/form"><i class="material-icons">book</i>Loan Balances</a></li>
     <li><a href="/savings/liability"><i class="material-icons">view_list</i>Master Savings</a></li>
     <li>
         <div class="divider"></div>

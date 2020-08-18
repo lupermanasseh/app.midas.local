@@ -32,7 +32,7 @@
 //ROUTES FOR HOME CONTROLLER
 Route::get('/', 'HomeController@index');
 Route::get('/about', 'HomeController@about');
-Route::get('/committee', 'HomeController@committee'); 
+Route::get('/committee', 'HomeController@committee');
 Route::get('/board', 'HomeController@board');
 Route::get('/product-offers', 'HomeController@products');
 Route::get('/news', 'HomeController@news');
@@ -44,7 +44,7 @@ Route::get('/admin', 'MadminController@index');
 });
 /**
  * Client Dashboard Below
- * 
+ *
  */
 Route::middleware(['auth'])->group(function () {
 Route::get('/Dashboard','DashboardController@index');
@@ -97,7 +97,7 @@ Route::post('/Dashboard/onboarding/{id}','DashboardController@onboardingChange')
         Route::get('/ts-reg','RegistrationController@tsUploadForm'); //awaiting data
         Route::post('/ts-upload','RegistrationController@tsRegUpload'); //awaiting data
         Route::get('/add/user','RegistrationController@addUser');
-        Route::post('/add/user/store','RegistrationController@addUserStore');  
+        Route::post('/add/user/store','RegistrationController@addUserStore');
         });
 
 //Session/login controller
@@ -157,7 +157,7 @@ Route::middleware(['auth:admin'])->group(function () {
 Route::get('/loan-subscriptions','LoanSubscriptionController@index');
 Route::get('/loanSub/create','LoanSubscriptionController@create');
 Route::post('/loanSub/store','LoanSubscriptionController@store');
-Route::get('/loan-request/{id}','LoanSubscriptionController@show'); 
+Route::get('/loan-request/{id}','LoanSubscriptionController@show');
 Route::get('/loanSub/edit/{id}','LoanSubscriptionController@edit');
 Route::get('/loanSub/stop/{id}','LoanSubscriptionController@loanStop');
 Route::post('/loanSub/update/{id}','LoanSubscriptionController@update');
@@ -201,7 +201,7 @@ Route::get('/saving/listings/{id}','ContributorsController@userListings');
 Route::get('/saving/edit/{id}','ContributorsController@edit');
 Route::post('/saving/update/{id}','ContributorsController@update');
 Route::get('/saving/remove/{id}','ContributorsController@destroy');
-Route::get('/saving/new/{id}','ContributorsController@create'); 
+Route::get('/saving/new/{id}','ContributorsController@create');
 Route::post('/saving/store','ContributorsController@store');
 Route::get('/saving/withdraw/{id}','ContributorsController@savingWithdraw');
 Route::post('/saving/withdraw/store','ContributorsController@withdrawalStore');
@@ -232,7 +232,7 @@ Route::post('/ts-saving/update/{id}','TargetSavingController@update');
 Route::get('/targetsaving/remove/{id}','TargetSavingController@destroy');
 Route::get('/targetsaving/new/{id}','TargetSavingController@create');
 Route::post('/targetsaving/store','TargetSavingController@store');
-Route::get('/tsSub/detail/{id}','TargetSavingController@tsListings'); 
+Route::get('/tsSub/detail/{id}','TargetSavingController@tsListings');
 Route::get('/new/ts/{id}','TargetSavingController@regTs');
 Route::post('/new/ts/store','TargetSavingController@regTsStore');
 Route::get('/ts/withdrawal/{id}','TargetSavingController@tsWithdraw');
@@ -278,7 +278,8 @@ Route::get('/saving/repay/{id}','LoanDeductionsController@savingRepay');
 Route::post('/saving/repay','LoanDeductionsController@savingRepayStore');
 Route::get('/ts/repay/{id}','LoanDeductionsController@tsRepay');
 Route::post('/ts/repay','LoanDeductionsController@tsRepayStore');
-Route::get('/loanbalances/find','LoanDeductionsController@findLoanBalances');
+Route::get('/loanbalances/form','LoanDeductionsController@findLoanBalances');
+Route::post('/loanbalances/find','LoanDeductionsController@LoanBalancesResult');
 });
 
 //Monthly Target Savings Routes
@@ -291,7 +292,7 @@ Route::middleware(['auth:admin'])->group(function () {
   Route::get('/post/loans','IppisAnalysisController@recentIppisLoanInputs'); //2. same with 1 check
   Route::get('/loan/distribute/{id}','IppisAnalysisController@postLoan');
   Route::get('/saving/distribute/{date}/{ref}','IppisAnalysisController@postSaving');
-  Route::get('/saving/post/{id}','IppisAnalysisController@postMySaving'); 
+  Route::get('/saving/post/{id}','IppisAnalysisController@postMySaving');
   Route::get('/saving-master-upload-form','IppisAnalysisController@savingMasterForm');
   Route::post('/saving-master-store','IppisAnalysisController@importSavingMaster')->name('savingmasterstore.import');
   Route::get('/legacy-loans','IppisAnalysisController@legacyLoan');
@@ -300,5 +301,3 @@ Route::middleware(['auth:admin'])->group(function () {
   Route::post('/legacy-loandeduct-upload','IppisAnalysisController@legacyLoanDeductions')->name('legacyloandeduct.import');
   //Route::get('/ippis-analysis/distribute','IppisAnalysisController@distributeAnalysis');
   });
-
-
