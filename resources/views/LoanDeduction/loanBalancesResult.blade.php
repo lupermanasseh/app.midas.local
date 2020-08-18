@@ -45,8 +45,8 @@
                     @endforeach
                     @if (count($uniqueDebtors)>=1)
                     <tr>
-                        <th colspan="5">Total</th>
-                        {{-- <th>{{number_format($saving->savingAggregateAt($to),2,'.',',')}}</th> --}}
+                        <th colspan="4">Total</th>
+                        <th>{{number_format($listing->loanBalancegAggregateAt($loanDeductionCollection),2,'.',',')}}</th>
                     </tr>
                     @else
                     @endif
