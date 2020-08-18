@@ -14,6 +14,7 @@ use App\Exports\defaultIppisdeductionsExport;
 use App\Exports\defaultIppisPdfExport;
 use App\Imports\LoanDeductionImport;
 use App\Exports\midasFilterExport;
+use App\Exports\loanBalanceExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -570,7 +571,25 @@ public function export(){
         //                         ->orderBy('user_id','asc')
         //                         ->get();
         $uniqueDebtors = $loanDeductionCollection->unique('user_id');
-        return view('LoanDeduction.loanBalancesResult',compact('title','loanDeductionCollection','to','$loanDeductionObj','uniqueDebtors'));
+        return view('LoanDeduction.loanBalancesResult',compact('title','loanDeductionCollection','to','from','$loanDeductionObj','uniqueDebtors'));
+    }
+
+    //download in excel format loan Balances
+    public function loanBalancesExcelExport($from,$to){
+        $fileName = 'MIDAS_LOANBALANCES_'.$to.'.xlsx';
+        return Excel::download(new loanBalanceExport($from,$to), $fileName);
+    }
+
+    //download in PDF format loan Balances
+    public function loanBalancesPdf($from,$to){
+        $title='Loan Deduction Balances';
+        $loanDeductionObj = new Ldeduction;
+
+        $loanDeductionCollection = $loanDeductionObj->findLoanDeductionByDate($from,$to);
+
+        $uniqueDebtors = $loanDeductionCollection->unique('user_id');
+        $pdf= PDF::loadView('Prints.loan_balances_pdf',compact('loanDeductionCollection','to','from','$loanDeductionObj','uniqueDebtors'));
+        return $pdf->stream();
     }
 
 }
