@@ -27,7 +27,8 @@
                                 1 Hospital Road, Mission Ward<br />
                                 Makurdi, Benue State<br />
                                 mindastouch@gmail.com<br>
-                                +234 8118901411<br>
+                                www.midastouchonline.co<br>
+                                +234 81-1890-1411<br>
                             </span>
                         </td>
                         <td style=" border:0;">
@@ -96,7 +97,7 @@
                 <thead>
                     <tr>
                         <th style="text-align:right; margin-right:1em;">DATE</th>
-                        <th style="text-align:right; margin-right:1em;">DESCRIPTION</th>
+                        <th style="text-align:left; margin-left:1em;">DESCRIPTION</th>
                         <th style="text-align:right; margin-right:1em;">DEBIT</th>
                         <th style="text-align:right; margin-right:1em;">CREDIT</th>
                         <th style="text-align:right; margin-right:1em;">BAL</th>
@@ -105,7 +106,7 @@
                 <tbody>
                     <tr>
                         <td style="text-align:right; margin-right:1em;"><?php echo e($Saving->openingDate($from)); ?></td>
-                        <td style="text-align:right; margin-right:1em;">Openning Balance</td>
+                        <td style="text-align:left; margin-left:1em;">Openning Balance</td>
                         <td>
                         </td>
                         <td></td>
@@ -116,7 +117,7 @@
                     <tr>
                         <td style="text-align:right; margin-right:1em;">
                             <?php echo e($statement->entry_date->toFormattedDateString()); ?></td>
-                        <td style="text-align:right; margin-right:1em;">
+                        <td style="text-align:left; margin-right:1em;">
                             <?php echo e($statement->notes); ?>
 
                         </td>
@@ -130,6 +131,7 @@
                             <?php echo e(number_format($statement->balances,2,'.',',')); ?>
 
                         </td>
+
                         
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

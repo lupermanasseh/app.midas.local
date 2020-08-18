@@ -60,6 +60,8 @@
             </div>
         </section>
     </div>
+
+    <?php if(count($loanHistory)>=1): ?>
     <div class="row">
         <p>
 
@@ -71,7 +73,7 @@
                 PDF</a>
         </p>
     </div>
-
+    <?php endif; ?>
     <div class="row">
         <div class="col s12">
             <?php if(count($loanHistory)>=1): ?>
@@ -112,10 +114,12 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
-            
+            <?php else: ?>
+            <p>No deduction(s) for this facility yet</p>
             <?php endif; ?>
         </div>
     </div>
 </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('Layouts.admin-app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

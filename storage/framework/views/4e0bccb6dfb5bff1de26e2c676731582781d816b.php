@@ -9,10 +9,10 @@
     <?php if(count($uniqueDebtors)>=1): ?>
     <div class="row">
         <div class="col s12 m3 l3">
-            <a href="/savingliability/excel/<?php echo e($to); ?>" class="btn">DOWNLOAD EXCEL</a>
+            <a href="/loanbalance/excel/<?php echo e($from); ?>/<?php echo e($to); ?>" class="btn">DOWNLOAD EXCEL</a>
         </div>
         <div class="col s12 m3 l3">
-            <a href="/savingliability/pdf/<?php echo e($to); ?>" target="_blank" class="btn">DOWNLOAND PDF</a>
+            <a href="/loanbalance/pdf/<?php echo e($from); ?>/<?php echo e($to); ?>" target="_blank" class="btn">DOWNLOAND PDF</a>
         </div>
     </div>
     <?php else: ?>
@@ -37,7 +37,8 @@
                         <td><?php echo e($listing->user->first_name); ?> <?php echo e($listing->user->last_name); ?></td>
                         <td><?php echo e($listing->user->payment_number); ?></td>
                         <td><?php echo e($to); ?></td>
-                        <td><?php echo e(number_format($listing->allLoanBalancesByDate($loanDeductionCollection,$listing->user_id),2,'.',',')); ?>
+                        <td>
+                          <a href="/user/landingPage/<?php echo e($listing->user_id); ?>" target="_blank"><?php echo e(number_format($listing->allLoanBalancesByDate($loanDeductionCollection,$listing->user_id),2,'.',',')); ?></a>
 
                         </td>
                     </tr>
