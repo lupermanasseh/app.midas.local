@@ -121,33 +121,25 @@ class Ldeduction extends Model
             return $sumBal;
         }
 
-        // /**
-        //  * Method to find user saving aggregate
-        //  */
-        // public function userAggregateAt($collection,$id){
-        //           $credit = $collection->where('user_id',$id)
-        //                                 ->sum('amount_saved');
-        //            $debit = $collection->where('user_id',$id)
-        //                                 ->sum('amount_withdrawn');
-        //             return $credit-$debit;
-        //
-        //         }
+
     /**
      * Total saving aggregate
      */
         public function loanBalancegAggregateAt($collection){
-            // $from = new Carbon('2016-02-01');
-            // $from = $from->toDateString();
-            // $endDate = new Carbon($to);
-            // $to = $endDate->toDateString();
-            // $collection = Saving::
-            //                     where('entry_date','>=',$from)
-            //                     ->where('entry_date','<=',$to)
-            //                     ->get();
-                $credit = $collection
-                        ->sum('amount_deducted');
-                $debit = $collection
-                        ->sum('amount_debited');
-                return $credit-$debit;
+          $sumBal=0;
+
+          foreach($collection as $item){
+              //$totalBal=0;
+              $approved_amt = $item->loanSubscription->amount_approved;
+              $loanCredit = $collection->where('lsubscription_id', $item->lsubscription_id)
+                                        ->sum('amount_deducted');
+              $loanDebit = $collection->where('lsubscription_id', $item->lsubscription_id)
+                                        ->sum('amount_debited');
+              $totalDeductions = $loanCredit-$loanDebit;
+              //$deductions = $lsub->totalLoanDeductions($item->id);
+              $bal = $approved_amt-$totalDeductions;
+              $sumBal = $sumBal+$bal;
+          }
+          return $sumBal;
         }
 }
