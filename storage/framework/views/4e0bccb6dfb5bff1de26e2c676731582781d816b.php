@@ -44,7 +44,7 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <?php if(count($uniqueDebtors)>=1): ?>
                     <tr>
-                        <th colspan="5">Total</th>
+                        <th colspan="4">Total</th>
                         <th><?php echo e(number_format($listing->loanBalancegAggregateAt($loanDeductionCollection),2,'.',',')); ?></th>
                     </tr>
                     <?php else: ?>
