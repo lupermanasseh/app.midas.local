@@ -21,7 +21,7 @@ use GuzzleHttp\Client;
 
 class LoanDeductionsController extends Controller
 {
-        
+
         //Filter loan deductions form
         public function filterDeductions(){
             $title = 'Filter Loan Deductions';
@@ -69,7 +69,7 @@ public function export(){
                                     ->orWhere('loan_status','Defaulted')
                                     ->with(['user','product'])
                                      ->get();
-                                
+
         return view ('LoanDeduction.ippis', compact('title','loanSub','activeLoans'));
     }
 
@@ -105,7 +105,7 @@ public function export(){
 
     //Import loan deductions
     public function importLoanDeductions(){
-        
+
         try{
       Excel::import(new LoanDeductionImport(),request()->file('deductions_import'));
         }catch(\Exception $ex){
@@ -115,17 +115,17 @@ public function export(){
             toastr()->error('Something bad has happened');
             return back();
         }
-      
+
         toastr()->success('Document uploaded successfully!');
         //redirect to listing page order by latest
         return redirect('/loanDeduction/listings');
-    
+
     }
 
     //Recent loan deduction upload
     public function loanDeductions(){
         $title = 'Recent Loan Deductions';
-        //List recent uploads 
+        //List recent uploads
         $recent= Ldeduction::with('user')->latest()->orderBy('user_id','desc')->paginate(1);
         return view('LoanDeduction.recentLoanDeduction',compact('recent','title'));
     }
@@ -133,7 +133,7 @@ public function export(){
      //User Recent loan deduction upload
      public function userLoanDeductions($id){
         $title = 'User Loan Deductions';
-        //List recent uploads 
+        //List recent uploads
         $recent= Ldeduction::
                             where('user_id',$id)
                             ->paginate(5);
@@ -149,7 +149,7 @@ public function export(){
     //update product deduction
     public function update(Request $request, $id)
     {
-    
+
     //Save product subscription
     $this->validate(request(), [
         'amount' =>'required|numeric|between:0.00,999999999.99',
@@ -161,7 +161,7 @@ public function export(){
     ]);
 
             $loan_Deduct = Ldeduction::find($id);
-            
+
             $loan_Deduct->amount_deducted = $request['amount'];
             $loan_Deduct->bank_name = $request['bank_name'];
             $loan_Deduct->depositor_name = $request['depositor_name'];
@@ -174,10 +174,10 @@ public function export(){
                 toastr()->success('Loan deduction updated successfully!');
                 return redirect('/loanDeduction/listings');
             }
-        
+
             toastr()->error('An error has occurred trying to update user deduction.');
             return back();
-  
+
     }
 
     //Remove deduction
@@ -188,7 +188,7 @@ public function export(){
             toastr()->success('Item deleted successfully!');
             return redirect('/loanDeduction/listings');
         }
-    
+
         toastr()->error('An error has occurred trying to delete record.');
         return back();
     }
@@ -216,7 +216,7 @@ public function export(){
     //Store loan deduction repayment
     public function repayStore(Request $request){
 
-        
+
         //Save loan repayment
         $this->validate(request(), [
         'amount' =>'required|numeric|between:0.00,999999999.99',
@@ -234,7 +234,7 @@ public function export(){
             $loanSub = Lsubscription::find($subid);
             $amtApproved = $loanSub->amount_approved;
             $totalDeductions = $loanSub->totalLoanDeductions($subid);
-          
+
             //begin transaction to process uploads
             DB::beginTransaction();
             try{
@@ -243,7 +243,7 @@ public function export(){
                     toastr()->error('An error has occurred trying to repay loan, check please.');
                     return redirect('/user/page/'.$loanSub->user_id);
                 }else{
-    
+
                     $loanRepay = new Ldeduction;
                     //total loan Balances
                     $loanBalances = $loanRepay->myLoanDeductions($subid);
@@ -274,8 +274,8 @@ public function export(){
             //redirect to listing page order by latest
             //return redirect('/post/loans');
             return redirect('/loanDeduction/history/'.$request['sub_id']);
-        
-        
+
+
     }
 
     /**
@@ -369,7 +369,7 @@ public function export(){
                        $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
 
                        $response = $client->request('GET', $url,['verify'=>false]);
-                    
+
                         //send loan deduction notification
 
                         $client = new Client;
@@ -492,7 +492,7 @@ public function export(){
                        $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
 
                        $response = $client->request('GET', $url,['verify'=>false]);
-                    
+
 
                         //send loan deduction notification
 
@@ -544,9 +544,33 @@ public function export(){
         $loan = Lsubscription::find($id);
         $loanHistory = Ldeduction::loanHistory($id);
         //$userObj = User::find($loan->user_id);
-     
+
         $pdf = PDF::loadView('Prints.loan_deductions_pdf',compact('loan','title','loanHistory'));
         return $pdf->stream();
     }
-     
+
+    //form to find loan Balances  //upload loan deductions form
+      public function findLoanBalances(){
+          $title = 'Find Loan Balances';
+        return view('LoanDeduction.loanBalancesFind',compact('title'));
+      }
+
+    //find loan balances liability
+    public function LoanBalancesResult(Request $request){
+        $title = 'Loan Deduction Balances';
+        $loanDeductionObj = new Ldeduction;
+        $this->validate(request(), [
+            'from' =>'required|date',
+             'to' =>'required|date',
+             ]);
+             $from = $request['from'];
+             $to = $request['to'];
+        $loanDeductionCollection = $loanDeductionObj->findLoanDeductionByDate($from,$to);
+        // $contributors = Saving::where('status','Active')
+        //                         ->orderBy('user_id','asc')
+        //                         ->get();
+        $uniqueDebtors = $loanDeductionCollection->unique('user_id');
+        return view('LoanDeduction.loanBalancesResult',compact('title','loanDeductionCollection','to','$loanDeductionObj','uniqueDebtors'));
+    }
+
 }
