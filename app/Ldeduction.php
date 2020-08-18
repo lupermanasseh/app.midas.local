@@ -89,8 +89,10 @@ class Ldeduction extends Model
         return  $collection =    Ldeduction::
                                  where('entry_month','>=',$from)
                                 ->where('entry_month','<=',$to)
-                                ->get()
-                                ->sortBy('id');
+                                ->orderBy('user_id', 'asc')
+                                //->oldest()
+                                ->get();
+                                //->sortBy('id');
         }
 
         //All loan balances by date
