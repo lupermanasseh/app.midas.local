@@ -7,7 +7,7 @@
     @include('inc.messages') --}}
     <div class="row">
         <div class="col s12 subject-header">
-            <p class="teal-text">LOAN HISTORY</p>
+            <p class="teal-text">LOAN HISTORY/DETAILS</p>
         </div>
     </div>
 
@@ -64,6 +64,8 @@
             </div>
         </section>
     </div>
+
+    @if (count($loanHistory)>=1)
     <div class="row">
         <p>
 
@@ -75,7 +77,7 @@
                 PDF</a>
         </p>
     </div>
-
+    @endif
     <div class="row">
         <div class="col s12">
             @if (count($loanHistory)>=1)
@@ -115,8 +117,8 @@
                     @endforeach
                 </tbody>
             </table>
-            {{-- {{$loanHistory->links()}} @else
-            <p>No deduction(s) yet</p> --}}
+            @else
+            <p>No deduction(s) for this facility yet</p>
             @endif
         </div>
     </div>
