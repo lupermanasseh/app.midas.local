@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Datatables;
 class ContributorsController extends Controller
 {
-    
+
     public function smsOnboarding(){
         // $users = User::all();
 
@@ -21,9 +21,9 @@ class ContributorsController extends Controller
             //$email = $user->email;
             $phone = $user->phone;
             $name = $user->last_name;
-        
+
         $name = $user->last_name;
-        
+
         $client = new Client;
         $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
         $to = $phone;
@@ -35,7 +35,7 @@ class ContributorsController extends Controller
 
         toastr()->success('Messages sent successfully!');
         return redirect('/contributors-list');
-        
+
     }
     //
     public function index(){
@@ -67,16 +67,16 @@ public function inactiveUsers(){
     }
 
     public function recentUploads(){
-        
+
         $title = 'Recent Saving Uploads';
-        // List recent uploads 
+        // List recent uploads
         $recentUploads= Saving::with('user')->latest()->paginate(100);
         return view('Contributors.recentSavings',compact('recentUploads','title'));
-  
+
     }
 
     public function userListings($user_id){
-        
+
         $title = 'User Saving Listing';
         $userSavings = Saving::where('user_id',$user_id)
                             ->where('status','Active')
@@ -109,13 +109,13 @@ public function inactiveUsers(){
                     toastr()->success('Saving record has been edited successfully!');
                     return redirect('/recent/savings');
                 }
-            
+
                 toastr()->error('An error has occurred trying to update a saving record!');
                 return back();
     }
 
 
-    
+
 //Display pendfing savings that are waiting approval
 public function pending(){
     $title= "Pending Savings";
@@ -182,7 +182,7 @@ public function store(Request $request){
             //$bank_add = $request['bank_add'];
             $depositor = $request['depositor'];
             $teller = $request['teller'];
-       
+
             $user = User::find($user_id);
             $phone = $user->phone;
             //
@@ -210,16 +210,16 @@ public function store(Request $request){
                 //     $from= 'MIDASTOUCH';
                 //     $message = 'Credit alert. Acct: Savings. Amount: N' .number_format($amount,2,'.',',').'. Balance: N'. $currentBalance;
                 //    $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
-   
+
                 //    $response = $client->request('GET', $url,['verify'=>false]);
 
                 toastr()->success('Saving credit record created successfully, but waiting for approval!');
                 return redirect('/saving/listings/'.$user_id);
             }
-        
+
             toastr()->error('An error has occurred trying to credit your saving account.');
             return back();
-     
+
 }
 
 
@@ -255,7 +255,7 @@ public function withdrawalStore(Request $request){
         //    $twentyFivePercent = $balanceOnSaving*0.25;
         //    if($amt > $twentyFivePercent){
         //     toastr()->error('You are only allowed to withdraw 25% of total savings!');
-        //     return back(); 
+        //     return back();
         //    }
             $newsaving->user_id = $user_id;
             $newsaving->amount_withdrawn = $amt;
@@ -267,19 +267,19 @@ public function withdrawalStore(Request $request){
             $newsaving->save();
             if($newsaving->save()) {
                  //send saving debit message
-                //  $currentBalance = number_format($newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id),2,'.',',');
-                //  $client = new Client;
-                //  $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
-                //  $to = $phone;
-                //  $from= 'MIDAS';
-                //  $message = 'Debit alert. Acct: Savings. Amount: N' .number_format($amt,2,'.',',').'. Balance: N'. $currentBalance;
-                // $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
+                 $currentBalance = number_format($newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id),2,'.',',');
+                 $client = new Client;
+                 $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
+                 $to = $phone;
+                 $from= 'MIDAS';
+                 $message = 'Debit alert. Acct: Savings. Amount: N' .number_format($amt,2,'.',',').'. Balance: N'. $currentBalance;
+                $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
 
-                // $response = $client->request('GET', $url,['verify'=>false]);
+                $response = $client->request('GET', $url,['verify'=>false]);
                 toastr()->success('Saving account debited successfully!');
                 return redirect('/recent/savings');
             }
-        
+
             toastr()->error('An error has occurred trying to debit your saving account');
             return back();
 }
@@ -311,7 +311,7 @@ public function statement(){
     return view('Contributors.statement',compact('title'));
 }
 
-public function statementFind(Request $request){ 
+public function statementFind(Request $request){
     $title = 'Filtered Records';
      $this->validate(request(), [
     'reg_number'=>'required|integer',
@@ -324,7 +324,7 @@ public function statementFind(Request $request){
      $to = $request['to'];
      //$pay_number = $request['payment_number'];
      //$category = $request['category'];
-    
+
 
      //create date instances
      $fromDate = new Carbon($from);
@@ -339,7 +339,7 @@ public function statementFind(Request $request){
      $result = $saving->findSavingRecords($fromDate,$toDate,$user_id);
 
      return view ('Contributors.statementResult',compact('title','result','fromDate','toDate','saving','userObj','user_id'));
-     
+
      // if($category =="Loan"){
          //process search for loan
          // $heading ='Filtered Loan Records';
@@ -376,7 +376,7 @@ public function statementFind(Request $request){
 
 //print html savings  statement
 public function printFile($from,$to,$id){
-        
+
     $title ="Statement of Savings";
     //create new Saving Object
     $Saving = new Saving;
@@ -384,7 +384,7 @@ public function printFile($from,$to,$id){
     $user_id = $userObj->id;
     //call the search method here
     $statementCollection = $Saving->findSavingRecords($from,$to,$user_id);
-    
+
     return view('Prints.myPrint',compact('title','Saving','from','to','statementCollection','userObj'));
 }
 
@@ -402,7 +402,7 @@ public function printFile($from,$to,$id){
         $pdf = PDF::loadView('Prints.saving-statement',compact('Saving','title','statementCollection','from','to','userObj'));
         return $pdf->stream();
         //return $pdf->download($userObj->last_name.'_statementOfSavings.pdf');
-    
+
     }
 
     //savings Master
