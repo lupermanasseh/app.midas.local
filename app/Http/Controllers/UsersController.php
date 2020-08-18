@@ -88,7 +88,7 @@ class UsersController extends Controller
             'staff_no'=>'required|integer',
             'marital_status'=>'required',
         ]);
-        
+
     $profile =User::find($id);
     $profile->payment_number = $request['payment_number'];
     $profile->title = $request['title'];
@@ -192,10 +192,10 @@ public function editBank($id){
         $profile = User::find($userid);
         if ($nokUpdate->save()) {
             toastr()->success('Data has been edited successfully!');
-    
+
             return redirect('/userDetails/'.$id);
         }
-    
+
         toastr()->error('An error has occurred trying to update, please try again later.');
         return back();
         }
@@ -205,7 +205,7 @@ public function editBank($id){
             $loans = Lsubscription::where('user_id',$id)
                                 ->where('loan_status','Active')
                                 ->get();
-       
+
         if(count($loans)==0){
             //find user
             $user = User::find($id);
@@ -245,7 +245,7 @@ public function editBank($id){
 
         //Find user
         public function searchUser(Request $request){
-            $title = 'User Search';
+            $title = 'User Summary Page';
             $this->validate(request(), [
                 'search_term' =>'required',
             ]);
@@ -254,7 +254,7 @@ public function editBank($id){
             $saving = new Saving;
             $targetSaving = new TargetSaving;
             $param = $request['search_term'];
-            
+
             //$users = $user->searchUser($param);
             $user = User::find($param);
             if($user==""){
@@ -271,6 +271,34 @@ public function editBank($id){
             return view('Users.userSearch',compact('user','saving','targetsr','targetSaving','activeLoans','title'));
         }
 
+
+        // user landing page
+        public function userLanding($id){
+            $title = 'User Summary Page';
+
+
+            //$user = new User;
+            $saving = new Saving;
+            $targetSaving = new TargetSaving;
+
+
+            //$users = $user->searchUser($param);
+            $user = User::find($id);
+            if($user==""){
+                toastr()->error('No user associated with this registration number');
+                return back();
+            }else{
+            //Active Product Subscriptions
+            $activeLoans = Lsubscription::activeLoans($id);
+            //User target saving subscriptions
+            $targetsr = Targetsr::where('user_id',$user->id)
+                                ->where('status','Active')
+                                ->get();
+            }
+            return view('Users.userSearch',compact('user','saving','targetsr','targetSaving','activeLoans','title'));
+        }
+
+
         //Password change
         public function passwordChange(){
             $title = "Reset Password Change";
@@ -283,7 +311,7 @@ public function editBank($id){
                 'password' =>'required|confirmed',
             ]);
 
-            
+
             // $payment_number = $request['payment_number'];
             // $user_id = User::userID($payment_number);
             //find the user by id to edit
