@@ -126,6 +126,7 @@ Route::get('/deactivateUser/{id}','UsersController@deactivateUser');
 Route::post('/search/User','UsersController@searchUser');
 Route::get('/change/password','UsersController@passwordChange');
 Route::post('/password/store','UsersController@passwordStore');
+Route::get('/user/landingPage/{id}','UsersController@userLanding');
 });
 
 //Product category routes
@@ -280,6 +281,8 @@ Route::get('/ts/repay/{id}','LoanDeductionsController@tsRepay');
 Route::post('/ts/repay','LoanDeductionsController@tsRepayStore');
 Route::get('/loanbalances/form','LoanDeductionsController@findLoanBalances');
 Route::post('/loanbalances/find','LoanDeductionsController@LoanBalancesResult');
+Route::get('/loanbalance/excel/{from}/{to}','LoanDeductionsController@loanBalancesExcelExport');
+Route::get('/loanbalance/pdf/{from}/{to}','LoanDeductionsController@loanBalancesPdf');
 });
 
 //Monthly Target Savings Routes
