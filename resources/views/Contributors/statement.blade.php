@@ -18,12 +18,12 @@
                 </div>
                 <div class="input-field col s12 m4 l4">
                     <input id="from" name="from" type="text" class="validate datepicker" required>
-                    <label for="from">From</label>
+                    <label for="from">Start Date</label>
                 </div>
 
                 <div class="input-field col s12 m4 l4">
                     <input id="to" name="to" type="text" class="validate datepicker" required>
-                    <label for="to">To</label>
+                    <label for="to">End Date</label>
                 </div>
 
             </div>
