@@ -19,7 +19,8 @@
                     <p class="profile-item">1 Hospital Road, Mission Ward</p>
                     <p class="profile-item">Makurdi, Benue State</p>
                     <p class="profile-item">mindastouch@gmail.com</p>
-                    <p class="profile-item">+234 80-900-987-090</p>
+                    <p class="profile-item">www.midastouchonline.co</p>
+                    <p class="profile-item">+234 81-1890-1411</p>
                 </div>
             </section>
             <section class="statement-notification">
@@ -42,7 +43,8 @@
                                 1 Hospital Road, Mission Ward<br />
                                 Makurdi, Benue State<br />
                                 mindastouch@gmail.com<br>
-                                +234 80-900-987-090<br>
+                                www.midastouchonline.co<br>
+                                +234 81-1890-1411<br>
                             </span>
                         </td>
                         <td style=" border:0;">
