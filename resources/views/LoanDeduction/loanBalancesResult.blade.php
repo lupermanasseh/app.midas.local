@@ -11,10 +11,10 @@
     @if (count($uniqueDebtors)>=1)
     <div class="row">
         <div class="col s12 m3 l3">
-            <a href="/savingliability/excel/{{$to}}" class="btn">DOWNLOAD EXCEL</a>
+            <a href="/loanbalance/excel/{{$from}}/{{$to}}" class="btn">DOWNLOAD EXCEL</a>
         </div>
         <div class="col s12 m3 l3">
-            <a href="/savingliability/pdf/{{$to}}" target="_blank" class="btn">DOWNLOAND PDF</a>
+            <a href="/loanbalance/pdf/{{$from}}/{{$to}}" target="_blank" class="btn">DOWNLOAND PDF</a>
         </div>
     </div>
     @else
@@ -39,7 +39,9 @@
                         <td>{{$listing->user->first_name}} {{$listing->user->last_name}}</td>
                         <td>{{$listing->user->payment_number}}</td>
                         <td>{{$to}}</td>
-                        <td>{{number_format($listing->allLoanBalancesByDate($loanDeductionCollection,$listing->user_id),2,'.',',')}}
+                        <td>
+                          <a href="/user/landingPage/{{$listing->user_id}}" target="_blank">{{number_format($listing->allLoanBalancesByDate($loanDeductionCollection,$listing->user_id),2,'.',',')}}</a>
+
                         </td>
                     </tr>
                     @endforeach
