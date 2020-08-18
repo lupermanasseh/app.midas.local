@@ -3,15 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class Ldeduction extends Model
 {
-    
+
      protected $fillable = [
-        'user_id', 
+        'user_id',
         'product_id',
         'lsubscription_id',
-        'amount_deducted', 
+        'amount_deducted',
         'entry_month',
         'notes',
         'uploaded_by',
@@ -78,4 +78,76 @@ class Ldeduction extends Model
         return $totalDeductions = $ldeductionObj->totalLoanCredit($subid)-$ldeductionObj->totalLoanDebit($subid);
       }
 
+       /**
+     * Find loan deductions by date
+     */
+    public function findLoanDeductionByDate($from,$to){
+        $from = new Carbon($from);
+        $from = $from->toDateString();
+        $destDate = new Carbon($to);
+        $to = $destDate->toDateString();
+        return  $collection =    Ldeduction::
+                                 where('entry_month','>=',$from)
+                                ->where('entry_month','<=',$to)
+                                ->get()
+                                ->sortBy('id');
+        }
+
+        //All loan balances by date
+        public function allLoanBalancesByDate($collection,$id)
+        {
+            $sumBal=0;
+            //$lsub = new Lsubscription;
+            // $all_loans = Lsubscription::where('user_id', '=', $id)
+            // ->where(function ($query) {
+            //     $query->where('loan_status', '=', 'Active');
+            // })->get();
+            $user_subscriptions = $collection->where('user_id', '=', $id)
+                                              ->unique('lsubscription_id');
+
+
+            foreach($user_subscriptions as $item){
+                //$totalBal=0;
+                $approved_amt = $item->loanSubscription->amount_approved;
+                $loanCredit = $collection->where('lsubscription_id', $item->lsubscription_id)
+                                          ->sum('amount_deducted');
+                $loanDebit = $collection->where('lsubscription_id', $item->lsubscription_id)
+                                          ->sum('amount_debited');
+                $totalDeductions = $loanCredit-$loanDebit;
+                //$deductions = $lsub->totalLoanDeductions($item->id);
+                $bal = $approved_amt-$totalDeductions;
+                $sumBal = $sumBal+$bal;
+            }
+            return $sumBal;
+        }
+
+        // /**
+        //  * Method to find user saving aggregate
+        //  */
+        // public function userAggregateAt($collection,$id){
+        //           $credit = $collection->where('user_id',$id)
+        //                                 ->sum('amount_saved');
+        //            $debit = $collection->where('user_id',$id)
+        //                                 ->sum('amount_withdrawn');
+        //             return $credit-$debit;
+        //
+        //         }
+    /**
+     * Total saving aggregate
+     */
+        public function loanBalancegAggregateAt($collection){
+            // $from = new Carbon('2016-02-01');
+            // $from = $from->toDateString();
+            // $endDate = new Carbon($to);
+            // $to = $endDate->toDateString();
+            // $collection = Saving::
+            //                     where('entry_date','>=',$from)
+            //                     ->where('entry_date','<=',$to)
+            //                     ->get();
+                $credit = $collection
+                        ->sum('amount_deducted');
+                $debit = $collection
+                        ->sum('amount_debited');
+                return $credit-$debit;
+        }
 }
