@@ -55,6 +55,7 @@ $(document).ready(function() {
         //.not(":first")
         //.remove();
 
+
         // AJAX request
         $.get({
             url: url_link
@@ -70,6 +71,13 @@ $(document).ready(function() {
                 myObj.text("Approve");
             });
     });
+
+    //$('#add-ca').prop("disabled", true);
+    // var regno = $("#regno").val();
+    // var scores = $("#scores").val();
+    // var studentClass = $("#assignmentclass option:selected").val();
+    // var ca_number = $("#ca-no option:selected").val();
+    // var subject = $("#listsubject option:selected").val();
 
     //post loan repayment
     $(".post-loan").on("click", function(e) {
@@ -97,6 +105,22 @@ $(document).ready(function() {
                 myButtonObj.text("Post Loan");
             });
     });
+
+//passing data to modal for debit and credit
+// var id = $(this).data('deleteid');
+//         var myclass = $(this).data('myclass');
+//         var mysubj = $(this).data('mysubj');
+//         var mysess = $(this).data('mysess');
+//         var myterm = $(this).data('myterm');
+
+$(".transferid").on("click", function(e) {
+    e.preventDefault();
+
+    var subscription_id = $(this).data('subid');
+    //alert(subscription_id);
+    $("#sub_id").val(subscription_id);
+
+});
 
     //end post loan repayment
 
