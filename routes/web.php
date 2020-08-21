@@ -275,6 +275,7 @@ Route::get('/loan/deductions/printpdf/{id}','LoanDeductionsController@loanDeduct
 Route::get('/loan/payment/{id}','LoanDeductionsController@loanPaymentHome');
 Route::get('/bank/repay/{id}','LoanDeductionsController@repay');
 Route::post('/loanRepay/store','LoanDeductionsController@repayStore');
+Route::post('/debit/loan','LoanDeductionsController@debitLoan');
 Route::get('/saving/repay/{id}','LoanDeductionsController@savingRepay');
 Route::post('/saving/repay','LoanDeductionsController@savingRepayStore');
 Route::get('/ts/repay/{id}','LoanDeductionsController@tsRepay');
