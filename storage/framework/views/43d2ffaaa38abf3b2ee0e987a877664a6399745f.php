@@ -48,8 +48,20 @@
                             <?php echo e($myItem->notes); ?>
 
                         </td>
-                        <td><?php echo e(number_format($myItem->amount_withdrawn,2,'.',',')); ?></td>
-                        <td><?php echo e(number_format($myItem->amount_saved,2,'.',',')); ?></td>
+                        <td><?php if($myItem->amount_withdrawn): ?>
+                          <?php echo e(number_format($myItem->amount_withdrawn,2,'.',',')); ?>
+
+                          <?php else: ?>
+                          -
+                          <?php endif; ?></td>
+                        <td>
+                        <?php if($myItem->amount_saved): ?>
+                        <?php echo e(number_format($myItem->amount_saved,2,'.',',')); ?>
+
+                        <?php else: ?>
+                        -
+                        <?php endif; ?>
+                        </td>
                         <td><?php echo e(number_format($saving->balanceAsAt($myItem->amount_saved,$myItem->amount_withdrawn,$myItem->id,$userObj->id),2,'.',',')); ?>
 
                         </td>
@@ -64,4 +76,5 @@
     </div>
 </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('Layouts.admin-app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -161,7 +161,13 @@ step: function(now){
 });
 
 //INIT MODAL
+document.addEventListener('DOMContentLoaded', function() {
+   var elems = document.querySelectorAll('.modal');
+   var instances = M.Modal.init(elems, options);
+ });
+
 $('.modal').modal();
+
 
 //INIT FLOATING BUTTON
 $('.fixed-action-btn').floatingActionButton();
@@ -179,6 +185,7 @@ $('.deny').click(function(e){
     M.toast({html: 'Comment Denied',
     displayLength: 3000})
 })
+
 
 });
 
