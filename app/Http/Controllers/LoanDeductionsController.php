@@ -151,7 +151,7 @@ public function export(){
     public function update(Request $request, $id)
     {
 
-    //Save product subscription
+    //Save loan subscription
     $this->validate(request(), [
         'amount' =>'required|numeric|between:0.00,999999999.99',
         'bank_name' =>'nullable|string',
@@ -169,7 +169,7 @@ public function export(){
             $loan_Deduct->teller_no = $request['teller_number'];
             $loan_Deduct->entry_month = $request['entry_date'];
             $loan_Deduct->repayment_mode = $request['mode'];
-            $loan_Deduct->uploaded_by = auth()->id();
+            $loan_Deduct->uploaded_by = auth()->user()->first_name;
             $loan_Deduct->save();
             if($loan_Deduct->save()) {
                 toastr()->success('Loan deduction updated successfully!');
@@ -194,6 +194,68 @@ public function export(){
         return back();
     }
 
+//Debit loan
+
+public function debitLoan(Request $request){
+
+    //Save loan repayment
+    $this->validate(request(), [
+    'amount' =>'required|numeric|between:0.00,999999999.99',
+    'sub_id' =>'required|integer',
+    'entry_date' =>'required|date',
+    'notes' =>'required|string',
+    //'bank_add' =>'required|string',
+    ]);
+
+        $subid = $request['sub_id'];
+
+        $loanSub = Lsubscription::find($subid);
+        $amtApproved = $loanSub->amount_approved;
+        $totalDeductions = $loanSub->totalLoanDeductions($subid);
+
+        //begin transaction to process uploads
+        DB::beginTransaction();
+        try{
+            if($loanSub->loan_status=='Inactive'){
+                //check loan
+                toastr()->error('This loan is inactive.');
+                return redirect('/user/landingPage/'.$loanSub->user_id);
+            }else{
+
+                $loanRepay = new Ldeduction;
+                //total loan Balances
+                $loanBalances = $loanRepay->myLoanDeductions($subid);
+                $loanRepay->amount_debited = $request['amount'];
+                $loanRepay->balances = $loanBalances - $request['amount'];
+              //  $loanRepay->bank_name = $request['bank_name'];
+                $loanRepay->user_id = $loanSub->user_id;
+                $loanRepay->product_id = $loanSub->product_id;
+                $loanRepay->lsubscription_id = $subid;
+                $loanRepay->entry_month = $request['entry_date'];
+                //$loanRepay->teller_no = $request['teller_number'];
+              //$loanRepay->depositor_name = $request['depositor_name'];
+                $loanRepay->notes = $request['notes'];
+                //$loanRepay->bank_add = $request['bank_add'];
+                $loanRepay->uploaded_by = auth()->user()->first_name;
+                $loanRepay->save();
+                //check for loan balance
+                $loanSub->loanBalance($subid);
+            }
+        }
+        catch(\Exception $e){
+        DB::rollback();
+        toastr()->error($e->getMessage());
+        //return back();
+        return redirect('/user/landingPage/'.$loanSub->user_id);
+        }
+        DB::commit();
+        toastr()->success('Loan debited successfully!');
+        //redirect to listing page order by latest
+        //return redirect('/post/loans');
+       return redirect('/user/landingPage/'.$loanSub->user_id);
+        //return back();
+
+}
 
 
     //Loan repayment Home
@@ -216,7 +278,6 @@ public function export(){
 
     //Store loan deduction repayment
     public function repayStore(Request $request){
-
 
         //Save loan repayment
         $this->validate(request(), [
@@ -511,7 +572,7 @@ public function export(){
                         return redirect('/loanDeduction/history/'.$sub_id);
 
             }else{
-                toastr()->error('you dont have enough balance on your savings account.');
+                toastr()->error('You dont have enough balance on your savings account.');
                 return back();
             }
     }
