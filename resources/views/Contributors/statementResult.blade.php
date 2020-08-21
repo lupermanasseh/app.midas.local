@@ -48,8 +48,18 @@
                         <td>
                             {{$myItem->notes}}
                         </td>
-                        <td>{{number_format($myItem->amount_withdrawn,2,'.',',')}}</td>
-                        <td>{{number_format($myItem->amount_saved,2,'.',',')}}</td>
+                        <td>@if($myItem->amount_withdrawn)
+                          {{number_format($myItem->amount_withdrawn,2,'.',',')}}
+                          @else
+                          -
+                          @endif</td>
+                        <td>
+                        @if($myItem->amount_saved)
+                        {{number_format($myItem->amount_saved,2,'.',',')}}
+                        @else
+                        -
+                        @endif
+                        </td>
                         <td>{{number_format($saving->balanceAsAt($myItem->amount_saved,$myItem->amount_withdrawn,$myItem->id,$userObj->id),2,'.',',')}}
                         </td>
                     </tr>
