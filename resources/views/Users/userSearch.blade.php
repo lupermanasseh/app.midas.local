@@ -5,11 +5,34 @@
     @include('inc.messages') --}}
     <div class="row subject-header">
         <div class="col s6">
-            <span class="text-teal">SEARCH RESULT</span>
+            <span class="text-teal">USER SUMMARY PAGE</span>
         </div>
         <div class="col s6">
             <span><a href="/user/all"><i class="small material-icons tooltipped" data-position="bottom"
                         data-tooltip="All Users">group</i></a></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            {{-- @if (count($users)>=1) --}}
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>REG NO</th>
+                        <th>NAME</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>{{substr($user->membership_type,0,1)}}/{{$user->id}}</td>
+                        <td>
+                            <a href="/userDetails/{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</a></td>
+                        <td>{{$user->status}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -35,21 +58,14 @@
             <table class="highlight">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th>Balance</th>
+                        <th>DESCRIPTION</th>
+                        <th>BALANCE</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
-                        <td>{{substr($user->membership_type,0,1)}}/{{$user->id}}</td>
-                        <td>
-                            <a href="/userDetails/{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</a></td>
                         <td>Savings (Contribution)</td>
-                        <td>{{$user->status}}</td>
                         <td>
                             <a
                                 href="/saving/listings/{{$user->id}}">{{number_format($saving->netBalance($user->id),2,'.',',')}}</a>
@@ -79,21 +95,18 @@
     <div class="row">
         @if(count($activeLoans)>=1)
         <div class="col s12">
-            <h6>ACTIVE LOANS | <span> <a href="/user/page/{{$user->id}}" class="btn green darken-3">GOT TO
-                        PRODUCT(s)</a></span></h6>
+            <h6>ACTIVE LOANS | <span> <a href="" class="btn orange darken-3">ALL LOANS</a></span>| <span> <a href="/user/page/{{$user->id}}" class="btn green darken-3">PRODUCT(s)</a></span></h6>
         </div>
         @else
         @endif
     </div>
+
     <div class="row">
         <div class="col s12">
-
             <table class="">
                 @if(count($activeLoans)>=1)
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>
                         <th>Loan Type</th>
                         <th>S/Date</th>
                         <th>E/Date</th>
@@ -102,16 +115,13 @@
                         <th>Repymt</th>
                         <th>Bal</th>
                         <th>Schedule</th>
+                        <!-- <th>Action</th> -->
                     </tr>
                 </thead>
                 <tbody>
 
                     @foreach ($activeLoans as $myProduct)
                     <tr>
-                        <td>{{substr($user->membership_type,0,1)}}/{{$user->id}}</td>
-                        <td>
-                            <a href="/userDetails/{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</a>
-                        </td>
                         <td>{{$myProduct->product->name}}</td>
                         <td>{{$myProduct->loan_start_date->toDateString()}}</td>
                         <td>{{$myProduct->loan_end_date->toDateString()}}</td>
@@ -119,16 +129,17 @@
                         <td>{{number_format($myProduct->amount_approved,2,'.',',')}}</td>
                         <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
                         <td><a
-                                href="/loanDeduction/history/{{$myProduct->id}}">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
+                            href="/loanDeduction/history/{{$myProduct->id}}">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
                         </td>
-                        <td><a href="/loan/schedule/{{$myProduct->id}}" target="_blank">Get</a></td>
+                        <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank">View</a></td>
+                        <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                     </tr>
                     @endforeach
                     @else
                     @endif
                     @if(count($activeLoans)>=1)
                     <tr>
-                        <th colspan="6">Summary</th>
+                        <th colspan="4">Summary</th>
                         <th>{{number_format($user->totalApprovedAmount($user->id),2,'.',',')}}</th>
                         <th>{{number_format($user->loanSubscriptionTotal($user->id),2,'.',',')}}</th>
                         <th>{{number_format($user->allLoanBalances($user->id),2,'.',',')}}</th>
@@ -140,4 +151,111 @@
         </div>
     </div>
 </div>
+
+<!-- modal for debit -->
+<!-- Modal Structure -->
+ <div id="modal1" class="modal">
+   <div class="modal-content">
+     <h6>DEBIT LOAN TRANSACTION</h6>
+     <div class="row">
+         <form class="col s12" method="POST" action="/debit/loan">
+             {{ csrf_field() }}
+             <div class="row">
+               <!-- <div class="input-field col s12 m4 l4">
+
+                   <input input placeholder="Enter Loan ID" id="sub_id" name="sub_id" type="text" value="" class="validate">
+                   <label for="sub_id">Loan ID</label>
+               </div> -->
+                 <div class="input-field col s12 m4 l4">
+                     <input id="sub_id" name="sub_id" value="" type="hidden">
+                     <input id="amount" name="amount" type="text" class="validate">
+                     <label for="amount">Enter Amount</label>
+                 </div>
+                 <div class="input-field col s12 m4 l4">
+                     <input id="entry_date" name="entry_date" type="text" class="validate datepicker">
+                     <label for="entry_date">Date</label>
+                 </div>
+                 <div class="input-field col s12 m4 l4">
+                     <input id="notes" name="notes" type="text" class="validate">
+                     <label for="notes">Description</label>
+                 </div>
+             </div>
+
+             <div class="row">
+
+                 <!-- <div class="input-field col s12 m4 l4">
+                     <input id="depositor_name" name="depositor_name" type="text" class="validate">
+                     <label for="depositor_name">Depositor Name</label>
+                 </div> -->
+                 <!-- <div class="input-field col s12 m4 l4">
+                     <input id="entry_date" name="entry_date" type="text" class="validate datepicker">
+                     <label for="entry_date">Date</label>
+                 </div>
+                 <div class="input-field col s12 m4 l4">
+                     <input id="notes" name="notes" type="text" class="validate">
+                     <label for="notes">Notes</label>
+                 </div> -->
+             </div>
+
+             <button type="submit" class="btn">Debit Loan</button>
+         </form>
+     </div>
+   </div>
+   <div class="modal-footer">
+     <a class="modal-close waves-effect waves-green btn-flat">Close</a>
+   </div>
+ </div>
+
+ <!-- modal structure for credit -->
+ <!-- modal for debit -->
+ <!-- Modal Structure -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <h6>CREDIT LOAN TRANSACTION</h6>
+      <div class="row">
+          <form class="col s12" method="POST" action="/loanRepay/store">
+              {{ csrf_field() }}
+
+              <div class="row">
+                  <div class="input-field col s12 m2 l2">
+                      <input id="sub_id" name="sub_id"  value="" type="hidden">
+                      <input id="amount" name="amount" type="text" class="validate">
+                      <label for="amount">Enter Amount</label>
+                  </div>
+                  <div class="input-field col s12 m2 l2">
+                      <input id="teller_number" name="teller_number" type="text" class="validate">
+                      <label for="teller_number">Teller Number</label>
+                  </div>
+                  <div class="input-field col s12 m4 l4">
+                      <input id="bank_name" name="bank_name" type="text" class="validate">
+                      <label for="bank_name">Bank Name</label>
+                  </div>
+                  <div class="input-field col s12 m4 l4">
+                      <input id="bank_add" name="bank_add" type="text" class="validate">
+                      <label for="bank_add">Bank Add</label>
+                  </div>
+              </div>
+              <div class="row">
+
+                  <div class="input-field col s12 m4 l4">
+                      <input id="depositor_name" name="depositor_name" type="text" class="validate">
+                      <label for="depositor_name">Depositor Name</label>
+                  </div>
+                  <div class="input-field col s12 m4 l4">
+                      <input id="entry_date" name="entry_date" type="date" class="validate">
+                      <label for="entry_date">Date</label>
+                  </div>
+                  <div class="input-field col s12 m4 l4">
+                      <input id="notes" name="notes" type="text" class="validate">
+                      <label for="notes">Description</label>
+                  </div>
+              </div>
+
+              <button type="submit" class="btn">Credit Loan</button>
+          </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
 @endsection
