@@ -135,9 +135,18 @@
                             {{$statement->notes}}
                         </td>
                         <td style="text-align:right; margin-right:1em;">
-                            {{number_format($statement->amount_withdrawn,2,'.',',')}}</td>
+                          @if($statement->amount_withdrawn)
+                          {{number_format($statement->amount_withdrawn,2,'.',',')}}
+                          @else
+                          -
+                          @endif
+                          </td>
                         <td style="text-align:right; margin-right:1em;">
-                            {{number_format($statement->amount_saved,2,'.',',')}}
+                          @if($statement->amount_saved)
+                          {{number_format($statement->amount_saved,2,'.',',')}}
+                          @else
+                          -
+                          @endif
                         </td>
                         <td style="text-align:right; margin-right:1em;">
                             {{number_format($statement->balances,2,'.',',')}}
