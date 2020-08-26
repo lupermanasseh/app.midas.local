@@ -95,7 +95,7 @@
     </div>
 </div> -->
 
-<button type="submit" class="btn">Edit</button>
+<button type="submit" class="btn">Save</button>
 </form>
 </div>
 </div>
