@@ -42,10 +42,13 @@ class Ldeduction extends Model
     //Loan Deduction history
     //pass in subscription id
     public static function loanHistory($id){
+        // return static::where('lsubscription_id',$id)
+        // ->with(['product' => function ($query) {
+        // $query->orderBy('name', 'desc');
+        // }])->oldest()->get();
+
         return static::where('lsubscription_id',$id)
-        ->with(['product' => function ($query) {
-        $query->orderBy('name', 'desc');
-        }])->oldest()->get();
+                      ->oldest('entry_month')->get();
     }
 
      /**
