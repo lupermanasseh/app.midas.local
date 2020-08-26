@@ -16,7 +16,8 @@
                         <th>DATE</th>
                         <th>NAME</th>
                         <th>PRODUCT</th>
-                        <th>AMOUNT</th>
+                        <th>CREDIT</th>
+                        <th>DEBIT</th>
                         <TH>CREATED</TH>
                         <th>ACTION</th>
                     </tr>
@@ -30,11 +31,12 @@
                                 <?php echo e($myItem->user->last_name); ?></a></td>
                         <td><?php echo e($myItem->product->name); ?></td>
                         <td><?php echo e(number_format($myItem->amount_deducted,2,'.',',')); ?></td>
+                        <td><?php echo e(number_format($myItem->amount_debited,2,'.',',')); ?></td>
                         <td><?php echo e($myItem->created_at->diffForHumans()); ?></td>
                         <td>
-                            <a href="/loanDeduction/edit/<?php echo e($myItem->id); ?>"><i class="small material-icons">edit</i> </a>
+                            <a href="/loanDeduction/edit/<?php echo e($myItem->id); ?>"><i class="tiny material-icons">edit</i> </a>
                             <a href="/loanDeduction/remove/<?php echo e($myItem->id); ?>" id="delete"> <i
-                                    class="small material-icons red-text">delete</i></a>
+                                    class="tiny material-icons red-text">delete</i></a>
                         </td>
 
                     </tr>
@@ -48,4 +50,5 @@
     </div>
 </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('Layouts.admin-app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

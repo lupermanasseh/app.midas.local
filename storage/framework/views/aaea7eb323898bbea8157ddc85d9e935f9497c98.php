@@ -100,6 +100,7 @@
                         <th>DEBIT</th>
                         <th>CREDIT</th>
                         <th>BALANCE</th>
+                        <th>ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -138,9 +139,11 @@
                           <?php echo e(number_format($loan->amount_approved-$myItem->balances,2,'.',',')); ?>
 
                           </td>
-                          <!-- <td>
-                          <a href="/loanDeduction/edit/<?php echo e($myItem->id); ?>"><i class="small material-icons">edit</i> </a>
-                          </td> -->
+                          <td>
+                            <a href="/loanDeduction/edit/<?php echo e($myItem->id); ?>"><i class="tiny material-icons">edit</i> </a>
+                            <a href="/loanDeduction/remove/<?php echo e($myItem->id); ?>" id="delete"> <i
+                                    class="tiny material-icons red-text">delete_forever</i></a>
+                          </td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
