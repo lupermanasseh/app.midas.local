@@ -18,7 +18,8 @@
                         <th>DATE</th>
                         <th>NAME</th>
                         <th>PRODUCT</th>
-                        <th>AMOUNT</th>
+                        <th>CREDIT</th>
+                        <th>DEBIT</th>
                         <TH>CREATED</TH>
                         <th>ACTION</th>
                     </tr>
@@ -31,11 +32,12 @@
                                 {{$myItem->user->last_name}}</a></td>
                         <td>{{$myItem->product->name}}</td>
                         <td>{{number_format($myItem->amount_deducted,2,'.',',')}}</td>
+                        <td>{{number_format($myItem->amount_debited,2,'.',',')}}</td>
                         <td>{{$myItem->created_at->diffForHumans()}}</td>
                         <td>
-                            <a href="/loanDeduction/edit/{{$myItem->id}}"><i class="small material-icons">edit</i> </a>
+                            <a href="/loanDeduction/edit/{{$myItem->id}}"><i class="tiny material-icons">edit</i> </a>
                             <a href="/loanDeduction/remove/{{$myItem->id}}" id="delete"> <i
-                                    class="small material-icons red-text">delete</i></a>
+                                    class="tiny material-icons red-text">delete</i></a>
                         </td>
 
                     </tr>
