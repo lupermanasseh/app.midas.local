@@ -131,20 +131,10 @@ class Ldeduction extends Model
      * Total saving aggregate
      */
         public function loanBalancegAggregateAt($collection){
-          $sumBal=0;
 
-          foreach($collection as $item){
-              //$totalBal=0;
-              $approved_amt = $item->loanSubscription->amount_approved;
-              $loanCredit = $collection->where('lsubscription_id', $item->lsubscription_id)
-                                        ->sum('amount_deducted');
-              $loanDebit = $collection->where('lsubscription_id', $item->lsubscription_id)
-                                        ->sum('amount_debited');
-              $totalDeductions = $loanCredit-$loanDebit;
-              //$deductions = $lsub->totalLoanDeductions($item->id);
-              $bal = $approved_amt-$totalDeductions;
-              $sumBal = $sumBal+$bal;
-          }
-          return $sumBal;
+              $loanCredit = $collection->sum('amount_deducted');
+              $loanDebit = $collection->sum('amount_debited');
+              return $totalDeductions = $loanCredit-$loanDebit;
+
         }
 }
