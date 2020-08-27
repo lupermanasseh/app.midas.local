@@ -174,6 +174,7 @@ Route::get('/audited/loans','LoanSubscriptionController@auditedLoans');
 Route::get('/approve/loans/{id}','LoanSubscriptionController@approveLoan');
 Route::get('/approved/loans','LoanSubscriptionController@readyLoans');
 Route::get('/pay/loan/{id}','LoanSubscriptionController@payLoan');
+Route::get('/user/loans/{id}','LoanSubscriptionController@allLoansByUser');
 Route::post('/pay/store/{id}','LoanSubscriptionController@payStore');
 Route::get('/loan/schedule/{id}','LoanSubscriptionController@loanSchedule');
 Route::get('/loan/schedule/print/{id}','LoanSubscriptionController@loanSchedulePrint');
