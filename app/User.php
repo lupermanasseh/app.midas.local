@@ -21,8 +21,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 
-        'payment_number', 
+        'username',
+        'payment_number',
         'password',
         'email',
         'membership_type',
@@ -67,7 +67,7 @@ class User extends Authenticatable
     //     return $this->belongsToMany(Role::class,'role_users');
     // }
 
-    //define relationship with next of kin 
+    //define relationship with next of kin
     public function nok(){
         return $this->hasOne(Nok::class);
     }
@@ -83,7 +83,7 @@ class User extends Authenticatable
         return $this->hasMany(Psubscription::class);
     }
     //User relationship with loan subscriptions
-    //User has many subscriptions 
+    //User has many subscriptions
      public function loansubscriptions(){
         return $this->hasMany(Lsubscription::class);
     }
@@ -91,7 +91,7 @@ class User extends Authenticatable
     //Relationship with Target Savings Review
     public function tsreviews(){
         return $this->hasMany(Targetsr::class);
-    } 
+    }
 
     //Relationship with Target Saving
     public function targetsavings(){
@@ -126,7 +126,7 @@ class User extends Authenticatable
     //Total sum deductible for product subscription
     // public function productSubscriptionTotal($id)
     // {
-       
+
     //     return Psubscription::where('user_id', '=', $id)
     //     ->where(function ($query) {
     //         $query->where('status', '=', 'Active');
@@ -158,7 +158,7 @@ class User extends Authenticatable
             ->sum('amount_approved');
         }
 
-    
+
         //All loan balances
         public function allLoanBalances($id)
         {
@@ -168,7 +168,7 @@ class User extends Authenticatable
             ->where(function ($query) {
                 $query->where('loan_status', '=', 'Active');
             })->get();
-        
+
             foreach($all_loans as $item){
                 //$totalBal=0;
                 $approved_amt = $item->amount_approved;
@@ -188,11 +188,11 @@ class User extends Authenticatable
 
     public  function monthlySaving($id)
     {
-      
+
         $userSavingRev = Savingreview::where('user_id', '=', $id)
                                     ->where('status','Active')
                                     ->first();
-            
+
         return $userSavingRev->current_amount;
     }
 
@@ -215,6 +215,15 @@ class User extends Authenticatable
         return $activeLoans->count();
     }
 
+    //Total number of loans count
+    // public  function loansCount($id)
+    // {
+    //     //Number of active loans
+    //     $allLoans = Lsubscription::where('user_id', '=', $id)
+    //                                 ->get();
+    //     return $allLoans->count();
+    // }
+
     //Number of Pending Loans
     public  function pendingLoans($id)
     {
@@ -226,7 +235,7 @@ class User extends Authenticatable
         return $pendingLoans->count();
     }
 
-  
+
 
     //Number of active product subscriptions
     // public  function activeProductSub($id)
@@ -261,7 +270,7 @@ class User extends Authenticatable
             }else{
                 return 0;
             }
-            
+
    }
 
    //GET USER OBJECT BY ID
@@ -282,7 +291,7 @@ class User extends Authenticatable
                         ->count();
 }
 
-   
+
         //Search User
 public function searchUser($param){
             $result = User::where('id',$param)
@@ -307,7 +316,7 @@ public static function filterMembers($status,$end_date,$cadre){
         return User::where('date_entry','>=',$startDate)
                     ->where('date_entry','<=',$end_date)
                     ->orderBy('status','asc')
-                    ->get(); 
+                    ->get();
     }else{
     return User::where('date_entry','>=',$startDate)
                     ->where('date_entry','<=',$end_date)
@@ -328,7 +337,7 @@ public static function membershipByGender(){
 
         $female = User::where('sex', 'Female')->count();
         $male = User::where('sex', 'Male')->count();
-        
+
         $chart = new membershipSpread;
         $chart->labels(['Male','Female']);
         $chart->dataset('Membership Spread By Gender', 'pie', [$male,$female]);
