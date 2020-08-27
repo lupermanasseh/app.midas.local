@@ -55,7 +55,7 @@ class LoanSubscriptionController extends Controller
         $title = 'Loan Payment Schedule';
         $loan = Lsubscription::find($id);
         $userObj = User::find($loan->user_id);
-     
+
         $pdf = PDF::loadView('Prints.loan_schedule_pdf',compact('loan','title','userObj'));
         return $pdf->stream();
         // return $pdf->download('statementOfSavings.pdf');
@@ -94,11 +94,11 @@ class LoanSubscriptionController extends Controller
             'net_pay' =>'required|numeric|between:0.00,999999999.99',
             ]);
 
-            
-                
+
+
                 $loan_sub = new Lsubscription();
                 $product = Product::find($request['product_item']);
-                
+
                 //check fo active users
                 $guarantor1 = User::find(request(['guarantor_id1']));
                 $guarantor2 = User::find(request(['guarantor_id2']));
@@ -129,7 +129,7 @@ class LoanSubscriptionController extends Controller
                 }else{
                     $amtApplied = $product->unit_cost * $request['units'];
                 }
-                
+
                 //$loan_sub->productdivision_id = $request['product_cat'];
                 $loan_sub->product_id = $request['product_item'];
                 $loan_sub->user_id = $request['reg_no'];
@@ -159,7 +159,7 @@ class LoanSubscriptionController extends Controller
     public function show($id)
         {
         //Show detail of all subscriptions for a particular product
-        
+
         $title ='Loan Subscriptions Detail';
         $loanDetails = Lsubscription::where('loan_id',$id)
         ->where(function($query){
@@ -211,11 +211,11 @@ class LoanSubscriptionController extends Controller
             'net_pay' =>'required|numeric|between:0.00,999999999.99',
             ]);
 
-            
-                
+
+
                 $loan_sub = Lsubscription::find($id);
                 $product = Product::find($request['product_item']);
-                
+
                 //check fo active users
                 $guarantor1 = User::find(request(['guarantor_id1']));
                 $guarantor2 = User::find(request(['guarantor_id2']));
@@ -246,7 +246,7 @@ class LoanSubscriptionController extends Controller
                 }else{
                     $amtApplied = $product->unit_cost * $request['units'];
                 }
-                
+
                 //$loan_sub->productdivision_id = $request['product_cat'];
                 $loan_sub->product_id = $request['product_item'];
                 $loan_sub->user_id = $request['reg_no'];
@@ -267,11 +267,11 @@ class LoanSubscriptionController extends Controller
                 return back();
         }
 
-        
+
 //USER SUBSCRIPTION DETAILS PAGE
     public function userLoanSubscriptions($id){
         $title = "User Page";
-        
+
         $saving = new Saving;
         //Find user
         $user = User::find($id);
@@ -281,13 +281,13 @@ class LoanSubscriptionController extends Controller
 
         //Pending product subscriptions
         $pendingLoans = Lsubscription::pendingLoans($id);
-        
+
         //User target saving subscriptions
         //$targetsr = Targetsr::where('user_id',$id)
                            // ->get();
 
         //User pending products subscriptions
-        //$userPendingProducts = Psubscription::pendingProducts($id); 
+        //$userPendingProducts = Psubscription::pendingProducts($id);
 
         return view('LoanSub.userLoanSub',compact('title','activeLoans','pendingLoans','user','saving'));
     }
@@ -305,7 +305,7 @@ class LoanSubscriptionController extends Controller
     public function reviewStore(Request $request, $id)
         {
         //
-            
+
             $this->validate(request(), [
             'notes' =>'required|string',
             'review_date' =>'required|date',
@@ -317,7 +317,7 @@ class LoanSubscriptionController extends Controller
                 $loan_sub = Lsubscription::find($id);
 
                 $tenor = $loan_sub->custom_tenor;
-                
+
                 $approved_amt = $request['amount_approved'];
                 $notes = $request['notes'];
 
@@ -360,6 +360,15 @@ class LoanSubscriptionController extends Controller
             }
 
 
+//All loan subscriptions by a users
+public function allLoansByUser($id){
+    $title ='My Loans';
+
+    $allLoans = Lsubscription::allLoans($id);
+    return view('LoanSub.allUserLoans',compact('allLoans','title','id'));
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -373,10 +382,10 @@ class LoanSubscriptionController extends Controller
         $loanSubscription = Lsubscription::find($id)->delete();
         if ($loanSubscription) {
             toastr()->success('Loan subscription has been discard successfully!');
-    
+
             return redirect('/pendingLoans');
         }
-    
+
         toastr()->error('An error has occurred trying to remove loan subsscription, please try again later.');
         return back();
     }
@@ -386,7 +395,7 @@ class LoanSubscriptionController extends Controller
     public function loanStop($id){
 
         $loanSub = Lsubscription::find($id);
-        
+
         $loanAmount = $loanSub->amount_approved;
         //3 get sum deductions for the product
         $totalDeductions = $loanSub->totalLoanDeductions($id);
@@ -444,7 +453,7 @@ class LoanSubscriptionController extends Controller
 
             //Approve Loans
             public function approveLoan($id){
-                   
+
                     $userLoan = Lsubscription::find($id);
 
                     // $approved_amt = number_format($userLoan->amount_approved,2,'.',',');
@@ -455,7 +464,7 @@ class LoanSubscriptionController extends Controller
                     $userLoan->approved_date= now()->toDateString();
                     $userLoan->approve_by = auth()->user()->first_name;
                     $userLoan->save();
-                    //send message of approval 
+                    //send message of approval
                     // if($userLoan->save()){
                     //     //send message
                     //     $client = new Client;
@@ -472,8 +481,8 @@ class LoanSubscriptionController extends Controller
                     // }else{
                     //     toastr()->error('Unable to approve loan! try again');
                     //     return back();
-                    // } 
-                    
+                    // }
+
                 }
 
                 //Pay loan form
@@ -489,8 +498,8 @@ class LoanSubscriptionController extends Controller
                         'start_date' =>'required|date',
                         'sub_id' =>'required|integer',
                         ]);
-            
-                        
+
+
                         $loan_id = $request['sub_id'];
                         $dt = $request['start_date'];
                         $date = new Carbon($dt);
@@ -515,7 +524,7 @@ class LoanSubscriptionController extends Controller
                                 $from= 'MIDAS TOUCH';
                                 $message = 'Your '.$product.' facility of N'. $amt_approved.' has been paid and is now active. Thank you. MIDAS TEAM';
                                $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
-        
+
                                $response = $client->request('GET', $url,['verify'=>false]);
                                toastr()->success('Loan activated successfully!');
                                return redirect('/approved/loans');
@@ -527,7 +536,7 @@ class LoanSubscriptionController extends Controller
                             toastr()->error('Unable to activate loan! try again');
                             return back();
                         }
-                        
+
 
                 }
 }
