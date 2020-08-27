@@ -39,7 +39,7 @@ class Lsubscription extends Model
         public function user(){
         return $this->belongsTo(User::class);
         }
-    
+
         //loan relationship
         //Each loan subscription belongs to a loan
         public function loan(){
@@ -54,7 +54,7 @@ class Lsubscription extends Model
        public function loandefault(){
         return $this->hasMany(Defaultcharge::class);
     }
-    
+
     protected $dates = ['created_at', 'updated_at','loan_start_date','loan_end_date'];
 
 
@@ -69,6 +69,13 @@ class Lsubscription extends Model
          return  static::where('loan_status', 'Active')
          ->with(['user','product'])
          ->get();
+    }
+
+    //all loans by user
+    public static function allLoans($user_id){
+         return  static::where('user_id', $user_id)
+                        ->with(['user','product'])
+                        ->get();
     }
 
      //Filter loan subscriptions
@@ -98,7 +105,7 @@ class Lsubscription extends Model
                     $totalDeficit = Defaultcharge::deficitTotal($_id);
                     $totalDefaultCharge = Defaultcharge::defaultChargesTotal($_id);
                      return $monthly_Deductions + $totalDeficit + $totalDefaultCharge;
-                            
+
     }
 
   //method to check loan payment
@@ -106,14 +113,14 @@ class Lsubscription extends Model
 
     $loanSub = Lsubscription::find($id);
      $loanAmount = $loanSub->amount_approved;
-        
+
     //3 get sum deductions for the product
-    
+
    $totalDeductions =  $loanSub->totalLoanDeductions($id);
    //$totalDeductions =  number_format($totalDeductions,2,'.',',');
     //find the diff
     $diffRslt = $loanAmount-$totalDeductions;
-  
+
     if($diffRslt <= 0){
         //update the subj obj status to inactive
         $loanSub->loan_status = 'Inactive';
@@ -132,7 +139,7 @@ class Lsubscription extends Model
             $query->where('loan_status','Active');
         })
         ->orderBy('loan_end_date','asc')->take(1)->first();
-      
+
         return $loanSubObj->loan_end_date;
     }
 
@@ -143,7 +150,7 @@ class Lsubscription extends Model
         $date_val = new Carbon($date);
         return $date_val->addMonths($tenor)->toDateString();
     }
-    
+
     //user Product Subscription
     // public function productSubEndDate($_id){
     //     $prodSub = Psubscription::where('user_id',$_id)
@@ -180,7 +187,7 @@ class Lsubscription extends Model
         })
         ->sum('monthly_repayment');
     }
-        
+
     //User Active loans
     public static function activeLoans($id){
         return static::where('user_id',$id)
@@ -243,7 +250,7 @@ public static function subGroup(){
             $pending = Lsubscription::where('loan_status', 'Pending')->count();
             $reviewed = Lsubscription::where('loan_status', 'Reviewed')->count();
             $paid = Lsubscription::where('loan_status', 'Paid')->count();
-            
+
             $status_chart = new membershipSpread;
             $status_chart->labels(['Active','Pending','Reviewed','Paid']);
             $status_chart->dataset('Loan Status', 'line', [$active,$pending,$reviewed,$paid]);
@@ -266,7 +273,7 @@ public static function userActivity($id){
             $paid = Lsubscription::where('user_id',$id)
                                     ->where('loan_status', 'Paid')
                                     ->count();
-            
+
             $userActivity = new membershipSpread;
             $userActivity->labels(['Active','Pending','Reviewed','Paid']);
             $userActivity->dataset('Foot Prints', 'line', [$active,$pending,$reviewed,$paid]);
@@ -274,5 +281,5 @@ public static function userActivity($id){
 }
 
 
-      
+
 }
