@@ -95,7 +95,7 @@
     <div class="row">
         @if(count($activeLoans)>=1)
         <div class="col s12">
-            <h6>ACTIVE LOANS | <span> <a href="" class="btn orange darken-3">ALL LOANS</a></span>| <span> <a href="/user/page/{{$user->id}}" class="btn green darken-3">PRODUCT(s)</a></span></h6>
+            <h6>ACTIVE LOANS | <span> <a href="/user/loans/{{$user->id}}" class="btn orange darken-3">ALL LOANS ({{$activeLoans->count()}})</a></span>| <span> <a href="/user/page/{{$user->id}}" class="btn green darken-3">PRODUCT(s)</a></span></h6>
         </div>
         @else
         @endif
