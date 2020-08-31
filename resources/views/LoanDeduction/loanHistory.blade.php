@@ -10,7 +10,7 @@
             <p class="teal-text">LOAN HISTORY/DETAILS</p>
         </div>
         <div class="col s12 m6 l6 subject-header right">
-            <a href="/user/landingPage/{{$loan->user_id}}"><i class="tiny material-icons">arrow_back</i> RETURN</a>
+            <a  class="btn" href="/user/landingPage/{{$loan->user_id}}"><i class="tiny material-icons">arrow_back</i> Back</a>
         </div>
     </div>
 
@@ -89,7 +89,7 @@
     @endif
     <div class="row">
         <div class="col s12 m12 l12 subject-header right">
-          <a href="/user/landingPage/{{$loan->user_id}}"><i class="tiny material-icons">arrow_back</i> RETURN</a>
+          <a class="btn" href="/user/landingPage/{{$loan->user_id}}"><i class="tiny material-icons">arrow_back</i>Back</a>
         </div>
     </div>
     <div class="row">
