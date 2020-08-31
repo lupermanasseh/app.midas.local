@@ -233,8 +233,8 @@ document.addEventListener('DOMContentLoaded', function() {
  });
 
 $('.modal').modal();
-
-
+//initialize tabs
+$('.tabs').tabs();
 //INIT FLOATING BUTTON
 $('.fixed-action-btn').floatingActionButton();
 
