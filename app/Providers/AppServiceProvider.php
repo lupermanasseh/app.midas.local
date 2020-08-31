@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Schema::defaultStringLength(191);
-        
+
         //view composer for admin index page
           //view composer for product list
           view()->composer(['Madmin.index'], function($view){
@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
         // });
 
         //product items view composer
-        view()->composer(['Products.newProduct','Products.editProducts','ProductSub.create','LoanSub.create','LoanSub.editLoanSub'], function($view){
+        view()->composer(['Products.newProduct','Products.editProducts','ProductSub.create','Users.userSearch','LoanSub.create','LoanSub.editLoanSub'], function($view){
             $view->with('catlist', Productdivision::productCatList());
         });
 
@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
           view()->composer(['Registration.newUser','Registration.newStaff','Users.editProfile'], function($view){
             $view->with('roles', Role::allRoles());
         });
-        
+
         //TODO
         /**
          * Create view composer for user dashboard
@@ -91,6 +91,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        
+
     }
 }
