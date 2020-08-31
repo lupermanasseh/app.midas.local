@@ -267,8 +267,10 @@ public function editBank($id){
             $targetsr = Targetsr::where('user_id',$user->id)
                                 ->where('status','Active')
                                 ->get();
+            $inactiveLoans = Lsubscription::inactiveLoans($user->id);
+            $allLoans = Lsubscription::allLoans($user->id);
             }
-            return view('Users.userSearch',compact('user','saving','targetsr','targetSaving','activeLoans','title'));
+            return view('Users.userSearch',compact('user','saving','targetsr','allLoans','inactiveLoans','targetSaving','activeLoans','title'));
         }
 
 
@@ -294,8 +296,10 @@ public function editBank($id){
             $targetsr = Targetsr::where('user_id',$user->id)
                                 ->where('status','Active')
                                 ->get();
+            $inactiveLoans = Lsubscription::inactiveLoans($user->id);
+            $allLoans = Lsubscription::allLoans($user->id);
             }
-            return view('Users.userSearch',compact('user','saving','targetsr','targetSaving','activeLoans','title'));
+            return view('Users.userSearch',compact('user','saving','targetsr','allLoans','inactiveLoans','targetSaving','activeLoans','title'));
         }
 
 
