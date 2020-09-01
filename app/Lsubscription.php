@@ -202,12 +202,8 @@ class Lsubscription extends Model
     //user inactive loan
     public static function inactiveLoans($id){
         return static::where('user_id',$id)
-        ->where(function ($query){
-            $query->where('loan_status','Inactive');
-        })->with(['product' => function ($query) {
-        $query->orderBy('name', 'desc');
-        }])
-        ->orderBy('loan_start_date','desc')->get();
+                      ->where('loan_status','Inactive')
+                      ->get();
     }
 
     //user paid loans
