@@ -113,7 +113,7 @@
             <div class="row">
                 @if(count($activeLoans)>=1)
                 <div class="col s12">
-                    <h6>ACTIVE LOANS | <span> <a href="/user/page/{{$user->id}}" class="btn green darken-3">PRODUCT(s)</a></span></h6>
+                    <h6>ACTIVE LOANS</h6>
                 </div>
                 @else
                 @endif
@@ -176,12 +176,12 @@
 <div class="row">
     @if(count($inactiveLoans)>=1)
     <div class="col s12">
-        <h6>INACTIVE LOANS | <span> <a href="/user/loans/{{$user->id}}" class="btn orange darken-3">ALL LOANS </a></span>| <span> <a href="/user/page/{{$user->id}}" class="btn green darken-3">PRODUCT(s)</a></span></h6>
+        <h6>INACTIVE LOANS</h6>
     </div>
     <div class="row">
         <div class="col s12">
             <table class="">
-                @if(count($activeLoans)>=1)
+
                 <thead>
                     <tr>
                         <th>Loan Type</th>
@@ -197,7 +197,7 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($activeLoans as $myProduct)
+                    @foreach ($inactiveLoans as $myProduct)
                     <tr>
                         <td>{{$myProduct->product->name}}</td>
                         <td>{{$myProduct->loan_start_date->toDateString()}}</td>
@@ -212,8 +212,7 @@
                         <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                     </tr>
                     @endforeach
-                    @else
-                    @endif
+                
                     @if(count($inactiveLoans)>=1)
                     <tr>
                         <th colspan="4">Summary</th>
@@ -244,57 +243,80 @@
    <div class="modal-content">
      <h6>TOP UP</h6>
      <div class="row">
-         <form class="col s12" method="POST" action="/debit/loan">
+         <form class="col s12" method="POST" action="/topup/loan">
              {{ csrf_field() }}
              <div class="row">
-                 <div class="input-field col s12 m3 l3">
-                     <input placeholder="Reg Number" id="reg_no" name="reg_no" type="text" class="validate">
-                     <label for="reg_no">Applicant's Reg Number</label>
-                 </div>
+               <div class="input-field col s12 m6 l6">
+                   <select id="parent_loan" name="parent_loan">
+                       @foreach ($activeLoans as $myProduct)
+                       <option value="{{$myProduct->id}}">{{$myProduct->product->name}}/({{$myProduct->amount_approved}})</option>
+                       @endforeach
+                   </select>
+                   <label>Select Parent Loan</label>
+               </div>
+               <div class="input-field col s12 m6 l6">
+                   <select id="topup_loan" name="topup_loan">
+                       @foreach ($activeLoans as $myProduct)
+                       <option value="{{$myProduct->id}}">{{$myProduct->product->name}}/({{$myProduct->amount_approved}})</option>
+                       @endforeach
+                   </select>
+                   <label>Select TopUp Loan</label>
+               </div>
+             </div>
 
-                 <div class="input-field col s12 m3 l3">
-                     <input placeholder="Reg Number" id="guarantor_id1" name="guarantor_id1" type="text"
-                         class="validate">
-                     <label for="guarantor_id1">First Guarantor</label>
-                 </div>
-                 <div class="input-field col s12 m3 l3">
-                     <input placeholder="Reg Number" id="guarantor_id2" name="guarantor_id2" type="text"
-                         class="validate">
-                     <label for="guarantor_id2">Second Guarantor</label>
-                 </div>
-                 <div class="input-field col s12 m3 l3">
-                     <input placeholder="Reg Number" id="guarantor_id2" name="guarantor_id2" type="text"
-                         class="validate">
-                     <label for="guarantor_id2">Second Guarantor</label>
-                 </div>
+             <!-- <div class="row">
+               <div class="input-field col s12 m3 l3">
+                   <input placeholder="Reg Number" id="reg_no" name="reg_no" type="text" class="validate">
+                   <label for="reg_no">Applicant's Reg Number</label>
+               </div>
+
+               <div class="input-field col s12 m3 l3">
+                   <input placeholder="Reg Number" id="guarantor_id1" name="guarantor_id1" type="text"
+                       class="validate">
+                   <label for="guarantor_id1">First Guarantor</label>
+               </div>
+               <div class="input-field col s12 m3 l3">
+                   <input placeholder="Reg Number" id="guarantor_id2" name="guarantor_id2" type="text"
+                       class="validate">
+                   <label for="guarantor_id2">Second Guarantor</label>
+               </div>
+             </div> -->
+
+             <div class="row">
+               <div class="input-field col s12 m3 l3">
+                   <input placeholder="Adjust tenor" id="tenor" name="tenor" type="text" class="validate">
+                   <label for="tenor">Adjust Tenor</label>
+               </div>
+
+               <div class="input-field col s12 m3 l3">
+                   <input placeholder="Adjust deduction" id="deduction" name="deduction" type="text"
+                       class="validate">
+                   <label for="tenor">Adjust Deduction</label>
+               </div>
+
+               <div class="input-field col s12 m3 l3">
+                   <input id="start_date" name="start_date" type="date" class="validate">
+                   <label for="start_date">Start Date</label>
+               </div>
+
+               <div class="input-field col s12 m3 l3">
+                   <input id="end_date" name="end_date" type="date" class="validate">
+                   <label for="end_date">End Date</label>
+               </div>
              </div>
 
              <div class="row">
-                 <div class="input-field col s12 m5 l5">
-                     <select id="product_cat" name="product_cat">
-                         @foreach ($catlist as $id=>$name)
-                         <option value="{{$id}}">{{$name}}</option>
-                         @endforeach
-                     </select>
-                     <label>Product Category</label>
+
+                 <!-- <div class="input-field col s12 m4 l4">
+                     <input id="entry_date" name="entry_date" type="date" class="validate">
+                     <label for="entry_date">Start Date</label>
                  </div>
-                 <div class="input-field col s12 m2 l2">
-                     <input id="units" name="units" type="number" class="validate">
-                     <label for="units">Units</label>
-                 </div>
-                 <div class="input-field col s12 m5 l5">
-                     <select id="product_item" name="product_item">
-                     </select>
-                     <label>Product</label>
-                 </div>
-                 <div class="input-field col s12 m3 l3">
-                     <select id="product_cat" name="product_cat">
-                         @foreach ($catlist as $id=>$name)
-                         <option value="{{$id}}">{{$name}}</option>
-                         @endforeach
-                     </select>
-                     <label>Existing Loan</label>
-                 </div>
+
+                 <div class="input-field col s12 m4 l4">
+                     <input id="entry_date" name="entry_date" type="date" class="validate">
+                     <label for="entry_date">End Date</label>
+                 </div> -->
+
              </div>
 
              <button type="submit" class="btn">TOP UP</button>
