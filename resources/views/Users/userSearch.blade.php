@@ -212,14 +212,14 @@
                         <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                     </tr>
                     @endforeach
-                
+
                     @if(count($inactiveLoans)>=1)
-                    <tr>
+                    <!-- <tr>
                         <th colspan="4">Summary</th>
                         <th>{{number_format($user->totalApprovedAmount($user->id),2,'.',',')}}</th>
                         <th>{{number_format($user->loanSubscriptionTotal($user->id),2,'.',',')}}</th>
                         <th>{{number_format($user->allLoanBalances($user->id),2,'.',',')}}</th>
-                    </tr>
+                    </tr> -->
                     @else
                     @endif
                 </tbody>
