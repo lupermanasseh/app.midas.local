@@ -31,7 +31,7 @@
       @if (count($uniqueDebtors)>=1)
       <tr>
           <th colspan="4">Total</th>
-          <th>{{$listing->loanBalancegAggregateAt($loanDeductionCollection)}}</th>
+          <th>{{$listing->loanBalanceAggregateAt($loanDeductionCollection)}}</th>
       </tr>
       @else
       @endif
