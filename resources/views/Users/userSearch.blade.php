@@ -8,11 +8,13 @@
     <div class="row">
       <div class="col s12">
         <ul class="tabs">
-          <li class="tab col s3"><a class="active" href="#test1">SAVINGS</a></li>
-          <li class="tab col s3"><a  href="#test2">LOANS ({{$activeLoans->count()}})</a></li>
+          <li class="tab col s3"><a class="active pink-text darken-3" href="#test1">SAVINGS</a></li>
+          <li class="tab col s3"><a  class="pink-text darken-3" href="#test2">LOANS ({{$activeLoans->count()}})</a></li>
+          <li class="tab col s3"><a  class="pink-text darken-3" href="#test3">RESTRUCRUED LOANS ({{$structured->count()}})</a></li>
 
         </ul>
       </div>
+
       <div id="test1" class="col s12">
         <!-- markup begins -->
         <!--  -->
@@ -104,9 +106,8 @@
                 </table>
             </div>
         </div>
-
-
       </div>
+
 
       <div id="test2" class="col s12">
         <!--  -->
@@ -118,9 +119,7 @@
                 @else
                 @endif
             </div>
-            <div class="col s12 m6 l6 left">
-              <a class="waves-effect waves-light btn modal-trigger red darken-3"  href="#modal1">Top Up</a> | <a class="waves-effect waves-light btn modal-trigger"  href="#modal2">Restructure</a>
-            </div>
+
 
             <div class="row">
                 <div class="col s12">
@@ -153,6 +152,11 @@
                                     href="/loanDeduction/history/{{$myProduct->id}}">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
                                 </td>
                                 <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank">View</a></td>
+                                <td>
+                                  <a href="/paidloan/edit/{{$myProduct->id}}"><i class="tiny material-icons">edit</i> </a>
+                                  <a href="/destroy/deductions/{{$myProduct->id}}" id="delete"> <i
+                                          class="tiny material-icons red-text">delete_forever</i></a>
+                                </td>
                                 <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                             </tr>
                             @endforeach
@@ -209,6 +213,7 @@
                             href="/loanDeduction/history/{{$myProduct->id}}">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
                         </td>
                         <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank">View</a></td>
+
                         <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                     </tr>
                     @endforeach
@@ -232,6 +237,76 @@
     </div>
     @endif
 </div>
+
+      </div>
+
+      <div id="test3" class="col s12">
+        <!--  -->
+            <div class="row">
+                @if(count($structured)>=1)
+                <div class="col s12">
+                    <h6>STRUCTURED LOANS</h6>
+                </div>
+                @else
+                @endif
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <table class="">
+                        @if(count($structured)>=1)
+                        <thead>
+                            <tr>
+                                <th>Loan Type</th>
+                                <th>S/Date</th>
+                                <th>E/Date</th>
+                                <th>Tenor</th>
+                                <th>Amt</th>
+                                <th>Repymt</th>
+                                <th>Bal</th>
+                                <th>Schedule</th>
+                                <!-- <th>Action</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($structured as $myProduct)
+                            <tr>
+                                <td>{{$myProduct->product->name}}</td>
+                                <td>{{$myProduct->loan_start_date->toDateString()}}</td>
+                                <td>{{$myProduct->loan_end_date->toDateString()}}</td>
+                                <td>{{$myProduct->custom_tenor}}</td>
+                                <td>{{number_format($myProduct->amount_approved,2,'.',',')}}</td>
+                                <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
+                                <td><a
+                                    href="/loanDeduction/history/{{$myProduct->id}}">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
+                                </td>
+                                <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank">View</a></td>
+                                <td>
+                                  <a href="/paidloan/edit/{{$myProduct->id}}"><i class="tiny material-icons">edit</i> </a>
+                                  <a href="/destroy/deductions/{{$myProduct->id}}" id="delete"> <i
+                                          class="tiny material-icons red-text">delete_forever</i></a>
+                                </td>
+                                <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
+                            </tr>
+                            @endforeach
+                            @else
+                            @endif
+                            @if(count($structured)>=1)
+                            <tr>
+                                <th colspan="4">Summary</th>
+                                <th>{{number_format($user->totalApprovedAmount($user->id),2,'.',',')}}</th>
+                                <th>{{number_format($user->loanSubscriptionTotal($user->id),2,'.',',')}}</th>
+                                <th>{{number_format($user->allLoanBalances($user->id),2,'.',',')}}</th>
+                            </tr>
+                            @else
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
 
       </div>
     </div>
@@ -328,7 +403,7 @@
    </div>
  </div>
 
- <!-- modal structure for credit -->
+ 
  <!-- modal for debit -->
  <!-- Modal Structure -->
   <div id="modal2" class="modal">
@@ -380,4 +455,5 @@
     <div class="modal-footer">
       <a class="modal-close waves-effect waves-green btn-flat">Close</a>
     </div>
+  </div>
 @endsection
