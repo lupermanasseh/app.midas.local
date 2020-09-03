@@ -7,12 +7,14 @@ use App\Loan;
 use App\User;
 use App\Product;
 use App\Lsubscription;
+use App\Ldeduction;
 use  App\Psubscription;
 use  App\Saving;
 use App\Targetsr;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use PDF;
+use Illuminate\Support\Facades\DB;
 
 class LoanSubscriptionController extends Controller
 {
@@ -188,6 +190,76 @@ class LoanSubscriptionController extends Controller
         $applicant_reg = $lSub->user_id;
         return view('LoanSub.editLoanSub',compact('lSub','title','g1','g2','applicant_reg'));
         }
+
+
+//edit existing loan
+public function paidLoanEdit($id)
+    {
+    // Show form for editing loan subscription
+    $title ='Edit Existing Loan';
+
+    $lSub = Lsubscription::find($id);
+
+    return view('LoanSub.paidLoanEdit',compact('lSub','title'));
+    }
+
+    //update existing paid loan
+    public function updatePaidLoan(Request $request, $id)
+        {
+        //
+        $this->validate(request(), [
+
+            'tenor' =>'required|integer|between:1,60',
+            'loan_amount' =>'required|numeric|between:0.00,999999999.99',
+            'deduction' =>'required|numeric|between:0.00,999999999.99',
+            'start_date' =>'required|date',
+            'end_date' =>'required|date',
+            'disbursement_date' =>'nullable|date',
+
+            ]);
+
+
+            DB::beginTransaction();
+            try{
+              $loan_sub = Lsubscription::find($id);
+
+              //Check loan eleigibility by total indebtedness
+              $user = new User();
+              $totalIndebtedness = $user->totalApprovedAmount($request['reg_no']);
+              if($totalIndebtedness >=5000000){
+                  //$allowed = 5000000-$totalIndebtedness;
+                  toastr()->error('Maximum loan amount of N 5,000,000 exceeded');
+                  return back();
+                  //return redirect('/loanSub/create');
+              }
+
+              $loanAmt = $request['loan_amount'];
+              $tenor = $request['tenor'];
+              $deduction = $request['deduction'];
+              $start_date = $request['start_date'];
+              $end_date = $request['end_date'];
+              $disbursement_date = $request['disbursement_date'];
+
+              $loan_sub->monthly_deduction = $deduction;
+              $loan_sub->custom_tenor = $tenor;
+              $loan_sub->amount_approved = $loanAmt;
+              $loan_sub->loan_start_date = $start_date;
+              $loan_sub->loan_end_date = $end_date;
+              $loan_sub->disbursement_date = $disbursement_date;
+              $loan_sub->save();
+
+            }
+            catch(\Exception $e){
+              DB::rollback();
+              toastr()->error($e->getMessage());
+              return back();
+            }
+            DB::commit();
+            toastr()->success('Record updated successfully!');
+            return redirect('/loanDeduction/history/'.$loan_sub->id);
+        }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -379,17 +451,47 @@ public function allLoansByUser($id){
     {
         //
         //
-        $loanSubscription = Lsubscription::find($id)->delete();
-        if ($loanSubscription) {
-            toastr()->success('Loan subscription has been discard successfully!');
-
-            return redirect('/pendingLoans');
+        DB::beginTransaction();
+        try{
+          //remove loan subscription
+          $loanSubscription = Lsubscription::find($id)->delete();
         }
+        catch(\Exception $e){
+          DB::rollback();
+          toastr()->error($e->getMessage());
+          return back();
+        }
+        DB::commit();
+        toastr()->success('Loan subscription removed successfully!');
+        return redirect('/pendingLoans');
 
-        toastr()->error('An error has occurred trying to remove loan subsscription, please try again later.');
-        return back();
     }
 
+
+//destroy loan deductions
+public function destroyLoanDeductions($id)
+{
+    //
+    //
+    DB::beginTransaction();
+    try{
+      //remove loan subscription
+      $loanSubscription = Lsubscription::find($id);
+      $loanSubscription->delete();
+
+      //find corresponding loan deductions
+      $loanDeductions = Ldeduction::where('lsubscription_id',$id)
+                                  ->delete();
+    }
+    catch(\Exception $e){
+      DB::rollback();
+      toastr()->error($e->getMessage());
+      return back();
+    }
+    DB::commit();
+    toastr()->success('Record(s) removed successfully!');
+    return redirect('/user/landingPage/'.$loanSubscription->user_id);
+}
 
     //Stop Loan
     public function loanStop($id){
