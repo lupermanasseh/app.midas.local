@@ -55,7 +55,7 @@ class Lsubscription extends Model
         return $this->hasMany(Defaultcharge::class);
     }
 
-    protected $dates = ['created_at', 'updated_at','loan_start_date','loan_end_date'];
+    protected $dates = ['created_at', 'updated_at','loan_start_date','loan_end_date','disbursement_date'];
 
 
     // public function testFunction(){
