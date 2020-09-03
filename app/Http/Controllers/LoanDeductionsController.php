@@ -828,9 +828,7 @@ public function topUpLoan(Request $request){
              $from = $request['from'];
              $to = $request['to'];
         $loanDeductionCollection = $loanDeductionObj->findLoanDeductionByDate($from,$to);
-        // $contributors = Saving::where('status','Active')
-        //                         ->orderBy('user_id','asc')
-        //                         ->get();
+      
         $uniqueDebtors = $loanDeductionCollection->unique('user_id');
         return view('LoanDeduction.loanBalancesResult',compact('title','loanDeductionCollection','to','from','$loanDeductionObj','uniqueDebtors'));
     }
