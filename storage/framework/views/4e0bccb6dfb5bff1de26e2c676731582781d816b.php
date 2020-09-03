@@ -46,7 +46,7 @@
                     <?php if(count($uniqueDebtors)>=1): ?>
                     <tr>
                         <th colspan="4">Total</th>
-                        <th><?php echo e(number_format($listing->loanBalancegAggregateAt($loanDeductionCollection),2,'.',',')); ?></th>
+                        <th><?php echo e(number_format($listing->loanBalanceAggregateAt($loanDeductionCollection),2,'.',',')); ?></th>
                     </tr>
                     <?php else: ?>
                     <?php endif; ?>
