@@ -341,10 +341,120 @@ public function debitLoan(Request $request){
         toastr()->success('Loan debited successfully!');
 
        return redirect('/loanDeduction/history/'.$subid);
-    
+
 
 }
 
+//top up loans
+
+public function topUpLoan(Request $request){
+
+    //Save loan repayment
+    $this->validate(request(), [
+    'deduction' =>'nullable|numeric|between:0.00,999999999.99',
+    'tenor' =>'nullable|numeric|between:1,60',
+    'start_date' =>'nullable|date',
+    'end_date' =>'nullable|date',
+    'parent_loan' =>'required|integer',
+    'amount' =>'required|numeric|between:0.00,999999999.99',
+    //'bank_add' =>'required|string',
+    ]);
+
+        $deduction = $request['deduction'];
+        $tenor = $request['tenor'];
+        $start_date = $request['start_date'];
+        $end_date = $request['end_date'];
+        $parent_loan_id = $request['parent_loan'];
+        $topupAmt = $request['amount'];
+
+
+        $parentLoan = Lsubscription::find($parent_loan_id);
+
+        //parent loan amount
+        $parentLoanAmt = $parentLoan->amount_approved;
+
+//money format
+//$english_format_number = number_format($number, 2, '.', '');
+        //
+        if($start_date){
+            $start_date = $start_date;
+        }else{
+            $start_date = $parentLoan->loan_start_date;
+        }
+
+        if($end_date){
+            $end_date = $end_date;
+        }else{
+            $end_date = $parentLoan->loan_end_date;
+        }
+
+        if($tenor){
+            $tenor = $tenor;
+        }else{
+            $tenor = $parentLoan->custom_tenor;
+        }
+
+        if($deduction){
+            $eduction = $deduction;
+        }else{
+          $deduction = $parentLoanAmt + $topupAmt;
+          $fdeduction = $deduction/$tenor;
+        }
+
+        // $amtApproved = $loanSub->amount_approved;
+        // $totalDeductions = $loanSub->totalLoanDeductions($subid);
+
+        //begin transaction to process uploads
+        DB::beginTransaction();
+        try{
+            if($parentLoan->loan_status=='Inactive'){
+                //check loan
+                toastr()->error('This loan is already inactive, top up is impossible.');
+                return redirect('/user/landingPage/'.$parentLoan->user_id);
+            }else{
+                //create new loan with the merged data
+                $loan_sub = new Lsubscription();
+                $loan_sub->product_id = $parentLoan->product_id;
+                $loan_sub->user_id = $parentLoan->user_id;
+                $loan_sub->guarantor_id1 = $parentLoan->guarantor_id1;
+                $loan_sub->guarantor_id2 = $parentLoan->guarantor_id2;
+                $loan_sub->monthly_deduction = $fdeduction;
+                $loan_sub->custom_tenor = $tenor;
+                $loan_sub->amount_applied = $parentLoan->amount_applied + $topupAmt;
+                $loan_sub->amount_approved = $parentLoan->amount_approved + $topupAmt;
+                $loan_sub->units = $parentLoan->units;
+                $loan_sub->loan_start_date = $start_date;
+                $loan_sub->loan_end_date = $end_date;
+                $loan_sub->approved_date = $parentLoan->approved_date;
+                $loan_sub->review_comment = $parentLoan->review_comment;
+                $loan_sub->review_by = auth()->user()->first_name;
+                $loan_sub->review_date = $parentLoan->review_date;
+                $loan_sub->net_pay = $parentLoan->net_pay;
+                $loan_sub->loan_status = 'Active';
+                $loan_sub->created_by = auth()->user()->first_name;
+                $loan_sub->save();
+
+                //get the id of the merged loan
+                $mergedLoanId = $loan_sub->id;
+
+                Ldeduction::where('lsubscription_id','=', $parent_loan_id)
+                            ->update(['lsubscription_id' => $mergedLoanId]);
+
+                //change the status of the parent loan to inactiveLoans
+                $parentLoan->loan_status = 'Restructured';
+                $parentLoan->save();
+            }
+        }
+        catch(\Exception $e){
+        DB::rollback();
+        toastr()->error($e->getMessage());
+        //return back();
+        return redirect('/user/landingPage/'.$parentLoan->user_id);
+        }
+        DB::commit();
+        toastr()->success('Loan top up operation successful!');
+         return redirect('/user/landingPage/'.$parentLoan->user_id);
+}
 
     //Loan repayment Home
     public function loanPaymentHome($id){
@@ -675,7 +785,9 @@ public function debitLoan(Request $request){
         $title = 'Loan Deduction History';
         $loan = Lsubscription::find($id);
         $loanHistory = Ldeduction::loanHistory($id);
-        return view ('LoanDeduction.loanHistory',compact('title','loanHistory','loan'));
+        $activeLoans = Lsubscription::activeLoans($loan->user_id);
+        //User target saving subscriptions
+        return view ('LoanDeduction.loanHistory',compact('title','loanHistory','loan','activeLoans'));
 
     }
 
