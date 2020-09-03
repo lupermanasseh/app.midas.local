@@ -268,9 +268,16 @@ public function editBank($id){
                                 ->where('status','Active')
                                 ->get();
             $inactiveLoans = Lsubscription::inactiveLoans($user->id);
+            // dd($inactiveLoans);
             $allLoans = Lsubscription::allLoans($user->id);
+
+            //find structured loan
+            $structured = Lsubscription::where('user_id',$user->id)
+                                ->where('loan_status','restructured')
+                                ->get();
+
             }
-            return view('Users.userSearch',compact('user','saving','targetsr','allLoans','inactiveLoans','targetSaving','activeLoans','title'));
+            return view('Users.userSearch',compact('user','saving','targetsr','structured','allLoans','inactiveLoans','targetSaving','activeLoans','title'));
         }
 
 
@@ -298,8 +305,12 @@ public function editBank($id){
                                 ->get();
             $inactiveLoans = Lsubscription::inactiveLoans($user->id);
             $allLoans = Lsubscription::allLoans($user->id);
+            //find structured loan
+            $structured = Lsubscription::where('user_id',$user->id)
+                                ->where('loan_status','restructured')
+                                ->get();
             }
-            return view('Users.userSearch',compact('user','saving','targetsr','allLoans','inactiveLoans','targetSaving','activeLoans','title'));
+            return view('Users.userSearch',compact('user','saving','targetsr','structured','allLoans','inactiveLoans','targetSaving','activeLoans','title'));
         }
 
 
