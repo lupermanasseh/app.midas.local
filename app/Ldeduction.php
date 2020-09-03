@@ -133,9 +133,12 @@ class Ldeduction extends Model
         public function loanBalanceAggregateAt($collection){
           $sumBal=0;
 
-          foreach($collection as $item){
+          $unique_subscriptions = $collection->unique('lsubscription_id');
+
+          foreach($unique_subscriptions as $item){
               //$totalBal=0;
               $approved_amt = $item->loanSubscription->amount_approved;
+            
               $loanCredit = $collection->where('lsubscription_id', $item->lsubscription_id)
                                         ->sum('amount_deducted');
               $loanDebit = $collection->where('lsubscription_id', $item->lsubscription_id)
