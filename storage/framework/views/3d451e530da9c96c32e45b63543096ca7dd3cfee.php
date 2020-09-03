@@ -3,7 +3,7 @@
     
     <div class="row">
         <div class="col s12 subject-header">
-            <p class="teal-text">LOAN PAYMENT SCHEDULE</p>
+            <p class="teal-text">LOAN REPAYMENT SCHEDULE</p>
         </div>
     </div>
 

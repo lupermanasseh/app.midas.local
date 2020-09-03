@@ -22,12 +22,12 @@
     
 
 <div class="input-field col s12 m3 l3">
-    <input id="credit" name="credit" value="<?php echo e($deduction->amount_deducted); ?>" type="text" class="validate">
+    <input id="credit" name="credit" value="<?php echo e(number_format($deduction->amount_deducted,3,'.','')); ?>" type="text" class="validate">
     <label for="credit">Credit</label>
 </div>
 
 <div class="input-field col s12 m3 l3">
-    <input id="debit" name="debit" value="<?php echo e($deduction->amount_debited); ?>" type="text" class="validate">
+    <input id="debit" name="debit" value="<?php echo e(number_format($deduction->amount_debited,3,'.','')); ?>" type="text" class="validate">
     <label for="debit">Debit</label>
 </div>
 <div class="input-field col s12 m3 l3">
@@ -77,7 +77,7 @@
     </div>
 </div> -->
 
-<button type="submit" class="btn">Edit</button>
+<button type="submit" class="btn">Save</button>
 </form>
 </div>
 </div>
