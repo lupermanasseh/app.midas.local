@@ -95,7 +95,7 @@ class Ldeduction extends Model
                                 ->orderBy('user_id', 'asc')
                                 //->oldest()
                                 ->get();
-                                //->sortBy('id');
+
         }
 
         //All loan balances by date
@@ -130,7 +130,7 @@ class Ldeduction extends Model
     /**
      * Total saving aggregate
      */
-        public function loanBalancegAggregateAt($collection){
+        public function loanBalanceAggregateAt($collection){
           $sumBal=0;
 
           foreach($collection as $item){
