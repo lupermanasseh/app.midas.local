@@ -178,41 +178,8 @@ public function export(){
       $loan_Deduct->uploaded_by = auth()->user()->first_name;
       $loan_Deduct->save();
 
-      //fetch deductions to update balances
-      // $loanDeductions = Ldeduction::
-      //                    where('lsubscription_id',$subid)
-      //                   ->orderBy('id', 'asc')
-      //                   ->get();
-
-      $loanDeductions = Ldeduction::
-                        where('lsubscription_id',$subid)
-                        ->orderBy('entry_month', 'asc')
-                        ->get();
-              //loop to update balances to zero
-              foreach($loanDeductions as $item){
-                $deductItem = Ldeduction::find($item->id);
-                $deductItem->balances = 0.0;
-                $deductItem->save();
-              }
-
-              //loop to update actual Balances
-              foreach($loanDeductions as $item){
-                $loanDeductObj = new Ldeduction;
-                //loansubscription object
-                $loanSub = new Lsubscription;
-                //total loan Balances
-                $loanBalances = $this->sumInitialBalances($item->lsubscription_id,$item->entry_month);
-
-                //find individual row
-                $deductItem = Ldeduction::find($item->id);
-                $credit = $deductItem->amount_deducted;
-                $debit = $deductItem->amount_debited;
-                  $deductItem->balances = $loanBalances + $credit-$debit;
-                  $deductItem->save();
-
-                //check for loan balance
-                $loanSub->loanBalance($item->lsubscription_id);
-              }
+      //recalculate loan balances
+      $loan_Deduct->recalculateLoanDeductionBalances($subid);
     }
     catch(\Exception $e){
     DB::rollback();
@@ -238,38 +205,8 @@ public function export(){
         //Delete loan Deduction
         Ldeduction::find($id)->delete();
 
-        //process Balances
-        //fetch deductions to update balances
-        $loanDeductions = Ldeduction::
-                           where('lsubscription_id',$subid)
-                          ->orderBy('entry_month', 'asc')
-                          ->get();
-                //dd($loanDeductions);
-                //loop to update balances to zero
-                foreach($loanDeductions as $item){
-                  $deductItem = Ldeduction::find($item->id);
-                  $deductItem->balances = 0.0;
-                  $deductItem->save();
-                }
-
-                //loop to update actual Balances
-                foreach($loanDeductions as $item){
-                  $loanDeductObj = new Ldeduction;
-                  //loansubscription object
-                  $loanSub = new Lsubscription;
-                  //total loan Balances
-                  $loanBalances = $this->sumInitialBalances($item->lsubscription_id,$item->entry_month);
-
-                  //find individual row
-                  $deductItem = Ldeduction::find($item->id);
-                  $credit = $deductItem->amount_deducted;
-                  $debit = $deductItem->amount_debited;
-                    $deductItem->balances = $loanBalances + $credit-$debit;
-                    $deductItem->save();
-
-                  //check for loan balance
-                  $loanSub->loanBalance($item->lsubscription_id);
-                }
+        //recalculate loan balances
+        $loan_Deduct->recalculateLoanDeductionBalances($subid);
 
       }
       catch(\Exception $e){
@@ -316,19 +253,19 @@ public function debitLoan(Request $request){
                 $loanBalances = $loanRepay->myLoanDeductions($subid);
                 $loanRepay->amount_debited = $request['amount'];
                 $loanRepay->balances = $loanBalances - $request['amount'];
-              //$loanRepay->bank_name = $request['bank_name'];
+
                 $loanRepay->user_id = $loanSub->user_id;
                 $loanRepay->product_id = $loanSub->product_id;
                 $loanRepay->lsubscription_id = $subid;
                 $loanRepay->entry_month = $request['entry_date'];
-                //$loanRepay->teller_no = $request['teller_number'];
-              //$loanRepay->depositor_name = $request['depositor_name'];
+
                 $loanRepay->notes = $request['notes'];
-                //$loanRepay->bank_add = $request['bank_add'];
+
                 $loanRepay->uploaded_by = auth()->user()->first_name;
                 $loanRepay->save();
-                //check for loan balance
-                $loanSub->loanBalance($subid);
+
+                //recalculate loan balances
+                $loanRepay->recalculateLoanDeductionBalances($subid);
             }
         }
         catch(\Exception $e){
@@ -355,6 +292,7 @@ public function topUpLoan(Request $request){
     'tenor' =>'nullable|numeric|between:1,60',
     'start_date' =>'nullable|date',
     'end_date' =>'nullable|date',
+    'transaction_date' =>'required|date',
     'parent_loan' =>'required|integer',
     'amount' =>'required|numeric|between:0.00,999999999.99',
     //'bank_add' =>'required|string',
@@ -364,6 +302,7 @@ public function topUpLoan(Request $request){
         $tenor = $request['tenor'];
         $start_date = $request['start_date'];
         $end_date = $request['end_date'];
+        $transaction_date = $request['transaction_date'];
         $parent_loan_id = $request['parent_loan'];
         $topupAmt = $request['amount'];
 
@@ -401,10 +340,9 @@ public function topUpLoan(Request $request){
           $fdeduction = $deduction/$tenor;
         }
 
-        // $amtApproved = $loanSub->amount_approved;
-        // $totalDeductions = $loanSub->totalLoanDeductions($subid);
 
-        //begin transaction to process uploads
+
+        //begin transaction to process loan topup
         DB::beginTransaction();
         try{
             if($parentLoan->loan_status=='Inactive'){
@@ -420,8 +358,9 @@ public function topUpLoan(Request $request){
                 $loan_sub->guarantor_id2 = $parentLoan->guarantor_id2;
                 $loan_sub->monthly_deduction = $fdeduction;
                 $loan_sub->custom_tenor = $tenor;
-                $loan_sub->amount_applied = $parentLoan->amount_applied + $topupAmt;
-                $loan_sub->amount_approved = $parentLoan->amount_approved + $topupAmt;
+                $loan_sub->amount_applied = $parentLoan->amount_applied;
+                $loan_sub->topup_amount = $topupAmt;
+                $loan_sub->amount_approved = $parentLoan->amount_approved;
                 $loan_sub->units = $parentLoan->units;
                 $loan_sub->loan_start_date = $start_date;
                 $loan_sub->loan_end_date = $end_date;
@@ -437,12 +376,36 @@ public function topUpLoan(Request $request){
                 //get the id of the merged loan
                 $mergedLoanId = $loan_sub->id;
 
+                //update/merged deductions of the old loan if any
                 Ldeduction::where('lsubscription_id','=', $parent_loan_id)
                             ->update(['lsubscription_id' => $mergedLoanId]);
 
-                //change the status of the parent loan to inactiveLoans
+                //change the status of the parent loan to restructured
                 $parentLoan->loan_status = 'Restructured';
                 $parentLoan->save();
+
+
+                  //debit the loan to the tune of top amount
+
+                    $loanDeduction = new Ldeduction;
+                    //total loan Balances
+                    $loanBalances = $loanDeduction->myLoanDeductions($mergedLoanId);
+                    $loanDeduction->amount_debited = $topupAmt;
+                    $loanDeduction->balances = $loanBalances - $topupAmt;
+
+                    $loanDeduction->user_id = $parentLoan->user_id;
+                    $loanDeduction->product_id = $parentLoan->product_id;
+                    $loanDeduction->lsubscription_id = $mergedLoanId;
+                    $loanDeduction->entry_month = $transaction_date;
+
+                    $loanDeduction->notes = 'Top up loan';
+
+                    $loanDeduction->uploaded_by = auth()->user()->first_name;
+                    $loanDeduction->save();
+
+                //recaculate loan balances
+                $loanDeduction->recalculateLoanDeductionBalances($mergedLoanId);
+
             }
         }
         catch(\Exception $e){
@@ -474,7 +437,7 @@ public function topUpLoan(Request $request){
         return view('LoanDeduction.loanRepay',compact('title','subscription'));
     }
 
-    //Store loan deduction repayment
+    //Store loan deduction/bank repayment
     public function repayStore(Request $request){
 
         //Save loan repayment
@@ -500,7 +463,7 @@ public function topUpLoan(Request $request){
             try{
                 if($totalDeductions >= $amtApproved){
                     //check loan
-                    toastr()->error('An error has occurred trying to repay loan, check please.');
+                    toastr()->error('Loan seems fully paid, check please.');
                     return redirect('/user/page/'.$loanSub->user_id);
                 }else{
 
@@ -520,8 +483,9 @@ public function topUpLoan(Request $request){
                     $loanRepay->bank_add = $request['bank_add'];
                     $loanRepay->uploaded_by = auth()->user()->first_name;
                     $loanRepay->save();
-                    //check for loan balance
-                    $loanSub->loanBalance($subid);
+
+                    //recalculate Balances
+                    $loanRepay->recalculateLoanDeductionBalances($subid);
                 }
             }
             catch(\Exception $e){
@@ -607,8 +571,11 @@ public function topUpLoan(Request $request){
             $loanDeduction->notes = $notes;
             $loanDeduction->uploaded_by = auth()->user()->first_name;
             $loanDeduction->save();
-            //check for loan balance
-            $subscription->loanBalance($sub_id);
+
+            //recalculate balances
+
+            $loanDeduction->recalculateLoanDeductionBalances($sub_id);
+          
             }catch(\Exception $e){
             DB::rollback();
             toastr()->error($e->getMessage());
@@ -828,7 +795,7 @@ public function topUpLoan(Request $request){
 
              $from = $request['from'];
              $to = $request['to'];
-             
+
         $loanDeductionCollection = $loanDeductionObj->findLoanDeductionByDate($from,$to);
 
         $uniqueDebtors = $loanDeductionCollection->unique('user_id');
@@ -854,19 +821,19 @@ public function topUpLoan(Request $request){
     }
 
 
-//method to sum initial zero balabces after and update or deleted
-
-public function sumInitialBalances($subid,$entry_date)
-{
-  $loanDeductions = Ldeduction::
-                     where('lsubscription_id',$subid)
-                     ->where('entry_month','<',$entry_date)
-                     ->orderBy('entry_month', 'asc')
-                     ->get();
-                  //Find sum of credit and debit to calcultae balance
-                    $credit = $loanDeductions->sum('amount_deducted');
-                    $debit = $loanDeductions->sum('amount_debited');
-                    return $balance = $credit - $debit;
-}
+// //method to sum initial zero balabces after and update or deleted
+//
+// public function sumInitialBalances($subid,$entry_date)
+// {
+//   $loanDeductions = Ldeduction::
+//                      where('lsubscription_id',$subid)
+//                      ->where('entry_month','<',$entry_date)
+//                      ->orderBy('entry_month', 'asc')
+//                      ->get();
+//                   //Find sum of credit and debit to calcultae balance
+//                     $credit = $loanDeductions->sum('amount_deducted');
+//                     $debit = $loanDeductions->sum('amount_debited');
+//                     return $balance = $credit - $debit;
+// }
 
 }
