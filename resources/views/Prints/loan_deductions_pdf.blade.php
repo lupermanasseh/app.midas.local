@@ -95,9 +95,13 @@
                         <td align="right" style="border:0;">
 
                         </td>
-                        <td align="right" style="border:0;">
+                        <td align="right" style="width:40%; border:0;">
                             <span><br />
-                                Loan Amount: {{number_format($loan->amount_approved,2,'.',',')}}<br />
+                                Total Loan Amount: {{number_format($loan->amount_approved,2,'.',',')}}@if($loan->topup_amount)
+                                + {{number_format($loan->topup_amount,2,'.',',')}} = ({{number_format($loan->amount_approved+$loan->topup_amount,2,'.',',')}})
+                                @else
+                                @endif
+                                <br />
                                 Tenor: {{$loan->custom_tenor}} Mnth(s)<br />
                                 Monthly Repymnt: {{number_format($loan->monthly_deduction,2,'.',',')}}<br />
                                 start Date: {{$loan->loan_start_date->toFormattedDateString()}}<br />

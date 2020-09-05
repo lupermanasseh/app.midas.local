@@ -40,12 +40,19 @@
 </div> --}}
 
 <div class="input-field col s12 m3 l3">
-    <input id="credit" name="credit" value="{{number_format($deduction->amount_deducted,3,'.','')}}" type="text" class="validate">
+    <input id="credit" name="credit" value="@if($deduction->amount_deducted)
+    {{number_format($deduction->amount_deducted,3,'.','')}}
+    @else
+    @endif" type="text" class="validate">
     <label for="credit">Credit</label>
 </div>
 
 <div class="input-field col s12 m3 l3">
-    <input id="debit" name="debit" value="{{number_format($deduction->amount_debited,3,'.','')}}" type="text" class="validate">
+    <input id="debit" name="debit" value="@if($deduction->amount_debited)
+    {{number_format($deduction->amount_debited,3,'.','')}}
+    @else
+    @endif
+    " type="text" class="validate">
     <label for="debit">Debit</label>
 </div>
 <div class="input-field col s12 m3 l3">

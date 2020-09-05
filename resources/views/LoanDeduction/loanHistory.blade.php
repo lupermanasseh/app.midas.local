@@ -53,8 +53,14 @@
             <div class="col s6 membership-details precision-right">
                 <table>
                     <tr>
-                        <th>LOAN AMOUNT:</th>
-                        <td>{{number_format($loan->amount_approved,2,'.',',')}}</td>
+                        <th>TOTAL LOAN AMOUNT:</th>
+                        <td>{{number_format($loan->amount_approved,2,'.',',')}}
+                          @if($loan->topup_amount)
+                          <span class="green-text darken-2">+ {{number_format($loan->topup_amount,2,'.',',')}} = ({{number_format($loan->amount_approved+$loan->topup_amount,2,'.',',')}})</span>
+                          @else
+
+
+                          @endif</td>
                     </tr>
                     <tr>
                         <th>TENOR:</th>
@@ -285,7 +291,7 @@
            <form class="col s12" method="POST" action="/topup/loan">
                {{ csrf_field() }}
                <div class="row">
-                 <div class="input-field col s12 m6 l6">
+                 <div class="input-field col s12 m4 l4">
                      <select id="parent_loan" name="parent_loan">
                          @foreach ($activeLoans as $myProduct)
                          <option value="{{$myProduct->id}}">{{$myProduct->product->name}}/({{$myProduct->amount_approved}})</option>
@@ -293,9 +299,13 @@
                      </select>
                      <label>Select Parent Loan</label>
                  </div>
-                 <div class="input-field col s12 m6 l6">
+                 <div class="input-field col s12 m4 l4">
                      <input placeholder="Top Up Amount" id="amount" name="amount" type="text" class="validate">
                      <label for="amount">Top Up Amount</label>
+                 </div>
+                 <div class="input-field col s12 m4 l4">
+                     <input id="transaction_date" name="transaction_date" type="date" class="validate">
+                     <label for="transaction_date">Transaction Date</label>
                  </div>
                </div>
 
