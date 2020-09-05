@@ -53,8 +53,13 @@
                 {{-- <span class="profile-item">Address: {{$userObj->home_add}}</span> --}}
             </div>
             <div class="membership-details precision-right">
-                <span class="profile-item">Loan Amount:
-                    {{number_format($loan->amount_approved,2,'.',',')}}</span>
+                <span class="profile-item">Total Loan Amount:
+                    {{number_format($loan->amount_approved,2,'.',',')}}
+                    @if($loan->topup_amount)
+                    <span class="green-text darken-3">+ {{number_format($loan->topup_amount,2,'.',',')}} = ({{number_format($loan->amount_approved+$loan->topup_amount,2,'.',',')}})</span>
+                    @else
+                    @endif
+                  </span>
                 <span class="profile-item">Tenor:
                     {{$loan->custom_tenor}} Mnths</span>
                 <span class="profile-item">Monthly Rpymt:
