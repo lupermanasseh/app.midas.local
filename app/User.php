@@ -179,7 +179,49 @@ class User extends Authenticatable
             return $sumBal;
         }
 
+//Restructured loans methods
 
+//Total sum deductible for archived loan subscription
+public function archiveLoanSubscriptionTotal($id)
+{
+    return Lsubscription::where('user_id', '=', $id)
+    ->where(function ($query) {
+        $query->where('loan_status', '=', 'restructured');
+    })
+    ->sum('monthly_deduction');
+}
+
+//Total sum approved loan amount for archived loans
+public function archiveTotalApprovedAmount($id)
+{
+    return Lsubscription::where('user_id', '=', $id)
+    ->where(function ($query) {
+        $query->where('loan_status', '=', 'restructured');
+    })
+    ->sum('amount_approved');
+}
+
+//All loan balances for archived loans
+public function archiveAllLoanBalances($id)
+{
+    $sumBal=0;
+    $lsub = new Lsubscription;
+    $all_loans = Lsubscription::where('user_id', '=', $id)
+    ->where(function ($query) {
+        $query->where('loan_status', '=', 'restructured');
+    })->get();
+
+    foreach($all_loans as $item){
+        //$totalBal=0;
+        $approved_amt = $item->amount_approved;
+        $deductions = $lsub->totalLoanDeductions($item->id);
+        $bal = $approved_amt-$deductions;
+        $sumBal = $sumBal+$bal;
+    }
+    return $sumBal;
+}
+
+//total savings
     public  function totalSavings($id)
     {
         //
