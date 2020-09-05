@@ -78,9 +78,13 @@
                         <td align="right" style="border:0;">
 
                         </td>
-                        <td align="right" style="border:0;">
+                        <td align="right" style="width:40%; border:0;">
                             <span><br />
-                                Loan Amount: <?php echo e(number_format($loan->amount_approved,2,'.',',')); ?><br />
+                                Total Loan Amount: <?php echo e(number_format($loan->amount_approved,2,'.',',')); ?><?php if($loan->topup_amount): ?>
+                                + <?php echo e(number_format($loan->topup_amount,2,'.',',')); ?> = (<?php echo e(number_format($loan->amount_approved+$loan->topup_amount,2,'.',',')); ?>)
+                                <?php else: ?>
+                                <?php endif; ?>
+                                <br />
                                 Tenor: <?php echo e($loan->custom_tenor); ?> Mnth(s)<br />
                                 Monthly Repymnt: <?php echo e(number_format($loan->monthly_deduction,2,'.',',')); ?><br />
                                 start Date: <?php echo e($loan->loan_start_date->toFormattedDateString()); ?><br />

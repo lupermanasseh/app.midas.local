@@ -53,8 +53,14 @@
                 
             </div>
             <div class="membership-details precision-right">
-                <span class="profile-item">Loan Amount:
-                    <?php echo e(number_format($loan->amount_approved,2,'.',',')); ?></span>
+                <span class="profile-item">Total Loan Amount:
+                    <?php echo e(number_format($loan->amount_approved,2,'.',',')); ?>
+
+                    <?php if($loan->topup_amount): ?>
+                    <span class="green-text darken-3">+ <?php echo e(number_format($loan->topup_amount,2,'.',',')); ?> = (<?php echo e(number_format($loan->amount_approved+$loan->topup_amount,2,'.',',')); ?>)</span>
+                    <?php else: ?>
+                    <?php endif; ?>
+                  </span>
                 <span class="profile-item">Tenor:
                     <?php echo e($loan->custom_tenor); ?> Mnths</span>
                 <span class="profile-item">Monthly Rpymt:
