@@ -146,16 +146,22 @@
                                 <td>{{$myProduct->loan_start_date->toDateString()}}</td>
                                 <td>{{$myProduct->loan_end_date->toDateString()}}</td>
                                 <td>{{$myProduct->custom_tenor}}</td>
-                                <td>{{number_format($myProduct->amount_approved,2,'.',',')}}</td>
+                                <td>{{number_format($myProduct->amount_approved,2,'.',',')}}
+                                    @if($myProduct->topup_amount)
+                                    <span class="green-text darken-3">[+{{number_format($myProduct->topup_amount,2,'.',',')}}]</span>
+                                    @else
+
+                                    @endif
+                                </td>
                                 <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
                                 <td><a
-                                    href="/loanDeduction/history/{{$myProduct->id}}">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
+                                    href="/loanDeduction/history/{{$myProduct->id}}" class="tooltipped" data-position="left" data-tooltip="Loan Deduction History">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
                                 </td>
-                                <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank">View</a></td>
+                                <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank" class="tooltipped" data-position="bottom" data-tooltip="View Loan Schedule">View</a></td>
                                 <td>
-                                  <a href="/paidloan/edit/{{$myProduct->id}}"><i class="tiny material-icons">edit</i> </a>
+                                  <a href="/paidloan/edit/{{$myProduct->id}}"><i class="tiny material-icons tooltipped" data-position="top" data-tooltip="Edit Loan">edit</i> </a>
                                   <a href="/destroy/deductions/{{$myProduct->id}}" id="delete"> <i
-                                          class="tiny material-icons red-text">delete_forever</i></a>
+                                          class="tiny material-icons red-text tooltipped" data-position="bottom" data-tooltip="Delete Loan">delete_forever</i></a>
                                 </td>
                                 <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                             </tr>
@@ -210,9 +216,9 @@
                         <td>{{number_format($myProduct->amount_approved,2,'.',',')}}</td>
                         <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
                         <td><a
-                            href="/loanDeduction/history/{{$myProduct->id}}">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
+                            href="/loanDeduction/history/{{$myProduct->id}}" class="tooltipped" data-position="left" data-tooltip="Loan Deduction History">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
                         </td>
-                        <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank">View</a></td>
+                        <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank" class="tooltipped" data-position="bottom" data-tooltip="View Loan Schedule">View</a></td>
 
                         <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                     </tr>
@@ -280,13 +286,13 @@
                                 <td>{{number_format($myProduct->amount_approved,2,'.',',')}}</td>
                                 <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
                                 <td><a
-                                    href="/loanDeduction/history/{{$myProduct->id}}">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
+                                    href="/loanDeduction/history/{{$myProduct->id}}" class="tooltipped" data-position="left" data-tooltip="Loan Deduction History">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
                                 </td>
-                                <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank">View</a></td>
+                                <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank" class="tooltipped" data-position="bottom" data-tooltip="View Loan Schedule">View</a></td>
                                 <td>
-                                  <a href="/paidloan/edit/{{$myProduct->id}}"><i class="tiny material-icons">edit</i> </a>
+                                  <!-- <a href="/paidloan/edit/{{$myProduct->id}}"><i class="tiny material-icons">edit</i> </a> -->
                                   <a href="/destroy/deductions/{{$myProduct->id}}" id="delete"> <i
-                                          class="tiny material-icons red-text">delete_forever</i></a>
+                                          class="small material-icons red-text tooltipped" data-position="bottom" data-tooltip="Delete Loan" >delete_forever</i></a>
                                 </td>
                                 <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                             </tr>
@@ -296,9 +302,9 @@
                             @if(count($structured)>=1)
                             <tr>
                                 <th colspan="4">Summary</th>
-                                <th>{{number_format($user->totalApprovedAmount($user->id),2,'.',',')}}</th>
-                                <th>{{number_format($user->loanSubscriptionTotal($user->id),2,'.',',')}}</th>
-                                <th>{{number_format($user->allLoanBalances($user->id),2,'.',',')}}</th>
+                                <th>{{number_format($user->archiveTotalApprovedAmount($user->id),2,'.',',')}}</th>
+                                <th>{{number_format($user->archiveLoanSubscriptionTotal($user->id),2,'.',',')}}</th>
+                                <th>{{number_format($user->archiveAllLoanBalances($user->id),2,'.',',')}}</th>
                             </tr>
                             @else
                             @endif
@@ -403,7 +409,7 @@
    </div>
  </div>
 
- 
+
  <!-- modal for debit -->
  <!-- Modal Structure -->
   <div id="modal2" class="modal">
