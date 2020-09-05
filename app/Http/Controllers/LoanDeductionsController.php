@@ -575,7 +575,7 @@ public function topUpLoan(Request $request){
             //recalculate balances
 
             $loanDeduction->recalculateLoanDeductionBalances($sub_id);
-          
+
             }catch(\Exception $e){
             DB::rollback();
             toastr()->error($e->getMessage());
@@ -789,11 +789,11 @@ public function topUpLoan(Request $request){
         $title = 'Loan Deduction Balances';
         $loanDeductionObj = new Ldeduction;
         $this->validate(request(), [
-            'from' =>'required|date',
              'to' =>'required|date',
              ]);
 
-             $from = $request['from'];
+             $from = new Carbon('2016-02-01');
+             $from = $from->toDateString();
              $to = $request['to'];
 
         $loanDeductionCollection = $loanDeductionObj->findLoanDeductionByDate($from,$to);
