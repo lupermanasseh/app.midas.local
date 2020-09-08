@@ -802,6 +802,7 @@ public function topUpLoan(Request $request){
         return view('LoanDeduction.loanBalancesResult',compact('title','loanDeductionCollection','to','from','$loanDeductionObj','uniqueDebtors'));
     }
 
+
     //download in excel format loan Balances
     public function loanBalancesExcelExport($from,$to){
         $fileName = 'MIDAS_LOANBALANCES_'.$to.'.xlsx';
