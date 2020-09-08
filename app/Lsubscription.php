@@ -97,6 +97,15 @@ class Lsubscription extends Model
        return $records->unique('user_id');
    }
 
+//function to fetch loans by disbursement
+public function findLoansByDisbursementDate($date){
+
+    $records = Lsubscription::where('disbursement_date', $date)
+                            ->orWhere('disbursement_date',$date)
+                            ->get();
+   return $records;
+}
+
     //Sum cumulative amount of IPPIS
     public  function totalIppisDeductions($_id,$activeLoans)
     {
