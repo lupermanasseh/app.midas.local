@@ -182,6 +182,11 @@ Route::post('/pay/store/{id}','LoanSubscriptionController@payStore');
 Route::get('/loan/schedule/{id}','LoanSubscriptionController@loanSchedule');
 Route::get('/loan/schedule/print/{id}','LoanSubscriptionController@loanSchedulePrint');
 Route::get('/loan/schedule/printpdf/{id}','LoanSubscriptionController@loanSchedulePdf');
+Route::get('/loandisbursement/find','LoanSubscriptionController@loanDisbursementFind');
+Route::post('/loandisbursement/result','LoanSubscriptionController@loanDisbursementByDateResult');
+Route::post('/edit/disbursementdate','LoanSubscriptionController@editDisbursementDate');
+//
+Route::get('/loandisbursement/date','LoanSubscriptionController@loanDisbursementSingleDate');
 });
 
 //Monthly Savings Routes
