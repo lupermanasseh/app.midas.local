@@ -34,6 +34,70 @@ class LoanSubscriptionController extends Controller
         return view('LoanSub.index',compact('loanReq','title'));
     }
 
+    //form  to find loan disbursements by date
+
+      public function loanDisbursementFind(){
+          $title = 'Find Loans';
+        return view('LoanSub.loanDisbursementDateFind',compact('title'));
+      }
+
+      //loan disbursements result
+      public function loanDisbursementByDateResult(Request $request){
+          $title = 'Loan Disbursement By Date';
+
+          $this->validate(request(), [
+               'disbursement_date' =>'nullable|date',
+               ]);
+
+               //$from = new Carbon('2016-02-01');
+               //$from = $from->toDateString();
+               $date = $request['disbursement_date'];
+               $newLoanSub = new Lsubscription();
+
+          $loanByDate = $newLoanSub->findLoansByDisbursementDate($date);
+
+          return view('LoanSub.loanByDisbursementResult',compact('title','loanByDate'));
+      }
+
+      //edit loan disbursement date
+      public function editDisbursementDate(Request $request)
+          {
+          //
+          $this->validate(request(), [
+              'disbursement_date'=>'required|date',
+              'sub_id'=>'required|integer',
+              ]);
+
+
+              $subid = $request['sub_id'];
+              $disbursement_date = $request['disbursement_date'];
+
+              $loan_sub = Lsubscription::find($subid);
+
+              $loan_sub->disbursement_date = $disbursement_date;
+
+                  $loan_sub->save();
+                  if($loan_sub->save()) {
+                      toastr()->success('Disbursement Date Saved Successfully!');
+                      return redirect('/loandisbursement/date');
+                  }
+                  toastr()->error('An error has occurred trying to update record!');
+                  return back();
+          }
+
+
+//loan disbursement by date
+//this method is used to return the user to the same page
+public function loanDisbursementSingleDate(){
+    $title = 'Loan Disbursement By Date';
+$date = null;
+
+ $loanByDate = Lsubscription::where('disbursement_date', $date)
+                             ->get();;
+
+  return view('LoanSub.loanByDisbursementResult',compact('title','loanByDate'));
+}
+
     /**
      * Payment schedule
      */
@@ -151,6 +215,7 @@ class LoanSubscriptionController extends Controller
                 toastr()->error('An error has occurred trying to create a loan request!');
                 return back();
         }
+
 
     /**
      * Display the specified resource.
