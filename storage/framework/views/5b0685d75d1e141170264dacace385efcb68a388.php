@@ -13,18 +13,26 @@
     <div class="row">
         
 
-        <div class="col s12 m6 l6">
+        <div class="col s12 m4 l4">
             <div class="card-panel pink-text center top-banner">
                 <i class="fas fa-user-friends"></i>
                 <div><span><a href="/contributors-list">Membership Register</a></span></div>
             </div>
         </div>
 
-        <div class="col s12 m6 l6">
+        <div class="col s12 m4 l4">
             <div class="card-panel  pink-text center top-banner">
                 <i class="fas fa-plus-circle"></i>
                 <div> <span><a href="/loanSub/create">New Loan</a></span></div>
             </div>
         </div>
+
+        <div class="col s12 m4 l4">
+            <div class="card-panel  pink-text center top-banner">
+                <i class="fas fa-search"></i>
+                <div> <span><a href="/loandisbursement/find">Loan Disbursement Date</a></span></div>
+            </div>
+        </div>
+
     </div>
 </section>
