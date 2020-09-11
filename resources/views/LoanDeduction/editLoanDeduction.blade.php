@@ -43,7 +43,7 @@
     <input id="credit" name="credit" value="@if($deduction->amount_deducted)
     {{number_format($deduction->amount_deducted,2,'.','')}}
     @else
-    @endif" type="text" class="validate">
+    @endif" type="number" class="validate">
     <label for="credit">Credit</label>
 </div>
 
@@ -52,7 +52,7 @@
     {{number_format($deduction->amount_debited,2,'.','')}}
     @else
     @endif
-    " type="text" class="validate">
+    " type="number" class="validate">
     <label for="debit">Debit</label>
 </div>
 <div class="input-field col s12 m3 l3">
@@ -84,7 +84,7 @@
         <label for="entry_date">Date</label>
     </div>
 
-    
+
 </div>
 
 <!-- <div class="row">
