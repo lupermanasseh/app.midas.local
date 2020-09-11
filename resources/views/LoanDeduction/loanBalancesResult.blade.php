@@ -40,7 +40,7 @@
                         <td>{{$listing->user->payment_number}}</td>
                         <td>{{$to}}</td>
                         <td>
-                          <a href="/user/landingPage/{{$listing->user_id}}" target="_blank">{{number_format($listing->allLoanBalancesByDate($loanDeductionCollection,$listing->user_id),2,'.',',')}}</a>
+                          <a href="/user/landingPage/{{$listing->user_id}}" target="_blank">{{number_format($listing->allLoanBalancesByDate($loanSubCollection,$listing->user_id),2,'.',',')}}</a>
 
                         </td>
                     </tr>
@@ -48,7 +48,7 @@
                     @if (count($uniqueDebtors)>=1)
                     <tr>
                         <th colspan="4">Total</th>
-                        <th>{{number_format($listing->loanBalanceAggregateAt($loanDeductionCollection),2,'.',',')}}</th>
+                        <th>{{number_format($listing->loanBalanceAggregateAt($loanSubCollection),2,'.',',')}}</th>
                     </tr>
                     @else
                     @endif
