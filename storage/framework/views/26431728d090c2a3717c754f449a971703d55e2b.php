@@ -282,7 +282,7 @@
                                 <td><?php echo e($myProduct->loan_start_date->toDateString()); ?></td>
                                 <td><?php echo e($myProduct->loan_end_date->toDateString()); ?></td>
                                 <td><?php echo e($myProduct->custom_tenor); ?></td>
-                                <td><?php echo e(number_format($myProduct->amount_approved,2,'.',',')); ?></td>
+                                <td><?php echo e(number_format($myProduct->amount_approved+$myProduct->topup_amount,2,'.',',')); ?></td>
                                 <td><?php echo e(number_format($myProduct->monthly_deduction,2,'.',',')); ?></td>
                                 <td><a
                                     href="/loanDeduction/history/<?php echo e($myProduct->id); ?>" class="tooltipped" data-position="left" data-tooltip="Loan Deduction History"><?php echo e(number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')); ?></a>

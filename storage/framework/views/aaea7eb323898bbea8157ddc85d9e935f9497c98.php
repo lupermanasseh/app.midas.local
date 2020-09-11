@@ -51,14 +51,7 @@
                 <table>
                     <tr>
                         <th>TOTAL LOAN AMOUNT:</th>
-                        <td><?php echo e(number_format($loan->amount_approved,2,'.',',')); ?>
-
-                          <?php if($loan->topup_amount): ?>
-                          <span class="green-text darken-2">+ <?php echo e(number_format($loan->topup_amount,2,'.',',')); ?> = (<?php echo e(number_format($loan->amount_approved+$loan->topup_amount,2,'.',',')); ?>)</span>
-                          <?php else: ?>
-
-
-                          <?php endif; ?></td>
+                        <td><?php echo e(number_format($loan->amount_approved+$loan->topup_amount,2,'.',',')); ?></td>
                     </tr>
                     <tr>
                         <th>TENOR:</th>
@@ -300,7 +293,7 @@
                  <div class="input-field col s12 m4 l4">
                      <select id="parent_loan" name="parent_loan">
                          <?php $__currentLoopData = $activeLoans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $myProduct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                         <option value="<?php echo e($myProduct->id); ?>"><?php echo e($myProduct->product->name); ?>/(<?php echo e($myProduct->amount_approved); ?>)</option>
+                         <option value="<?php echo e($myProduct->id); ?>"><?php echo e($myProduct->product->name); ?>/(<?php echo e($myProduct->amount_approved+$myProduct->topup_amount); ?>)</option>
                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                      </select>
                      <label>Select Parent Loan</label>

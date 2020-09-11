@@ -38,7 +38,7 @@
                         <td><?php echo e($listing->user->payment_number); ?></td>
                         <td><?php echo e($to); ?></td>
                         <td>
-                          <a href="/user/landingPage/<?php echo e($listing->user_id); ?>" target="_blank"><?php echo e(number_format($listing->allLoanBalancesByDate($loanDeductionCollection,$listing->user_id),2,'.',',')); ?></a>
+                          <a href="/user/landingPage/<?php echo e($listing->user_id); ?>" target="_blank"><?php echo e(number_format($listing->allLoanBalancesByDate($loanSubCollection,$listing->user_id),2,'.',',')); ?></a>
 
                         </td>
                     </tr>
@@ -46,7 +46,7 @@
                     <?php if(count($uniqueDebtors)>=1): ?>
                     <tr>
                         <th colspan="4">Total</th>
-                        <th><?php echo e(number_format($listing->loanBalanceAggregateAt($loanDeductionCollection),2,'.',',')); ?></th>
+                        <th><?php echo e(number_format($listing->loanBalanceAggregateAt($loanSubCollection),2,'.',',')); ?></th>
                     </tr>
                     <?php else: ?>
                     <?php endif; ?>
