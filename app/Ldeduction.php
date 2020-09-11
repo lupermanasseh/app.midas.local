@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Lsubscription;
 class Ldeduction extends Model
 {
 
@@ -89,104 +90,92 @@ class Ldeduction extends Model
         $from = $from->toDateString();
         $destDate = new Carbon($to);
         $to = $destDate->toDateString();
-        return  $collection =    Ldeduction::
-                                 where('entry_month','>=',$from)
-                                ->where('entry_month','<=',$to)
+
+        return  $collection =    Lsubscription::
+                                 where('disbursement_date','>=',$from)
+                                ->where('disbursement_date','<=',$to)
                                 ->orderBy('user_id', 'asc')
-                                //->oldest()
                                 ->get();
 
         }
 
-        //All loan balances by date
-        public function allLoanBalancesByDate($collection,$id)
-        {
-            $sumBal=0;
-            //$lsub = new Lsubscription;
-            // $all_loans = Lsubscription::where('user_id', '=', $id)
-            // ->where(function ($query) {
-            //     $query->where('loan_status', '=', 'Active');
-            // })->get();
-            $user_subscriptions = $collection->where('user_id', '=', $id)
-                                              ->unique('lsubscription_id');
-
-
-            foreach($user_subscriptions as $item){
-                //$totalBal=0;
-                $approved_amt = $item->loanSubscription->amount_approved;
-                $loanCredit = $collection->where('lsubscription_id', $item->lsubscription_id)
-                                          ->sum('amount_deducted');
-                $loanDebit = $collection->where('lsubscription_id', $item->lsubscription_id)
-                                          ->sum('amount_debited');
-                $totalDeductions = $loanCredit-$loanDebit;
-                //$deductions = $lsub->totalLoanDeductions($item->id);
-                $bal = $approved_amt-$totalDeductions;
-                $sumBal = $sumBal+$bal;
-            }
-            return $sumBal;
-        }
-
-
-    /**
-     * Total saving aggregate
-     */
-        public function loanBalanceAggregateAt($collection){
-          $sumBal=0;
-
-          $unique_subscriptions = $collection->unique('lsubscription_id');
-
-          foreach($unique_subscriptions as $item){
-              //$totalBal=0;
-              $approved_amt = $item->loanSubscription->amount_approved;
-
-              $loanCredit = $collection->where('lsubscription_id', $item->lsubscription_id)
-                                        ->sum('amount_deducted');
-              $loanDebit = $collection->where('lsubscription_id', $item->lsubscription_id)
-                                        ->sum('amount_debited');
-              $totalDeductions = $loanCredit-$loanDebit;
-              //$deductions = $lsub->totalLoanDeductions($item->id);
-              $bal = $approved_amt-$totalDeductions;
-              $sumBal = $sumBal+$bal;
-          }
-          return $sumBal;
-        }
-
-    //Recalculate loan Balances, pass in subscrion id
+    //Recalculate loan Balances, pass in subscription id
     public function recalculateLoanDeductionBalances($subid){
 
-      $loanDeductions = Ldeduction::
-                        where('lsubscription_id',$subid)
-                        ->orderBy('entry_month', 'asc')
-                        ->get();
-              //loop to update balances to zero
-              foreach($loanDeductions as $item){
-                $deductItem = Ldeduction::find($item->id);
-                $deductItem->balances = 0.0;
-                $deductItem->save();
-              }
+                      //recalculate loan Balances
+                      $loanDeductions = Ldeduction::
+                                        where('lsubscription_id',$subid)
+                                        ->orderBy('entry_month', 'asc')
+                                        ->get();
 
-              //loop to update actual Balances
-              foreach($loanDeductions as $item){
+                              //loop to update balances to zero
+                              foreach($loanDeductions as $item){
+                                $deductItem = Ldeduction::find($item->id);
+                                $deductItem->balances = 0.0;
+                                $deductItem->save();
+                              }
 
-                //loansubscription object
-                $loanSub = new Lsubscription;
-                //total loan Balances
-                $loanBalances = $this->sumInitialBalances($item->lsubscription_id,$item->entry_month);
+                              //loop to update actual Balances
+                              foreach($loanDeductions as $item){
 
-                //find individual row
-                $deductItem = Ldeduction::find($item->id);
-                $credit = $deductItem->amount_deducted;
-                $debit = $deductItem->amount_debited;
-                $deductItem->balances = $loanBalances + $credit-$debit;
-                $deductItem->save();
+                                //1. select all records based on that date
+                                $loanDeductionsByDate = $loanDeductions
+                                                   ->where('entry_month','=',$item->entry_month)
+                                                   ->sortBy('id');
 
-                //check for loan balance
-                $loanSub->loanBalance($item->lsubscription_id);
-              }
+                                //2. check if there is more than 1 records
+                                if($loanDeductionsByDate->count() > 1){
+                                  //find all deductions less than this date
+                                  $loanDeductionsLessDate = $loanDeductions
+                                                     ->where('entry_month','<',$item->entry_month)
+                                                     ->sortBy('entry_month');
+                                  //find the total balance
+                                  $credit = $loanDeductionsLessDate->sum('amount_deducted');
+                                  $debit = $loanDeductionsLessDate->sum('amount_debited');
+                                  $lessDateBalance = $credit - $debit;
+
+                                  //enter foreach loop
+                                  foreach($loanDeductionsByDate as $deduction){
+                                    $loanDeductionsByDateFilter = $loanDeductionsByDate->where('id','<',$deduction->id);
+
+                                    $credit = $loanDeductionsByDateFilter->sum('amount_deducted');
+                                    $debit = $loanDeductionsByDateFilter->sum('amount_debited');
+                                    $filterDateBalance = $credit - $debit;
+                                    //add filter date balance with less balance and update new balance for that row
+
+                                    //find individual row
+                                    $deductItem = Ldeduction::find($deduction->id);
+                                    $credit = $deductItem->amount_deducted;
+                                    $debit = $deductItem->amount_debited;
+                                    $deductItem->balances = $lessDateBalance + $filterDateBalance + $credit-$debit;
+                                    $deductItem->save();
+                                    //check for loan balance
+                                    $loanSub->loanBalance($deduction->lsubscription_id);
+                                  }
+
+                                }
+                                else
+                                {
+                                  //loansubscription object
+                                  $loanSub = new Lsubscription;
+                                  //total loan Balances
+                                  $loanBalances = $this->sumInitialBalances($item->lsubscription_id,$item->entry_month);
+
+                                  //find individual row
+                                  $deductItem = Ldeduction::find($item->id);
+                                  $credit = $deductItem->amount_deducted;
+                                  $debit = $deductItem->amount_debited;
+                                  $deductItem->balances = $loanBalances + $credit-$debit;
+                                  $deductItem->save();
+                                  //check for loan balance
+                                  $loanSub->loanBalance($item->lsubscription_id);
+                                }
+
+                        }
 
     }
 
-    //method to sum initial zero balabces after and update or deleted
+    //method to sum initial zero balances after and update or deleted
 
     public function sumInitialBalances($subid,$entry_date)
     {
@@ -195,6 +184,8 @@ class Ldeduction extends Model
                          ->where('entry_month','<',$entry_date)
                          ->orderBy('entry_month', 'asc')
                          ->get();
+
+                        //$filteredDeduction = $loanDeductions->whereNotIn()
                       //Find sum of credit and debit to calcultae balance
                         $credit = $loanDeductions->sum('amount_deducted');
                         $debit = $loanDeductions->sum('amount_debited');
