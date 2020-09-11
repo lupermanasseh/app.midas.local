@@ -41,7 +41,7 @@
 
 <div class="input-field col s12 m3 l3">
     <input id="credit" name="credit" value="@if($deduction->amount_deducted)
-    {{number_format($deduction->amount_deducted,3,'.','')}}
+    {{number_format($deduction->amount_deducted,2,'.','')}}
     @else
     @endif" type="text" class="validate">
     <label for="credit">Credit</label>
@@ -49,7 +49,7 @@
 
 <div class="input-field col s12 m3 l3">
     <input id="debit" name="debit" value="@if($deduction->amount_debited)
-    {{number_format($deduction->amount_debited,3,'.','')}}
+    {{number_format($deduction->amount_debited,2,'.','')}}
     @else
     @endif
     " type="text" class="validate">
@@ -84,11 +84,7 @@
         <label for="entry_date">Date</label>
     </div>
 
-    <!-- <div class="input-field col s12 m4 l4">
-        <input id="subid" name="subid" value="{{$deduction->lsubscription_id}}" type="hidden"
-            class="validate">
-
-    </div> -->
+    
 </div>
 
 <!-- <div class="row">
