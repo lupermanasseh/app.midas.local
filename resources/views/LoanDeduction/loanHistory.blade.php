@@ -54,13 +54,7 @@
                 <table>
                     <tr>
                         <th>TOTAL LOAN AMOUNT:</th>
-                        <td>{{number_format($loan->amount_approved,2,'.',',')}}
-                          @if($loan->topup_amount)
-                          <span class="green-text darken-2">+ {{number_format($loan->topup_amount,2,'.',',')}} = ({{number_format($loan->amount_approved+$loan->topup_amount,2,'.',',')}})</span>
-                          @else
-
-
-                          @endif</td>
+                        <td>{{number_format($loan->amount_approved+$loan->topup_amount,2,'.',',')}}</td>
                     </tr>
                     <tr>
                         <th>TENOR:</th>
@@ -294,7 +288,7 @@
                  <div class="input-field col s12 m4 l4">
                      <select id="parent_loan" name="parent_loan">
                          @foreach ($activeLoans as $myProduct)
-                         <option value="{{$myProduct->id}}">{{$myProduct->product->name}}/({{$myProduct->amount_approved}})</option>
+                         <option value="{{$myProduct->id}}">{{$myProduct->product->name}}/({{$myProduct->amount_approved+$myProduct->topup_amount}})</option>
                          @endforeach
                      </select>
                      <label>Select Parent Loan</label>
