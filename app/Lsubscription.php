@@ -140,6 +140,56 @@ public function findLoansByDisbursementDate($date){
 
 }
 
+//All loan balances by date
+public function allLoanBalancesByDate($collection,$id)
+{
+    $sumBal=0;
+
+    $user_subscriptions = $collection->where('user_id', '=', $id);
+
+
+    foreach($user_subscriptions as $item){
+        //$totalBal=0;
+        $approved_amt = $item->amount_approved;
+        //select all deductions by sub_id
+        $deductionCollection = Ldeduction::where('lsubscription_id',$item->id)
+                                          ->get();
+        $loanCredit = $deductionCollection->sum('amount_deducted');
+        $loanDebit = $deductionCollection->sum('amount_debited');
+        $totalDeductions = $loanCredit-$loanDebit;
+        //$deductions = $lsub->totalLoanDeductions($item->id);
+        $bal = $approved_amt-$totalDeductions;
+        $sumBal = $sumBal+$bal;
+    }
+    return $sumBal;
+}
+
+/**
+ * Total saving aggregate
+ */
+    public function loanBalanceAggregateAt($collection){
+      $sumBal=0;
+
+    //  $unique_subscriptions = $collection->unique('user_id');
+
+      foreach($collection as $item){
+
+            //total approved loan amount
+          $totalApprovedAmt = $collection->where('id',$item->id)
+                                           ->sum('amount_approved');
+
+
+          $deductionCollection = Ldeduction::where('lsubscription_id',$item->id)
+                                            ->get();
+          $loanCredit = $deductionCollection->sum('amount_deducted');
+          $loanDebit = $deductionCollection->sum('amount_debited');
+          $totalDeductions = $loanCredit-$loanDebit;
+
+          $bal = $totalApprovedAmt-$totalDeductions;
+          $sumBal = $sumBal+$bal;
+      }
+      return $sumBal;
+    }
 
     //user loan end date
     public function loanEndDate($_id){
