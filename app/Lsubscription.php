@@ -151,8 +151,6 @@ public function allLoanBalancesByDate($collection,$id)
     foreach($user_subscriptions as $item){
         //$totalBal=0;
         $approved_amt = $item->amount_approved;
-        $topup_amt = $item->topup_amount;
-        $totalLoanAmount = $approved_amt + $topup_amt;
         //select all deductions by sub_id
         $deductionCollection = Ldeduction::where('lsubscription_id',$item->id)
                                           ->get();
@@ -160,7 +158,7 @@ public function allLoanBalancesByDate($collection,$id)
         $loanDebit = $deductionCollection->sum('amount_debited');
         $totalDeductions = $loanCredit-$loanDebit;
         //$deductions = $lsub->totalLoanDeductions($item->id);
-        $bal = $totalLoanAmount-$totalDeductions;
+        $bal = $approved_amt-$totalDeductions;
         $sumBal = $sumBal+$bal;
     }
     return $sumBal;
@@ -177,11 +175,9 @@ public function allLoanBalancesByDate($collection,$id)
       foreach($collection as $item){
 
             //total approved loan amount
-          $approvedAmt = $collection->where('id',$item->id)
+          $totalApprovedAmt = $collection->where('id',$item->id)
                                            ->sum('amount_approved');
-          $topupAmt = $collection->where('id',$item->id)
-                                         ->sum('topup_amount');
-          $totalApprovedAmt = $approvedAmt + $topupAmt;
+
 
           $deductionCollection = Ldeduction::where('lsubscription_id',$item->id)
                                             ->get();
