@@ -147,7 +147,7 @@ public function export(){
         return view ('LoanDeduction.editLoanDeduction',compact('deduction','title'));
     }
 
-    //update loan deduction
+    //update loan deduction procedure
     public function update(Request $request, $id)
     {
 
