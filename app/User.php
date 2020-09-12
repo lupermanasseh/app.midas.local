@@ -196,11 +196,15 @@ public function archiveLoanSubscriptionTotal($id)
 //Total sum approved loan amount for archived loans
 public function archiveTotalApprovedAmount($id)
 {
-    return Lsubscription::where('user_id', '=', $id)
+    $archivedLoans= Lsubscription::where('user_id', '=', $id)
     ->where(function ($query) {
         $query->where('loan_status', '=', 'restructured');
-    })
-    ->sum('amount_approved');
+    })->get();
+
+    $approved_amt = $archivedLoans->sum('amount_approved');
+    //$topupAmt = $archivedLoans->sum('topup_amount');
+    return $approved_amt;
+
 }
 
 //All loan balances for archived loans

@@ -146,7 +146,8 @@
                                 <td>{{$myProduct->loan_start_date->toDateString()}}</td>
                                 <td>{{$myProduct->loan_end_date->toDateString()}}</td>
                                 <td>{{$myProduct->custom_tenor}}</td>
-                                <td>{{number_format($myProduct->amount_approved,2,'.',',')}}
+                                <td>
+                                  {{number_format($myProduct->amount_approved,2,'.',',')}}
                                     @if($myProduct->topup_amount)
                                     <span class="green-text darken-3">[+{{number_format($myProduct->topup_amount,2,'.',',')}}]</span>
                                     @else
@@ -283,7 +284,12 @@
                                 <td>{{$myProduct->loan_start_date->toDateString()}}</td>
                                 <td>{{$myProduct->loan_end_date->toDateString()}}</td>
                                 <td>{{$myProduct->custom_tenor}}</td>
-                                <td>{{number_format($myProduct->amount_approved+$myProduct->topup_amount,2,'.',',')}}</td>
+                                <td>{{number_format($myProduct->amount_approved,2,'.',',')}}
+                                  @if($myProduct->topup_amount)
+                                  <span class="green-text darken-3">[+{{number_format($myProduct->topup_amount,2,'.',',')}}]</span>
+                                  @else
+
+                                  @endif</td>
                                 <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
                                 <td><a
                                     href="/loanDeduction/history/{{$myProduct->id}}" class="tooltipped" data-position="left" data-tooltip="Loan Deduction History">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
