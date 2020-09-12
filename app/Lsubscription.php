@@ -177,9 +177,11 @@ public function allLoanBalancesByDate($collection,$id)
       foreach($collection as $item){
 
             //total approved loan amount
-          $totalApprovedAmt = $collection->where('id',$item->id)
+          $approvedAmt = $collection->where('id',$item->id)
                                            ->sum('amount_approved');
-
+          $topupAmt = $collection->where('id',$item->id)
+                                         ->sum('topup_amount');
+          $totalApprovedAmt = $approvedAmt + $topupAmt;
 
           $deductionCollection = Ldeduction::where('lsubscription_id',$item->id)
                                             ->get();
