@@ -94,6 +94,7 @@ class Ldeduction extends Model
         return  $collection =    Lsubscription::
                                  where('disbursement_date','>=',$from)
                                 ->where('disbursement_date','<=',$to)
+                                ->where('loan_status','Active')
                                 ->orderBy('user_id', 'asc')
                                 ->get();
 
