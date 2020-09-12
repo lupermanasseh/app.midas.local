@@ -151,11 +151,13 @@ class User extends Authenticatable
 
         public function totalApprovedAmount($id)
         {
-            return Lsubscription::where('user_id', '=', $id)
+            $totalLoans = Lsubscription::where('user_id', '=', $id)
             ->where(function ($query) {
                 $query->where('loan_status', '=', 'Active');
-            })
-            ->sum('amount_approved');
+            })->get();
+            $approved_amt = $totalLoans->sum('amount_approved');
+            $topupAmt = $totalLoans->sum('topup_amount');
+            return $approved_amt + $topupAmt;
         }
 
 
