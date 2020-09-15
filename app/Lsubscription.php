@@ -41,15 +41,19 @@ class Lsubscription extends Model
         }
 
         //loan relationship
-        //Each loan subscription belongs to a loan
-        public function loan(){
-            return $this->belongsTo(Loan::class);
-        }
+        // //Each loan subscription belongs to a loan
+        // public function loan(){
+        //     return $this->belongsTo(Loan::class);
+        // }
         //A loan subscription may have many deductions
         public function loandeductions(){
           return $this->hasMany(Ldeduction::class);
       }
 
+      //A loan subscription may have many entrries in user consolidated loan
+      public function consolidatedloans(){
+        return $this->hasMany(Userconsolidatedloan::class);
+    }
        //A loan subscription may have many defaults
        public function loandefault(){
         return $this->hasMany(Defaultcharge::class);

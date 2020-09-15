@@ -88,6 +88,10 @@ class User extends Authenticatable
         return $this->hasMany(Lsubscription::class);
     }
 
+    //User has many consolidated loans
+     public function consolidatedloans(){
+        return $this->hasMany(Userconsolidatedloan::class);
+    }
     //Relationship with Target Savings Review
     public function tsreviews(){
         return $this->hasMany(Targetsr::class);
