@@ -66,41 +66,41 @@ public function export(){
 //populate user consolidated loans table
 public function populate(){
 
-  // DB::table('lsubscriptions')->where('loan_status', '<>','restructured')
-  //                           ->orderBy('disbursement_date','asc')
-  //   ->chunkById(100, function ($users) {
-  //       foreach ($users as $user) {
-  //         $now = Carbon::now()->toTimeString();
-  //         $date = $user->disbursement_date." ".$now;
-  //         //inser records
-  //         $newData = new Userconsolidatedloan();
-  //         $newData->user_id = $user->user_id;
-  //         $newData->lsubscription_id = $user->id;
-  //         $newData->description = 'Normal Loan Disbursement';
-  //         $newData->date_entry = $date;
-  //         $newData->debit = $user->amount_approved + $user->topup_amount;
-  //       $newData->save();
-  //
-  //       }
-  //   });
+  DB::table('lsubscriptions')->where('loan_status', '<>','restructured')
+                            ->orderBy('disbursement_date','asc')
+    ->chunkById(100, function ($users) {
+        foreach ($users as $user) {
+          $now = Carbon::now()->toTimeString();
+          $date = $user->disbursement_date." ".$now;
+          //inser records
+          $newData = new Userconsolidatedloan();
+          $newData->user_id = $user->user_id;
+          $newData->lsubscription_id = $user->id;
+          $newData->description = 'Normal Loan Disbursement';
+          $newData->date_entry = $date;
+          $newData->debit = $user->amount_approved + $user->topup_amount;
+        $newData->save();
 
-    $activeLoans = Lsubscription::where('loan_status','inactive')
-                                //->orderBy('loan_status','asc')
-                                ->orderBy('disbursement_date','asc')
-                                 ->get();
-                      foreach($activeLoans as $user){
-                        $now = Carbon::now()->toTimeString();
-                        $date = $user->disbursement_date." ".$now;
-                        //inser records
-                        $newData = new Userconsolidatedloan();
-                        $newData->user_id = $user->user_id;
-                        $newData->lsubscription_id = $user->id;
-                        $newData->description = 'Normal Loan Disbursement';
-                        $newData->date_entry = $date;
-                        $newData->debit = $user->amount_approved + $user->topup_amount;
-                        $newData->save();
+        }
+    });
 
-                      }
+    // $activeLoans = Lsubscription::where('loan_status','inactive')
+    //                             //->orderBy('loan_status','asc')
+    //                             ->orderBy('disbursement_date','asc')
+    //                              ->get();
+    //                   foreach($activeLoans as $user){
+    //                     $now = Carbon::now()->toTimeString();
+    //                     $date = $user->disbursement_date." ".$now;
+    //                     //inser records
+    //                     $newData = new Userconsolidatedloan();
+    //                     $newData->user_id = $user->user_id;
+    //                     $newData->lsubscription_id = $user->id;
+    //                     $newData->description = 'Normal Loan Disbursement';
+    //                     $newData->date_entry = $date;
+    //                     $newData->debit = $user->amount_approved + $user->topup_amount;
+    //                     $newData->save();
+    //
+    //                   }
 
 }
     //list ippis format loan subscriptions
