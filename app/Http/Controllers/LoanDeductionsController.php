@@ -7,6 +7,7 @@ use App\Lsubscription;
 use App\Ldeduction;
 use App\Saving;
 use App\TargetSaving;
+use App\Userconsolidatedloan;
 use Carbon\Carbon;
 use App\Exports\LoandeductionsExport;
 use App\Exports\IppisLoandeductionsExport;
@@ -62,6 +63,33 @@ public function export(){
     return Excel::download(new LoandeductionsExport(), $fileName);
 }
 
+//populate user consolidated loans table
+public function populate(){
+
+  DB::table('lsubscriptions')->where('loan_status', '<>','restructured')
+    ->chunkById(100, function ($users) {
+        foreach ($users as $user) {
+          $now = Carbon::now()->toTimeString();
+          $date = $user->disbursement_date." ".$now;
+          //inser records
+          $newData = new Userconsolidatedloan();
+          $newData->user_id = $user->user_id;
+          $newData->lsubscription_id = $user->id;
+          $newData->description = 'Normal Loan Disbursement';
+          $newData->date_entry = $date;
+          $newData->debit = $user->amount_approved + $user->topup_amount;
+        $newData->save();
+
+        }
+    });
+
+//     $activeLoans = Lsubscription::where('loan_status','active')
+//                                 //->orderBy('loan_status','asc')
+//                                 ->orderBy('disbursement_date','asc')
+//                                  ->get();
+// dd($activeLoans);
+//     return view ('LoanDeduction.ippis', compact('title','loanSub','activeLoans'));
+}
     //list ippis format loan subscriptions
     public function ippis(){
         $title = 'User Loan Deductions';
