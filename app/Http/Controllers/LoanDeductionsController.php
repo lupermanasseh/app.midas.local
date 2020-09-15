@@ -67,6 +67,7 @@ public function export(){
 public function populate(){
 
   DB::table('lsubscriptions')->where('loan_status', '<>','restructured')
+                            ->orderBy('disbursement_date','asc')
     ->chunkById(100, function ($users) {
         foreach ($users as $user) {
           $now = Carbon::now()->toTimeString();
