@@ -72,14 +72,25 @@ public function populate(){
         foreach ($users as $user) {
           $now = Carbon::now()->toTimeString();
           $date = $user->disbursement_date." ".$now;
+
           //inser records
           $newData = new Userconsolidatedloan();
           $newData->user_id = $user->user_id;
           $newData->lsubscription_id = $user->id;
           $newData->description = 'Normal Loan Disbursement';
           $newData->date_entry = $date;
-          $newData->debit = $user->amount_approved + $user->topup_amount;
-        $newData->save();
+          $newData->debit = $user->amount_approved;
+          $newData->save();
+
+          if($user->topup_amount){
+            $newData = new Userconsolidatedloan();
+            $newData->user_id = $user->user_id;
+            $newData->lsubscription_id = $user->id;
+            $newData->description = 'Topup Loan';
+            $newData->date_entry = $date;
+            $newData->debit = $user->topup_amount;
+            $newData->save();
+          }
 
         }
     });
