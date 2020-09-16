@@ -89,6 +89,7 @@ public function populate(){
                                   ->orderBy('entry_month', 'asc')
                                     ->chunkById(100, function ($collections) {
                                       foreach ($collections as $collection) {
+                                        $now = Carbon::now()->toTimeString();
                                         $date = $collection->entry_month." ".$now;
                                         $newData = new Userconsolidatedloan();
                                         $newData->user_id = $collection->user_id;
