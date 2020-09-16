@@ -79,7 +79,7 @@ public function populate(){
           $newData->lsubscription_id = $user->id;
           $newData->description = 'Normal Loan Disbursement';
           $newData->date_entry = $user->disbursement_date;
-          $newData->entry_time = $now
+          $newData->entry_time = $now;
           $newData->debit = $user->amount_approved;
           $newData->save();
 
