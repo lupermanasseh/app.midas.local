@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Lsubscription;
 use App\Ldeduction;
 use App\Saving;
+use App\User;
+use App\Masterdeduction;
 use App\TargetSaving;
 use App\Userconsolidatedloan;
 use Carbon\Carbon;
@@ -110,26 +112,48 @@ public function populate(){
   //   });
 
 
-    //
-    DB::table('ldeductions')->whereNull('deduct_reference')
-                            ->orderBy('entry_month', 'asc')
-                            ->chunkById(100, function ($collections) {
-                              foreach ($collections as $collection) {
-                                $now = Carbon::now()->toTimeString();
-                                //$date = $collection->entry_month." ".$now;
-                                $newData = new Userconsolidatedloan();
-                                $newData->user_id = $collection->user_id;
-                                $newData->lsubscription_id = $collection->lsubscription_id;
-                                $newData->description = $collection->notes;
-                                $newData->date_entry = $collection->entry_month;
-                                $newData->entry_time = $now;
-                                $newData->debit = $collection->amount_debited;
-                                $newData->credit = $collection->amount_deducted;
-                                $newData->save();
-        }
-  });
+    //2
+  //   DB::table('ldeductions')->whereNull('deduct_reference')
+  //                           ->orderBy('entry_month', 'asc')
+  //                           ->chunkById(100, function ($collections) {
+  //                             foreach ($collections as $collection) {
+  //                               $now = Carbon::now()->toTimeString();
+  //                               //$date = $collection->entry_month." ".$now;
+  //                               $newData = new Userconsolidatedloan();
+  //                               $newData->user_id = $collection->user_id;
+  //                               $newData->lsubscription_id = $collection->lsubscription_id;
+  //                               $newData->description = $collection->notes;
+  //                               $newData->date_entry = $collection->entry_month;
+  //                               $newData->entry_time = $now;
+  //                               $newData->debit = $collection->amount_debited;
+  //                               $newData->credit = $collection->amount_deducted;
+  //                               $newData->save();
+  //       }
+  // });
+
+  //3
+    DB::table('masterdeductions')->where('status','Inactive')
+    ->orderBy('entry_date', 'asc')
+    ->chunkById(500, function ($collections) {
+      foreach ($collections as $collection) {
+        $now = Carbon::now()->toTimeString();
+
+        //find user id using ippis number
+        $userID = User::userID($collection->ippis_no);
+        $newData = new Userconsolidatedloan();
+        $newData->user_id = $userID;
+        $newData->description = $collection->description;
+        $newData->date_entry = $collection->entry_date;
+        $newData->entry_time = $now;
+        $newData->ref_identification = $collection->master_reference;
+        $newData->credit = $collection->cumulative_amount;
+        $newData->save();
+}
+});
 
 }
+
+
     //list ippis format loan subscriptions
     public function ippis(){
         $title = 'User Loan Deductions';
