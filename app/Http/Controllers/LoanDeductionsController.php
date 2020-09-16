@@ -66,69 +66,68 @@ public function export(){
 //populate user consolidated loans table
 public function populate(){
 
-  DB::table('lsubscriptions')->where('loan_status', '<>','restructured')
-                            ->orderBy('disbursement_date','asc')
-    ->chunkById(300, function ($users) {
-        foreach ($users as $user) {
-          $now = Carbon::now()->toTimeString();
-          //$date = $user->disbursement_date." ".$now;
-          $recordId = $user->id;
-          //inser records
-          $newData = new Userconsolidatedloan();
-          $newData->user_id = $user->user_id;
-          $newData->lsubscription_id = $user->id;
-          $newData->description = 'Normal Loan Disbursement';
-          $newData->date_entry = $user->disbursement_date;
-          $newData->entry_time = $now;
-          $newData->debit = $user->amount_approved;
-          $newData->save();
-
-          if($user->topup_amount){
-
-            DB::table('ldeductions')->where('lsubscription_id',$recordId)
-                                  ->where('notes','Top up loan')
-                                  ->orderBy('entry_month', 'asc')
-                                    ->chunkById(100, function ($collections) {
-                                      foreach ($collections as $collection) {
-                                        $now = Carbon::now()->toTimeString();
-                                        //$date = $collection->entry_month." ".$now;
-                                        $newData = new Userconsolidatedloan();
-                                        $newData->user_id = $collection->user_id;
-                                        $newData->lsubscription_id = $collection->lsubscription_id;
-                                        $newData->description = $collection->notes;
-                                        $newData->date_entry = $collection->entry_month;
-                                        $newData->entry_time = $now;
-                                        $newData->debit = $collection->amount_debited;
-                                        $newData->save();
-                }
-          });
-
-
-
-          }
-        }
-    });
+  // DB::table('lsubscriptions')->where('loan_status', '<>','restructured')
+  //                           ->orderBy('disbursement_date','asc')
+  //   ->chunkById(300, function ($users) {
+  //       foreach ($users as $user) {
+  //         $now = Carbon::now()->toTimeString();
+  //         //$date = $user->disbursement_date." ".$now;
+  //         $recordId = $user->id;
+  //         //inser records
+  //         $newData = new Userconsolidatedloan();
+  //         $newData->user_id = $user->user_id;
+  //         $newData->lsubscription_id = $user->id;
+  //         $newData->description = 'Normal Loan Disbursement';
+  //         $newData->date_entry = $user->disbursement_date;
+  //         $newData->entry_time = $now;
+  //         $newData->debit = $user->amount_approved;
+  //         $newData->save();
+  //
+  //         if($user->topup_amount){
+  //
+  //           DB::table('ldeductions')->where('lsubscription_id',$recordId)
+  //                                 ->where('notes','Top up loan')
+  //                                 ->orderBy('entry_month', 'asc')
+  //                                   ->chunkById(100, function ($collections) {
+  //                                     foreach ($collections as $collection) {
+  //                                       $now = Carbon::now()->toTimeString();
+  //                                       //$date = $collection->entry_month." ".$now;
+  //                                       $newData = new Userconsolidatedloan();
+  //                                       $newData->user_id = $collection->user_id;
+  //                                       $newData->lsubscription_id = $collection->lsubscription_id;
+  //                                       $newData->description = $collection->notes;
+  //                                       $newData->date_entry = $collection->entry_month;
+  //                                       $newData->entry_time = $now;
+  //                                       $newData->debit = $collection->amount_debited;
+  //                                       $newData->save();
+  //               }
+  //         });
+  //
+  //
+  //
+  //         }
+  //       }
+  //   });
 
 
     //
-  //   DB::table('ldeductions')->whereNull('deduct_reference')
-  //                           ->orderBy('entry_month', 'asc')
-  //                           ->orderBy('user_id', 'asc')
-  //                           ->chunkById(100, function ($collections) {
-  //                             foreach ($collections as $collection) {
-  //                               $now = Carbon::now()->toTimeString();
-  //                               //$date = $collection->entry_month." ".$now;
-  //                               $newData = new Userconsolidatedloan();
-  //                               $newData->user_id = $collection->user_id;
-  //                               $newData->lsubscription_id = $collection->lsubscription_id;
-  //                               $newData->description = $collection->notes;
-  //                               $newData->date_entry = $collection->entry_month;
-  //                               $newData->entry_time = $now;
-  //                               $newData->debit = $collection->amount_debited;
-  //                               $newData->credit = $collection->amount_deducted;
-  //                               $newData->save();
-  //       }
-  // });
+    DB::table('ldeductions')->whereNull('deduct_reference')
+                            ->orderBy('entry_month', 'asc')
+                            ->chunkById(100, function ($collections) {
+                              foreach ($collections as $collection) {
+                                $now = Carbon::now()->toTimeString();
+                                //$date = $collection->entry_month." ".$now;
+                                $newData = new Userconsolidatedloan();
+                                $newData->user_id = $collection->user_id;
+                                $newData->lsubscription_id = $collection->lsubscription_id;
+                                $newData->description = $collection->notes;
+                                $newData->date_entry = $collection->entry_month;
+                                $newData->entry_time = $now;
+                                $newData->debit = $collection->amount_debited;
+                                $newData->credit = $collection->amount_deducted;
+                                $newData->save();
+        }
+  });
 
 }
     //list ippis format loan subscriptions
