@@ -83,15 +83,26 @@ public function populate(){
           $newData->save();
 
           if($user->topup_amount){
-            $newData = new Userconsolidatedloan();
-            $newData->user_id = $user->user_id;
-            $newData->lsubscription_id = $user->id;
-            $newData->description = 'Topup Loan';
-            $newData->date_entry = $date;
-            $newData->debit = $user->topup_amount;
-            $newData->save();
-          }
+            $collection =    Ldeduction::
+                                     where('lsubscription_id',$user->id)
+                                    ->where('notes','Top up loan')
+                                    ->orderBy('entry_month', 'asc')
+                                    ->get();
+            foreach($collection as $item){
+              $now = Carbon::now()->toTimeString();
+              $date = $item->entry_month." ".$now;
+              //first select all deductions using lsubscription_id and where notes is Top up loan
+              //loop through each of them to create a new record in the database and exit
+              $newData = new Userconsolidatedloan();
+              $newData->user_id = $item->user_id;
+              $newData->lsubscription_id = $item->id;
+              $newData->description = 'Topup Loan';
+              $newData->date_entry = $date;
+              $newData->debit = $item->amount_debited;
+              $newData->save();
+            }
 
+          }
         }
     });
 
