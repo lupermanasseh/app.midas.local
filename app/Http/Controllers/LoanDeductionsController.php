@@ -84,7 +84,7 @@ public function populate(){
 
           if($user->topup_amount){
 
-            DB::table('Ldeduction')->where('lsubscription_id',$user->id)
+            Ldeduction::where('lsubscription_id',$user->id)
                                   ->where('notes','Top up loan')
                                   ->orderBy('entry_month', 'asc')
                                     ->chunkById(100, function ($users) {
