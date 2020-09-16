@@ -71,14 +71,15 @@ public function populate(){
     ->chunkById(300, function ($users) {
         foreach ($users as $user) {
           $now = Carbon::now()->toTimeString();
-          $date = $user->disbursement_date." ".$now;
+          //$date = $user->disbursement_date." ".$now;
           $recordId = $user->id;
           //inser records
           $newData = new Userconsolidatedloan();
           $newData->user_id = $user->user_id;
           $newData->lsubscription_id = $user->id;
           $newData->description = 'Normal Loan Disbursement';
-          $newData->date_entry = $date;
+          $newData->date_entry = $user->disbursement_date;
+          $newData->entry_time = $now
           $newData->debit = $user->amount_approved;
           $newData->save();
 
@@ -90,60 +91,23 @@ public function populate(){
                                     ->chunkById(100, function ($collections) {
                                       foreach ($collections as $collection) {
                                         $now = Carbon::now()->toTimeString();
-                                        $date = $collection->entry_month." ".$now;
+                                        //$date = $collection->entry_month." ".$now;
                                         $newData = new Userconsolidatedloan();
                                         $newData->user_id = $collection->user_id;
                                         $newData->lsubscription_id = $collection->lsubscription_id;
                                         $newData->description = 'Topup Loan';
-                                        $newData->date_entry = $date;
+                                        $newData->date_entry = $collection->entry_month;
+                                        $newData->entry_time = $now;
                                         $newData->debit = $collection->amount_debited;
                                         $newData->save();
                 }
           });
 
-            ///
-            // $collection =    Ldeduction::
-            //                          where('lsubscription_id',$user->id)
-            //                         ->where('notes','Top up loan')
-            //                         ->orderBy('entry_month', 'asc')
-            //                         ->get();
-            // foreach($collection as $item){
-            //   $date = Carbon::parse($item->entry_month.Carbon::now()->toTimeString());
-            //   //$now = Carbon::now()->toTimeString();
-            //   //$date = $item->entry_month." ".$now;
-            //   //$date = $item->entry_month;
-            //   //first select all deductions using lsubscription_id and where notes is Top up loan
-            //   //loop through each of them to create a new record in the database and exit
-            //   $newData = new Userconsolidatedloan();
-            //   $newData->user_id = $item->user_id;
-            //   $newData->lsubscription_id = $item->id;
-            //   $newData->description = 'Topup Loan';
-            //   $newData->date_entry = $date;
-            //   $newData->debit = $item->amount_debited;
-            //   $newData->save();
-            // }
+
 
           }
         }
     });
-
-    // $activeLoans = Lsubscription::where('loan_status','inactive')
-    //                             //->orderBy('loan_status','asc')
-    //                             ->orderBy('disbursement_date','asc')
-    //                              ->get();
-    //                   foreach($activeLoans as $user){
-    //                     $now = Carbon::now()->toTimeString();
-    //                     $date = $user->disbursement_date." ".$now;
-    //                     //inser records
-    //                     $newData = new Userconsolidatedloan();
-    //                     $newData->user_id = $user->user_id;
-    //                     $newData->lsubscription_id = $user->id;
-    //                     $newData->description = 'Normal Loan Disbursement';
-    //                     $newData->date_entry = $date;
-    //                     $newData->debit = $user->amount_approved + $user->topup_amount;
-    //                     $newData->save();
-    //
-    //                   }
 
 }
     //list ippis format loan subscriptions
@@ -335,6 +299,7 @@ public function debitLoan(Request $request){
 
                 $loanRepay = new Ldeduction;
                 //total loan Balances
+                $now = Carbon::now()->toTimeString();
                 $loanBalances = $loanRepay->myLoanDeductions($subid);
                 $loanRepay->amount_debited = $request['amount'];
                 $loanRepay->balances = $loanBalances - $request['amount'];
@@ -343,6 +308,7 @@ public function debitLoan(Request $request){
                 $loanRepay->product_id = $loanSub->product_id;
                 $loanRepay->lsubscription_id = $subid;
                 $loanRepay->entry_month = $request['entry_date'];
+                $loanRepay->entry_time = $now;
                 $loanRepay->notes = $request['notes'];
                 $loanRepay->uploaded_by = auth()->user()->first_name;
                 $loanRepay->save();
@@ -562,6 +528,7 @@ public function topUpLoan(Request $request){
 
                     $loanRepay = new Ldeduction;
                     //total loan Balances
+                      $now = Carbon::now()->toTimeString();
                     $loanBalances = $loanRepay->myLoanDeductions($subid);
                     $loanRepay->amount_deducted = $request['amount'];
                     $loanRepay->balances = $loanBalances + $request['amount'];
@@ -570,6 +537,7 @@ public function topUpLoan(Request $request){
                     $loanRepay->product_id = $loanSub->product_id;
                     $loanRepay->lsubscription_id = $request['sub_id'];
                     $loanRepay->entry_month = $request['entry_date'];
+                    $loanRepay->entry_time = $now;
                     $loanRepay->teller_no = $request['teller_number'];
                     $loanRepay->depositor_name = $request['depositor_name'];
                     $loanRepay->notes = $request['notes'];
@@ -655,12 +623,14 @@ public function topUpLoan(Request $request){
             try{
             //Create new loan deduction
             $loanDeduction = new Ldeduction;
+            $now = Carbon::now()->toTimeString();
             $loanDeduction->user_id = $user_id;
             $loanDeduction->product_id = $subscription->product_id;
             $loanDeduction->lsubscription_id = $sub_id;
             $loanDeduction->amount_deducted = $amt;
             $loanDeduction->balances = $total_Deductions + $amt;
             $loanDeduction->entry_month = $date;
+            $loanDeduction->entry_time = $now;
             $loanDeduction->notes = $notes;
             $loanDeduction->uploaded_by = auth()->user()->first_name;
             $loanDeduction->save();
