@@ -113,6 +113,7 @@ public function populate(){
     //
     DB::table('ldeductions')->whereNull('deduct_reference')
                             ->orderBy('entry_month', 'asc')
+                            ->orderBy('user_id', 'asc')
                             ->chunkById(100, function ($collections) {
                               foreach ($collections as $collection) {
                                 $now = Carbon::now()->toTimeString();
