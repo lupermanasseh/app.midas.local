@@ -89,8 +89,10 @@ public function populate(){
                                     ->orderBy('entry_month', 'asc')
                                     ->get();
             foreach($collection as $item){
-              $now = Carbon::now()->toTimeString();
-              $date = $item->entry_month." ".$now;
+              $date = Carbon::parse($item->entry_month.Carbon::now()->toTimeString());
+              //$now = Carbon::now()->toTimeString();
+              //$date = $item->entry_month." ".$now;
+              //$date = $item->entry_month;
               //first select all deductions using lsubscription_id and where notes is Top up loan
               //loop through each of them to create a new record in the database and exit
               $newData = new Userconsolidatedloan();
