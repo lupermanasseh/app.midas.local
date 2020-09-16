@@ -72,7 +72,7 @@ public function populate(){
         foreach ($users as $user) {
           $now = Carbon::now()->toTimeString();
           $date = $user->disbursement_date." ".$now;
-
+          $recordId = $user->id;
           //inser records
           $newData = new Userconsolidatedloan();
           $newData->user_id = $user->user_id;
@@ -84,18 +84,18 @@ public function populate(){
 
           if($user->topup_amount){
 
-            DB::table('ldeductions')->where('lsubscription_id',$user->id)
+            DB::table('ldeductions')->where('lsubscription_id',$recordId)
                                   ->where('notes','Top up loan')
                                   ->orderBy('entry_month', 'asc')
-                                    ->chunkById(100, function ($users) {
-                                      foreach ($users as $user) {
-                                        $date = $item->entry_month." ".$now;
+                                    ->chunkById(100, function ($collections) {
+                                      foreach ($collections as $collection) {
+                                        $date = $collection->entry_month." ".$now;
                                         $newData = new Userconsolidatedloan();
-                                        $newData->user_id = $item->user_id;
-                                        $newData->lsubscription_id = $item->id;
+                                        $newData->user_id = $collection->user_id;
+                                        $newData->lsubscription_id = $collection->lsubscription_id;
                                         $newData->description = 'Topup Loan';
                                         $newData->date_entry = $date;
-                                        $newData->debit = $item->amount_debited;
+                                        $newData->debit = $collection->amount_debited;
                                         $newData->save();
                 }
           });
