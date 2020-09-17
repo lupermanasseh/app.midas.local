@@ -359,10 +359,10 @@
         <div class="row">
             <p>
 
-                <a href="/loan/schedule/print/" class=" btn pink darken-4" target="_blank"><i
+                <a href="/consolidatedloan/print/{{$user->id}}" class=" btn pink darken-4" target="_blank"><i
                         class="fas fa-file-pdf"></i>
                     Plain File</a> |
-                <a href="/loan/schedule/printpdf/" class=" btn pink darken-4" target="_blank"><i
+                <a href="/consolidatedloan/printpdf/{{$user->id}}" class=" btn pink darken-4" target="_blank"><i
                         class="fas fa-file-pdf"></i>
                     PDF</a>
             </p>
