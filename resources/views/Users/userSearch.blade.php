@@ -11,6 +11,7 @@
           <li class="tab col s3"><a class="active pink-text darken-3" href="#test1">SAVINGS</a></li>
           <li class="tab col s3"><a  class="pink-text darken-3" href="#test2">LOANS ({{$activeLoans->count()}})</a></li>
           <li class="tab col s3"><a  class="pink-text darken-3" href="#test3">RESTRUCRUED LOANS ({{$structured->count()}})</a></li>
+          <li class="tab col s3"><a  class="pink-text darken-3" href="#test4">CONSOLIDATED LOANS LEDGER</a></li>
 
         </ul>
       </div>
@@ -321,151 +322,95 @@
 
 
       </div>
-    </div>
-</div>
 
-<!-- modal for debit -->
-<!-- Modal Structure -->
- <div id="modal1" class="modal">
-   <div class="modal-content">
-     <h6>TOP UP</h6>
-     <div class="row">
-         <form class="col s12" method="POST" action="/topup/loan">
-             {{ csrf_field() }}
-             <div class="row">
-               <div class="input-field col s12 m6 l6">
-                   <select id="parent_loan" name="parent_loan">
-                       @foreach ($activeLoans as $myProduct)
-                       <option value="{{$myProduct->id}}">{{$myProduct->product->name}}/({{$myProduct->amount_approved}})</option>
-                       @endforeach
-                   </select>
-                   <label>Select Parent Loan</label>
-               </div>
-               <div class="input-field col s12 m6 l6">
-                   <select id="topup_loan" name="topup_loan">
-                       @foreach ($activeLoans as $myProduct)
-                       <option value="{{$myProduct->id}}">{{$myProduct->product->name}}/({{$myProduct->amount_approved}})</option>
-                       @endforeach
-                   </select>
-                   <label>Select TopUp Loan</label>
-               </div>
-             </div>
+      <div id="test4" class="col s12">
+        <!-- markup begins -->
+        <!--  -->
+        <div class="row subject-header">
+            <div class="col s12">
+                <span class="text-teal">CONSOLIDATED LOAN LEDGER</span>
+            </div>
 
-             <!-- <div class="row">
-               <div class="input-field col s12 m3 l3">
-                   <input placeholder="Reg Number" id="reg_no" name="reg_no" type="text" class="validate">
-                   <label for="reg_no">Applicant's Reg Number</label>
-               </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                {{-- @if (count($users)>=1) --}}
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>REG NO</th>
+                            <th>NAME</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-               <div class="input-field col s12 m3 l3">
-                   <input placeholder="Reg Number" id="guarantor_id1" name="guarantor_id1" type="text"
-                       class="validate">
-                   <label for="guarantor_id1">First Guarantor</label>
-               </div>
-               <div class="input-field col s12 m3 l3">
-                   <input placeholder="Reg Number" id="guarantor_id2" name="guarantor_id2" type="text"
-                       class="validate">
-                   <label for="guarantor_id2">Second Guarantor</label>
-               </div>
-             </div> -->
+                        <tr>
+                            <td>{{substr($user->membership_type,0,1)}}/{{$user->id}}</td>
+                            <td>
+                                <a href="/userDetails/{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</a></td>
+                            <td>{{$user->status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-             <div class="row">
-               <div class="input-field col s12 m3 l3">
-                   <input placeholder="Adjust tenor" id="tenor" name="tenor" type="text" class="validate">
-                   <label for="tenor">Adjust Tenor</label>
-               </div>
+        <div class="row">
+            <p>
 
-               <div class="input-field col s12 m3 l3">
-                   <input placeholder="Adjust deduction" id="deduction" name="deduction" type="text"
-                       class="validate">
-                   <label for="tenor">Adjust Deduction</label>
-               </div>
+                <a href="/loan/schedule/print/" class=" btn pink darken-4" target="_blank"><i
+                        class="fas fa-file-pdf"></i>
+                    Plain File</a> |
+                <a href="/loan/schedule/printpdf/" class=" btn pink darken-4" target="_blank"><i
+                        class="fas fa-file-pdf"></i>
+                    PDF</a>
+            </p>
+        </div>
 
-               <div class="input-field col s12 m3 l3">
-                   <input id="start_date" name="start_date" type="date" class="validate">
-                   <label for="start_date">Start Date</label>
-               </div>
+        <div class="row">
+            <div class="col s12">
+                <h6>CONSOLIDATED LOAN LEDGER</h6>
+            </div>
+        </div>
 
-               <div class="input-field col s12 m3 l3">
-                   <input id="end_date" name="end_date" type="date" class="validate">
-                   <label for="end_date">End Date</label>
-               </div>
-             </div>
-
-             <div class="row">
-
-                 <!-- <div class="input-field col s12 m4 l4">
-                     <input id="entry_date" name="entry_date" type="date" class="validate">
-                     <label for="entry_date">Start Date</label>
-                 </div>
-
-                 <div class="input-field col s12 m4 l4">
-                     <input id="entry_date" name="entry_date" type="date" class="validate">
-                     <label for="entry_date">End Date</label>
-                 </div> -->
-
-             </div>
-
-             <button type="submit" class="btn">TOP UP</button>
-         </form>
-     </div>
-   </div>
-   <div class="modal-footer">
-     <a class="modal-close waves-effect waves-green btn-flat">Close</a>
-   </div>
- </div>
-
-
- <!-- modal for debit -->
- <!-- Modal Structure -->
-  <div id="modal2" class="modal">
-    <div class="modal-content">
-      <h6>RESTRUCTURE</h6>
-      <div class="row">
-          <form class="col s12" method="POST" action="/loanRepay/store">
-              {{ csrf_field() }}
-
-              <div class="row">
-                  <div class="input-field col s12 m2 l2">
-                      <input id="sub_id" name="sub_id"  value="" type="hidden">
-                      <input id="amount" name="amount" type="text" class="validate">
-                      <label for="amount">Enter Amount</label>
-                  </div>
-                  <div class="input-field col s12 m2 l2">
-                      <input id="teller_number" name="teller_number" type="text" class="validate">
-                      <label for="teller_number">Teller Number</label>
-                  </div>
-                  <div class="input-field col s12 m4 l4">
-                      <input id="bank_name" name="bank_name" type="text" class="validate">
-                      <label for="bank_name">Bank Name</label>
-                  </div>
-                  <div class="input-field col s12 m4 l4">
-                      <input id="bank_add" name="bank_add" type="text" class="validate">
-                      <label for="bank_add">Bank Add</label>
-                  </div>
-              </div>
-              <div class="row">
-
-                  <div class="input-field col s12 m4 l4">
-                      <input id="depositor_name" name="depositor_name" type="text" class="validate">
-                      <label for="depositor_name">Depositor Name</label>
-                  </div>
-                  <div class="input-field col s12 m4 l4">
-                      <input id="entry_date" name="entry_date" type="date" class="validate">
-                      <label for="entry_date">Date</label>
-                  </div>
-                  <div class="input-field col s12 m4 l4">
-                      <input id="notes" name="notes" type="text" class="validate">
-                      <label for="notes">Description</label>
-                  </div>
-              </div>
-
-              <button type="submit" class="btn">Credit Loan</button>
-          </form>
+        <div class="row">
+            <div class="col s12">
+                @if(count($consolidatedLoans)>=1)
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>DESCRIPTION</th>
+                            <th>DEBIT</th>
+                            <th>CREDIT</th>
+                            <th>BALANCE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($consolidatedLoans as $loan)
+                        <tr>
+                            <td>{{$loan->date_entry->toFormattedDateString()}}</td>
+                            <td>{{$loan->description}}</td>
+                            <td>
+                                {{number_format($loan->debit,2,'.',',')}}
+                            </td>
+                            <td>
+                                  {{number_format($loan->credit,2,'.',',')}}
+                            </td>
+                            <td>
+                                  {{number_format($loan->balance,2,'.',',')}}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @else
+                <p>No record(s) yet</p>
+                @endif
+            </div>
+        </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <a class="modal-close waves-effect waves-green btn-flat">Close</a>
-    </div>
-  </div>
+</div>
 @endsection
