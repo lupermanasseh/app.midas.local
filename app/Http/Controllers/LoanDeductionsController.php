@@ -242,6 +242,85 @@ foreach($uniqueDebtors as $debtor){
         return view('LoanDeduction.userLoanDeductions',compact('recent','title'));
     }
 
+
+//edit consolidated loan deduction form
+public function editConsolidatedLoanDeduction($id){
+    $title =  'Edit Consolidated Loan Deduction';
+    $deduction = Userconsolidatedloan::find($id);
+    return view ('LoanDeduction.editConsolidatedLoanDeduction',compact('deduction','title'));
+}
+
+//update consolidated loan deduction
+
+public function updateConsolidatedLoanDeduction(Request $request, $id)
+{
+
+//Save loan subscription
+$this->validate(request(), [
+    'credit' =>'nullable|numeric|between:0.00,999999999.99',
+    'debit' =>'nullable|numeric|between:0.00,999999999.99',
+    'entry_date' =>'required|date',
+    'description' =>'required|string',
+]);
+
+DB::beginTransaction();
+try{
+  $loan_Deduct = Userconsolidatedloan::find($id);
+
+  //subscription id//
+  $userid = $loan_Deduct->user_id;
+  $now = Carbon::now()->toTimeString();
+  $loan_Deduct->credit= $request['credit'];
+  $loan_Deduct->debit = $request['debit'];
+  $loan_Deduct->description = $request['description'];
+  $loan_Deduct->date_entry = $request['entry_date'];
+  $loan_Deduct->entry_time = $now;
+  //$loan_Deduct->uploaded_by = auth()->user()->first_name;
+  $loan_Deduct->save();
+
+  //recalculate loan balances
+  $loan_Deduct->userConsolidatedBalances($userid);
+}
+catch(\Exception $e){
+DB::rollback();
+toastr()->error($e->getMessage());
+return back();
+}
+DB::commit();
+toastr()->success('Record updated successfully!');
+return redirect('/user/landingPage/'.$userid);
+}
+
+
+//delete consolidated loan deduction
+
+public function removeConsolidatedLoanDeduction($id){
+
+  DB::beginTransaction();
+  try{
+    $loan_Deduct = Userconsolidatedloan::find($id);
+
+    //user id//
+    $userid = $loan_Deduct->user_id;
+    //Delete loan Deduction
+    Userconsolidatedloan::find($id)->delete();
+
+
+    //recalculate loan balances
+    $loan_Deduct->userConsolidatedBalances($userid);
+
+  }
+  catch(\Exception $e){
+  DB::rollback();
+  toastr()->error($e->getMessage());
+  return redirect('/user/landingPage/'.$userid);
+  }
+  DB::commit();
+  toastr()->success('Record removed successfully!');
+  return redirect('/user/landingPage/'.$userid);
+}
+
+
     public function edit($id){
         $title =  'Edit Loan Deduction';
         $deduction = Ldeduction::find($id);
