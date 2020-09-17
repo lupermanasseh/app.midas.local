@@ -276,7 +276,7 @@ public function editBank($id){
             $structured = Lsubscription::where('user_id',$user->id)
                                 ->where('loan_status','restructured')
                                 ->get();
-            
+
             $consolidatedLoans = Userconsolidatedloan::getConsolidatedLoanBalances($user->id);
 
             }
@@ -312,8 +312,9 @@ public function editBank($id){
             $structured = Lsubscription::where('user_id',$user->id)
                                 ->where('loan_status','restructured')
                                 ->get();
+            $consolidatedLoans = Userconsolidatedloan::getConsolidatedLoanBalances($id);
             }
-            return view('Users.userSearch',compact('user','saving','targetsr','structured','allLoans','inactiveLoans','targetSaving','activeLoans','title'));
+            return view('Users.userSearch',compact('user','saving','targetsr','consolidatedLoans','structured','allLoans','inactiveLoans','targetSaving','activeLoans','title'));
         }
 
 
