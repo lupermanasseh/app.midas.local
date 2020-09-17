@@ -409,6 +409,12 @@
                             </td>
                         </tr>
                         @endforeach
+                        <tr>
+                            <th colspan="2">Summary</th>
+                            <th >{{number_format($user->consolidatedLoanDebitTotal($user->id),2,'.',',')}}</th>
+                            <th >{{number_format($user->consolidatedLoanCreditTotal($user->id),2,'.',',')}}</th>
+                            <th >{{number_format($user->consolidatedLoanBalance($user->id),2,'.',',')}}</th>
+                        </tr>
                     </tbody>
                 </table>
                 @else
