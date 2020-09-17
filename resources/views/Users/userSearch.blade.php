@@ -407,6 +407,11 @@
                             <td>
                                   {{number_format($loan->balance,2,'.',',')}}
                             </td>
+                            <td>
+                              <a href="/consolidatedLoanDeduction/edit/{{$loan->id}}"><i class="tiny material-icons">edit</i> </a>
+                              <a href="/consolidatedLoanDeduction/remove/{{$loan->id}}" id="delete"> <i
+                                      class="tiny material-icons red-text">delete_forever</i></a>
+                            </td>
                         </tr>
                         @endforeach
                         <tr>
