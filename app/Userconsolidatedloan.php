@@ -119,4 +119,13 @@ protected $dates = ['created_at', 'updated_at','date_entry'];
                             $debit = $loanDeductions->sum('debit');
                             return $balance = $debit - $credit;
         }
+
+
+
+        public static function getConsolidatedLoanBalances($user_id){
+        return  static::where('user_id',$user_id)
+                        ->orderBy('date_entry','asc')
+                        ->orderBy('entry_time','asc')
+                        ->get();
+        }
 }
