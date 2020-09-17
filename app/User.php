@@ -2,6 +2,7 @@
 namespace App;
 use App\Saving;
 use App\Savingreview;
+use App\Userconsolidatedloan;
 use App\Psubscription;
 use App\Lsubscription;
 use App\Charts\membershipSpread;
@@ -140,6 +141,27 @@ class User extends Authenticatable
     //     ->sum('monthly_repayment');
     // }
 
+
+
+    //Total consolidated loan debit
+    public function consolidatedLoanDebitTotal($userid)
+    {
+        return Userconsolidatedloan::where('user_id',$userid)
+                                    ->sum('debit');
+    }
+
+    //Total consolidated loan credit
+    public function consolidatedLoanCreditTotal($userid)
+    {
+        return Userconsolidatedloan::where('user_id',$userid)
+                                    ->sum('credit');
+    }
+
+    //Total consolidated loan credit
+    public function consolidatedLoanBalance($userid)
+    {
+        return $this->consolidatedLoanDebitTotal($userid)-$this->consolidatedLoanCreditTotal($userid);
+    }
 
      //Total sum deductible for loan subscription
      public function loanSubscriptionTotal($id)
