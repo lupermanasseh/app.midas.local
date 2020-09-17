@@ -879,7 +879,7 @@ public function topUpLoan(Request $request){
         $title = 'Loan Deductions History';
         $loan = Lsubscription::find($id);
         $loanHistory = Ldeduction::loanHistory($id);
-        //$userObj = User::find($loan->user_id);
+
         return view('Prints.loan_deductions_print',compact('title','loan','loanHistory'));
     }
 
@@ -892,6 +892,25 @@ public function topUpLoan(Request $request){
 
         $pdf = PDF::loadView('Prints.loan_deductions_pdf',compact('loan','title','loanHistory'));
         return $pdf->stream();
+    }
+
+    //consolidated loan deductions print file
+    public function consolidatedLoanDeductionsPrint($id){
+      $title ="Consolidated Loan History";
+      $user = User::find($id);
+      $consolidatedLoans = Userconsolidatedloan::getConsolidatedLoanBalances($id);
+
+      return view('Prints.consolidatedloan_deductions_print',compact('title','consolidatedLoans','user'));
+    }
+
+    //consolidated loan deductions print pdf
+    public function consolidatedLoanDeductionsPdf($id){
+      $title ="Consolidated Loan History";
+      $user = User::find($id);
+      $consolidatedLoans = Userconsolidatedloan::getConsolidatedLoanBalances($id);
+
+      $pdf = PDF::loadView('Prints.consolidatedloan_deductions_pdf',compact('title','consolidatedLoans','user'));
+      return $pdf->stream();
     }
 
     //form to find loan Balances  //upload loan deductions form
