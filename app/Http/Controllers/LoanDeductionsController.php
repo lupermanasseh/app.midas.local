@@ -67,7 +67,7 @@ public function export(){
 
 //populate user consolidated loans table
 public function populate(){
-
+//1
   // DB::table('lsubscriptions')->where('loan_status', '<>','restructured')
   //                           ->orderBy('disbursement_date','asc')
   //   ->chunkById(300, function ($users) {
@@ -132,24 +132,33 @@ public function populate(){
   // });
 
   //3
-    DB::table('masterdeductions')->where('status','Inactive')
-    ->orderBy('entry_date', 'asc')
-    ->chunkById(500, function ($collections) {
-      foreach ($collections as $collection) {
-        $now = Carbon::now()->toTimeString();
+//     DB::table('masterdeductions')->where('status','Inactive')
+//     ->orderBy('entry_date', 'asc')
+//     ->chunkById(500, function ($collections) {
+//       foreach ($collections as $collection) {
+//         $now = Carbon::now()->toTimeString();
+//
+//         //find user id using ippis number
+//         $userID = User::userID($collection->ippis_no);
+//         $newData = new Userconsolidatedloan();
+//         $newData->user_id = $userID;
+//         $newData->description = $collection->description;
+//         $newData->date_entry = $collection->entry_date;
+//         $newData->entry_time = $now;
+//         $newData->ref_identification = $collection->master_reference;
+//         $newData->credit = $collection->cumulative_amount;
+//         $newData->save();
+// }
+// });
 
-        //find user id using ippis number
-        $userID = User::userID($collection->ippis_no);
-        $newData = new Userconsolidatedloan();
-        $newData->user_id = $userID;
-        $newData->description = $collection->description;
-        $newData->date_entry = $collection->entry_date;
-        $newData->entry_time = $now;
-        $newData->ref_identification = $collection->master_reference;
-        $newData->credit = $collection->cumulative_amount;
-        $newData->save();
+
+//4
+
+$uniqueDebtors = Userconsolidatedloan::all()->SortBy('user_id')->unique('user_id');
+foreach($uniqueDebtors as $debtor){
+  $newConsolidatedBalance = new Userconsolidatedloan();
+  $newConsolidatedBalance->userConsolidatedBalances($debtor->user_id);
 }
-});
 
 }
 
