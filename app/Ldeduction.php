@@ -102,7 +102,8 @@ class Ldeduction extends Model
 
     //Recalculate loan Balances, pass in subscription id
     public function recalculateLoanDeductionBalances($subid){
-
+              //loansubscription object
+              $loanSub = new Lsubscription;
                       //recalculate loan Balances
                       $loanDeductions = Ldeduction::
                                         where('lsubscription_id',$subid)
@@ -157,8 +158,7 @@ class Ldeduction extends Model
                                 }
                                 else
                                 {
-                                  //loansubscription object
-                                  $loanSub = new Lsubscription;
+
                                   //total loan Balances
                                   $loanBalances = $this->sumInitialBalances($item->lsubscription_id,$item->entry_month);
 
