@@ -393,10 +393,16 @@
                             <td>{{$loan->date_entry->toFormattedDateString()}}</td>
                             <td>{{$loan->description}}</td>
                             <td>
-                                {{number_format($loan->debit,2,'.',',')}}
+                              @if($loan->debit)
+                              {{number_format($loan->debit,2,'.',',')}}
+                              @else
+                              @endif
                             </td>
                             <td>
-                                  {{number_format($loan->credit,2,'.',',')}}
+                              @if($loan->credit)
+                              {{number_format($loan->credit,2,'.',',')}}
+                              @else
+                              @endif
                             </td>
                             <td>
                                   {{number_format($loan->balance,2,'.',',')}}
