@@ -448,6 +448,18 @@ public function debitLoan(Request $request){
 
                 //recalculate loan balances
                 $loanRepay->recalculateLoanDeductionBalances($subid);
+
+                // //post debit amount to consolidated loan ledger
+                //
+                $newConsolidatedDeduct = new Userconsolidatedloan();
+
+                $newConsolidatedDeduct->user_id = $userId;
+                $newConsolidatedDeduct->description = $request['notes'];
+                $newConsolidatedDeduct->date_entry = $request['entry_date'];
+                $newConsolidatedDeduct->entry_time = $now;
+                $newConsolidatedDeduct->debit = $request['amount'];
+                $newConsolidatedDeduct->save();
+                $newConsolidatedDeduct->userConsolidatedBalances($userId);
             }
         }
         catch(\Exception $e){
@@ -580,6 +592,7 @@ public function topUpLoan(Request $request){
 
                     $loanDeduction = new Ldeduction;
                     //total loan Balances
+                      $now = Carbon::now()->toTimeString();
                     $loanBalances = $loanDeduction->myLoanDeductions($mergedLoanId);
                     $loanDeduction->amount_debited = $topupAmt;
                     $loanDeduction->balances = $loanBalances - $topupAmt;
@@ -588,6 +601,7 @@ public function topUpLoan(Request $request){
                     $loanDeduction->product_id = $parentLoan->product_id;
                     $loanDeduction->lsubscription_id = $mergedLoanId;
                     $loanDeduction->entry_month = $transaction_date;
+                    $loanDeduction->entry_time = $now;
 
                     $loanDeduction->notes = 'Top up loan';
 
@@ -596,6 +610,19 @@ public function topUpLoan(Request $request){
 
                 //recaculate loan balances
                 $loanDeduction->recalculateLoanDeductionBalances($mergedLoanId);
+
+                // //post cumulative amount to consolidated loan ledger
+                //
+                $newConsolidatedDeduct = new Userconsolidatedloan();
+
+
+                $newConsolidatedDeduct->user_id = $parentLoan->user_id;
+                $newConsolidatedDeduct->description = 'Top up loan';
+                $newConsolidatedDeduct->date_entry = $transaction_date;
+                $newConsolidatedDeduct->entry_time = $now;
+                $newConsolidatedDeduct->debit = $topupAmt;
+                $newConsolidatedDeduct->save();
+                $newConsolidatedDeduct->userConsolidatedBalances($parentLoan->user_id);
 
             }
         }
@@ -660,7 +687,7 @@ public function topUpLoan(Request $request){
 
                     $loanRepay = new Ldeduction;
                     //total loan Balances
-                      $now = Carbon::now()->toTimeString();
+                    $now = Carbon::now()->toTimeString();
                     $loanBalances = $loanRepay->myLoanDeductions($subid);
                     $loanRepay->amount_deducted = $request['amount'];
                     $loanRepay->balances = $loanBalances + $request['amount'];
@@ -679,6 +706,19 @@ public function topUpLoan(Request $request){
 
                     //recalculate Balances
                     $loanRepay->recalculateLoanDeductionBalances($subid);
+
+                    // //post cumulative amount to consolidated loan ledger
+                    //
+                    $newConsolidatedDeduct = new Userconsolidatedloan();
+
+
+                    $newConsolidatedDeduct->user_id = $loanSub->user_id;
+                    $newConsolidatedDeduct->description = $request['notes'];
+                    $newConsolidatedDeduct->date_entry = $request['entry_date'];
+                    $newConsolidatedDeduct->entry_time = $now;
+                    $newConsolidatedDeduct->credit = $request['amount'];
+                    $newConsolidatedDeduct->save();
+                    $newConsolidatedDeduct->userConsolidatedBalances($loanSub->user_id);
                 }
             }
             catch(\Exception $e){
@@ -770,6 +810,19 @@ public function topUpLoan(Request $request){
             //recalculate balances
 
             $loanDeduction->recalculateLoanDeductionBalances($sub_id);
+
+            // //post cumulative amount to consolidated loan ledger
+            //
+            $newConsolidatedDeduct = new Userconsolidatedloan();
+
+            $newConsolidatedDeduct->user_id =$user_id;
+            $newConsolidatedDeduct->description = $notes;
+            $newConsolidatedDeduct->date_entry = $date;
+            $newConsolidatedDeduct->entry_time = $now;
+            $newConsolidatedDeduct->credit = $amt;
+
+            $newConsolidatedDeduct->save();
+            $newConsolidatedDeduct->userConsolidatedBalances($user_id);
 
             }catch(\Exception $e){
             DB::rollback();
