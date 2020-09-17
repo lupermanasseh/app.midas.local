@@ -276,10 +276,9 @@ public function editBank($id){
             $structured = Lsubscription::where('user_id',$user->id)
                                 ->where('loan_status','restructured')
                                 ->get();
-            $consolidatedLoans = Userconsolidatedloan::where('user_id',$user->id)
-                                                      ->orderBy('date_entry','asc')
-                                                      ->orderBy('entry_time','asc')
-                                                      ->get();
+            
+            $consolidatedLoans = Userconsolidatedloan::getConsolidatedLoanBalances($user->id);
+
             }
             return view('Users.userSearch',compact('user','saving','targetsr','structured','allLoans','inactiveLoans','targetSaving','activeLoans','consolidatedLoans','title'));
         }
