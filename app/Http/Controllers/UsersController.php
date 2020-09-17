@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Nok;
 use App\Bank;
+use App\Userconsolidatedloan;
 use App\Lsubscription;
 use App\Psubscription;
 use App\Savingreview;
@@ -275,9 +276,12 @@ public function editBank($id){
             $structured = Lsubscription::where('user_id',$user->id)
                                 ->where('loan_status','restructured')
                                 ->get();
-
+            $consolidatedLoans = Userconsolidatedloan::where('user_id',$user->id)
+                                                      ->orderBy('date_entry','asc')
+                                                      ->orderBy('entry_time','asc')
+                                                      ->get();
             }
-            return view('Users.userSearch',compact('user','saving','targetsr','structured','allLoans','inactiveLoans','targetSaving','activeLoans','title'));
+            return view('Users.userSearch',compact('user','saving','targetsr','structured','allLoans','inactiveLoans','targetSaving','activeLoans','consolidatedLoans','title'));
         }
 
 
