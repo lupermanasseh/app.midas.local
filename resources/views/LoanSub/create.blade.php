@@ -20,18 +20,18 @@
             {{ csrf_field() }}
             <div class="row">
                 <div class="input-field col s12 m4 l4">
-                    <input placeholder="Reg Number" id="reg_no" name="reg_no" type="text" class="validate">
+                    <input placeholder="Reg Number" id="reg_no" name="reg_no" type="number" class="validate" required>
                     <label for="reg_no">Applicant's Reg Number</label>
                 </div>
 
                 <div class="input-field col s12 m4 l4">
-                    <input placeholder="Reg Number" id="guarantor_id1" name="guarantor_id1" type="text"
-                        class="validate">
+                    <input placeholder="Reg Number" id="guarantor_id1" name="guarantor_id1" type="number"
+                        class="validate" required>
                     <label for="guarantor_id1">First Guarantor</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
-                    <input placeholder="Reg Number" id="guarantor_id2" name="guarantor_id2" type="text"
-                        class="validate">
+                    <input placeholder="Reg Number" id="guarantor_id2" name="guarantor_id2" type="number"
+                        class="validate" required>
                     <label for="guarantor_id2">Second Guarantor</label>
                 </div>
             </div>
@@ -58,15 +58,15 @@
 
             <div class="row">
                 <div class="input-field col s12 m3 l3">
-                    <input id="amount_applied" name="amount_applied" type="text" class="validate">
+                    <input id="amount_applied" name="amount_applied" type="number" class="validate" required>
                     <label for="amount_applied">Amount Applied</label>
                 </div>
                 <div class="input-field col s12 m3 l3">
-                    <input id="net_pay" name="net_pay" type="text" class="validate">
+                    <input id="net_pay" name="net_pay" type="number" class="validate" required>
                     <label for="net_pay">Net Pay</label>
                 </div>
                 <div class="input-field col s12 m6 l6">
-                    <input id="custom_tenor" name="custom_tenor" type="text"
+                    <input id="custom_tenor" name="custom_tenor" type="number"
                         placeholder="Eg 3 or 5 (values in months Optional)">
                     <label for="custom_tenor">Custom Tenor</label>
                 </div>
