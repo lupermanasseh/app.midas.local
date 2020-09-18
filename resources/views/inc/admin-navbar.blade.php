@@ -139,8 +139,9 @@
         <div class="divider"></div>
     </li>
     <li><a class="subheader">Reports</a></li>
-    <li><a href="/saving/statement"><i class="material-icons">book</i>Statement</a></li>
-    <li><a href="/loanbalances/form"><i class="material-icons">book</i>Loan Balances</a></li>
+    <li><a href="/saving/statement"><i class="material-icons">border_inner</i>Statement</a></li>
+    <li><a href="/loanbalances/form"><i class="material-icons">border_outer</i>Loan Balances</a></li>
+    <li><a href="/consolidatedloanbalances/form"><i class="material-icons">account_balance_wallet</i>Consolidated Loans</a></li>
     <li><a href="/savings/liability"><i class="material-icons">view_list</i>Master Savings</a></li>
     <li>
         <div class="divider"></div>
