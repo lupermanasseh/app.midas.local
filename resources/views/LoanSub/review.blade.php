@@ -76,8 +76,8 @@
                 </div>
 
                 <div class="input-field col s12 m6 l6">
-                    <input id="amount_approved" name="amount_approved" value="{{$review->amount_applied}}" type="text"
-                        class="validate">
+                    <input id="amount_approved" name="amount_approved" value="{{$review->amount_applied}}" type="number"
+                        class="validate" required>
                     <label for="amount_approved">Amount Approved</label>
                 </div>
             </div>
