@@ -7,6 +7,7 @@ use App\Loan;
 use App\User;
 use App\Product;
 use App\Lsubscription;
+use App\Userconsolidatedloan;
 use App\Ldeduction;
 use  App\Psubscription;
 use  App\Saving;
@@ -659,50 +660,66 @@ public function destroyLoanDeductions($id)
                     return view('LoanSub.payLoans',compact('review','title'));
                 }
 
-                //public loan store activate loan
+                // store activate loan
                 public function payStore(Request $request){
                     $this->validate(request(), [
                         'start_date' =>'required|date',
+                        'disbursement_date' =>'required|date',
                         'sub_id' =>'required|integer',
                         ]);
 
+                        //begin transaction to process loan topup
+                        DB::beginTransaction();
+                        try{
+                          $loan_id = $request['sub_id'];
+                          $dt = $request['start_date'];
+                          $date = new Carbon($dt);
+                          $start_date = $date->toDateString();
+                          //Retrieve loan subscription instance
+                          $loan_sub = Lsubscription::find($loan_id);
+                          $tenor = $loan_sub->custom_tenor;
+                          $amt_approved = number_format($loan_sub->amount_approved,2,'.',',');
+                          $product = $loan_sub->product->name;
+                          $phone = $loan_sub->user->phone;
+                          $end_Date = $loan_sub->SubEndDate($start_date,$tenor);
+                          //update loan
+                          $loan_sub->loan_start_date = $start_date;
+                          $loan_sub->loan_end_date = $end_Date;
+                          $loan_sub->disbursement_date = $request['disbursement_date'];
+                          $loan_sub->loan_status = 'Active';
+                          $loan_sub->save();
 
-                        $loan_id = $request['sub_id'];
-                        $dt = $request['start_date'];
-                        $date = new Carbon($dt);
-                        $start_date = $date->toDateString();
-                        //Retrieve loan subscription instance
-                        $loan_sub = Lsubscription::find($loan_id);
-                        $tenor = $loan_sub->custom_tenor;
-                        $amt_approved = number_format($loan_sub->amount_approved,2,'.',',');
-                        $product = $loan_sub->product->name;
-                        $phone = $loan_sub->user->phone;
-                        $end_Date = $loan_sub->SubEndDate($start_date,$tenor);
-                        //update loan
-                        $loan_sub->loan_start_date = $start_date;
-                        $loan_sub->loan_end_date = $end_Date;
-                        $loan_sub->loan_status = 'Active';
-
-                        if($loan_sub->save()){
                             //send message
-                            $client = new Client;
-                                $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
-                                $to = $phone;
-                                $from= 'MIDAS TOUCH';
-                                $message = 'Your '.$product.' facility of N'. $amt_approved.' has been paid and is now active. Thank you. MIDAS TEAM';
-                               $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
+                              $client = new Client;
+                              $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
+                              $to = $phone;
+                              $from= 'MIDAS TOUCH';
+                              $message = 'Your '.$product.' facility of N'. $amt_approved.' has been paid and is now active. Thank you. MIDAS TEAM';
+                             $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
 
-                               $response = $client->request('GET', $url,['verify'=>false]);
-                               toastr()->success('Loan activated successfully!');
-                               return redirect('/approved/loans');
-                            //    if($response->getStatusCode()==200){
-                            //        //redirect here
-                            //    }
-                        }else{
-                            //not saved
-                            toastr()->error('Unable to activate loan! try again');
-                            return back();
+                             $response = $client->request('GET', $url,['verify'=>false]);
+
+                             //post amount to user consolidated loans
+                             $newConsolidatedDeduct = new Userconsolidatedloan();
+
+                             $now = Carbon::now()->toTimeString();
+                             $newConsolidatedDeduct->user_id = $loan_sub->user_id;
+                             $newConsolidatedDeduct->description = 'Normal loan disbursement';
+                             $newConsolidatedDeduct->date_entry = $request['disbursement_date'];
+                             $newConsolidatedDeduct->entry_time = $now;
+                             $newConsolidatedDeduct->debit = $loan_sub->amount_approved;
+                             $newConsolidatedDeduct->save();
+                             $newConsolidatedDeduct->userConsolidatedBalances($loan_sub->user_id);
                         }
+                        catch(\Exception $e){
+                        DB::rollback();
+                        toastr()->error($e->getMessage());
+                        return back();
+                        }
+                        DB::commit();
+                        toastr()->success('Loan activated successfully!');
+                        return redirect('/approved/loans');
+
 
 
                 }
