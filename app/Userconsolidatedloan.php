@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Userconsolidatedloan extends Model
 {
@@ -128,4 +129,63 @@ protected $dates = ['created_at', 'updated_at','date_entry'];
                         ->orderBy('entry_time','asc')
                         ->get();
         }
+
+
+        /**
+      * Find consolidated loan deductions by date
+      */
+     public function consolidatedLoanDeductionByDate($from,$to){
+         $from = new Carbon($from);
+         $from = $from->toDateString();
+         $destDate = new Carbon($to);
+         $to = $destDate->toDateString();
+
+         return  $collection =    Userconsolidatedloan::
+                                  where('date_entry','>=',$from)
+                                 ->where('date_entry','<=',$to)
+                                 ->orderBy('user_id', 'asc')
+                                 ->get();
+         }
+
+
+         /**
+          * consolidated loan balance aggregate
+          */
+             public function consolidatedLoanBalanceAggregateAt($collection){
+               $sumBal=0;
+
+               //find unique users
+               $uniqueUsers = $collection->unique('user_id');
+               foreach($uniqueUsers as $item){
+
+                     //total debit
+                   $totalDebit = $collection->where('user_id',$item->user_id)
+                                            ->sortBy('date_entry')
+                                            ->sum('debit');
+                    //total credit
+                    $totalCredit = $collection->where('user_id',$item->user_id)
+                                             ->sortBy('date_entry')
+                                             ->sum('credit');
+
+                   $bal = $totalDebit-$totalCredit;
+                   $sumBal = $sumBal+$bal;
+               }
+               return $sumBal;
+             }
+
+
+             //Individual consolidated loan balances by date
+             public function userBalancesByDate($collection,$id)
+             {
+               $totalDebit = $collection->where('user_id',$id)
+                                        ->sortBy('date_entry')
+                                        ->sum('debit');
+                //total credit
+                $totalCredit = $collection->where('user_id',$id)
+                                         ->sortBy('date_entry')
+                                         ->sum('credit');
+
+               $bal = $totalDebit-$totalCredit;
+                 return $bal;
+             }
 }

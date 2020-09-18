@@ -1045,6 +1045,31 @@ public function topUpLoan(Request $request){
       return $pdf->stream();
     }
 
+    //form to find all user consolidated loan Balances
+      public function findConsolidatedLoanBalances(){
+          $title = 'Consolidated Loan Balances';
+        return view('LoanDeduction.consolidatedLoanBalancesFind',compact('title'));
+      }
+
+      //consolidated  loan balances liability
+      public function consolidatedLoanBalancesResult(Request $request){
+          $title = 'Loan Deduction Balances';
+          $consolidatedLoansObj = new Userconsolidatedloan;
+          $this->validate(request(), [
+               'to' =>'required|date',
+               ]);
+
+               $from = new Carbon('2016-02-01');
+               $from = $from->toDateString();
+               $to = $request['to'];
+
+          $collection = $consolidatedLoansObj->consolidatedLoanDeductionByDate($from,$to);
+
+          $uniqueDebtors = $collection->unique('user_id');
+
+          return view('LoanDeduction.consolidatedLoanBalancesResult',compact('title','collection','to','from','uniqueDebtors'));
+      }
+
     //form to find loan Balances  //upload loan deductions form
       public function findLoanBalances(){
           $title = 'Find Loan Balances';
