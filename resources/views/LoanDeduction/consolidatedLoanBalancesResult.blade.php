@@ -5,16 +5,16 @@
     @include('inc.messages') --}}
     <div class="row">
         <div class="col s12 subject-header">
-            <p class="teal-text">INDIVIDUAL LOAN BALANCES</p>
+            <p class="teal-text">CONSOLIDATED LOAN BALANCES</p>
         </div>
     </div>
     @if (count($uniqueDebtors)>=1)
     <div class="row">
         <div class="col s12 m3 l3">
-            <a href="/loanbalance/excel/{{$from}}/{{$to}}" class="btn">DOWNLOAD EXCEL</a>
+            <a href="/consolidatedloanbalance/excel/{{$from}}/{{$to}}" class="btn">DOWNLOAD EXCEL</a>
         </div>
         <div class="col s12 m3 l3">
-            <a href="/loanbalance/pdf/{{$from}}/{{$to}}" target="_blank" class="btn">DOWNLOAND PDF</a>
+            <a href="/consolidatedloanbalance/pdf/{{$from}}/{{$to}}" target="_blank" class="btn">DOWNLOAD PDF</a>
         </div>
     </div>
     @else
