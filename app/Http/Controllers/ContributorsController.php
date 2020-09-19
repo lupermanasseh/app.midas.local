@@ -434,7 +434,7 @@ public function masterSavingExport($to){
 
 //Master Saving PDF Print
 public function masterSavingPdf($to){
-    $title = 'Master Saving';
+    $title = 'Master Saving Liability';
     $saving = new Saving;
     $savingsCollection = $saving->masterSavingsAsAt($to);
     $contributors = Saving::where('status','Active')
@@ -443,8 +443,8 @@ public function masterSavingPdf($to){
     $uniqueContributors = $contributors->unique('user_id');
 
     $pdf = PDF::loadView('Prints.masterSavingPdf',compact('title','savingsCollection','to','saving','uniqueContributors'));
-    //return $pdf->stream();
-    return $pdf->download('master-savings'.$to.'.pdf');
+    return $pdf->stream();
+    //return $pdf->download('master-savings'.$to.'.pdf');
 
 }
 
