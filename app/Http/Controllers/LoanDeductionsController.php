@@ -1088,7 +1088,7 @@ public function topUpLoan(Request $request){
         $loanDeductionCollection = $loanDeductionObj->findLoanDeductionByDate($from,$to);
 
         $uniqueDebtors = $loanDeductionCollection->unique('user_id');
-        $pdf= PDF::loadView('Prints.loan_balances_pdf',compact('loanDeductionCollection','to','from','$loanDeductionObj','uniqueDebtors'));
+        $pdf= PDF::loadView('Prints.loan_balances_pdf',compact('loanDeductionCollection','title','to','from','$loanDeductionObj','uniqueDebtors'));
         return $pdf->stream();
     }
 
@@ -1130,12 +1130,13 @@ public function topUpLoan(Request $request){
 
     //download consolidated loan inputs in PDF format
     public function consolidatedLoanBalancesPdf($from,$to){
+      $title="CONSOLIDATED LOAN INPUTS BALANCE";
         $consolidatedLoansObj = new Userconsolidatedloan;
 
         $collection = $consolidatedLoansObj->consolidatedLoanDeductionByDate($from,$to);
 
         $uniqueDebtors = $collection->unique('user_id');
-        $pdf= PDF::loadView('Prints.allConsolidatedLoanBalancesPdf',compact('collection','to','from','uniqueDebtors'));
+        $pdf= PDF::loadView('Prints.allConsolidatedLoanBalancesPdf',compact('collection','title','to','from','uniqueDebtors'));
         return $pdf->stream();
     }
 
