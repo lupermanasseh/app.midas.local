@@ -302,6 +302,8 @@ Route::post('/consolidatedLoanDeduction/update/{id}','LoanDeductionsController@u
 Route::get('/consolidatedLoanDeduction/remove/{id}','LoanDeductionsController@removeConsolidatedLoanDeduction');
 Route::get('/consolidatedloanbalances/form','LoanDeductionsController@findConsolidatedLoanBalances');
 Route::post('/consolidatedLoanBalances/find','LoanDeductionsController@consolidatedLoanBalancesResult');
+Route::get('/consolidatedloanbalance/excel/{from}/{to}','LoanDeductionsController@consolidatedLoanBalancesExcelExport');
+Route::get('/consolidatedloanbalance/pdf/{from}/{to}','LoanDeductionsController@consolidatedLoanBalancesPdf');
 });
 
 //Monthly Target Savings Routes
