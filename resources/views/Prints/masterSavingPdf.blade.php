@@ -11,6 +11,15 @@
 </head>
 
 <body>
+  <!-- Define header and footer blocks before your content -->
+  <div class="header small-text">
+  <!-- Page <span class="pagenum"></span> -->
+  {{$title}}
+</div>
+<div class="footer">
+   <img src="images/logo.png" class="logo_footer_pdf"/> | Page <span class="pagenum"></span>
+</div>
+
     <div class="midas-container">
 
         <section class="print-area">
@@ -75,7 +84,7 @@
                     </tr>
                     @endforeach
                     <tr>
-                        <th colspan="5">TOTAL</th>
+                        <th colspan="4">TOTAL</th>
                         <th>{{number_format($saving->savingAggregateAt($to),2,'.',',')}}</th>
                     </tr>
                 </tbody>

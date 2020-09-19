@@ -7,10 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?famaily=Open+Sans:300,400,600">
     <link rel="stylesheet" href="css/printpdf.css">
-    <title></title>
+    <title>{{$title}}</title>
 </head>
 
 <body>
+  <!-- Define header and footer blocks before your content -->
+  <div class="header small-text">
+  <!-- Page <span class="pagenum"></span> -->
+  {{$user->first_name}} {{$user->last_name}} | {{$title}}
+</div>
+<div class="footer">
+   <img src="images/logo.png" class="logo_footer_pdf"/> | Page <span class="pagenum"></span>
+</div>
+
     <div class="midas-container">
         {{-- <header class="header">
             <section class="midas-item-container">
