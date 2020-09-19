@@ -18,6 +18,7 @@ use App\Exports\defaultIppisPdfExport;
 use App\Imports\LoanDeductionImport;
 use App\Exports\midasFilterExport;
 use App\Exports\loanBalanceExport;
+use App\Exports\userConsolidatedLoanLedgerExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -1035,7 +1036,7 @@ public function topUpLoan(Request $request){
       return view('Prints.consolidatedloan_deductions_print',compact('title','consolidatedLoans','user'));
     }
 
-    //consolidated loan deductions print pdf
+    //individual consolidated loan deductions print pdf
     public function consolidatedLoanDeductionsPdf($id){
       $title ="Consolidated Loan History";
       $user = User::find($id);
@@ -1045,38 +1046,16 @@ public function topUpLoan(Request $request){
       return $pdf->stream();
     }
 
-    //form to find all user consolidated loan Balances
-      public function findConsolidatedLoanBalances(){
-          $title = 'Consolidated Loan Balances';
-        return view('LoanDeduction.consolidatedLoanBalancesFind',compact('title'));
-      }
 
-      //consolidated  loan balances liability
-      public function consolidatedLoanBalancesResult(Request $request){
-          $title = 'Loan Deduction Balances';
-          $consolidatedLoansObj = new Userconsolidatedloan;
-          $this->validate(request(), [
-               'to' =>'required|date',
-               ]);
 
-               $from = new Carbon('2016-02-01');
-               $from = $from->toDateString();
-               $to = $request['to'];
 
-          $collection = $consolidatedLoansObj->consolidatedLoanDeductionByDate($from,$to);
-
-          $uniqueDebtors = $collection->unique('user_id');
-
-          return view('LoanDeduction.consolidatedLoanBalancesResult',compact('title','collection','to','from','uniqueDebtors'));
-      }
-
-    //form to find loan Balances  //upload loan deductions form
+    //form to find loan individual Balances
       public function findLoanBalances(){
           $title = 'Find Loan Balances';
         return view('LoanDeduction.loanBalancesFind',compact('title'));
       }
 
-    //find loan balances liability
+    //individual loan balances liability result
     public function LoanBalancesResult(Request $request){
         $title = 'Loan Deduction Balances';
         $loanDeductionObj = new Ldeduction;
@@ -1095,14 +1074,13 @@ public function topUpLoan(Request $request){
         return view('LoanDeduction.loanBalancesResult',compact('title','loanSubCollection','to','from','$loanDeductionObj','uniqueDebtors'));
     }
 
-
-    //download in excel format loan Balances
+    //download in excel format individual loan Balances
     public function loanBalancesExcelExport($from,$to){
         $fileName = 'MIDAS_LOANBALANCES_'.$to.'.xlsx';
         return Excel::download(new loanBalanceExport($from,$to), $fileName);
     }
 
-    //download in PDF format loan Balances
+    //download in PDF format individual loan Balances
     public function loanBalancesPdf($from,$to){
         $title='Loan Deduction Balances';
         $loanDeductionObj = new Ldeduction;
@@ -1111,6 +1089,53 @@ public function topUpLoan(Request $request){
 
         $uniqueDebtors = $loanDeductionCollection->unique('user_id');
         $pdf= PDF::loadView('Prints.loan_balances_pdf',compact('loanDeductionCollection','to','from','$loanDeductionObj','uniqueDebtors'));
+        return $pdf->stream();
+    }
+
+
+///GENERAL LOAN CONSOLIDATED CODE
+
+
+//form to find all user consolidated loan Balances
+  public function findConsolidatedLoanBalances(){
+      $title = 'Consolidated Loan Balances';
+    return view('LoanDeduction.consolidatedLoanBalancesFind',compact('title'));
+  }
+
+
+  //consolidated  loan balances liability
+  public function consolidatedLoanBalancesResult(Request $request){
+      $title = 'Loan Deduction Balances';
+      $consolidatedLoansObj = new Userconsolidatedloan;
+      $this->validate(request(), [
+           'to' =>'required|date',
+           ]);
+
+           $from = new Carbon('2016-02-01');
+           $from = $from->toDateString();
+           $to = $request['to'];
+
+      $collection = $consolidatedLoansObj->consolidatedLoanDeductionByDate($from,$to);
+
+      $uniqueDebtors = $collection->unique('user_id');
+
+      return view('LoanDeduction.consolidatedLoanBalancesResult',compact('title','collection','to','from','uniqueDebtors'));
+  }
+
+    //download consolidated loan inputs in excel format
+    public function consolidatedLoanBalancesExcelExport($from,$to){
+        $fileName = 'MIDASCONSOLIDATED_LOANBALANCES_'.$to.'.xlsx';
+        return Excel::download(new userConsolidatedLoanLedgerExport($from,$to), $fileName);
+    }
+
+    //download consolidated loan inputs in PDF format
+    public function consolidatedLoanBalancesPdf($from,$to){
+        $consolidatedLoansObj = new Userconsolidatedloan;
+
+        $collection = $consolidatedLoansObj->consolidatedLoanDeductionByDate($from,$to);
+
+        $uniqueDebtors = $collection->unique('user_id');
+        $pdf= PDF::loadView('Prints.allConsolidatedLoanBalancesPdf',compact('collection','to','from','uniqueDebtors'));
         return $pdf->stream();
     }
 
