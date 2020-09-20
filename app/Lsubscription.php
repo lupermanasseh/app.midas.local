@@ -8,6 +8,7 @@ use App\Ldeduction;
 use App\Defaultcharge;
 use App\User;
 use App\Charts\membershipSpread;
+use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
@@ -308,6 +309,40 @@ public  function totalLoanDeductions($loan_id)
      return $user->first_name .' '.$user->last_name;
 }
 
+
+//Unique loan guarantos
+public function uniqueGuarantors(){
+
+  $g1 = DB::table('lsubscriptions')->whereNotNull('guarantor_id1')->pluck('guarantor_id1');
+  $g2 = DB::table('lsubscriptions')->whereNotNull('guarantor_id2')->pluck('guarantor_id2');
+  $concatenated = $g1->concat($g2);
+  return $uniqueGuarantors = $concatenated->unique();
+}
+
+//first guarantor
+public static function guarantorAsFirst($userid){
+ return static::where('guarantor_id1', '=', $userid)
+                ->get();
+}
+
+//second guarantor
+public static function guarantorAsSecond($userid){
+return static::where('guarantor_id2', '=', $userid)
+                    ->get();
+
+}
+
+//total number loans guaranteed by a user
+public function loanGuarantorCount($id){
+
+ $g1 = Lsubscription::where('guarantor_id1', '=', $id)
+                    ->count();
+ $g2 = Lsubscription::where('guarantor_id2', '=', $id)
+                    ->count();
+          return $g1+$g2;
+}
+
+
 public static function subGroup(){
 
     // $result = static::selectRaw('products.name AS Product, count(*) Numbers')
@@ -348,6 +383,22 @@ public static function userActivity($id){
             $userActivity->labels(['Active','Pending','Reviewed','Paid']);
             $userActivity->dataset('Foot Prints', 'line', [$active,$pending,$reviewed,$paid]);
             return $userActivity;
+}
+
+//return user photo
+
+public function userPhoto($id){
+    $user= User::find($id);
+    return $user->photo;
+}
+
+//image count
+public function imageCount($user_id){
+  $gs = DB::table('users')->select('photo')
+                          ->where('id',$user_id)
+                          ->whereNotNull('photo')
+                          ->get();
+    return $gs->count();
 }
 
 
