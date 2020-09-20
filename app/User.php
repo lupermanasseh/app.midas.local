@@ -7,6 +7,7 @@ use App\Psubscription;
 use App\Lsubscription;
 use App\Charts\membershipSpread;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -311,16 +312,7 @@ public function archiveAllLoanBalances($id)
 
 
 
-    //Number of active product subscriptions
-    // public  function activeProductSub($id)
-    // {
-    //     //Number of active product subsriptions
-    //     $activeProdSub = Psubscription::where('user_id', '=', $id)
-    //     ->where(function ($query) {
-    //         $query->where('status', '=', 'Active');
-    //     })->get();
-    //     return $activeProdSub->count();
-    // }
+
 
     public function requiredPercent($amt){
         return 0.3 * $amt;
@@ -353,18 +345,20 @@ public function archiveAllLoanBalances($id)
        return $user;
    }
 
-   //Product guarantor count
-   public function guarantorCount($id){
-        return Psubscription::where('guarantor_id', '=', $id)->count();
+   //image count
+   public function imageCount($user_id){
+     $gs = DB::table('users')->select('photo')
+                             ->where('id',$user_id)
+                             ->whereNotNull('photo')
+                             ->get();
+       return $gs->count();
    }
 
-   //Loan guarantor count
-   public function loanGuarantorCount($id){
-    return Lsubscription::where('guarantor_id1', '=', $id)
-                        ->orWhere('guarantor_id2',$id)
-                        ->count();
-}
-
+   //Product guarantor count
+   //OBSOLETE FUNCTION
+   // public function guarantorCount($id){
+   //      return Psubscription::where('guarantor_id', '=', $id)->count();
+   // }
 
         //Search User
 public function searchUser($param){
