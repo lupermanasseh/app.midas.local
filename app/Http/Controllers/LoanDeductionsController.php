@@ -170,16 +170,20 @@ public function populate(){
 
 
 
-$gs = DB::table('users')->select('photo')
-                        ->where('id',4)
-                        ->whereNotNull('photo')
-                        ->get();
-  $g =  $gs->count();
+
 // $g1 = DB::table('lsubscriptions')->where('guarantor_id1')->pluck('guarantor_id1');
 // $g2 = DB::table('lsubscriptions')->whereNotNull('guarantor_id2')->pluck('guarantor_id2');
 // $concatenated = $g1->concat($g2);
 // $uniqueGuarantors = $concatenated->unique();
-dd($g);
+
+
+//
+// $gs = DB::table('users')->select('photo')
+//                         ->where('id',4)
+//                         ->whereNotNull('photo')
+//                         ->get();
+//   $g =  $gs->count();
+
 }
 
 
