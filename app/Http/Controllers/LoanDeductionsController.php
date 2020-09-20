@@ -155,12 +155,31 @@ public function populate(){
 
 //4
 
-$uniqueDebtors = Userconsolidatedloan::all()->SortBy('user_id')->unique('user_id');
-foreach($uniqueDebtors as $debtor){
-  $newConsolidatedBalance = new Userconsolidatedloan();
-  $newConsolidatedBalance->userConsolidatedBalances($debtor->user_id);
-}
+// $uniqueDebtors = Userconsolidatedloan::all()->SortBy('user_id')->unique('user_id');
+// foreach($uniqueDebtors as $debtor){
+//   $newConsolidatedBalance = new Userconsolidatedloan();
+//   $newConsolidatedBalance->userConsolidatedBalances($debtor->user_id);
+// }
 
+//Test guarantor dashboard
+// $g1 = Lsubscription::where('guarantor_id1', '=', $id)
+//                    ->count();
+// $g2 = Lsubscription::where('guarantor_id2', '=', $id)
+//                    ->count();
+//          return $g1+$g2;
+
+
+
+$gs = DB::table('users')->select('photo')
+                        ->where('id',4)
+                        ->whereNotNull('photo')
+                        ->get();
+  $g =  $gs->count();
+// $g1 = DB::table('lsubscriptions')->where('guarantor_id1')->pluck('guarantor_id1');
+// $g2 = DB::table('lsubscriptions')->whereNotNull('guarantor_id2')->pluck('guarantor_id2');
+// $concatenated = $g1->concat($g2);
+// $uniqueGuarantors = $concatenated->unique();
+dd($g);
 }
 
 
