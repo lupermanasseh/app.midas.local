@@ -430,9 +430,25 @@ public function paidLoanEdit($id)
         return view('LoanSub.userLoanSub',compact('title','activeLoans','pendingLoans','user','saving'));
     }
 
+//guarantor dashboard
+public function guarantorDashboard(){
+    $title ='Loan Guarantors';
+    $newSubObj = new Lsubscription;
+    $review = Lsubscription::find(8);
+    $uniqueGuarantors = $newSubObj->uniqueGuarantors();
+    return view('LoanSub.guarantors',compact('uniqueGuarantors','title','review'));
+}
+
+//guarantor details page
+public function guarantorDetails($id){
+    $title ='Guarantor Details';
+    $newUser = User::find($id);
+    $firstGuarantor = Lsubscription::guarantorAsFirst($id);
+    $secondGuarantor = Lsubscription::guarantorAsSecond($id);
+    return view('LoanSub.guarantorDetails',compact('firstGuarantor','secondGuarantor','title','newUser'));
+}
 
     //show form for reviewing user loan
-
     public function review($id){
         $title ='Review Loan Subscription';
         $review = Lsubscription::find($id);
