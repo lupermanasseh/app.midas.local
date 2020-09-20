@@ -187,6 +187,9 @@ Route::post('/loandisbursement/result','LoanSubscriptionController@loanDisbursem
 Route::post('/edit/disbursementdate','LoanSubscriptionController@editDisbursementDate');
 //
 Route::get('/loandisbursement/date','LoanSubscriptionController@loanDisbursementSingleDate');
+Route::get('/guarantor/dashboard','LoanSubscriptionController@guarantorDashboard');
+Route::get('/guarantor/Details/{id}','LoanSubscriptionController@guarantorDetails');
+
 });
 
 //Monthly Savings Routes
