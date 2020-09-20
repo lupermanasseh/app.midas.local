@@ -63,7 +63,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-right: 3px solid #0091ea;
+  border-right: 1.5px solid #0091ea;
+  border-bottom: 1px solid #0091ea;
 }
 
 .profile__heading {
@@ -215,5 +216,17 @@
 
 .custom-width {
   width: 70%;
+}
+
+.guarantor_photo {
+  height: 1.9rem;
+  width: 1.9rem;
+  border-radius: 50%;
+}
+
+.guarantor_count {
+  font-size: 1.2rem;
+  color: #911937;
+  font-weight: bold;
 }
 

@@ -60,30 +60,6 @@ body {
   width: 7.25rem;
 }
 
-/* code to format pdf */
-.footer {
-width: 100%;
-text-align: center;
-position: fixed;
-}
-.header {
-top: 0px;
-}
-.small-text{
-font-size: 9px;
-}
-.footer {
-bottom: 0px;
-}
-.pagenum:before {
-content: counter(page);
-}
-.logo_footer_pdf {
-height: 0.9rem;
-width: 0.9rem;
-}
-/* end pdf format code */
-
 .midas-item-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -195,3 +171,36 @@ th {
   border-radius: 2px;
   font-size: 0.6rem;
 }
+
+/* code to format pdf */
+
+.footer {
+  width: 100%;
+  text-align: center;
+  position: fixed;
+}
+
+.header {
+  top: 0px;
+}
+
+.small-text {
+  font-size: 9px;
+}
+
+.footer {
+  bottom: 0px;
+}
+
+.pagenum:before {
+  content: counter(page);
+}
+
+.logo_footer_pdf {
+  height: 0.9rem;
+  width: 0.9rem;
+  border-radius: 50%;
+}
+
+/* end pdf format code */
+
