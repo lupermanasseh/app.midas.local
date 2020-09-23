@@ -126,7 +126,8 @@ public function findLoansByDisbursementDate($date){
   public function loanBalance($id){
 
     $loanSub = Lsubscription::find($id);
-     $loanAmount = $loanSub->amount_approved;
+    $loanAmount = $loanSub->amount_approved+$loanSub->topup_amount;
+     //$loanAmount = $loanSub->amount_approved+$loanSub->topup_amount;
 
     //3 get sum deductions for the product
 
@@ -140,7 +141,7 @@ public function findLoansByDisbursementDate($date){
         $loanSub->loan_status = 'Inactive';
         $loanSub->loan_end_date = now()->toDateString();
         //$loanSub->review_by = auth()->id();
-            $loanSub->save();
+        $loanSub->save();
     }
 
 }
@@ -313,8 +314,14 @@ public  function totalLoanDeductions($loan_id)
 //Unique loan guarantos
 public function uniqueGuarantors(){
 
-  $g1 = DB::table('lsubscriptions')->whereNotNull('guarantor_id1')->pluck('guarantor_id1');
-  $g2 = DB::table('lsubscriptions')->whereNotNull('guarantor_id2')->pluck('guarantor_id2');
+  $g1 = DB::table('lsubscriptions')
+          ->whereNotNull('guarantor_id1')
+          ->where('loan_status','active')
+          ->pluck('guarantor_id1');
+  $g2 = DB::table('lsubscriptions')
+          ->whereNotNull('guarantor_id2')
+          ->where('loan_status','active')
+          ->pluck('guarantor_id2');
   $concatenated = $g1->concat($g2);
   return $uniqueGuarantors = $concatenated->unique();
 }
@@ -325,7 +332,7 @@ public static function guarantorAsFirst($userid){
                 ->get();
 }
 
-//second guarantor
+// //second guarantor
 public static function guarantorAsSecond($userid){
 return static::where('guarantor_id2', '=', $userid)
                     ->get();
@@ -336,10 +343,39 @@ return static::where('guarantor_id2', '=', $userid)
 public function loanGuarantorCount($id){
 
  $g1 = Lsubscription::where('guarantor_id1', '=', $id)
+                    ->where('loan_status','Active')
                     ->count();
  $g2 = Lsubscription::where('guarantor_id2', '=', $id)
+                      ->where('loan_status','active')
                     ->count();
           return $g1+$g2;
+}
+
+//find total liability by user
+public function totalLiability($user_id){
+  $sumBal =0;
+  $userGuaranteedLoans = $this->uniqueDebtors($user_id);
+   foreach($userGuaranteedLoans as $loan ){
+     $newUser = new User;
+     $bal = $newUser->allLoanBalances($loan);
+     $sumBal =$sumBal+$bal;
+   }
+   return $sumBal*0.5;
+}
+
+//Unique active loans by a given user
+public function uniqueDebtors($userid){
+
+  $g1 = DB::table('lsubscriptions')
+            ->where('guarantor_id1',$userid)
+            ->where('loan_status','active')
+            ->pluck('user_id');
+  $g2 = DB::table('lsubscriptions')
+            ->where('guarantor_id2',$userid)
+            ->where('loan_status','active')
+            ->pluck('user_id');
+  $concatenated = $g1->concat($g2);
+  return $uniqueDebtors = $concatenated->unique();
 }
 
 
