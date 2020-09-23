@@ -330,7 +330,6 @@
             <div class="col s12">
                 <span class="text-teal">CONSOLIDATED LOAN LEDGER</span>
             </div>
-
         </div>
         <div class="row">
             <div class="col s12">
