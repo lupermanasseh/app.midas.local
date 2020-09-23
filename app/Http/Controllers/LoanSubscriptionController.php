@@ -435,7 +435,7 @@ public function guarantorDashboard(){
     $title ='Loan Guarantors';
     $newSubObj = new Lsubscription;
     $review = Lsubscription::find(8);
-    $uniqueGuarantors = $newSubObj->uniqueGuarantors();
+    $uniqueGuarantors = $newSubObj->uniqueGuarantors()->sort();
     return view('LoanSub.guarantors',compact('uniqueGuarantors','title','review'));
 }
 
@@ -443,9 +443,10 @@ public function guarantorDashboard(){
 public function guarantorDetails($id){
     $title ='Guarantor Details';
     $newUser = User::find($id);
+    $newSubObj = new Lsubscription;
     $firstGuarantor = Lsubscription::guarantorAsFirst($id);
     $secondGuarantor = Lsubscription::guarantorAsSecond($id);
-    return view('LoanSub.guarantorDetails',compact('firstGuarantor','secondGuarantor','title','newUser'));
+    return view('LoanSub.guarantorDetails',compact('firstGuarantor','secondGuarantor','title','newUser','newSubObj'));
 }
 
     //show form for reviewing user loan
