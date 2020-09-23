@@ -7,10 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?famaily=Open+Sans:300,400,600">
     <link rel="stylesheet" href="css/printpdf.css">
-    <title></title>
+    <title><?php echo e($title); ?></title>
 </head>
 
 <body>
+  <!-- Define header and footer blocks before your content -->
+  <div class="header small-text">
+  <!-- Page <span class="pagenum"></span> -->
+  <?php echo e($userObj->first_name); ?> <?php echo e($userObj->last_name); ?> | <?php echo e($title); ?>
+
+</div>
+<div class="footer">
+   <img src="images/logo.png" class="logo_footer_pdf"/> | Page <span class="pagenum"></span>
+</div>
+
     <div class="midas-container">
         
         <section class="print-area">
@@ -27,7 +37,8 @@
                                 1 Hospital Road, Mission Ward<br />
                                 Makurdi, Benue State<br />
                                 mindastouch@gmail.com<br>
-                                +234 80-900-987-090<br>
+                                midastouchonline.co<br>
+                                +234 81-1890-1411<br>
                             </span>
                         </td>
                         <td style=" border:0;">
@@ -82,7 +93,7 @@
                                 Loan Amount: <?php echo e(number_format($loan->amount_approved,2,'.',',')); ?><br />
                                 Tenor: <?php echo e($loan->custom_tenor); ?> Mnth(s)<br />
                                 Monthly Repymnt: <?php echo e(number_format($loan->monthly_deduction,2,'.',',')); ?><br />
-                                start Date: <?php echo e($loan->loan_start_date->toFormattedDateString()); ?><br />
+                                Start Date: <?php echo e($loan->loan_start_date->toFormattedDateString()); ?><br />
                                 End Date: <?php echo e($loan->loan_end_date->toFormattedDateString()); ?>
 
                                 <br />

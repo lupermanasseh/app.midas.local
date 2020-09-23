@@ -41,11 +41,11 @@
             <span><i class="small material-icons pink-text lighten-4">looks</i></span>
             <span class="profile__user-name">Guarantor 1:
                 <?php echo e($review->user->userInstance($review->guarantor_id1)->first_name); ?> (<a
-                    href="/#"><?php echo e($review->user->loanGuarantorCount($review->guarantor_id1)); ?></a>)
+                href="/#"><?php echo e($review->loanGuarantorCount($review->guarantor_id1)); ?></a>)
             </span>
             <span class="profile__user-name">Guarantor 2:
                 <?php echo e($review->user->userInstance($review->guarantor_id2)->first_name); ?> (<a
-                    href="/#"><?php echo e($review->user->loanGuarantorCount($review->guarantor_id2)); ?></a>)
+                href="/#"><?php echo e($review->loanGuarantorCount($review->guarantor_id2)); ?></a>)
             </span>
             <span class="profile__user-name">Repayment N <?php echo e(number_format($review->monthly_deduction,2,'.',',')); ?></span>
             <span class="profile__user-name"><a href="/userLoan/discard/<?php echo e($review->id); ?>">Not sure, remove</a></span>
@@ -75,8 +75,8 @@
                 </div>
 
                 <div class="input-field col s12 m6 l6">
-                    <input id="amount_approved" name="amount_approved" value="<?php echo e($review->amount_applied); ?>" type="text"
-                        class="validate">
+                    <input id="amount_approved" name="amount_approved" value="<?php echo e($review->amount_applied); ?>" type="number"
+                        class="validate" required>
                     <label for="amount_approved">Amount Approved</label>
                 </div>
             </div>
@@ -102,4 +102,5 @@
     </div>
 </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('Layouts.admin-app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

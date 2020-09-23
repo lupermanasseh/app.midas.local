@@ -198,7 +198,7 @@
              <div class="row">
                  <div class="input-field col s12 m4 l4">
                      <input id="sub_id" name="sub_id" value="<?php echo e($loan->id); ?>" type="hidden">
-                     <input id="amount" name="amount" type="text" class="validate">
+                     <input id="amount" name="amount" type="number" class="validate">
                      <label for="amount">Enter Amount</label>
                  </div>
                  <div class="input-field col s12 m4 l4">
@@ -238,7 +238,7 @@
               <div class="row">
                   <div class="input-field col s12 m2 l2">
                       <input id="sub_id" name="sub_id" value="<?php echo e($loan->id); ?>" type="hidden">
-                      <input id="amount" name="amount" type="text" class="validate">
+                      <input id="amount" name="amount" type="number" class="validate">
                       <label for="amount">Enter Amount</label>
                   </div>
                   <div class="input-field col s12 m2 l2">
@@ -299,7 +299,7 @@
                      <label>Select Parent Loan</label>
                  </div>
                  <div class="input-field col s12 m4 l4">
-                     <input placeholder="Top Up Amount" id="amount" name="amount" type="text" class="validate">
+                     <input placeholder="Top Up Amount" id="amount" name="amount" type="number" class="validate">
                      <label for="amount">Top Up Amount</label>
                  </div>
                  <div class="input-field col s12 m4 l4">
@@ -310,12 +310,12 @@
 
                <div class="row">
                  <div class="input-field col s12 m3 l3">
-                     <input placeholder="Loan tenor" id="tenor" name="tenor" type="text" class="validate">
+                     <input placeholder="Loan tenor" id="tenor" name="tenor" type="number" class="validate">
                      <label for="tenor">Tenor</label>
                  </div>
 
                  <div class="input-field col s12 m3 l3">
-                     <input placeholder="Monthly deduction" id="deduction" name="deduction" type="text"
+                     <input placeholder="Monthly deduction" id="deduction" name="deduction" type="number"
                          class="validate">
                      <label for="tenor">Deduction</label>
                  </div>

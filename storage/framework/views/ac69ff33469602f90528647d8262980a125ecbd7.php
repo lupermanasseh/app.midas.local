@@ -21,7 +21,6 @@
    <img src="images/logo.png" class="logo_footer_pdf"/> | Page <span class="pagenum"></span>
 </div>
 
-
     <div class="midas-container">
         
         <section class="print-area">
@@ -57,7 +56,7 @@
         </section>
 
         <section>
-            <h4 class="statement-title">LOAN DEDUCTION BALANCES</h4>
+            <h4 class="statement-title">ALL CONSOLIDATED LOAN BALANCES</h4>
         </section>
 
         <!-- <section class="print-area">
@@ -104,7 +103,7 @@
                       <td><?php echo e($listing->user->payment_number); ?></td>
                       <td><?php echo e($to); ?></td>
                       <td>
-                        <?php echo e(number_format($listing->allLoanBalancesByDate($loanDeductionCollection,$listing->user_id),2,'.',',')); ?>
+                        <?php echo e(number_format($listing->userBalancesByDate($collection,$listing->user_id),2,'.',',')); ?>
 
                       </td>
                   </tr>
@@ -112,7 +111,7 @@
                   <?php if(count($uniqueDebtors)>=1): ?>
                   <tr>
                       <th colspan="4">Total</th>
-                      <th><?php echo e(number_format($listing->loanBalanceAggregateAt($loanDeductionCollection),2,'.',',')); ?></th>
+                      <th><?php echo e(number_format($listing->consolidatedLoanBalanceAggregateAt($collection),2,'.',',')); ?></th>
                   </tr>
                   <?php else: ?>
                   <?php endif; ?>

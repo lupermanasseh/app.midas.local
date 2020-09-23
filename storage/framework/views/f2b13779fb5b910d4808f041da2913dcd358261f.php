@@ -7,10 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?famaily=Open+Sans:300,400,600">
     <link rel="stylesheet" href="css/printpdf.css">
-    <title></title>
+    <title><?php echo e($title); ?></title>
 </head>
 
 <body>
+  <!-- Define header and footer blocks before your content -->
+  <div class="header small-text">
+  <!-- Page <span class="pagenum"></span> -->
+  <?php echo e($userObj->first_name); ?> <?php echo e($userObj->last_name); ?> | <?php echo e($title); ?>
+
+</div>
+<div class="footer">
+   <img src="images/logo.png" class="logo_footer_pdf"/> | Page <span class="pagenum"></span>
+</div>
     <div class="midas-container">
         
         <section class="print-area">
@@ -122,10 +131,20 @@
 
                         </td>
                         <td style="text-align:right; margin-right:1em;">
-                            <?php echo e(number_format($statement->amount_withdrawn,2,'.',',')); ?></td>
-                        <td style="text-align:right; margin-right:1em;">
-                            <?php echo e(number_format($statement->amount_saved,2,'.',',')); ?>
+                          <?php if($statement->amount_withdrawn): ?>
+                          <?php echo e(number_format($statement->amount_withdrawn,2,'.',',')); ?>
 
+                          <?php else: ?>
+                          -
+                          <?php endif; ?>
+                          </td>
+                        <td style="text-align:right; margin-right:1em;">
+                          <?php if($statement->amount_saved): ?>
+                          <?php echo e(number_format($statement->amount_saved,2,'.',',')); ?>
+
+                          <?php else: ?>
+                          -
+                          <?php endif; ?>
                         </td>
                         <td style="text-align:right; margin-right:1em;">
                             <?php echo e(number_format($statement->balances,2,'.',',')); ?>

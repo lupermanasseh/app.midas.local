@@ -11,6 +11,16 @@
 </head>
 
 <body>
+  <!-- Define header and footer blocks before your content -->
+  <div class="header small-text">
+  <!-- Page <span class="pagenum"></span> -->
+  <?php echo e($title); ?>
+
+</div>
+<div class="footer">
+   <img src="images/logo.png" class="logo_footer_pdf"/> | Page <span class="pagenum"></span>
+</div>
+
     <div class="midas-container">
 
         <section class="print-area">
@@ -19,24 +29,23 @@
                     <tr>
                         <td style="width:20%; border:0;"><img src="images/logo2.png" alt="" class="logo">
                         </td>
-                        <td align="left" style="width:16%; border:0;">
+                        <td style="text-align:left; margin-left:1em; width:16%; border:0;">
 
                             <span>
                                 <br />
                                 1 Hospital Road, Mission Ward<br />
                                 Makurdi, Benue State<br />
                                 mindastouch@gmail.com<br>
-                                +234 80-900-987-090<br>
+                                +234 8118901411<br>
                             </span>
                         </td>
                         <td style=" border:0;">
-
                         </td>
                         <td style=" border:0;"></td>
-                        <td align="left" style=" border:0;">
+                        <td style="text-align:left; margin-left:1em; border:0;">
                             <span class="profile-name">PERIOD</span><br />
                             
-                            <span>To: <?php echo e($to); ?></span><br />
+                            <span>Closing: <?php echo e($to); ?></span><br />
                             <span>Date Printed: <?php echo e(now()->toFormattedDateString()); ?></span><br />
                         </td>
                     </tr>
@@ -61,7 +70,6 @@
                         <th>NAME</th>
                         <th>IPPIS NO</th>
                         <th>MEMBER TYPE</th>
-                        <th>CLOSING DATE</th>
                         <th>BALANCE</th>
                     </tr>
                 </thead>
@@ -72,14 +80,13 @@
                         <td><?php echo e($listing->user->first_name); ?> <?php echo e($listing->user->last_name); ?></td>
                         <td><?php echo e($listing->user->payment_number); ?></td>
                         <td><?php echo e($listing->user->membership_type); ?></td>
-                        <td><?php echo e($to); ?></td>
                         <td><?php echo e($listing->userAggregateAt($savingsCollection,$listing->user_id)); ?>
 
                         </td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <th colspan="5">Summary</th>
+                        <th colspan="4">TOTAL</th>
                         <th><?php echo e(number_format($saving->savingAggregateAt($to),2,'.',',')); ?></th>
                     </tr>
                 </tbody>

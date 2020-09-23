@@ -69,15 +69,19 @@
 
             <div class="row">
 
-                <div class="input-field col s12 m6 l6">
+                <div class="input-field col s12 m4 l4">
                     <input id="sub_id" name="sub_id" type="hidden" value="<?php echo e($review->id); ?>" class="validate">
                     <input id="amount_approved" name="amount_approved" value="<?php echo e($review->amount_approved); ?>" type="text"
                         class="validate" disabled>
                     <label for="amount_approved">Amount Approved</label>
                 </div>
-                <div class="input-field col s12 m6 l6">
+                <div class="input-field col s12 m4 l4">
                     <input id="start_date" name="start_date" type="text" class="validate datepicker" required>
                     <label for="start_date">Loan Start Date</label>
+                </div>
+                <div class="input-field col s12 m4 l4">
+                    <input id="disbursement_date" name="disbursement_date" type="text" class="validate datepicker" required>
+                    <label for="disbursement_date">Disbursement Date</label>
                 </div>
             </div>
 
@@ -86,4 +90,5 @@
     </div>
 </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('Layouts.admin-app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

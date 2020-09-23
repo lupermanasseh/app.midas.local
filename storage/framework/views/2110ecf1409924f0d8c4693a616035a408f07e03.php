@@ -23,20 +23,20 @@
 
 <div class="input-field col s12 m3 l3">
     <input id="credit" name="credit" value="<?php if($deduction->amount_deducted): ?>
-    <?php echo e(number_format($deduction->amount_deducted,3,'.','')); ?>
+    <?php echo e(number_format($deduction->amount_deducted,2,'.','')); ?>
 
     <?php else: ?>
-    <?php endif; ?>" type="text" class="validate">
+    <?php endif; ?>" type="number" class="validate">
     <label for="credit">Credit</label>
 </div>
 
 <div class="input-field col s12 m3 l3">
     <input id="debit" name="debit" value="<?php if($deduction->amount_debited): ?>
-    <?php echo e(number_format($deduction->amount_debited,3,'.','')); ?>
+    <?php echo e(number_format($deduction->amount_debited,2,'.','')); ?>
 
     <?php else: ?>
     <?php endif; ?>
-    " type="text" class="validate">
+    " type="number" class="validate">
     <label for="debit">Debit</label>
 </div>
 <div class="input-field col s12 m3 l3">
@@ -68,11 +68,7 @@
         <label for="entry_date">Date</label>
     </div>
 
-    <!-- <div class="input-field col s12 m4 l4">
-        <input id="subid" name="subid" value="<?php echo e($deduction->lsubscription_id); ?>" type="hidden"
-            class="validate">
 
-    </div> -->
 </div>
 
 <!-- <div class="row">
