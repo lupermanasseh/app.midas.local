@@ -129,20 +129,6 @@ class User extends Authenticatable
         return $this->hasMany(Defaultcharge::class);
     }
 
-    //Total sum deductible for product subscription
-    // public function productSubscriptionTotal($id)
-    // {
-
-    //     return Psubscription::where('user_id', '=', $id)
-    //     ->where(function ($query) {
-    //         $query->where('status', '=', 'Active');
-    //     })->with(['user'=> function ($q){
-    //         $q->where('status','Active');
-    //     }])
-    //     ->sum('monthly_repayment');
-    // }
-
-
 
     //Total consolidated loan debit
     public function consolidatedLoanDebitTotal($userid)
@@ -207,6 +193,21 @@ class User extends Authenticatable
             }
             return $sumBal;
         }
+
+        //individual loan balance bu subscription id
+        public function singleLoanBalance($subid)
+        {
+
+            $lsub = Lsubscription::find($subid);
+                //$totalBal=0;
+                $approved_amt = $lsub->amount_approved;
+                $deductions = $lsub->totalLoanDeductions($subid);
+                return $bal = $approved_amt-$deductions;
+
+        }
+
+
+
 
 //Restructured loans methods
 
