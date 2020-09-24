@@ -15,15 +15,15 @@ class LegacyLoanImport implements ToModel,WithHeadingRow
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     public function __construct($rand){
-     
+
         $this->string = $rand;
-       
+
     }
 
     public function model(array $row)
     {
-        
-        
+
+
         return new Lsubscription([
             //
                'product_id' => $row['product_id'],
@@ -32,13 +32,14 @@ class LegacyLoanImport implements ToModel,WithHeadingRow
                'guarantor_id2' => $row['guarantor_two'],
                'amount_approved' => $row['amount'],
                'monthly_deduction' => $row['deduction'],
-               'amount_applied' => $row['applied'],
+               //'amount_applied' => $row['applied'],
                'custom_tenor' => $row['tenor'],
                //'net_pay' => $row['net'],
+               'disbursement_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['disbursement']),
                'loan_start_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['start']),
                'loan_end_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['end']),
                'ref' => $this->string,
-          
+
         ]);
     }
 
