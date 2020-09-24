@@ -28,6 +28,7 @@ class Lsubscription extends Model
         'amount_applied',
         'monthly_deduction',
         'net_pay',
+        'disbursement_date',
     ];
 
 
