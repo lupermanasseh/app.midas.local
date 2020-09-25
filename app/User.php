@@ -129,6 +129,11 @@ class User extends Authenticatable
         return $this->hasMany(Defaultcharge::class);
     }
 
+    //Relationship with loan master deductions
+    public function masterdeduct(){
+        return $this->hasMany(Masterdeduction::class);
+    }
+
 
     //Total consolidated loan debit
     public function consolidatedLoanDebitTotal($userid)
