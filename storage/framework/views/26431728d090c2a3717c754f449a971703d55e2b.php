@@ -74,6 +74,7 @@
                         <tr>
                             <th>DESCRIPTION</th>
                             <th>BALANCE</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,6 +84,9 @@
                             <td>
                                 <a
                                     href="/saving/listings/<?php echo e($user->id); ?>"><?php echo e(number_format($saving->netBalance($user->id),2,'.',',')); ?></a>
+                            </td>
+                            <td>
+                                <a href="/saving/withdraw/<?php echo e($user->id); ?>" class="btn pink darken-4" target="_blank"> 25% withdrawal</a> | <a href="" class="btn red lighten-2"> Full withdrawal</a>
                             </td>
                         </tr>
                         <?php if(count($targetsr)>=1): ?>
