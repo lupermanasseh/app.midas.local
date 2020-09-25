@@ -36,8 +36,8 @@
                 <span class="black-text sub-profile">Sex</span>
                 <span class="profile__user-status grey-text lighten-2">{{$user->sex}}</span> --}}
             </div>
-            <p><a href="/saving/withdraw/{{$user->id}}" class="btn pink darken-4"> 25% withdrawal</a></p>
-            <p><a href="" class="btn red lighten-2"> Full withdrawal</a></p>
+            <!-- <p><a href="/saving/withdraw/" class="btn pink darken-4"> 25% withdrawal</a></p>
+            <p><a href="" class="btn red lighten-2"> Full withdrawal</a></p> -->
 
             {{-- <span><a href="/editProfile/{{$user->id}}" class="pink-text darken-2">Edit</a></span> --}}
         </div>

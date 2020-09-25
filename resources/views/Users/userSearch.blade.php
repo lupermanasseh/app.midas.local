@@ -76,15 +76,19 @@
                         <tr>
                             <th>DESCRIPTION</th>
                             <th>BALANCE</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <tr>
-                            <td>Savings (Contribution)</td>
+                            <td>Savings</td>
                             <td>
                                 <a
                                     href="/saving/listings/{{$user->id}}">{{number_format($saving->netBalance($user->id),2,'.',',')}}</a>
+                            </td>
+                            <td>
+                                <a href="/saving/withdraw/{{$user->id}}" class="btn pink darken-4" target="_blank"> 25% withdrawal</a> | <a href="" class="btn red lighten-2"> Full withdrawal</a>
                             </td>
                         </tr>
                         @if(count($targetsr)>=1)
