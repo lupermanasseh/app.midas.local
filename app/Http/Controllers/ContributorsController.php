@@ -265,20 +265,23 @@ public function withdrawalStore(Request $request){
             $newsaving->status = 'Active';
             $newsaving->created_by = auth()->user()->first_name;
             $newsaving->save();
-            if($newsaving->save()) {
-                 //send saving debit message
-                 $currentBalance = number_format($newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id),2,'.',',');
-                 $client = new Client;
-                 $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
-                 $to = $phone;
-                 $from= 'MIDAS';
-                 $message = 'Debit alert. Acct: Savings. Amount: N' .number_format($amt,2,'.',',').'. Balance: N'. $currentBalance;
-                $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
+            // if($newsaving->save()) {
+            //      //send saving debit message
+            //      $currentBalance = number_format($newsaving->totalCredit($user_id)-$newsaving->totalDebit($user_id),2,'.',',');
+            //      $client = new Client;
+            //      $api = '9IGspBnLAjWENmr9nPogQRN9PuVwAHsSPtGi5szTdBfVmC2leqAe8vsZh6dg';
+            //      $to = $phone;
+            //      $from= 'MIDAS';
+            //      $message = 'Debit alert. Acct: Savings. Amount: N' .number_format($amt,2,'.',',').'. Balance: N'. $currentBalance;
+            //     $url = 'https://www.bulksmsnigeria.com/api/v1/sms/create?api_token='.$api.'&from='.$from.'&to='.$to.'&body='.$message.'&dnd=1';
+            //
+            //     $response = $client->request('GET', $url,['verify'=>false]);
+            //     toastr()->success('Saving account debited successfully!');
+            //     return redirect('/recent/savings');
+            // }
 
-                $response = $client->request('GET', $url,['verify'=>false]);
-                toastr()->success('Saving account debited successfully!');
-                return redirect('/recent/savings');
-            }
+            toastr()->success('Saving account debited successfully!');
+            return redirect('/recent/savings');
 
             toastr()->error('An error has occurred trying to debit your saving account');
             return back();
