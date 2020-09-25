@@ -14,14 +14,15 @@ class IppisAnalysisImport implements ToModel,WithHeadingRow
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     public function __construct($rand){
-        $this->string = $rand; 
+        $this->string = $rand;
     }
-    
+
     public function model(array $row)
     {
         return new Masterdeduction([
             //
-            'ippis_no' => $row['ippis_number'],
+            //'ippis_no' => $row['ippis_number'],
+            'ippis_no' => $row['reg_no'],
             'name' => $row['name'],
             'entry_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['entry_date']),
             'description' => $row['description'],
