@@ -58,7 +58,7 @@
                 <div class="input-field col s4">
                     <input id="first_name" name="first_name" value="{{$nok->first_name}}" type="text" class="validate"
                         required>
-                    <label for="first_name">Surname</label>
+                    <label for="first_name">First Name</label>
                 </div>
 
                 <div class="input-field col s4">

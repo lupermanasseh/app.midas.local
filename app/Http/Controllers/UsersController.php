@@ -172,7 +172,7 @@ public function editBank($id){
             'first_name' =>'required|string',
             'last_name' =>'required|string',
             'other_name' =>'nullable|string',
-            'email' =>'required|email',
+            'email' =>'nullable|email',
             'phone' =>'required',
         ]);
 
