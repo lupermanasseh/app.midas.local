@@ -243,17 +243,17 @@ try{
     $myLoanSubscription = new Lsubscription;
     //Find user cumulative deduction by id
     $cumulativeDeduct = Masterdeduction::find($id);
-    $ippis_no = $cumulativeDeduct->ippis_no;
+    $user_id = $cumulativeDeduct->ippis_no; // reg no replaces ippis_no in the database
 
     //get total ippis deduction
     $ippisCumulativeDeduction = $cumulativeDeduct->cumulative_amount;
 
     //find the user id using the IPPIS NUMBER
-    $user_id = User::userID($ippis_no);
-    if($user_id==0){
-        toastr()->error('Wrong IPPIS Number, please check.');
-        return back();
-    }
+    // $user_id = User::userID($ippis_no);
+    // if($user_id==0){
+    //     toastr()->error('Wrong IPPIS Number, please check.');
+    //     return back();
+    // }
 
     //find all active loan subscription order by oldest loans
     /**
