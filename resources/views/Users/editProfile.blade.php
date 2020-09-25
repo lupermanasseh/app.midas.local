@@ -18,13 +18,13 @@
             {{ csrf_field() }}
             <div class="row">
                 <div class="input-field col s4">
-                    <input id="staff_no" name="staff_no" value="{{$user->staff_no}}" type="text" class="validate"
+                    <input id="staff_no" name="staff_no" value="{{$user->staff_no}}" type="number" class="validate"
                         required>
                     <label for="staff_no">ID Card Number</label>
                 </div>
 
                 <div class="input-field col s4">
-                    <input id="payment_number" name="payment_number" value="{{$user->payment_number}}" type="text"
+                    <input id="payment_number" name="payment_number" value="{{$user->payment_number}}" type="number"
                         class="validate" required>
                     <label for="payment_number">IPPIS Number</label>
                 </div>
@@ -100,14 +100,14 @@
     </div>
     <div class="row">
         <div class="input-field col s4">
-            <select id="member_type" name="member_type">
+            <select id="member_type" name="member_type" required>
                 <option value="Ordinary">Ordinary</option>
                 <option value="Associate">Associate</option>
             </select>
             <label>Membership Type</label>
         </div>
         <div class="input-field col s4">
-            <select id="employ_type" name="employ_type">
+            <select id="employ_type" name="employ_type" required>
                 <option value="Permanent">Permanent</option>
                 <option value="Temporal">Temporal</option>
                 <option value="Temporal">MIDAS Permanent</option>
@@ -115,7 +115,7 @@
             <label>Employment Type</label>
         </div>
         <div class="input-field col s4">
-            <select id="job_cadre" name="job_cadre">
+            <select id="job_cadre" name="job_cadre" required>
                 <option value="Senior">Senior</option>
                 <option value="Junior">Junior</option>
             </select>
@@ -126,30 +126,23 @@
 
     <div class="row">
 
-        <div class="input-field col s4">
+        <div class="input-field col s3">
             <input id="dept" name="dept" value="{{$user->dept}}" type="text" class="validate" required>
             <label for="dept">Dept</label>
         </div>
 
-        <div class="input-field col s4">
+        <div class="input-field col s3">
             <input id="phone" name="phone" value="{{$user->phone}}" type="text" class="validate" required>
             <label for="phone">Phone</label>
         </div>
-        <div class="input-field col s4">
+        <div class="input-field col s3">
             <input id="dob" name="dob" value="{{$user->dob}}" type="text" class="validate datepicker" required>
             <label for="dob">DOB</label>
         </div>
 
-    </div>
-
-    <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s3">
             <input id="home_add" name="home_add" value="{{$user->home_add}}" type="text" class="validate" required>
             <label for="home_add">Home Address</label>
-        </div>
-        <div class="input-field col s6">
-            <input id="res_add" name="res_add" value="{{$user->res_add}}" type="text" class="validate" required>
-            <label for="res_add">Residential Address</label>
         </div>
     </div>
 

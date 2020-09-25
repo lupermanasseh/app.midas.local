@@ -83,7 +83,6 @@ class UsersController extends Controller
             'phone'=>'required',
             'dob'=>'required',
             'home_add'=>'required|max:100',
-            'res_add'=>'required|max:100',
             'sex'=>'required',
             'job_cadre'=>'required',
             'staff_no'=>'required|integer',
@@ -102,7 +101,6 @@ class UsersController extends Controller
     $profile->phone = $request['phone'];
     $profile->dob = $request['dob'];
     $profile->home_add = $request['home_add'];
-    $profile->res_add = $request['res_add'];
     $profile->sex = $request['sex'];
     $profile->job_cadre = $request['job_cadre'];
     $profile->staff_no = $request['staff_no'];
