@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use App\Masterdeduction;
 use App\Userconsolidatedloan;
+use App\Loanoverdeduction;
 use App\User;
 use App\Lsubscription;
 use App\Ldeduction;
@@ -114,12 +115,95 @@ public function importIppisAnalysis(){
 
 }
 
+//loan over deduction list
+public function loanOverDeductions(){
+    $title = 'Loan over deduction';
+    //find all recent upload by date created
+    $loanMaster = Loanoverdeduction::where('status','Active')
+                                    //->orderBy('ippis_no','asc')
+                                    ->oldest('entry_date')
+                                    ->get();
+
+    return view('IppisAnalysis.overDeductionList',compact('loanMaster','title'));
+}
+
+
+//post loan over deduction form
+public function postLoanOverDeduction($userid,$id){
+  $title = 'Post Loan Overdeduction';
+  $user = User::find($userid);
+  $overdeductionObj = Loanoverdeduction::find($id);
+  $userActiveLoans = Lsubscription::where('user_id',$userid)
+                                  ->where('loan_status','active')
+                                  ->orderBy('disbursement_date','asc')
+                                  ->get();
+  return view('IppisAnalysis.postOverDeductionForm',compact('user','overdeductionObj','userActiveLoans','title'));
+}
+
+//post over deduction to a loan
+public function loanOverDeductionStore(Request $request)
+{
+$this->validate(request(), [
+
+    'user_id' =>'required|numeric',
+    'overdeduct_id' =>'required|numeric',
+    'loan_id' =>'required|numeric',
+]);
+$userid = $request['user_id'];
+$overdeduct_id = $request['overdeduct_id'];
+$loansubid= $request['loan_id'];
+
+//start transaction
+DB::beginTransaction();
+try{
+  //find overdeduct obj
+  $overDeduct = Loanoverdeduction::find($overdeduct_id);
+  $amount = $overDeduct->overdeduction_amount;
+  //select all loan deductions based on the loan id and date and ref
+
+  $myDeductions = Ldeduction::where('user_id',$userid)
+                            ->where('lsubscription_id',$loansubid)
+                            ->where('entry_month',$overDeduct->entry_date)
+                            ->where('deduct_reference',$overDeduct->ref)
+                            ->get();
+          //find deduction id
+          foreach($myDeductions as $deduction){
+            $id= $deduction->id;
+          }
+
+      //find the deduction
+      $deduct = Ldeduction::find($id);
+      $amountSaved = $deduct->amount_deducted;
+
+      //update the record
+      $deduct->amount_deducted = $amountSaved + $amount;
+      $deduct->save();
+
+//CHANGE STATUS
+$overDeduct->status = 'Inactive';
+$overDeduct->save();
+//recaculate loan balances
+$deduction->recalculateLoanDeductionBalances($loansubid);
+}
+catch(\Exception $e){
+DB::rollback();
+toastr()->error($e->getMessage());
+return back();
+}
+DB::commit();
+toastr()->success('Record updated successfully!');
+return redirect('/loan/overdeduction');
+
+}
+
+
 //recent ippis upload
 public function recentIppisLoanInputs(){
     $title = 'Recent IPPIS  Loan Inputs';
     //find all recent upload by date created
     $loanMaster = Masterdeduction::where('status','Active')
-                                ->oldest('entry_date')
+                                ->orderBy('ippis_no','asc')
+                                //->oldest('entry_date')
                                 ->get();
 
     return view('IppisAnalysis.masterLoanUploadListings',compact('loanMaster','title'));
@@ -308,18 +392,25 @@ try{
         //over deduction
         if($ippisCumulativeDeduction > $myActualLoanAmount){
 
+          //new over loan deduction object
+          $newOverDeduction = new Loanoverdeduction;
 
         //find the difference of over deduction
-        //$differenceLeft = $ippisCumulativeDeduction-$myActualLoanAmount;
+        $differenceLeft = $ippisCumulativeDeduction-$myActualLoanAmount;
 
-        //$remainingDeductible = $ippisCumulativeDeduction-$differenceLeft;
-        $remainingDeductible = $ippisCumulativeDeduction;
+        $remainingDeductible = $ippisCumulativeDeduction-$differenceLeft;
+        //$remainingDeductible = $ippisCumulativeDeduction;
+
+        //check if there is over deduction
+        if($differenceLeft){
+          //save over deduction in the loanoverdeduction in its table
+          $newOverDeduction->saveOverDeduction($cumulativeDeduct,$differenceLeft);
+        }
+
 
         foreach($activeLoans as $sub){
 
-            //allow for loan to deduct
-            //product name
-            //$product_name = Product::find($sub->product_id)->name;
+
             $currentAmount = $sub->monthly_deduction;
             //old code commented out
             //if($remainingDeductible !=0 && $differenceLeft !=0)
