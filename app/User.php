@@ -130,9 +130,15 @@ class User extends Authenticatable
     }
 
     //Relationship with loan master deductions
-    public function masterdeduct(){
+    public function masterdeducts(){
         return $this->hasMany(Masterdeduction::class);
     }
+
+    //User has many loan overdeduction
+     public function loanoverdeductions(){
+        return $this->hasMany(Loanoverdeduction::class);
+    }
+
 
 
     //Total consolidated loan debit
@@ -199,7 +205,7 @@ class User extends Authenticatable
             return $sumBal;
         }
 
-        //individual loan balance bu subscription id
+        //individual loan balance by subscription id
         public function singleLoanBalance($subid)
         {
 
