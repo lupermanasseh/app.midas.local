@@ -192,6 +192,7 @@
     <li><a href="/audited/loans" class="orange-text darken-4">Audited</a></li>
     <li><a href="/approved/loans" class="orange-text darken-4">Approved</a></li>
     <li><a href="/activeLoans" class="orange-text darken-4">Active</a></li>
+    <li><a href="/loan/overdeduction" class="orange-text darken-4">Over Deduction</a></li>
 </ul>
 
 {{-- DROP DOWN MENU 4 --}}
