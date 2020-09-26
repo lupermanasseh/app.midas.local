@@ -8,8 +8,8 @@ class Masterdeduction extends Model
 {
     //
     protected $fillable = [
-        'name', 
-        'ippis_no', 
+        'name',
+        'ippis_no',
         'cumulative_amount',
         'entry_date',
         'cumulative_enddate',
@@ -24,4 +24,8 @@ class Masterdeduction extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    //A loan subscription may have many over deductions
+    public function overdeductions(){
+      return $this->hasMany(Loanoverdeduction::class);
+  }
 }
