@@ -346,7 +346,7 @@ try{
 
 
         $myActualLoanAmount = $myLoanSubscription->totalIppisDeductions($user_id,$activeLoans);
-      
+
 
             /**
         * Check for the existence of a default charge
@@ -574,7 +574,7 @@ try{
         $newDeduction->user_id = $sub->user_id;
         $newDeduction->product_id=$sub->product_id;
         $newDeduction->lsubscription_id =$sub->id;
-        $newDeduction->amount_deducted = '';
+        $newDeduction->amount_deducted = 'null';
         $newDeduction->balances = $loanDeductionBalance;
         $newDeduction->entry_month = $cumulativeDeduct->entry_date;
         $newDeduction->entry_time = $now;
