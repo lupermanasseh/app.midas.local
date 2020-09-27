@@ -115,8 +115,9 @@ public function findLoansByDisbursementDate($date){
     //Sum cumulative amount of IPPIS
     public  function totalIppisDeductions($_id,$activeLoans)
     {
+      //TODO  Include a start date parameter to help select only loans that are due
                     $monthly_Deductions = $activeLoans->where('user_id',$_id)
-                                       ->sum('monthly_deduction');
+                                                      ->sum('monthly_deduction');
                     $totalDeficit = Defaultcharge::deficitTotal($_id);
                     $totalDefaultCharge = Defaultcharge::defaultChargesTotal($_id);
                      return $monthly_Deductions + $totalDeficit + $totalDefaultCharge;
