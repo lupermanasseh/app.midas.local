@@ -17,7 +17,7 @@
                     <tr>
                         <th>DATE</th>
                         <th>NAME</th>
-                        <th>IPPIS</th>
+                        <th>USER ID</th>
                         <th>TOTAL AMOUNT</th>
                         <th>CREATED</th>
                         <th>ACTION</th>
