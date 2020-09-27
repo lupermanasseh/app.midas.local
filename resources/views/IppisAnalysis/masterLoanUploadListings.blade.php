@@ -10,6 +10,13 @@
     </div>
 
     <div class="row">
+        <div class="col s12 subject-header">
+            <span><a href="/loandeductions/bulkmaster"><i class="small material-icons tooltipped" data-position="bottom"
+                        data-tooltip="Post Bulk">done_all</i></a></span>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col s12">
             @if (count($loanMaster)>=1)
             <table class="highlight">
