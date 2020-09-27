@@ -692,6 +692,394 @@ return redirect('/post/loans');
 }
 
 
+//POST MASTER LOAN DEDUCTION IN BULK
+//post loans
+public function postLoanBulk(){
+
+//begin transaction to process uploads
+DB::beginTransaction();
+try{
+  //
+//1. select all the active Records
+$allMasterDeductions = Masterdeduction::where('status','Active')
+                                      ->orderBy('entry_date','asc')
+                                      ->get();
+//2. loop through them and fecth id
+foreach ($allMasterDeductions as $masterDeduction) {
+  // code...
+  $myLoanSubscription = new Lsubscription;
+  //Find user cumulative deduction by id
+  $cumulativeDeduct = Masterdeduction::find($masterDeduction->id);
+  $user_id = $cumulativeDeduct->ippis_no; // reg no replaces ippis_no in the database
+
+  //get total ippis deduction
+  $ippisCumulativeDeduction = $cumulativeDeduct->cumulative_amount;
+
+
+  //find all active loan subscription order by oldest loans
+  /**
+   * Find all active loans by a user
+   */
+  //TODO: Check for loans that are actve or defaulted
+  $activeLoans = Lsubscription::where('loan_status','Active')
+                                ->where('user_id',$user_id)
+                                ->where('loan_start_date','<',$cumulativeDeduct->entry_date)
+                                ->oldest('loan_start_date')
+                                ->get();
+
+
+      $myActualLoanAmount = $myLoanSubscription->totalIppisDeductions($user_id,$activeLoans);
+
+
+          /**
+      * Check for the existence of a default charge
+      * If any pay for it before proceeding
+      * Write a function to find all active defaults
+      */
+
+
+
+      /**
+       * comment out default charge code for now end at ###9
+       */
+
+      // $defaultCharges = Defaultcharge::where('user_id',$user_id)
+      // ->where('status','Active')
+      // ->oldest('entry_date')
+      // ->get();
+
+      // if($defaultCharges->isNotEmpty()){
+
+      //     foreach($defaultCharges as $charge){
+      //         //charged amaount
+      //         $charged_amount = $charge->default_charge;
+
+      //         if($ippisCumulativeDeduction !=0 && $charged_amount < $ippisCumulativeDeduction){
+      //             $myDefaultCharge = Defaultcharge::find($charge->id);
+      //             $myDefaultCharge->status = 'Paid';
+      //             $myDefaultCharge->created_by = auth()->user()->first_name;
+      //             $myDefaultCharge->save();
+      //             $ippisCumulativeDeduction = $ippisCumulativeDeduction-$charged_amount;
+      //             //$differenceLeft = $differenceLeft-$differenceLeft;
+      //            }
+      //     }
+
+      // ###9 }
+
+      //over deduction
+      if($ippisCumulativeDeduction > $myActualLoanAmount){
+
+        //new over loan deduction object
+        $newOverDeduction = new Loanoverdeduction;
+
+      //find the difference of over deduction
+      $differenceLeft = $ippisCumulativeDeduction-$myActualLoanAmount;
+
+      $remainingDeductible = $ippisCumulativeDeduction-$differenceLeft;
+      //$remainingDeductible = $ippisCumulativeDeduction;
+
+      //check if there is over deduction
+      if($differenceLeft){
+        //save over deduction in the loanoverdeduction in its table
+        $newOverDeduction->saveOverDeduction($cumulativeDeduct,$differenceLeft);
+      }
+
+
+      foreach($activeLoans as $sub){
+
+        //check to know loan start date
+        $subDate = $sub->loan_start_date->toDateString();
+        $entryDate = $cumulativeDeduct->entry_date->toDateString();
+
+        if($subDate > $entryDate){
+        continue;
+        }else{
+          $currentAmount = $sub->monthly_deduction;
+
+          //old code commented out
+          //if($remainingDeductible !=0 && $differenceLeft !=0)
+      //     if($remainingDeductible !=0)
+      //     {
+      //
+      //     $newDeduction = new Ldeduction;
+      //     //total loan balances
+      //     $now = Carbon::now()->toTimeString();
+      //     $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
+      //     $newDeduction->user_id = $sub->user_id;
+      //     $newDeduction->product_id=$sub->product_id;
+      //     $newDeduction->lsubscription_id =$sub->id;
+      //     $newDeduction->amount_deducted = $currentAmount;
+      //     $newDeduction->balances = $loanDeductionBalance + $currentAmount;
+      //     //$newDeduction->over_deduction = $differenceLeft; //store over deduction amount
+      //     //$newDeduction->overdeduction_status = 'Active'; //store over deduction status
+      //     $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+      //     $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+      //     $newDeduction->entry_time = $now;
+      //     $newDeduction->notes = $cumulativeDeduct->description;
+      //     $newDeduction->uploaded_by = auth()->user()->first_name;
+      //     $newDeduction->save();
+      //     $remainingDeductible = $remainingDeductible-$currentAmount;
+      //     //$differenceLeft = $differenceLeft-$differenceLeft;
+      //
+      //     //recaculate loan balances
+      //     $newDeduction->recalculateLoanDeductionBalances($sub->id);
+      //     //stop loan
+      //     $myLoanSubscription->loanBalance($sub->id);
+      //
+      // }elseif
+
+        if($currentAmount <= $remainingDeductible){
+          //there is enough to deduct exact value of expected deduction
+
+          //create a new deduction
+          $newDeduction = new Ldeduction;
+
+          //total loan balances
+          $now = Carbon::now()->toTimeString();
+          $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
+          $newDeduction->user_id = $sub->user_id;
+          $newDeduction->product_id=$sub->product_id;
+          $newDeduction->lsubscription_id =$sub->id;
+          $newDeduction->amount_deducted = $currentAmount;
+          $newDeduction->balances = $loanDeductionBalance + $currentAmount;
+          $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+          $newDeduction->entry_time =$now;
+          $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+          $newDeduction->notes = $cumulativeDeduct->description;
+          $newDeduction->uploaded_by = auth()->user()->first_name;
+          $newDeduction->save();
+          $remainingDeductible = $remainingDeductible-$currentAmount;
+
+          //recaculate loan balances
+          $newDeduction->recalculateLoanDeductionBalances($sub->id);
+            //stop loan
+          $myLoanSubscription->loanBalance($sub->id);
+
+          }
+  }//end start date check
+
+}//end foreach loop for overdeduction
+  //CHANGE STATUS OF THE MASTER DEDUCTION HERE
+  $cumulativeDeduct->status = 'Inactive';
+  $cumulativeDeduct->save();
+
+}//end over deduction check
+
+  //**** UNDER DEDUCTION BELOW*/
+  elseif($ippisCumulativeDeduction < $myActualLoanAmount){
+
+      $remainingDeductible = $ippisCumulativeDeduction;
+
+
+      foreach($activeLoans as $sub){
+
+        //check to know loan start date
+        $subDate = $sub->loan_start_date->toDateString();
+        $entryDate = $cumulativeDeduct->entry_date->toDateString();
+
+        if($subDate > $entryDate){
+        continue;
+        }else{
+          //actual monthly deduction
+          $currentAmount = $sub->monthly_deduction;
+          //allow for deductions
+         if($currentAmount <= $remainingDeductible){
+          //there is enough to deduct exact value of expected deduction
+          //create a new deduction
+          $newDeduction = new Ldeduction;
+          //total loan balances
+          $now = Carbon::now()->toTimeString();
+          $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
+          $newDeduction->user_id = $sub->user_id;
+          $newDeduction->product_id = $sub->product_id;
+          $newDeduction->lsubscription_id =$sub->id;
+          $newDeduction->amount_deducted = $currentAmount;
+          $newDeduction->balances = $loanDeductionBalance + $currentAmount;
+          $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+          $newDeduction->entry_time = $now;
+          $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+          $newDeduction->notes = $cumulativeDeduct->description;
+          $newDeduction->uploaded_by = auth()->user()->first_name;
+          $newDeduction->save();
+          $remainingDeductible = $remainingDeductible-$currentAmount;
+
+          //recaculate loan balances
+          $newDeduction->recalculateLoanDeductionBalances($sub->id);
+            //stop loan
+            $myLoanSubscription->loanBalance($sub->id);
+
+          }elseif($currentAmount > $remainingDeductible && $remainingDeductible !=0){
+          //there is no enough to deduct store the value available
+          $newDeduction = new Ldeduction;
+          //total loan balances
+          $now = Carbon::now()->toTimeString();
+          $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
+          $newDeduction->user_id = $sub->user_id;
+          $newDeduction->product_id=$sub->product_id;
+          $newDeduction->lsubscription_id =$sub->id;
+          $newDeduction->amount_deducted = $remainingDeductible;
+          $newDeduction->balances = $loanDeductionBalance + $remainingDeductible;
+          $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+          $newDeduction->entry_time = $now;
+          $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+          $newDeduction->notes = $cumulativeDeduct->description;
+          $newDeduction->uploaded_by = auth()->user()->first_name;
+          $remainingDeductible = $remainingDeductible-$remainingDeductible;
+          $newDeduction->save();
+          //create records in default table
+          // $deficit = $currentAmount-$remainingDeductible;
+          // $percentageDeficit = $deficit*0.1;
+          // $chargeDefault = new Defaultcharge;
+          // $chargeDefault->user_id = $sub->user_id;
+          // $chargeDefault->product_id = $sub->product_id;
+          // $chargeDefault->ippis_no = $ippis_no;
+          // $chargeDefault->lsubscription_id =$sub->id;
+          // $chargeDefault->default_charge = $percentageDeficit;
+          // $chargeDefault->deficit = $deficit;
+          // $chargeDefault->default_reference = $cumulativeDeduct->master_reference;
+          // $chargeDefault->entry_date = $cumulativeDeduct->entry_date;
+          // $chargeDefault->status = 'Active';
+          // $chargeDefault->created_by = auth()->user()->first_name;
+          // $chargeDefault->save();
+          // $remainingDeductible = $remainingDeductible-$remainingDeductible;
+
+          //recaculate loan balances
+          $newDeduction->recalculateLoanDeductionBalances($sub->id);
+            //stop loan
+            $myLoanSubscription->loanBalance($sub->id);
+
+   }
+   //elseif($currentAmount > $remainingDeductible && $remainingDeductible ==0){
+  //     //there is no enough money to deduct store the value available
+  //     $newDeduction = new Ldeduction;
+  //     //total loan balances
+  //     $now = Carbon::now()->toTimeString();
+  //     $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
+  //     $newDeduction->user_id = $sub->user_id;
+  //     $newDeduction->product_id=$sub->product_id;
+  //     $newDeduction->lsubscription_id =$sub->id;
+  //     $newDeduction->amount_deducted = 'null';
+  //     $newDeduction->balances = $loanDeductionBalance;
+  //     $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+  //     $newDeduction->entry_time = $now;
+  //     $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+  //     $newDeduction->notes = $cumulativeDeduct->description;
+  //     $newDeduction->uploaded_by = auth()->user()->first_name;
+  //     $remainingDeductible = $remainingDeductible-$remainingDeductible;
+  //     $newDeduction->save();
+  //     //create records in default table
+  //     // $deficit = $currentAmount;
+  //     // $percentageDeficit = $deficit*0.1;
+  //     // $chargeDefault = new Defaultcharge;
+  //     // $chargeDefault->user_id = $sub->user_id;
+  //     // $chargeDefault->product_id = $sub->product_id;
+  //     // $chargeDefault->ippis_no = $ippis_no;
+  //     // $chargeDefault->lsubscription_id =$sub->id;
+  //     // $chargeDefault->default_charge = $percentageDeficit;
+  //     // $chargeDefault->deficit = $deficit;
+  //     // $chargeDefault->default_reference = $cumulativeDeduct->master_reference;
+  //     // $chargeDefault->entry_date = $cumulativeDeduct->entry_date;
+  //     // $chargeDefault->status = 'Active';
+  //     // $chargeDefault->created_by = auth()->user()->first_name;
+  //     // $chargeDefault->save();
+  //
+  //
+  //     //recaculate loan balances
+  //     $newDeduction->recalculateLoanDeductionBalances($sub->id);
+  //       //stop loan
+  //       $myLoanSubscription->loanBalance($sub->id);
+  // }
+}//end check for date
+
+}//end foreach
+      $cumulativeDeduct->status = 'Inactive';
+      $cumulativeDeduct->save();
+  }//end check for under deduction
+
+  //check for actual or equal deduction
+  elseif($myActualLoanAmount == $ippisCumulativeDeduction){
+      //equal deduction
+      $remainingDeductible = $ippisCumulativeDeduction;
+
+     foreach($activeLoans as $sub){
+
+          //check to know loan start date
+          $subDate = $sub->loan_start_date->toDateString();
+          $entryDate = $cumulativeDeduct->entry_date->toDateString();
+
+          if($subDate > $entryDate){
+          continue;
+        }else{
+
+          //actual monthly deduction
+          $currentAmount = $sub->monthly_deduction;
+          if($currentAmount <= $remainingDeductible){
+              //there is enough to deduct exact value of expected deduction
+              //create a new deduction
+              $newDeduction = new Ldeduction;
+              //total loan balances
+              $now = Carbon::now()->toTimeString();
+              $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
+              $newDeduction->user_id = $sub->user_id;
+              $newDeduction->product_id = $sub->product_id;
+              $newDeduction->lsubscription_id =$sub->id;
+              $newDeduction->amount_deducted = $currentAmount;
+              $newDeduction->balances = $loanDeductionBalance + $currentAmount;
+              $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+              $newDeduction->entry_time = $now;
+              $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+              $newDeduction->notes = $cumulativeDeduct->description;
+              $newDeduction->uploaded_by = auth()->user()->first_name;
+              $newDeduction->save();
+              $remainingDeductible = $remainingDeductible-$currentAmount;
+
+              //recaculate loan balances
+              $newDeduction->recalculateLoanDeductionBalances($sub->id);
+              //stop loan
+              $myLoanSubscription->loanBalance($sub->id);
+
+              }
+
+        }//end check date
+      }//end for each for equal deduction
+      $cumulativeDeduct->status = 'Inactive';
+      $cumulativeDeduct->save();
+  }
+
+// //post cumulative amount to consolidated loan ledger
+//
+$newConsolidatedDeduct = new Userconsolidatedloan();
+
+$now = Carbon::now()->toTimeString();
+$newConsolidatedDeduct->user_id = $user_id;
+$newConsolidatedDeduct->description = $cumulativeDeduct->description;
+$newConsolidatedDeduct->date_entry = $cumulativeDeduct->entry_date;
+$newConsolidatedDeduct->entry_time = $now;
+$newConsolidatedDeduct->credit = $cumulativeDeduct->cumulative_amount;
+$newConsolidatedDeduct->ref_identification = $cumulativeDeduct->master_reference;
+$newConsolidatedDeduct->save();
+$newConsolidatedDeduct->userConsolidatedBalances($user_id);
+
+}
+     /** */
+}catch(\Exception $e){
+    DB::rollback();
+    toastr()->error($e->getMessage());
+    return back();
+}
+DB::commit();
+toastr()->success('Loan deduction inputs processed successfully!');
+//redirect to listing page order by latest
+return redirect('/post/loans');
+//return redirect('/user/loanDeduction/'.$user_id);
+}
+//
+
+
+
+
+
+
 //form to upload legacy loan information
  public function legacyLoan(){
     $title ='Upload Loan Information';
