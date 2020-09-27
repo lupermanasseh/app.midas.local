@@ -565,46 +565,47 @@ try{
               //stop loan
               $myLoanSubscription->loanBalance($sub->id);
 
-        }elseif($currentAmount > $remainingDeductible && $remainingDeductible ==0){
-        //there is no enough money to deduct store the value available
-        $newDeduction = new Ldeduction;
-        //total loan balances
-        $now = Carbon::now()->toTimeString();
-        $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
-        $newDeduction->user_id = $sub->user_id;
-        $newDeduction->product_id=$sub->product_id;
-        $newDeduction->lsubscription_id =$sub->id;
-        $newDeduction->amount_deducted = 'null';
-        $newDeduction->balances = $loanDeductionBalance;
-        $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-        $newDeduction->entry_time = $now;
-        $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
-        $newDeduction->notes = $cumulativeDeduct->description;
-        $newDeduction->uploaded_by = auth()->user()->first_name;
-        $remainingDeductible = $remainingDeductible-$remainingDeductible;
-        $newDeduction->save();
-        //create records in default table
-        // $deficit = $currentAmount;
-        // $percentageDeficit = $deficit*0.1;
-        // $chargeDefault = new Defaultcharge;
-        // $chargeDefault->user_id = $sub->user_id;
-        // $chargeDefault->product_id = $sub->product_id;
-        // $chargeDefault->ippis_no = $ippis_no;
-        // $chargeDefault->lsubscription_id =$sub->id;
-        // $chargeDefault->default_charge = $percentageDeficit;
-        // $chargeDefault->deficit = $deficit;
-        // $chargeDefault->default_reference = $cumulativeDeduct->master_reference;
-        // $chargeDefault->entry_date = $cumulativeDeduct->entry_date;
-        // $chargeDefault->status = 'Active';
-        // $chargeDefault->created_by = auth()->user()->first_name;
-        // $chargeDefault->save();
-
-
-        //recaculate loan balances
-        $newDeduction->recalculateLoanDeductionBalances($sub->id);
-          //stop loan
-          $myLoanSubscription->loanBalance($sub->id);
-    }
+     }
+     //elseif($currentAmount > $remainingDeductible && $remainingDeductible ==0){
+    //     //there is no enough money to deduct store the value available
+    //     $newDeduction = new Ldeduction;
+    //     //total loan balances
+    //     $now = Carbon::now()->toTimeString();
+    //     $loanDeductionBalance = $newDeduction->myLoanDeductions($sub->id);
+    //     $newDeduction->user_id = $sub->user_id;
+    //     $newDeduction->product_id=$sub->product_id;
+    //     $newDeduction->lsubscription_id =$sub->id;
+    //     $newDeduction->amount_deducted = 'null';
+    //     $newDeduction->balances = $loanDeductionBalance;
+    //     $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+    //     $newDeduction->entry_time = $now;
+    //     $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+    //     $newDeduction->notes = $cumulativeDeduct->description;
+    //     $newDeduction->uploaded_by = auth()->user()->first_name;
+    //     $remainingDeductible = $remainingDeductible-$remainingDeductible;
+    //     $newDeduction->save();
+    //     //create records in default table
+    //     // $deficit = $currentAmount;
+    //     // $percentageDeficit = $deficit*0.1;
+    //     // $chargeDefault = new Defaultcharge;
+    //     // $chargeDefault->user_id = $sub->user_id;
+    //     // $chargeDefault->product_id = $sub->product_id;
+    //     // $chargeDefault->ippis_no = $ippis_no;
+    //     // $chargeDefault->lsubscription_id =$sub->id;
+    //     // $chargeDefault->default_charge = $percentageDeficit;
+    //     // $chargeDefault->deficit = $deficit;
+    //     // $chargeDefault->default_reference = $cumulativeDeduct->master_reference;
+    //     // $chargeDefault->entry_date = $cumulativeDeduct->entry_date;
+    //     // $chargeDefault->status = 'Active';
+    //     // $chargeDefault->created_by = auth()->user()->first_name;
+    //     // $chargeDefault->save();
+    //
+    //
+    //     //recaculate loan balances
+    //     $newDeduction->recalculateLoanDeductionBalances($sub->id);
+    //       //stop loan
+    //       $myLoanSubscription->loanBalance($sub->id);
+    // }
   }//end check for date
 
   }//end foreach
