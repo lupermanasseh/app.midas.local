@@ -41,7 +41,7 @@
         <div class="col s12 m3 l3">
             <div class="card-panel  pink-text center top-banner">
                 <i class="fas fa-search"></i>
-                <div> <span><a href="/loandisbursement/find">Loan Disbursement Date</a></span></div>
+                <div> <span><a href="/loandisbursement/find">Disbursement Date</a></span></div>
             </div>
         </div>
 
