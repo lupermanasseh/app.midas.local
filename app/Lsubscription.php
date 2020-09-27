@@ -263,7 +263,7 @@ public function allLoanBalancesByDate($collection,$id)
         })->with(['product' => function ($query) {
         $query->orderBy('name', 'desc');
         }])
-        ->orderBy('loan_start_date','desc')->get();
+        ->oldest('disbursement_date')->get();
     }
 
     //user inactive loan
