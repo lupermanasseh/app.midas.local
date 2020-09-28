@@ -86,6 +86,7 @@ DB::table('lsubscriptions')->where('ref','750-2020-09-24')
         $newData->entry_time = $now;
         $newData->debit = $user->amount_approved;
         $newData->save();
+        $newData->userConsolidatedBalances($user->user_id);
       }
   });
 
