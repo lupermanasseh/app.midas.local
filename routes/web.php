@@ -327,6 +327,8 @@ Route::middleware(['auth:admin'])->group(function () {
   Route::post('/legacy-loans-store','IppisAnalysisController@legacyLoanStore')->name('legacyloan.import');
   Route::get('/legacy-loandeduct-form','IppisAnalysisController@legacyLoanDeductionForm');
   Route::post('/legacy-loandeduct-upload','IppisAnalysisController@legacyLoanDeductions')->name('legacyloandeduct.import');
+  Route::get('/show/legacysubs','IppisAnalysisController@showPendingLegacySubs');
+  Route::get('/on/legacysubs','IppisAnalysisController@activateBulkLegacySubs');
   //Route::get('/ippis-analysis/distribute','IppisAnalysisController@distributeAnalysis');
   Route::get('/loan/overdeduction','IppisAnalysisController@loanOverDeductions');
   Route::get('/loanoverdeduction/post/{userid}/{id}','IppisAnalysisController@postLoanOverDeduction');
