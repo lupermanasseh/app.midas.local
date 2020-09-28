@@ -1117,6 +1117,7 @@ public function legacyLoanStore(){
             $newData->entry_time = $now;
             $newData->debit = $user->amount_approved;
             $newData->save();
+            $newData->userConsolidatedBalances($user->user_id);
           }
       });
     toastr()->success('Loan subscription(s) created successfully!');
