@@ -1080,13 +1080,13 @@ return redirect('/post/loans');
 
 
 
-//form to upload legacy loan information
+//form to upload legacy loan subscriptions information
  public function legacyLoan(){
     $title ='Upload Loan Information';
     return view('IppisAnalysis.legacyLoanForm',compact('title'));
 }
 
-//store legacy loan
+//store legacy loan subscriptions
 public function legacyLoanStore(){
     //begin transaction
     $rand = $this->randomString();
@@ -1099,29 +1099,9 @@ public function legacyLoanStore(){
         return back();
     }
     DB::commit();
-
-    //update the user consolidated loan
-    DB::table('lsubscriptions')->where('ref',$rand)
-                               ->orderBy('disbursement_date','asc')
-      ->chunkById(300, function ($users) {
-          foreach ($users as $user) {
-            $now = Carbon::now()->toTimeString();
-            //$date = $user->disbursement_date." ".$now;
-            $recordId = $user->id;
-            //inser records
-            $newData = new Userconsolidatedloan();
-            $newData->user_id = $user->user_id;
-            $newData->lsubscription_id = $user->id;
-            $newData->description = 'Normal Loan Disbursement';
-            $newData->date_entry = $user->disbursement_date;
-            $newData->entry_time = $now;
-            $newData->debit = $user->amount_approved;
-            $newData->save();
-            $newData->userConsolidatedBalances($user->user_id);
-          }
-      });
     toastr()->success('Loan subscription(s) created successfully!');
-    return redirect ('/legacy-loans');
+    //return redirect ('/legacy-loans');
+    return redirect ('/show/legacysubs');
 
 }
 
@@ -1146,16 +1126,62 @@ public function legacyLoanDeductions(){
         DB::rollback();
        toastr()->error($ex->getMessage());
         return back();
-    }catch(\Error $ex){
-        DB::rollback();
-        toastr()->error($ex->getMessage());
-        return back();
     }
     DB::commit();
     toastr()->success('Loan deductions(s) created successfully!');
     return redirect ('/legacy-loandeduct-form');
+}
+
+
+//activaet legacy loan subscriptions
+//upload form legacy loan deductions
+public function showPendingLegacySubs(){
+    //
+    $title ='Show Pending Legacy Subs';
+
+    $collection = Lsubscription::where('loan_status','Pending')->get();
+
+    return view('IppisAnalysis.showLegacySubs',compact('collection','title'));
+}
+
+//activate legacy loan subscriptions
+public function activateBulkLegacySubs(){
+  DB::beginTransaction();
+  try{
+    $collection = Lsubscription::where('loan_status','Pending')->get();
+
+    foreach($collection as $myItem){
+      $now = Carbon::now()->toTimeString();
+      //$date = $user->disbursement_date." ".$now;
+
+      //inser records
+      $newData = new Userconsolidatedloan();
+      $newData->user_id = $myItem->user_id;
+      $newData->lsubscription_id = $myItem->id;
+      $newData->description = 'Normal Loan Disbursement';
+      $newData->date_entry = $myItem->disbursement_date;
+      $newData->entry_time = $now;
+      $newData->ref_identification = '750-2020-09-24';
+      $newData->debit = $myItem->amount_approved;
+      $newData->save();
+      $newData->userConsolidatedBalances($myItem->user_id);
+
+      //update loan to active
+      $sub = Lsubscription::find($myItem->id);
+      $sub->loan_status = 'Active';
+      $sub->save();
+    }
+  }catch(\Exception $ex){
+      DB::rollback();
+     toastr()->error($ex->getMessage());
+      return back();
+  }
+  DB::commit();
+  toastr()->success('Records created successfully!');
+  return back();
 
 }
+
 
 //random string
 public function randomString(){
