@@ -195,7 +195,7 @@
              <div class="row">
                  <div class="input-field col s12 m4 l4">
                      <input id="sub_id" name="sub_id" value="{{$loan->id}}" type="hidden">
-                     <input id="amount" name="amount" type="number">
+                     <input id="amount" name="amount" type="number" step=".01" class="validate">
                      <label for="amount">Enter Amount</label>
                  </div>
                  <div class="input-field col s12 m4 l4">
@@ -234,7 +234,7 @@
               <div class="row">
                   <div class="input-field col s12 m2 l2">
                       <input id="sub_id" name="sub_id" value="{{$loan->id}}" type="hidden">
-                      <input id="amount" name="amount" type="number">
+                      <input id="amount" name="amount" type="number" step=".01"  class="validate">
                       <label for="amount">Enter Amount</label>
                   </div>
                   <div class="input-field col s12 m2 l2">
@@ -294,7 +294,7 @@
                      <label>Select Parent Loan</label>
                  </div>
                  <div class="input-field col s12 m4 l4">
-                     <input placeholder="Top Up Amount" id="amount" name="amount" type="number">
+                     <input placeholder="Top Up Amount" id="amount" name="amount" step=".01" type="number" class="validate">
                      <label for="amount">Top Up Amount</label>
                  </div>
                  <div class="input-field col s12 m4 l4">
@@ -311,7 +311,7 @@
 
                  <div class="input-field col s12 m3 l3">
                      <input placeholder="Monthly deduction" id="deduction" name="deduction" type="number"
-                         >
+                         step=".01" class="validate">
                      <label for="tenor">Deduction</label>
                  </div>
 
@@ -362,7 +362,7 @@
                 <div class="row">
                     <div class="input-field col s12 m2 l2">
                         <input id="sub_id" name="sub_id"  value="" type="hidden">
-                        <input id="amount" name="amount" type="text" class="validate">
+                        <input id="amount" name="amount" type="number" step=".01" class="validate">
                         <label for="amount">Enter Amount</label>
                     </div>
                     <div class="input-field col s12 m2 l2">
