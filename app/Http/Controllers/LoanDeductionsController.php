@@ -68,6 +68,29 @@ public function export(){
 
 //populate user consolidated loans table
 public function populate(){
+//0
+//update the user consolidated loan
+DB::table('lsubscriptions')->where('ref','750-2020-09-24')
+                           ->orderBy('disbursement_date','asc')
+  ->chunkById(300, function ($users) {
+      foreach ($users as $user) {
+        $now = Carbon::now()->toTimeString();
+        //$date = $user->disbursement_date." ".$now;
+        $recordId = $user->id;
+        //inser records
+        $newData = new Userconsolidatedloan();
+        $newData->user_id = $user->user_id;
+        $newData->lsubscription_id = $user->id;
+        $newData->description = 'Normal Loan Disbursement';
+        $newData->date_entry = $user->disbursement_date;
+        $newData->entry_time = $now;
+        $newData->debit = $user->amount_approved;
+        $newData->save();
+      }
+  });
+
+
+
 //1
   // DB::table('lsubscriptions')->where('loan_status', '<>','restructured')
   //                           ->orderBy('disbursement_date','asc')

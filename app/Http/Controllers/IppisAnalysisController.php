@@ -1097,16 +1097,34 @@ public function legacyLoanStore(){
         DB::rollback();
        toastr()->error($ex->getMessage());
         return back();
-    }catch(\Error $ex){
-        DB::rollback();
-        toastr()->error($ex->getMessage());
-        return back();
     }
     DB::commit();
+
+    //update the user consolidated loan
+    DB::table('lsubscriptions')->where('ref',$rand)
+                               ->orderBy('disbursement_date','asc')
+      ->chunkById(300, function ($users) {
+          foreach ($users as $user) {
+            $now = Carbon::now()->toTimeString();
+            //$date = $user->disbursement_date." ".$now;
+            $recordId = $user->id;
+            //inser records
+            $newData = new Userconsolidatedloan();
+            $newData->user_id = $user->user_id;
+            $newData->lsubscription_id = $user->id;
+            $newData->description = 'Normal Loan Disbursement';
+            $newData->date_entry = $user->disbursement_date;
+            $newData->entry_time = $now;
+            $newData->debit = $user->amount_approved;
+            $newData->save();
+          }
+      });
     toastr()->success('Loan subscription(s) created successfully!');
     return redirect ('/legacy-loans');
 
 }
+
+
 
 //upload form legacy loan deductions
 public function legacyLoanDeductionForm(){
