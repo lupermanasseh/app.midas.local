@@ -70,9 +70,9 @@ public function export(){
 public function populate(){
 //0
 //update the user consolidated loan
-DB::table('lsubscriptions')->where('ref','750-2020-09-24')
+$users= DB::table('lsubscriptions')->where('ref','750-2020-09-24')
                            ->orderBy('disbursement_date','asc')
-  ->chunkById(300, function ($users) {
+                           ->get();
       foreach ($users as $user) {
         $now = Carbon::now()->toTimeString();
         //$date = $user->disbursement_date." ".$now;
@@ -84,11 +84,11 @@ DB::table('lsubscriptions')->where('ref','750-2020-09-24')
         $newData->description = 'Normal Loan Disbursement';
         $newData->date_entry = $user->disbursement_date;
         $newData->entry_time = $now;
+        $newData->ref_identification = '750-2020-09-24';
         $newData->debit = $user->amount_approved;
         $newData->save();
         $newData->userConsolidatedBalances($user->user_id);
       }
-  });
 
 
 
