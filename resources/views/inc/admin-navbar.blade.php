@@ -98,6 +98,7 @@
     <li><a href="/saving-master-upload-form"><i class="fas fa-hdd"></i>Upload Saving Inputs</a>
     </li>
     <li><a href="/legacy-loans"><i class="fas fa-pen-nib"></i>Loan Subscriptions</a></li>
+    <li><a href="/show/legacysubs"><i class="fas fa-pen-nib"></i>Activate Loan Subs</a></li>
     <li><a href="/loan/overdeduction"><i class="fas fa-chart-pie"></i>Loan Overdeduction</a></li>
     <!-- <li><a href="/legacy-loandeduct-form"><i class="fas fa-arrow-alt-circle-up"></i>Legacy Loan Deduct</a></li> -->
 
