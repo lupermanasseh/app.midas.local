@@ -381,6 +381,7 @@ public function removeConsolidatedLoanDeduction($id){
       $loan_Deduct->depositor_name = $request['depositor_name'];
       $loan_Deduct->teller_no = $request['teller_number'];
       $loan_Deduct->entry_month = $request['entry_date'];
+      $loan_Deduct->notes = $request['description'];
       $loan_Deduct->uploaded_by = auth()->user()->first_name;
       $loan_Deduct->save();
 
