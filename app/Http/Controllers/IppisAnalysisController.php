@@ -131,8 +131,9 @@ public function loanOverDeductions(){
 //post loan over deduction form
 public function postLoanOverDeduction($userid,$id){
   $title = 'Post Loan Overdeduction';
+  $overdeductID = $id;
   $user = User::find($userid);
-  $overdeductionObj = Loanoverdeduction::find($id);
+  $overdeductionObj = Loanoverdeduction::find($overdeductID);
   $userActiveLoans = Lsubscription::where('user_id',$userid)
                                   ->where('loan_status','active')
                                   ->orderBy('disbursement_date','asc')
@@ -1102,7 +1103,6 @@ public function legacyLoanStore(){
     toastr()->success('Loan subscription(s) created successfully!');
     //return redirect ('/legacy-loans');
     return redirect ('/show/legacysubs');
-
 }
 
 
