@@ -40,20 +40,25 @@
 </div> --}}
 
 <div class="input-field col s12 m3 l3">
-    <input id="credit" name="credit" value="@if($deduction->amount_deducted)
-    {{number_format($deduction->amount_deducted,2,'.','')}}
-    @else
-    @endif" type="number" class="validate">
-    <label for="credit">Credit</label>
+  @if($deduction->amount_deducted)
+  <input id="credit" name="credit" value="{{number_format($deduction->amount_deducted,2,'.','')}}" type="number" step=".01" class="validate">
+  <label for="credit">Credit</label>
+      @else
+      <input id="credit" name="credit" value="" type="number" step=".01" class="validate" disabled>
+      <label for="credit">Credit</label>
+      @endif
 </div>
 
 <div class="input-field col s12 m3 l3">
-    <input id="debit" name="debit" value="@if($deduction->amount_debited)
-    {{number_format($deduction->amount_debited,2,'.','')}}
-    @else
-    @endif
-    " type="number" class="validate">
+    @if($deduction->amount_debited)
+    <input id="debit" name="debit" value="{{number_format($deduction->amount_debited,2,'.','')}}" type="number" step=".01" class="validate">
     <label for="debit">Debit</label>
+    @else
+    <input id="debit" name="debit" value="" type="number" step=".01" class="validate" disabled>
+    <label for="debit">Debit</label>
+    @endif
+
+
 </div>
 <div class="input-field col s12 m3 l3">
     <input id="bank_name" name="bank_name" value="{{$deduction->bank_name}}" type="text" class="validate">
