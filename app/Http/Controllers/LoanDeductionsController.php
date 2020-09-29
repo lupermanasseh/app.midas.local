@@ -618,7 +618,7 @@ public function topUpLoan(Request $request){
 
                     $loanDeduction = new Ldeduction;
                     //total loan Balances
-                      $now = Carbon::now()->toTimeString();
+                    $now = Carbon::now()->toTimeString();
                     $loanBalances = $loanDeduction->myLoanDeductions($mergedLoanId);
                     $loanDeduction->amount_debited = $topupAmt;
                     $loanDeduction->balances = $loanBalances - $topupAmt;
