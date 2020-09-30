@@ -205,11 +205,12 @@ try{
                                           ->get();
             //
             $first = $activeLoans->first();
-            dd($first);
+
             if($first->count()>=1){
 
               foreach($first as $firstLoan){
                 $id = $firstLoan->id;
+                  dd($id);
               }
 
               //post overdeduct on the loan
