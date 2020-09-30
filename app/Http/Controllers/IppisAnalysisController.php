@@ -209,9 +209,8 @@ try{
             if($first->count()>=1){
 
               foreach($first as $firstLoan){
-                dd(9);
+                dd($firstLoan);
                 $id = $firstLoan->id;
-                  
               }
 
               //post overdeduct on the loan
