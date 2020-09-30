@@ -198,7 +198,7 @@ try{
             $cumulativeDeduct = Masterdeduction::find($masterDeductId);
 
             //select subscriptions
-            $activeLoans = Lsubscription::firstWhere('loan_status','Active')
+            $activeLoans = Lsubscription::where('loan_status','Active')
                                           ->where('user_id',$userid)
                                           //->where('loan_start_date','<',$cumulativeDeduct->entry_date)
                                           ->oldest('loan_start_date')
@@ -209,7 +209,7 @@ try{
             if($first->count()>=1){
 
               foreach($first as $firstLoan){
-                
+
                 $id = $firstLoan->id;
               }
 
