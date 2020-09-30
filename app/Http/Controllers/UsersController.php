@@ -191,7 +191,6 @@ public function editBank($id){
         $profile = User::find($userid);
         if ($nokUpdate->save()) {
             toastr()->success('Data has been edited successfully!');
-
             return redirect('/userDetails/'.$id);
         }
 
@@ -199,9 +198,27 @@ public function editBank($id){
         return back();
         }
 
-        //  Deactivate user
-        public function deactivateUser($id){
-            $loans = Lsubscription::where('user_id',$id)
+
+//deactivate user form
+public function userDeactivationForm(){
+  $title = "Deactivate User";
+  return view('Users.userDeactivateForm',compact('title'));
+}
+
+//Deactivate user
+public function deactivateUser(Request $request, $id){
+  $this->validate(request(), [
+     'title' =>'required|string',
+     'sex'=>'required',
+     'relationship' =>'required',
+     'first_name' =>'required|string',
+     'last_name' =>'required|string',
+     'other_name' =>'nullable|string',
+     'email' =>'nullable|email',
+     'phone' =>'required',
+ ]);
+
+$loans = Lsubscription::where('user_id',$id)
                                 ->where('loan_status','Active')
                                 ->get();
 
