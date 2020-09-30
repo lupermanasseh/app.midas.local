@@ -167,9 +167,10 @@ try{
                             ->where('entry_month',$overDeduct->entry_date)
                             ->where('deduct_reference',$overDeduct->ref)
                             ->get();
-
+dd($myDeductions);
           //check for non deduction of loan
           if($myDeductions){
+
             //find deduction id
             foreach($myDeductions as $deduction){
               $id = $deduction->id;
