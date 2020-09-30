@@ -203,9 +203,11 @@ try{
                                           //->where('loan_start_date','<',$cumulativeDeduct->entry_date)
                                           ->oldest('loan_start_date')
                                           ->get();
+
+                            dd($activeLoans);
             //
             $first = $activeLoans->first();
-            dd($first);
+          
             if($first->count()>=1){
 
               foreach($first as $firstLoan){
