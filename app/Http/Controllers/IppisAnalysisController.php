@@ -167,9 +167,9 @@ try{
                             ->where('entry_month',$overDeduct->entry_date)
                             ->where('deduct_reference',$overDeduct->ref)
                             ->get();
-dd($myDeductions);
+
           //check for non deduction of loan
-          if($myDeductions){
+          if($myDeductions->count() >=1){
 
             //find deduction id
             foreach($myDeductions as $deduction){
@@ -206,7 +206,7 @@ dd($myDeductions);
             //
             $first = $activeLoans->first();
 
-            if($first){
+            if($first->count()>=1){
 
               foreach($first as $firstLoan){
                 $id = $firstLoan->id;
