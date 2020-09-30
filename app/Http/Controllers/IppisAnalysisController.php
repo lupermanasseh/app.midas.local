@@ -207,15 +207,12 @@ try{
 
             //
             $first = $activeLoans->first();
-              $id = $first->id;
-              dd($id);
-              
+
             if($first->count()>=1){
 
-              foreach($first as $firstLoan){
-
-                $id = $firstLoan->id;
-              }
+              $id = $first->id;
+              $productid = $first->product_id;
+              dd($productid);
 
               //post overdeduct on the loan
 
