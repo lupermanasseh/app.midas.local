@@ -209,7 +209,7 @@ try{
             if($first->count()>=1){
 
               foreach($first as $firstLoan){
-                $id = $firstLoan->id;
+                $id = $firstLoan->['id'];
                   dd($id);
               }
 
