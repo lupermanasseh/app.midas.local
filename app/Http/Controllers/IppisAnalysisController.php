@@ -204,10 +204,12 @@ try{
                                           ->oldest('loan_start_date')
                                           ->get();
 
-                            dd($activeLoans);
+
             //
             $first = $activeLoans->first();
-          
+              $id = $first->id;
+              dd($id);
+              
             if($first->count()>=1){
 
               foreach($first as $firstLoan){
