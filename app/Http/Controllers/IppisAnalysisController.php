@@ -210,9 +210,9 @@ try{
 
             if($first->count()>=1){
 
-              $id = $first->id;
-              $productid = $first->product_id;
-              dd($productid);
+              // $id = $first->id;
+              // $productid = $first->product_id;
+              // dd($productid);
 
               //post overdeduct on the loan
 
@@ -221,10 +221,10 @@ try{
 
               //total loan balances
               $now = Carbon::now()->toTimeString();
-              $loanDeductionBalance = $newDeduction->myLoanDeductions($id);
+              $loanDeductionBalance = $newDeduction->myLoanDeductions($first->id);
               $newDeduction->user_id = $firstLoan->user_id;
               $newDeduction->product_id=$firstLoan->product_id;
-              $newDeduction->lsubscription_id =$id;
+              $newDeduction->lsubscription_id =$first->id;
               $newDeduction->amount_deducted = $overDeduct->overdeduction_amount;
               $newDeduction->balances = $loanDeductionBalance + $overDeduct->overdeduction_amount;
               $newDeduction->entry_month = $cumulativeDeduct->entry_date;
