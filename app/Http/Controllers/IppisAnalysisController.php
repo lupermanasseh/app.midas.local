@@ -205,7 +205,7 @@ try{
                                           ->get();
             //
             $first = $activeLoans->first();
-
+            dd($first);
             if($first->count()>=1){
 
               foreach($first as $firstLoan){
