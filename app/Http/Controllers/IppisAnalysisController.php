@@ -222,8 +222,8 @@ try{
               //total loan balances
               $now = Carbon::now()->toTimeString();
               $loanDeductionBalance = $newDeduction->myLoanDeductions($first->id);
-              $newDeduction->user_id = $firstLoan->user_id;
-              $newDeduction->product_id=$firstLoan->product_id;
+              $newDeduction->user_id = $first->user_id;
+              $newDeduction->product_id=$first->product_id;
               $newDeduction->lsubscription_id =$first->id;
               $newDeduction->amount_deducted = $overDeduct->overdeduction_amount;
               $newDeduction->balances = $loanDeductionBalance + $overDeduct->overdeduction_amount;
@@ -235,9 +235,9 @@ try{
               $newDeduction->save();
 
               //recaculate loan balances
-              $newDeduction->recalculateLoanDeductionBalances($firstLoan->id);
+              $newDeduction->recalculateLoanDeductionBalances($first->id);
               //stop loan
-              $firstLoan->loanBalance($firstLoan->id);
+              $first->loanBalance($first->id);
 
               //CHANGE STATUS of our overdeduct
               $overDeduct->status = 'Inactive';
