@@ -49,7 +49,9 @@ class Ldeduction extends Model
         // }])->oldest()->get();
 
         return static::where('lsubscription_id',$id)
-                      ->oldest('entry_month')->get();
+                      ->orderBy('entry_month','asc')
+                      ->orderBy('id','asc')
+                      ->get();
     }
 
      /**
@@ -124,6 +126,7 @@ class Ldeduction extends Model
                                 $loanDeductionsByDate = $loanDeductions
                                                    ->where('entry_month','=',$item->entry_month)
                                                    ->sortBy('id');
+                                        //dd($loanDeductionsByDate);
 
                                 //2. check if there is more than 1 records
                                 if($loanDeductionsByDate->count() > 1){
@@ -132,24 +135,27 @@ class Ldeduction extends Model
                                                      ->where('entry_month','<',$item->entry_month)
                                                      ->sortBy('entry_month');
                                   //find the total balance
-                                  $credit = $loanDeductionsLessDate->sum('amount_deducted');
-                                  $debit = $loanDeductionsLessDate->sum('amount_debited');
-                                  $lessDateBalance = $credit - $debit;
+                                  $lesscredit = $loanDeductionsLessDate->sum('amount_deducted');
+                                  $lessdebit = $loanDeductionsLessDate->sum('amount_debited');
+                                  $lessDateBalance = $lesscredit - $lessdebit;
 
                                   //enter foreach loop
                                   foreach($loanDeductionsByDate as $deduction){
                                     $loanDeductionsByDateFilter = $loanDeductionsByDate->where('id','<',$deduction->id);
 
-                                    $credit = $loanDeductionsByDateFilter->sum('amount_deducted');
-                                    $debit = $loanDeductionsByDateFilter->sum('amount_debited');
-                                    $filterDateBalance = $credit - $debit;
+                                    $filtercredit = $loanDeductionsByDateFilter->sum('amount_deducted');
+                                    $filterdebit = $loanDeductionsByDateFilter->sum('amount_debited');
+                                    $filterDateBalance = $filtercredit - $filterdebit;
                                     //add filter date balance with less balance and update new balance for that row
 
                                     //find individual row
                                     $deductItem = Ldeduction::find($deduction->id);
                                     $credit = $deductItem->amount_deducted;
                                     $debit = $deductItem->amount_debited;
-                                    $deductItem->balances = $lessDateBalance + $filterDateBalance + $credit-$debit;
+                                    $bal1 = $lessDateBalance + $filterDateBalance + $credit;
+                                    $bal2 = $bal1 - $debit;
+                                    $deductItem->balances = $bal2;
+                                    //$deductItem->balances = $lessDateBalance + $filterDateBalance + $credit-$debit;
                                     $deductItem->save();
                                     //check for loan balance
                                     $loanSub->loanBalance($deduction->lsubscription_id);
