@@ -1027,6 +1027,7 @@ public function topUpLoan(Request $request){
         $title = 'Loan Deduction History';
         $loan = Lsubscription::find($id);
         $loanHistory = Ldeduction::loanHistory($id);
+
         $activeLoans = Lsubscription::activeLoans($loan->user_id);
         //User target saving subscriptions
         return view ('LoanDeduction.loanHistory',compact('title','loanHistory','loan','activeLoans'));
