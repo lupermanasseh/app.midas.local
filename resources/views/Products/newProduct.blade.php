@@ -39,17 +39,17 @@
             <div class="row">
 
                 <div class="input-field col s12 m4 l4">
-                    <input id="unit_cost" name="unit_cost" type="text" class="validate">
+                    <input id="unit_cost" name="unit_cost" type="number" step=".01" class="validate">
                     <label for="unit_cost">Unit Cost</label>
                 </div>
 
                 <div class="input-field col s12 m4 l4">
-                    <input id="tenor" name="tenor" type="text" class="validate" required>
+                    <input id="tenor" name="tenor" type="number" class="validate" required>
                     <label for="tenor">Tenor</label>
                 </div>
 
                 <div class="input-field col s12 m4 l4">
-                    <input id="interest" name="interest" type="text" class="validate" required>
+                    <input id="interest" name="interest" type="number" step=".01" class="validate">
                     <label for="interest">Interest Rate</label>
                 </div>
             </div>

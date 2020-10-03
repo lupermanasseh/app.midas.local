@@ -30,7 +30,7 @@ class ProductsController extends Controller
     public function create()
     {
         //Form for creating a new product
-        $title ='New Product'; 
+        $title ='New Product';
         return view('Products.newProduct',compact('title'));
     }
 
@@ -50,9 +50,9 @@ class ProductsController extends Controller
         'product_category'=>'required|integer',
         'unit_cost' =>'nullable|numeric|between:0.00,999999999.99',
         'tenor'=>'required|integer',
-        'interest'=>'required|numeric|between:0.00,999999999.99',
+        'interest'=>'nullable|numeric|between:0.00,999999999.99',
         ]);
-        
+
         $product = new Product();
         $product->name = $request['product_name'];
         $product->productdivision_id = $request['product_category'];
@@ -62,12 +62,12 @@ class ProductsController extends Controller
         $product->interest = $request['interest'];
         $product->status = 'Active';
         //$product->save();
-    
+
         if($product->save()) {
             toastr()->success('Product has been saved successfully!');
             return redirect('/product/create');
         }
-    
+
         toastr()->error('An error has occurred trying to save, please try again later.');
         return back();
 
@@ -99,7 +99,7 @@ class ProductsController extends Controller
         $title ='Edit Product';
         $product = Product::find($id);
         return view('Products.editProducts',compact('product','title'));
-        
+
     }
 
     /**
@@ -134,7 +134,7 @@ class ProductsController extends Controller
             toastr()->success('Product has been edited successfully!');
             return redirect('/product/detail/'.$id);
         }
-    
+
         toastr()->error('An error has occurred trying to update product, please try again later.');
         return back();
     }
@@ -154,7 +154,7 @@ class ProductsController extends Controller
             toastr()->success('Data has been deleted successfully!');
             return redirect('/products');
         }
-    
+
         toastr()->error('An error has occurred trying to discard, please try again later.');
         return back();
     }
@@ -168,7 +168,7 @@ class ProductsController extends Controller
                 if($myProd->save()) {
                     toastr()->success('Product deactivated successfully');
                     return redirect('/products');
-                }  
+                }
                 toastr()->error('Unable to deactivate this product');
                 return back();
         }
@@ -182,7 +182,7 @@ class ProductsController extends Controller
                 if($myProd->save()) {
                     toastr()->success('Product activated successfully');
                     return redirect('/products');
-                }  
+                }
                 toastr()->error('Unable to activate this product');
                 return back();
         }
@@ -198,8 +198,8 @@ class ProductsController extends Controller
                 }
                 echo $output;
                 // echo json_encode($items);
-                // exit;   
+                // exit;
         }
 
-    
+
 }
