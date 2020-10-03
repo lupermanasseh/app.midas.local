@@ -153,11 +153,6 @@
                                 <td>{{$myProduct->custom_tenor}}</td>
                                 <td>
                                   {{number_format($myProduct->amount_approved,2,'.',',')}}
-                                    @if($myProduct->topup_amount)
-                                    <span class="green-text darken-3">[+{{number_format($myProduct->topup_amount,2,'.',',')}}]</span>
-                                    @else
-
-                                    @endif
                                 </td>
                                 <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
                                 <td><a
