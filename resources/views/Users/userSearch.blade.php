@@ -88,7 +88,7 @@
                                     href="/saving/listings/{{$user->id}}">{{number_format($saving->netBalance($user->id),2,'.',',')}}</a>
                             </td>
                             <td>
-                                <a href="/saving/withdraw/{{$user->id}}" class="btn pink darken-4"> 25% withdrawal</a> | <a href="" class="btn red lighten-2"> Full withdrawal</a>
+                                <a href="/saving/withdraw/{{$user->id}}" class="btn pink darken-4"> withdraw</a>
                             </td>
                         </tr>
                         @if(count($targetsr)>=1)
