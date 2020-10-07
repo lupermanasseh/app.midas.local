@@ -148,7 +148,7 @@ $this->validate(request(), [
 
     'user_id' =>'required|numeric',
     'overdeduct_id' =>'required|numeric',
-    'loan_id' =>'required|numeric',
+    'loan_id' =>'nullable|numeric',
 ]);
 $userid = $request['user_id'];
 $overdeduct_id = $request['overdeduct_id'];
@@ -162,90 +162,128 @@ try{
   $amount = $overDeduct->overdeduction_amount;
   //select all loan deductions based on the loan id and date and ref
 
-  $myDeductions = Ldeduction::where('user_id',$userid)
-                            ->where('lsubscription_id',$loansubid)
-                            ->where('entry_month',$overDeduct->entry_date)
-                            ->where('deduct_reference',$overDeduct->ref)
-                            ->get();
+  //check if user has an active loan
+  if($loansubid){
 
-          //check for non deduction of loan
-          if($myDeductions->count() >=1){
+    //user has active loan
+    $myDeductions = Ldeduction::where('user_id',$userid)
+                          ->where('lsubscription_id',$loansubid)
+                          ->where('entry_month',$overDeduct->entry_date)
+                          ->where('deduct_reference',$overDeduct->ref)
+                          ->get();
+                          //check for non deduction of loan
+                          if($myDeductions->count() >=1){
 
-            //find deduction id
-            foreach($myDeductions as $deduction){
-              $id = $deduction->id;
-            }
+                            //find deduction id
+                            foreach($myDeductions as $deduction){
+                              $id = $deduction->id;
+                            }
 
-            //find the deduction
-            $deduct = Ldeduction::find($id);
-            $amountSaved = $deduct->amount_deducted;
+                            //find the deduction
+                            $deduct = Ldeduction::find($id);
+                            $amountSaved = $deduct->amount_deducted;
 
-            //update the record
-            $deduct->amount_deducted = $amountSaved + $amount;
-            $deduct->save();
+                            //update the record
+                            $deduct->amount_deducted = $amountSaved + $amount;
+                            $deduct->save();
 
-              //CHANGE STATUS of our overdeduct
-              $overDeduct->status = 'Inactive';
-              $overDeduct->save();
-              //recaculate loan balances
-              $deduction->recalculateLoanDeductionBalances($loansubid);
+                              //CHANGE STATUS of our overdeduct
+                              $overDeduct->status = 'Inactive';
+                              $overDeduct->save();
+                              //recaculate loan balances
+                              $deduction->recalculateLoanDeductionBalances($loansubid);
 
-          } else{
-            //masterdeduct id
-            $masterDeductId = $overDeduct->masterdeduction_id;
+                          } else{
+                            //masterdeduct id
+                            $masterDeductId = $overDeduct->masterdeduction_id;
 
-            //find cumulative Deduction obj
-            $cumulativeDeduct = Masterdeduction::find($masterDeductId);
+                            //find cumulative Deduction obj
+                            $cumulativeDeduct = Masterdeduction::find($masterDeductId);
 
-            //select subscriptions
-            $activeLoans = Lsubscription::where('loan_status','Active')
-                                          ->where('user_id',$userid)
-                                          //->where('loan_start_date','<',$cumulativeDeduct->entry_date)
-                                          ->oldest('loan_start_date')
-                                          ->get();
+                            //select subscriptions
+                            $activeLoans = Lsubscription::where('loan_status','Active')
+                                                          ->where('user_id',$userid)
+                                                          //->where('loan_start_date','<',$cumulativeDeduct->entry_date)
+                                                          ->oldest('loan_start_date')
+                                                          ->get();
+
+                            $first = $activeLoans->first();
+                            //post overdeduct on the loan
+
+                            //create a new deduction
+                            $newDeduction = new Ldeduction;
+
+                            //total loan balances
+                            $now = Carbon::now()->toTimeString();
+                            $loanDeductionBalance = $newDeduction->myLoanDeductions($first->id);
+                            $newDeduction->user_id = $first->user_id;
+                            $newDeduction->product_id=$first->product_id;
+                            $newDeduction->lsubscription_id =$first->id;
+                            $newDeduction->amount_deducted = $overDeduct->overdeduction_amount;
+                            $newDeduction->balances = $loanDeductionBalance + $overDeduct->overdeduction_amount;
+                            $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+                            $newDeduction->entry_time =$now;
+                            $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+                            $newDeduction->notes = $cumulativeDeduct->description;
+                            $newDeduction->uploaded_by = auth()->user()->first_name;
+                            $newDeduction->save();
+
+                            //recaculate loan balances
+                            $newDeduction->recalculateLoanDeductionBalances($first->id);
+                            //stop loan
+                            $first->loanBalance($first->id);
+
+                            //CHANGE STATUS of our overdeduct
+                            $overDeduct->status = 'Inactive';
+                            $overDeduct->save();
+      }
+  }else{
+//user has no active loan
+//pay the over deduction  to the last finsihed loan
+
+//select subscriptions
+$allLoans = Lsubscription::where('user_id',$userid)
+                              //->where('loan_start_date','<',$cumulativeDeduct->entry_date)
+                              ->oldest('loan_start_date')
+                              ->get();
+$lastLoanPaid = $allLoans->first();
 
 
-            //
-            $first = $activeLoans->first();
 
-            if($first->count()>=1){
+//masterdeduct id
+$masterDeductId = $overDeduct->masterdeduction_id;
 
-              // $id = $first->id;
-              // $productid = $first->product_id;
-              // dd($productid);
-
-              //post overdeduct on the loan
-
-              //create a new deduction
-              $newDeduction = new Ldeduction;
-
-              //total loan balances
-              $now = Carbon::now()->toTimeString();
-              $loanDeductionBalance = $newDeduction->myLoanDeductions($first->id);
-              $newDeduction->user_id = $first->user_id;
-              $newDeduction->product_id=$first->product_id;
-              $newDeduction->lsubscription_id =$first->id;
-              $newDeduction->amount_deducted = $overDeduct->overdeduction_amount;
-              $newDeduction->balances = $loanDeductionBalance + $overDeduct->overdeduction_amount;
-              $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-              $newDeduction->entry_time =$now;
-              $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
-              $newDeduction->notes = $cumulativeDeduct->description;
-              $newDeduction->uploaded_by = auth()->user()->first_name;
-              $newDeduction->save();
-
-              //recaculate loan balances
-              $newDeduction->recalculateLoanDeductionBalances($first->id);
-              //stop loan
-              $first->loanBalance($first->id);
-
-              //CHANGE STATUS of our overdeduct
-              $overDeduct->status = 'Inactive';
-              $overDeduct->save();
-            }
+//find cumulative Deduction obj
+$cumulativeDeduct = Masterdeduction::find($masterDeductId);
 
 
-          }
+//create a new deduction
+$newDeduction = new Ldeduction;
+
+//total loan balances
+$now = Carbon::now()->toTimeString();
+$loanDeductionBalance = $newDeduction->myLoanDeductions($lastLoanPaid->id);
+$newDeduction->user_id = $lastLoanPaid->user_id;
+$newDeduction->product_id=$lastLoanPaid->product_id;
+$newDeduction->lsubscription_id =$lastLoanPaid->id;;
+$newDeduction->amount_deducted = $overDeduct->overdeduction_amount;
+$newDeduction->balances = $loanDeductionBalance + $overDeduct->overdeduction_amount;
+$newDeduction->entry_month = $cumulativeDeduct->entry_date;
+$newDeduction->entry_time =$now;
+$newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+$newDeduction->notes = $cumulativeDeduct->description;
+$newDeduction->uploaded_by = auth()->user()->first_name;
+$newDeduction->save();
+
+//recaculate loan balances
+$newDeduction->recalculateLoanDeductionBalances($lastLoanPaid->id);
+//stop loan
+$lastLoanPaid->loanBalance($lastLoanPaid->id);
+
+//CHANGE STATUS of our overdeduct
+$overDeduct->status = 'Inactive';
+$overDeduct->save();
+  }
 }
 catch(\Exception $e){
 DB::rollback();
