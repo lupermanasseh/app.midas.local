@@ -223,7 +223,6 @@ public function deactivateUser(Request $request){
    $loans = Lsubscription::where('user_id',$id)
                                   ->where('loan_status','Active')
                                   ->get();
-
 //CHECK FOR INDEBTNESS
 if(count($loans)==0){
     //find user
@@ -269,7 +268,7 @@ public function activateUser(Request $request){
  try{
    $id = $request['user_id'];
    $user = User::find($id);
-   
+
    $user->status = 'Active';
    $user->activation_date = $request['_date'];
    $user->activation_reason = $request['reason'];
