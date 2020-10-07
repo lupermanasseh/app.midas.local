@@ -39,7 +39,7 @@
                 <div class="input-field col s12 m4 l4">
                     <input id="user_id" name="user_id" type="hidden" value="{{$user->id}}" class="validate">
                     <input id="overdeduct_id" name="overdeduct_id" type="hidden" value="{{$overdeductionObj->id}}" class="validate">
-                    <input id="amount" name="amount" value="{{$overdeductionObj->overdeduction_amount}}" type="number"
+                    <input id="amount" name="amount" value="{{$overdeductionObj->overdeduction_amount}}" type="number" step=".01"
                         class="validate" disabled>
                     <label for="amount">Amount</label>
                 </div>
