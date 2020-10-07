@@ -37,6 +37,7 @@
                             <th>REG NO</th>
                             <th>NAME</th>
                             <th>STATUS</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +47,13 @@
                             <td>
                                 <a href="/userDetails/{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</a></td>
                             <td>{{$user->status}}</td>
+                            <td>
+                              @if ($user->status == 'Active')
+                              <a href="/userDeactivateForm/{{$user->id}}" class="pink-text darken-2">Deactivate</a>
+                              @else
+                              <a href="/activateUserForm/{{$user->id}}" class="pink-text darken-2">Activate</a>
+                              @endif
+                            </td>
                         </tr>
                     </tbody>
                 </table>
