@@ -15,6 +15,7 @@ use App\TargetSaving;
 use App\Targetsr;
 use App\Admin;
 use App\Role;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
@@ -200,63 +201,92 @@ public function editBank($id){
 
 
 //deactivate user form
-public function userDeactivationForm(){
+public function userDeactivationForm($id){
   $title = "Deactivate User";
-  return view('Users.userDeactivateForm',compact('title'));
+  $user_id = $id;
+  return view('Users.userDeactivateForm',compact('title','user_id'));
 }
 
+
+
 //Deactivate user
-public function deactivateUser(Request $request, $id){
+public function deactivateUser(Request $request){
   $this->validate(request(), [
-     'title' =>'required|string',
-     'sex'=>'required',
-     'relationship' =>'required',
-     'first_name' =>'required|string',
-     'last_name' =>'required|string',
-     'other_name' =>'nullable|string',
-     'email' =>'nullable|email',
-     'phone' =>'required',
+     'reason' =>'required|string',
+     '_date'=>'required|date',
  ]);
 
-$loans = Lsubscription::where('user_id',$id)
-                                ->where('loan_status','Active')
-                                ->get();
+ DB::beginTransaction();
+ try{
+   $id = $request['user_id'];
 
-        if(count($loans)==0){
-            //find user
-            $user = User::find($id);
-            $user->status = 'Inactive';
-            if($user->save())
-            {
-                toastr()->success('User  deactivated  successfully!');
-                return redirect('/userDetails/'.$id);
-            }else{
-                //rteurn home
-                toastr()->error('Error deactivating user.');
-                return back();
-            }
-        }
-        else{
-            //redirect to the product page with a message
-            toastr()->error('You have pending subscriptions');
-            return redirect('/user/page/'.$id);
-        }
-        }
+   $loans = Lsubscription::where('user_id',$id)
+                                  ->where('loan_status','Active')
+                                  ->get();
 
-        //activate user
-        public function activateUser($id){
-            $user = User::find($id);
-            $user->status = 'Active';
-            if($user->save())
-            {
-                toastr()->success('User  activated  successfully!');
-                return redirect('/userDetails/'.$id);
-            }else{
-                //rteurn home
-                toastr()->error('Error activating user.');
-                return back();
-            }
-        }
+//CHECK FOR INDEBTNESS
+if(count($loans)==0){
+    //find user
+    $user = User::find($id);
+    $user->status = 'Inactive';
+    $user->deactivation_date = $request['_date'];
+    $user->deactivation_reason = $request['reason'];
+    $user->save();
+}else{
+  toastr()->error('User is indebted');
+  return redirect('/user/landingPage/{id}/'.$id);
+}
+
+ }catch(\Exception $e){
+     DB::rollback();
+     toastr()->error('Unable to deactivate user!');
+     return back();
+     }
+     DB::commit();
+     toastr()->success('User  deactivated  successfully!');
+     return redirect('/user/landingPage/'.$id);
+}
+
+
+//activate user form
+public function activateUserForm($id){
+  $title = "Activate User";
+  $user_id = $id;
+  return view('Users.activateUserForm',compact('title','user_id'));
+}
+
+
+//activate user
+public function activateUser(Request $request){
+
+  $this->validate(request(), [
+     'reason' =>'required|string',
+     '_date'=>'required|date',
+ ]);
+
+
+ DB::beginTransaction();
+ try{
+   $id = $request['user_id'];
+   $user = User::find($id);
+   
+   $user->status = 'Active';
+   $user->activation_date = $request['_date'];
+   $user->activation_reason = $request['reason'];
+   $user->save();
+ }
+ catch(\Exception $e){
+     DB::rollback();
+     toastr()->error($e->getMessage());
+     return back();
+     }
+     DB::commit();
+     toastr()->success('User  activated  successfully!');
+     return redirect('/user/landingPage/'.$id);
+
+
+}
+
 
 
         //Find user
