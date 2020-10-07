@@ -8,13 +8,14 @@
             <h6 class="teal-text">RECENT MASTER LOAN DEDUCTION(s)</h6>
         </div>
     </div>
-
+@if (count($loanMaster)>=1)
     <div class="row">
         <div class="col s12 subject-header">
             <span><a href="/loandeductions/bulkmaster"><i class="small material-icons tooltipped" data-position="bottom"
                         data-tooltip="Post Bulk">done_all</i></a></span>
         </div>
     </div>
+    @endif
 
     <div class="row">
         <div class="col s12">
