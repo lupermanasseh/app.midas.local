@@ -226,8 +226,9 @@ public function store(Request $request){
 //saving withdrawal form
 public function savingWithdraw($id){
     $title= "Saving Withdrawal";
+    $user = User::find($id);
     $userid =$id;
-    return view('Contributors.withdrawal',compact('title','userid'));
+    return view('Contributors.withdrawal',compact('title','userid','user'));
 }
 
 //saving withdraw store
