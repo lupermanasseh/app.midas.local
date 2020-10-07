@@ -44,11 +44,7 @@
 
 
             <span><a href="/editProfile/{{$profile->id}}" class="pink-text darken-2">Edit</a></span>
-            @if ($profile->status == 'Active')
-            <span><a href="/deactivateUser/{{$profile->id}}" class="pink-text darken-2">Deactivate</a></span>
-            @else
-            <span><a href="/activateUser/{{$profile->id}}" class="pink-text darken-2">Activate</a></span>
-            @endif
+        
             <p><a href="/user/page/{{$profile->id}}" class="btn pink darken-4">Products</a></p>
 
         </div>
