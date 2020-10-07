@@ -121,12 +121,15 @@ Route::get('/editBank/{id}','UsersController@editBank');
 Route::post('/updateBank/{id}','UsersController@updateBank');
 Route::get('/editNok/{id}','UsersController@editNok');
 Route::post('/updateNok/{id}','UsersController@updateNok');
-Route::get('/activateUser/{id}','UsersController@activateUser');
-Route::get('/deactivateUser/{id}','UsersController@deactivateUser');
+Route::post('/activateUser','UsersController@activateUser');
+Route::get('/userDeactivateForm/{id}','UsersController@userDeactivationForm');
+Route::get('/activateUserForm/{id}','UsersController@activateUserForm');
+Route::post('/deactivateUser','UsersController@deactivateUser');
 Route::post('/search/User','UsersController@searchUser');
 Route::get('/change/password','UsersController@passwordChange');
 Route::post('/password/store','UsersController@passwordStore');
 Route::get('/user/landingPage/{id}','UsersController@userLanding');
+
 });
 
 //Product category routes
