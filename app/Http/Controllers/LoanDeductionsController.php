@@ -68,6 +68,9 @@ public function export(){
 
 //populate user consolidated loans table
 public function populate(){
+
+  $loans = Ldeduction::all()->sortBy('entry_month')->unique('lsubscription_id');
+  dd($loans);
 //0
 //1
   // DB::table('lsubscriptions')->where('loan_status', '<>','restructured')
