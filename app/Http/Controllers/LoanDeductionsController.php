@@ -66,14 +66,17 @@ public function export(){
     return Excel::download(new LoandeductionsExport(), $fileName);
 }
 
+public function showNegativeBalances(){
+  $title = ' Show All Negative Balances';
+  $loans = Lsubscription::where('loan_status', '<>','restructured')
+                        ->orderBy('disbursement_date','asc')
+                        ->get();
+  return view ('LoanDeduction.negativeBalances', compact('title','loans'));
+}
+
 //populate user consolidated loans table
 public function populate(){
 
-  $loans = Ldeduction::all()->sortBy('entry_month')->unique('lsubscription_id');
-   foreach ($loans as $loan) {
-     // code...
-     dd($loan->lsubscription_id);
-   }
 //0
 //1
   // DB::table('lsubscriptions')->where('loan_status', '<>','restructured')

@@ -380,6 +380,19 @@ public function uniqueDebtors($userid){
   return $uniqueDebtors = $concatenated->unique();
 }
 
+/**
+ * Get user total loan loan balance
+ * pass in user id
+ * @param int $subid
+ */
+public function findCompleteBalance($subid){
+    $ldeductionObj = new Ldeduction;
+    $loan = Lsubscription::find($subid);
+    $principal = $loan->amount_approved;
+
+    $totalDeductions = $ldeductionObj->totalLoanCredit($subid)-$ldeductionObj->totalLoanDebit($subid);
+    return $balance = $principal-$totalDeductions;
+  }
 
 public static function subGroup(){
 
