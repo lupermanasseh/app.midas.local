@@ -29,8 +29,8 @@
                     @endif
                     <tr>
                         <td>{{$loan->disbursement_date->toFormattedDateString()}}</td>
-                        <td><a href="/user/page/{{$loan->user->id}}">{{$loan->user->first_name}}
-                                {{$loan->user->last_name}}</a></td>
+                        <td>{{$loan->user->first_name}}
+                                {{$loan->user->last_name}}</td>
                         <td>{{$loan->product->name}}</td>
                         <td>{{number_format($loan->amount_approved,2,'.',',')}}</td>
                         <td><a href="/loanDeduction/history/{{$loan->id}}">{{number_format($loan->findCompleteBalance($loan->id),2,'.',',')}}</a></td>
