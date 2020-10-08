@@ -70,7 +70,10 @@ public function export(){
 public function populate(){
 
   $loans = Ldeduction::all()->sortBy('entry_month')->unique('lsubscription_id');
-  dd($loans);
+   foreach ($loans as $loan) {
+     // code...
+     dd($loan->lsubscription_id);
+   }
 //0
 //1
   // DB::table('lsubscriptions')->where('loan_status', '<>','restructured')
