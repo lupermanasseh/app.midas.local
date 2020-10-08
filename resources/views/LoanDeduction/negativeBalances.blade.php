@@ -33,7 +33,7 @@
                                 {{$loan->user->last_name}}</a></td>
                         <td>{{$loan->product->name}}</td>
                         <td>{{number_format($loan->amount_approved,2,'.',',')}}</td>
-                        <td>{{number_format($loan->findCompleteBalance($loan->id),2,'.',',')}}</td>
+                        <td><a href="/loanDeduction/history/{{$loan->id}}">{{number_format($loan->findCompleteBalance($loan->id),2,'.',',')}}</a></td>
                     </tr>
                     @endforeach
                 </tbody>
