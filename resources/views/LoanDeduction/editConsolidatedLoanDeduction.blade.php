@@ -24,11 +24,11 @@
 <div class="input-field col s12 m6 l6">
     @if($deduction->credit)
     <input id="credit" name="credit" value="{{number_format($deduction->credit,2,'.','')}}"
-    type="number" class="validate">
+    type="number" step="0.01" class="validate">
     <label for="credit">Credit</label>
     @else
     <input disabled id="credit" name="credit" value=""
-    type="number" class="validate">
+    type="number" step="0.01" class="validate">
     <label for="credit">Credit</label>
     @endif
 </div>
