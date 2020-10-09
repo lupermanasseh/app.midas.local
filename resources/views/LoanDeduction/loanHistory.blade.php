@@ -232,30 +232,12 @@
               {{ csrf_field() }}
 
               <div class="row">
-                  <div class="input-field col s12 m2 l2">
+                  <div class="input-field col s12 m4 l4">
                       <input id="sub_id" name="sub_id" value="{{$loan->id}}" type="hidden">
                       <input id="amount" name="amount" type="number" step=".01"  class="validate">
                       <label for="amount">Enter Amount</label>
                   </div>
-                  <div class="input-field col s12 m2 l2">
-                      <input id="teller_number" name="teller_number" type="text" class="validate">
-                      <label for="teller_number">Teller Number</label>
-                  </div>
-                  <div class="input-field col s12 m4 l4">
-                      <input id="bank_name" name="bank_name" type="text" class="validate">
-                      <label for="bank_name">Bank Name</label>
-                  </div>
-                  <div class="input-field col s12 m4 l4">
-                      <input id="bank_add" name="bank_add" type="text" class="validate">
-                      <label for="bank_add">Bank Add</label>
-                  </div>
-              </div>
-              <div class="row">
 
-                  <div class="input-field col s12 m4 l4">
-                      <input id="depositor_name" name="depositor_name" type="text" class="validate">
-                      <label for="depositor_name">Depositor Name</label>
-                  </div>
                   <div class="input-field col s12 m4 l4">
                       <input id="entry_date" name="entry_date" type="date" class="validate">
                       <label for="entry_date">Date</label>
@@ -264,6 +246,26 @@
                       <input id="notes" name="notes" type="text" class="validate">
                       <label for="notes">Description</label>
                   </div>
+                  <!-- <div class="input-field col s12 m2 l2">
+                      <input id="teller_number" name="teller_number" type="text" class="validate">
+                      <label for="teller_number">Teller Number</label>
+                  </div> -->
+                  <!-- <div class="input-field col s12 m4 l4">
+                      <input id="bank_name" name="bank_name" type="text" class="validate">
+                      <label for="bank_name">Bank Name</label>
+                  </div> -->
+                  <!-- <div class="input-field col s12 m4 l4">
+                      <input id="bank_add" name="bank_add" type="text" class="validate">
+                      <label for="bank_add">Bank Add</label>
+                  </div> -->
+              </div>
+              <div class="row">
+
+                  <!-- <div class="input-field col s12 m4 l4">
+                      <input id="depositor_name" name="depositor_name" type="text" class="validate">
+                      <label for="depositor_name">Depositor Name</label>
+                  </div> -->
+
               </div>
 
               <button type="submit" class="btn">Credit Loan</button>

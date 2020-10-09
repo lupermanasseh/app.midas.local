@@ -698,12 +698,12 @@ public function topUpLoan(Request $request){
         $this->validate(request(), [
         'amount' =>'required|numeric|between:0.00,999999999.99',
         'sub_id' =>'required|integer',
-        'bank_name' =>'required|string',
-        'depositor_name'=>'required|string',
-        'teller_number' =>'required|string',
+        //'bank_name' =>'required|string',
+        //'depositor_name'=>'required|string',
+        //'teller_number' =>'required|string',
         'entry_date' =>'required|date',
         'notes' =>'required|string',
-        'bank_add' =>'required|string',
+        //'bank_add' =>'required|string',
         ]);
 
             $subid = $request['sub_id'];
@@ -727,16 +727,16 @@ public function topUpLoan(Request $request){
                     $loanBalances = $loanRepay->myLoanDeductions($subid);
                     $loanRepay->amount_deducted = $request['amount'];
                     $loanRepay->balances = $loanBalances + $request['amount'];
-                    $loanRepay->bank_name = $request['bank_name'];
+                    //$loanRepay->bank_name = $request['bank_name'];
                     $loanRepay->user_id = $loanSub->user_id;
                     $loanRepay->product_id = $loanSub->product_id;
                     $loanRepay->lsubscription_id = $request['sub_id'];
                     $loanRepay->entry_month = $request['entry_date'];
                     $loanRepay->entry_time = $now;
-                    $loanRepay->teller_no = $request['teller_number'];
-                    $loanRepay->depositor_name = $request['depositor_name'];
+                    //$loanRepay->teller_no = $request['teller_number'];
+                    //$loanRepay->depositor_name = $request['depositor_name'];
                     $loanRepay->notes = $request['notes'];
-                    $loanRepay->bank_add = $request['bank_add'];
+                    //$loanRepay->bank_add = $request['bank_add'];
                     $loanRepay->uploaded_by = auth()->user()->first_name;
                     $loanRepay->save();
 
