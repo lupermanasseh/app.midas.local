@@ -37,11 +37,11 @@
 <div class="input-field col s12 m6 l6">
     @if($deduction->debit)
     <input id="debit" name="debit" value="{{number_format($deduction->debit,2,'.','')}}"
-    type="number" class="validate">
+    type="number" step="0.01" class="validate">
     <label for="debit">Debit</label>
     @else
     <input disabled id="debit" name="debit" value=""
-    type="number" class="validate">
+    type="number" step="0.01" class="validate">
     <label for="debit">Debit</label>
     @endif
 </div>
