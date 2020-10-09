@@ -160,7 +160,7 @@
                                 <td>{{$myProduct->loan_end_date->toDateString()}}</td>
                                 <td>{{$myProduct->custom_tenor}}</td>
                                 <td>
-                                  {{number_format($myProduct->amount_approved,2,'.',',')}}
+                                  {{number_format($myProduct->amount_approved+$myProduct->topup_amount,2,'.',',')}}
                                 </td>
                                 <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
                                 <td><a
