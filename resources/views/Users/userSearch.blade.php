@@ -219,8 +219,8 @@
                     @foreach ($inactiveLoans as $myProduct)
                     <tr>
                         <td>{{$myProduct->product->name}}</td>
-                        <td>{{$myProduct->loan_start_date->toDateString()}}</td>
-                        <td>{{$myProduct->loan_end_date->toDateString()}}</td>
+                        <td>{{$myProduct->loan_start_date->toFormattedDateString()}}</td>
+                        <td>{{$myProduct->loan_end_date->toFormattedDateString()}}</td>
                         <td>{{$myProduct->custom_tenor}}</td>
                         <td>{{number_format($myProduct->amount_approved,2,'.',',')}}</td>
                         <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
@@ -289,8 +289,8 @@
                             @foreach ($structured as $myProduct)
                             <tr>
                                 <td>{{$myProduct->product->name}}</td>
-                                <td>{{$myProduct->loan_start_date->toDateString()}}</td>
-                                <td>{{$myProduct->loan_end_date->toDateString()}}</td>
+                                <td>{{$myProduct->loan_start_date->toFormattedDateString()}}</td>
+                                <td>{{$myProduct->loan_end_date->toFormattedDateString()}}</td>
                                 <td>{{$myProduct->custom_tenor}}</td>
                                 <td>{{number_format($myProduct->amount_approved,2,'.',',')}}
                                   @if($myProduct->topup_amount)
