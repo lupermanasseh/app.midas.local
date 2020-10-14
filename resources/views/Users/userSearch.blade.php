@@ -156,8 +156,8 @@
                             @foreach ($activeLoans as $myProduct)
                             <tr>
                                 <td>{{$myProduct->product->name}}</td>
-                                <td>{{$myProduct->loan_start_date->toDateString()}}</td>
-                                <td>{{$myProduct->loan_end_date->toDateString()}}</td>
+                                <td>{{$myProduct->loan_start_date->toFormattedDateString()}}</td>
+                                <td>{{$myProduct->loan_end_date->toFormattedDateString()}}</td>
                                 <td>{{$myProduct->custom_tenor}}</td>
                                 <td>
                                   {{number_format($myProduct->amount_approved+$myProduct->topup_amount,2,'.',',')}}
