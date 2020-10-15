@@ -459,11 +459,11 @@ public function debitLoan(Request $request){
         //begin transaction to process uploads
         DB::beginTransaction();
         try{
-            if($loanSub->loan_status=='Inactive'){
-                //check loan
-                toastr()->error('This loan is inactive.');
-                return redirect('/user/landingPage/'.$loanSub->user_id);
-            }else{
+            // if($loanSub->loan_status=='Inactive'){
+            //     //check loan
+            //     toastr()->error('This loan is inactive.');
+            //     return redirect('/user/landingPage/'.$loanSub->user_id);
+            // }else{
 
                 $loanRepay = new Ldeduction;
                 //total loan Balances
@@ -496,7 +496,7 @@ public function debitLoan(Request $request){
                 $newConsolidatedDeduct->debit = $request['amount'];
                 $newConsolidatedDeduct->save();
                 $newConsolidatedDeduct->userConsolidatedBalances($userId);
-            }
+            //}//end check for loan inactivity
         }
         catch(\Exception $e){
         DB::rollback();
@@ -583,11 +583,11 @@ public function topUpLoan(Request $request){
         //begin transaction to process loan topup
         DB::beginTransaction();
         try{
-            if($parentLoan->loan_status=='Inactive'){
-                //check loan
-                toastr()->error('This loan is already inactive, top up is impossible.');
-                return redirect('/user/landingPage/'.$parentLoan->user_id);
-            }else{
+            // if($parentLoan->loan_status=='Inactive'){
+            //     //check loan
+            //     toastr()->error('This loan is already inactive, top up is impossible.');
+            //     return redirect('/user/landingPage/'.$parentLoan->user_id);
+            // }else{
                 //create new loan with the merged data
                 $loan_sub = new Lsubscription();
                 $loan_sub->product_id = $parentLoan->product_id;
@@ -660,7 +660,7 @@ public function topUpLoan(Request $request){
                 $newConsolidatedDeduct->save();
                 $newConsolidatedDeduct->userConsolidatedBalances($parentLoan->user_id);
 
-            }
+            //}//end loan inactivity check
         }
         catch(\Exception $e){
         DB::rollback();
@@ -715,11 +715,11 @@ public function topUpLoan(Request $request){
             //begin transaction to process uploads
             DB::beginTransaction();
             try{
-                if($totalDeductions >= $amtApproved){
-                    //check loan
-                    toastr()->error('Loan seems fully paid, check please.');
-                    return redirect('/user/page/'.$loanSub->user_id);
-                }else{
+                // if($totalDeductions >= $amtApproved){
+                //     //check loan
+                //     toastr()->error('Loan seems fully paid, check please.');
+                //     return redirect('/user/page/'.$loanSub->user_id);
+                // }else{
 
                     $loanRepay = new Ldeduction;
                     //total loan Balances
@@ -755,7 +755,7 @@ public function topUpLoan(Request $request){
                     $newConsolidatedDeduct->credit = $request['amount'];
                     $newConsolidatedDeduct->save();
                     $newConsolidatedDeduct->userConsolidatedBalances($loanSub->user_id);
-                }
+                //}//check fully paid loan
             }
             catch(\Exception $e){
             DB::rollback();
