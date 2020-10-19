@@ -77,11 +77,15 @@ class Ldeduction extends Model
      * Get user total loan deductions
      * pass in user id
      * @param int $subid
+     * Change name of method to loan balance
      */
     public static function myLoanDeductions($subid){
         $ldeductionObj = new Ldeduction;
-        //$totalSaving = Saving::where('user_id',$id)->sum('amount_saved');
-        return $totalDeductions = $ldeductionObj->totalLoanCredit($subid)-$ldeductionObj->totalLoanDebit($subid);
+        $loan = Lsubscription::find($subid);
+        $principal = $loan->amount_approved + $loan->topup_amount;
+        $totaldebit = $principal + $ldeductionObj->totalLoanDebit($subid);
+        return $loanBal = $totaldebit - $ldeductionObj->totalLoanCredit($subid);
+      //  return $totalDeductions = $ldeductionObj->totalLoanCredit($subid)-$ldeductionObj->totalLoanDebit($subid);
       }
 
        /**
