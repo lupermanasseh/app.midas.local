@@ -1529,10 +1529,10 @@ public function activateBulkLegacySubs(){
       $newData = new Userconsolidatedloan();
       $newData->user_id = $myItem->user_id;
       $newData->lsubscription_id = $myItem->id;
-      $newData->description = 'Normal Loan Disbursement';
+      $newData->description = $myItem->product->name . ' Loan';
       $newData->date_entry = $myItem->disbursement_date;
       $newData->entry_time = $now;
-      $newData->ref_identification = '750-2020-09-24';
+      $newData->ref_identification = $myItem->ref;
       $newData->debit = $myItem->amount_approved;
       $newData->save();
       $newData->userConsolidatedBalances($myItem->user_id);
