@@ -1021,11 +1021,16 @@ try{
               $newDeduction->notes = $cumulativeDeduct->description;
               $newDeduction->uploaded_by = auth()->user()->first_name;
               $newDeduction->save();
-            
+
               //recaculate loan balances
               $newDeduction->recalculateLoanDeductionBalances($sub->id);
                 //stop loan
               $myLoanSubscription->loanBalance($sub->id);
+
+              //CHANGE STATUS OF THE MASTER DEDUCTION HERE
+              $cumulativeDeduct->status = 'Inactive';
+              $cumulativeDeduct->save();
+
             }
 
           }else{
