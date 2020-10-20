@@ -29,7 +29,7 @@ class LoanSubscriptionController extends Controller
     {
         //
         $title ='All Loan Request';
-        $loanReq = Loan::withCount(['loansubscriptions' => function ($query){
+        $loanReq = Lsubscription::withCount(['loansubscriptions' => function ($query){
             $query->where('loan_status','Pending');
         }])->paginate(5);
         return view('LoanSub.index',compact('loanReq','title'));
