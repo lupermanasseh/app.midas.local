@@ -141,7 +141,7 @@ public function findLoansByDisbursementDate($date){
     if($diffRslt <= 0){
         //update the subj obj status to inactive
         $loanSub->loan_status = 'Inactive';
-        $loanSub->loan_end_date = now()->toDateString();
+        //$loanSub->loan_end_date = now()->toDateString();
         //$loanSub->review_by = auth()->id();
         $loanSub->save();
     }
