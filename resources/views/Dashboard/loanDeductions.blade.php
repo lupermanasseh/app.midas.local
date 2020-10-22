@@ -30,7 +30,7 @@
               @endif
               </td>
               <td>
-              {{number_format($loan->amount_approved-$myItem->balances,2,'.',',')}}
+              {{number_format($list->amount_approved-$list->balances,2,'.',',')}}
               </td>
 
         </tr>
