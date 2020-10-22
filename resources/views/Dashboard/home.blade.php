@@ -1,51 +1,5 @@
 @extends('Layouts.user')
 @section('admin')
-
-
-
-<div>
-    <p class="paragraph">SAVINGS</p>
-    <table class="highlight">
-        <thead>
-            <tr>
-                <!-- <th>#</th>
-                <th>Name</th> -->
-                <th>Description</th>
-                <th>Status</th>
-                <th>Balance</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <!-- <td>{{substr($user->membership_type,0,1)}}/{{$user->id}}</td>
-                <td>
-                    {{$user->first_name}} {{$user->last_name}}</td> -->
-                <td>Savings (Contribution)</td>
-                <td>{{$user->status}}</td>
-                <td>
-                    <a href="/Dashboard/user/savings">{{number_format($saving->netBalance($user->id),2,'.',',')}}</a>
-                </td>
-            </tr>
-            @if(count($targetsr)>=1)
-            @foreach ($targetsr as $tsr)
-            <tr>
-                <td>{{substr($user->membership_type,0,1)}}/{{$user->id}}</td>
-                <td>
-                    {{$user->first_name}} {{$user->last_name}}
-                </td>
-                <td>Target Saving (Bam)</td>
-                <td>{{$user->status}}</td>
-                <td><a
-                        href="/Dashboard/targetsavings/{{$tsr->id}}">{{number_format($targetSaving->targetSavingBalance($tsr->id),2,'.',',')}}</a>
-                </td>
-            </tr>
-            @endforeach
-            @else
-            @endif
-        </tbody>
-    </table>
-</div>
 <div>
 
     @if(count($activeLoans)>=1)
