@@ -1,6 +1,6 @@
 <div class="overview">
     <h6 class="overview__heading">
-        <a href="" class="overview__savings">Closing {{number_format($totalSaving,2,'.',',')}}</a>
+        <a href="/Dashboard/user/savings" class="overview__savings">Closing {{number_format($totalSaving,2,'.',',')}}</a>
     </h6>
     <span><svg class="overview__icon-star">
             <use xlink:href="{{asset('images/sprite.svg#icon-chevron-with-circle-left')}}"></use>
