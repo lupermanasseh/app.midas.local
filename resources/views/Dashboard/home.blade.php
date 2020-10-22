@@ -91,7 +91,7 @@
 
             @if(count($activeLoans)>=1)
             <tr>
-                <th colspan="6">Summary</th>
+                <th colspan="4">Summary</th>
                 <th>{{number_format($user->totalApprovedAmount(auth()->id()),2,'.',',')}}</th>
                 <th>{{number_format($user->loanSubscriptionTotal(auth()->id()),2,'.',',')}}</th>
                 <th>{{number_format($user->allLoanBalances(auth()->id()),2,'.',',')}}</th>
@@ -135,22 +135,12 @@
                 <td>{{number_format($inactive->amount_approved+$inactive->topup_amount,2,'.',',')}}</td>
                 <td>{{number_format($inactive->monthly_deduction,2,'.',',')}}</td>
                 <td><a
-                        href="/#/{{$myProduct->id}}">{{number_format($inactive->amount_approved+$inactive->topup_amount-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
+                        href="/#/{{$inactive->id}}">{{number_format($inactive->amount_approved+$inactive->topup_amount-$inactive->totalLoanDeductions($inactive->id),2,'.',',')}}</a>
                 </td>
             </tr>
             @endforeach
             @else
             <p>No Inactive Loans available yet</p>
-            @endif
-
-            @if(count($inactiveLoans)>=1)
-            <tr>
-                <th colspan="6">Summary</th>
-                <th>{{number_format($user->totalApprovedAmount(auth()->id()),2,'.',',')}}</th>
-                <th>{{number_format($user->loanSubscriptionTotal(auth()->id()),2,'.',',')}}</th>
-                <th>{{number_format($user->allLoanBalances(auth()->id()),2,'.',',')}}</th>
-            </tr>
-            @else
             @endif
 
         </tbody>
