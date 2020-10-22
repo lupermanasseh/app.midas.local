@@ -35,7 +35,7 @@
                 <td>{{number_format($myProduct->amount_approved+$myProduct->topup_amount,2,'.',',')}}</td>
                 <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
                 <td><a
-                        href="/user/loans/{{$myProduct->id}}">{{number_format($myProduct->amount_approved+$myProduct->topup_amount-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
+                        href="/#/{{$myProduct->id}}">{{number_format($myProduct->amount_approved+$myProduct->topup_amount-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
                 </td>
             </tr>
             @endforeach
@@ -89,7 +89,7 @@
                 <td>{{number_format($inactive->amount_approved+$inactive->topup_amount,2,'.',',')}}</td>
                 <td>{{number_format($inactive->monthly_deduction,2,'.',',')}}</td>
                 <td><a
-                        href="/user/loans/{{$inactive->id}}">{{number_format($inactive->amount_approved+$inactive->topup_amount-$inactive->totalLoanDeductions($inactive->id),2,'.',',')}}</a>
+                        href="/#/{{$inactive->id}}">{{number_format($inactive->amount_approved+$inactive->topup_amount-$inactive->totalLoanDeductions($inactive->id),2,'.',',')}}</a>
                 </td>
             </tr>
             @endforeach
