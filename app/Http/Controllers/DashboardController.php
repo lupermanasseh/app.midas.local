@@ -116,7 +116,6 @@ class DashboardController extends Controller
         $title ="All Savings";
         $user_id = auth()->id();
         $saving = Saving::where('user_id',$user_id)
-                            ->where('status','Active')
                             ->with('user')
                             ->get();
         return view('Dashboard.savings',compact('title','saving'));
