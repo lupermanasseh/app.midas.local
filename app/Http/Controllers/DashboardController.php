@@ -195,7 +195,7 @@ class DashboardController extends Controller
         $title ='Loan Deductions';
         //$user_id = auth()->id();
         $deductions = Ldeduction::where('lsubscription_id',$id)
-        ->latest()
+        ->oldest()
         ->paginate(12);
         return view('Dashboard.loanDeductions',compact('deductions','title'));
         }
