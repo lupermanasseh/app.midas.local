@@ -13,6 +13,19 @@
         </tr>
     </thead>
     <tbody>
+      <tr>
+          <td>
+            @if($loan->disbursement_date)
+            {{$loan->disbursement_date->toFormattedDateString()}}
+            @else
+            NOT AVAILABLE
+            @endif</td>
+          <td>Normal Loan Disbursement</td>
+          <td>{{number_format($loan->amount_approved,2,'.',',')}}</td>
+          <td>-</td>
+          <td>{{number_format($loan->amount_approved,2,'.',',')}}
+          </td>
+        </tr>
         @foreach ($deductions as $list)
         <tr>
             <td>{{$list->entry_month->toFormattedDateString()}}</td>
