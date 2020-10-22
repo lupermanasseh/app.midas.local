@@ -42,15 +42,16 @@ class DashboardController extends Controller
         $user = User::find(auth()->id());
          //Active Product Subscriptions
          $activeLoans = Lsubscription::activeLoans(auth()->id());
+         $inactiveLoans = Lsubscription::inactiveLoans(auth()->id());
          //User target saving subscriptions
          $targetsr = Targetsr::where('user_id',$user->id)
                              ->where('status','Active')
                              ->get();
-        return view('Dashboard.home',compact('user','saving','activeLoans','targetsr','targetSaving','title'));
+        return view('Dashboard.home',compact('user','saving','inactiveLoans','activeLoans','targetsr','targetSaving','title'));
     }
 
 
-    //offline 
+    //offline
     public function offline (){
         $title ="Offline";
         return view('Dashboard.offline',compact('title'));
@@ -58,7 +59,7 @@ class DashboardController extends Controller
 
      //print html savings  statement
      public function printStatement($from,$to){
-        
+
         $title ="Statement of Savings";
         //create new Saving Object
         $Saving = new Saving;
@@ -66,7 +67,7 @@ class DashboardController extends Controller
         $user_id = $userObj->id;
         //call the search method here
         $statementCollection = $Saving->findSavingRecords($from,$to,$user_id);
-        
+
         return view('Prints.myPrint',compact('title','Saving','from','to','statementCollection','userObj'));
     }
 
@@ -84,7 +85,7 @@ class DashboardController extends Controller
         $pdf = PDF::loadView('Prints.saving-statement',compact('Saving','title','statementCollection','from','to','userObj'));
         return $pdf->stream();
         // return $pdf->download('statementOfSavings.pdf');
-    
+
     }
 
 
@@ -107,7 +108,7 @@ class DashboardController extends Controller
         ->get();
         return view('Dashboard.savingIndex',compact('title','savingSummary'));
     }
-   
+
     /**
      * List all user savings
      */
@@ -123,7 +124,7 @@ class DashboardController extends Controller
 
     /**
      * Detail user savings by year
-     * pass in year 
+     * pass in year
      */
     public function savingsByYear($id){
         $title ="All Savings";
@@ -133,7 +134,7 @@ class DashboardController extends Controller
         ->orderBy('entry_date','asc')->get()->where('user_id',$user_id);
         return view('Dashboard.savings',compact('title','saving'));
     }
-    
+
     /**
      * Target saving home page
      * list all subscriptions by a user
@@ -156,14 +157,14 @@ class DashboardController extends Controller
 
     public function targetSavingListings($id)
     {
-        
+
         $title ='Target Saving Listings';
         //$user_id = auth()->id();
         $targetSavingList = TargetSaving::where('targetsr_id',$id)
         ->orderBy('entry_date')
         ->get();
         return view('Dashboard.tsListings',compact('targetSavingList','title'));
-        
+
     }
 
     public function allTargetSavings(){
@@ -197,7 +198,7 @@ class DashboardController extends Controller
         $deductions = Ldeduction::where('lsubscription_id',$id)
         ->latest()
         ->paginate(12);
-        return view('Dashboard.loanDeductions',compact('deductions','title'));   
+        return view('Dashboard.loanDeductions',compact('deductions','title'));
         }
 
         /**
@@ -211,7 +212,7 @@ class DashboardController extends Controller
             return view('Dashboard.loanDetail',compact('userLoan','title'));
         }
 
-        
+
 /**
  * User pending apps
  */
@@ -269,7 +270,7 @@ $title ='Product Deductions';
 $deductions = Productdeduction::where('psubscription_id',$id)
 ->latest()
 ->paginate(12);
-return view('Dashboard.productDeductions',compact('deductions','title'));   
+return view('Dashboard.productDeductions',compact('deductions','title'));
 }
 
     /**
@@ -302,7 +303,7 @@ public function customSearch(Request $request){
             $records = $saving->findSavingRecords($fromDate,$toDate,$user_id);
 
             return view ('Dashboard.searchSaving',compact('title','records','fromDate','toDate','saving','userObj'));
-            
+
             // if($category =="Loan"){
                 //process search for loan
                 // $heading ='Filtered Loan Records';
