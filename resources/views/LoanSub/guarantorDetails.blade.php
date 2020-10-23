@@ -94,8 +94,8 @@
                           <tr>
                               <th colspan="3">Summary</th>
 
-                              <th>{{number_format($newSubObj->totalLiability($newUser->id)*2,2,'.',',')}}</th>
                               <th>{{number_format($newSubObj->totalLiability($newUser->id),2,'.',',')}}</th>
+                              <th>{{number_format($newSubObj->totalLiability($newUser->id)*0.5,2,'.',',')}}</th>
                           </tr>
                           @else
                           @endif
