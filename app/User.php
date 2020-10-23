@@ -191,15 +191,16 @@ class User extends Authenticatable
             $sumBal=0;
             $lsub = new Lsubscription;
             $all_loans = Lsubscription::where('user_id', '=', $id)
-            ->where(function ($query) {
-                $query->where('loan_status', '=', 'Active');
-            })->get();
+                                        ->where('loan_status','active')
+                                        ->get();
 
             foreach($all_loans as $item){
                 //$totalBal=0;
                 $approved_amt = $item->amount_approved;
+                $topup_amt = $item->topup_amount;
+                $principal = $approved_amt+$topup_amt;
                 $deductions = $lsub->totalLoanDeductions($item->id);
-                $bal = $approved_amt-$deductions;
+                $bal = $principal-$deductions;
                 $sumBal = $sumBal+$bal;
             }
             return $sumBal;
