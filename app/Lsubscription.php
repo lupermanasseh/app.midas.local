@@ -357,9 +357,9 @@ public function loanGuarantorCount($id){
 public function totalLiability($user_id){
   $sumBal =0;
   $userGuaranteedLoans = $this->uniqueDebtors($user_id);
-   foreach($userGuaranteedLoans as $loan ){
+   foreach($userGuaranteedLoans as $user ){
      $newUser = new User;
-     $bal = $newUser->allLoanBalances($loan);
+     $bal = $newUser->allLoanBalances($user);
      $sumBal =$sumBal+$bal;
    }
    return $sumBal*0.5;
