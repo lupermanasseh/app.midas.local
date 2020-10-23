@@ -68,6 +68,7 @@ Route::get('/Dashboard/myPendingLoans/{id}','DashboardController@pendingApps');
 Route::get('/Dashboard/myPaidLoans/{id}','DashboardController@paidLoans');
 Route::get('/Dashboard/onboarding','DashboardController@onboarding');
 Route::post('/Dashboard/onboarding/{id}','DashboardController@onboardingChange');
+Route::get('/Dashboard/liability/{id}','DashboardController@loansGuaranteedDetails');
 });
 
 //REGISTRATION ROUTES
