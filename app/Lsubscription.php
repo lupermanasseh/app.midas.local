@@ -358,11 +358,11 @@ public function totalLiability($user_id){
 $g1=0.0;
 $g2=0.0;
   //select all active loans guranteed as a first guarantor
-  $g1 = Lsubscription::where('guarantor_id1',$user_id)
+  $guarantor1 = Lsubscription::where('guarantor_id1',$user_id)
                       ->where('loan_status','Active')
                       ->get();
-        if($g1->count()>=1){
-          foreach($g1 as $firstg){
+        if($guarantor1->count()>=1){
+          foreach($guarantor1 as $firstg){
           $bal= $this->findCompleteBalance($firstg->id);
             $g1 = $g1+$bal;
           }
@@ -370,11 +370,11 @@ $g2=0.0;
 
 
       //select all active loans guranteed as second  guarantor
-      $g2 = Lsubscription::where('guarantor_id2',$user_id)
+      $guarantor2 = Lsubscription::where('guarantor_id2',$user_id)
                           ->where('loan_status','Active')
                           ->get();
-          if($g2->count()>=1){
-            foreach($g2 as $secondg){
+          if($guarantor2->count()>=1){
+            foreach($guarantor2 as $secondg){
             $bal2= $this->findCompleteBalance($secondg->id);
               $g2 = $g2+$bal2;
             }
