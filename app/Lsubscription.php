@@ -355,12 +355,17 @@ public function loanGuarantorCount($id){
 
 //find total liability by user
 public function totalLiability($user_id){
-
+$g1=0;
   //select all active loans guranteed as a first guarantor
   $g1 = Lsubscription::where('guarantor_id1',$user_id)
                       ->where('loan_status','Active')
                       ->get();
-      return $count = $g1->count();
+
+      foreach($g1 as $firstg){
+        $bal= $this->findCompleteBalance($firstg->id);
+        $sumG1 = $g1+$bal;
+      }
+      return $sumG1;
   // $sumBal =0;
   // $userGuaranteedLoans = $this->uniqueDebtors($user_id);
   //  foreach($userGuaranteedLoans as $user ){
