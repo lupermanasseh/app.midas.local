@@ -35,11 +35,11 @@
 </div> --}}
 
 <div class="overview__rating">
-    {{-- <div class="overview__rating-average"><a href="" class="overview__link">N
-            {{number_format($tsSaving,2,'.',',')}}
+    <div class="overview__rating-average"><a href="" class="overview__link">N
+            {{number_format($liability,2,'.',',')}}
     </a>
 </div>
-<div class="overview__rating-count">TS</div>
-<div class="overview__rating-count">{{now()->toDateString()}}</div> --}}
+<div class="overview__rating-count">Liability</div>
+<div class="overview__rating-count">{{now()->toDateString()}}</div>
 </div>
 </div>
