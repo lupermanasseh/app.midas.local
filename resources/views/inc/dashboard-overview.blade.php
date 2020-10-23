@@ -36,7 +36,7 @@
 
 <div class="overview__rating">
     <div class="overview__rating-average"><a href="" class="overview__link">N
-            {{number_format($liability,2,'.',',')}}
+            {{number_format($liability*0.5,2,'.',',')}}
     </a>
 </div>
 <div class="overview__rating-count">Liability</div>
