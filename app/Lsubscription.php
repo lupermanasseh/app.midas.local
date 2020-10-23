@@ -368,11 +368,11 @@ $g2=0.0;
       }
 
       //select all active loans guranteed as second  guarantor
-      $g1 = Lsubscription::where('guarantor_id2',$user_id)
+      $g2 = Lsubscription::where('guarantor_id2',$user_id)
                           ->where('loan_status','Active')
                           ->get();
 
-          foreach($g1 as $secondg){
+          foreach($g2 as $secondg){
           $bal2= $this->findCompleteBalance($secondg->id);
             $g2 = $g2+$bal2;
           }
