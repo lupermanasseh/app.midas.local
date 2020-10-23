@@ -35,7 +35,7 @@
 </div> --}}
 
 <div class="overview__rating">
-    <div class="overview__rating-average"><a href="" class="overview__link">N
+    <div class="overview__rating-average"><a href="/Dashboard/liability/{{auth()->id()}}" class="overview__link">N
             {{number_format($liability*0.5,2,'.',',')}}
     </a>
 </div>
