@@ -40,11 +40,11 @@ class DashboardController extends Controller
         $saving = new Saving;
         $targetSaving = new TargetSaving;
         $user = User::find(auth()->id());
-         //Active Product Subscriptions
-         $activeLoans = Lsubscription::activeLoans(auth()->id());
-         $inactiveLoans = Lsubscription::inactiveLoans(auth()->id());
-         //User target saving subscriptions
-         $targetsr = Targetsr::where('user_id',$user->id)
+        //Active Product Subscriptions
+        $activeLoans = Lsubscription::activeLoans(auth()->id());
+        $inactiveLoans = Lsubscription::inactiveLoans(auth()->id());
+        //User target saving subscriptions
+        $targetsr = Targetsr::where('user_id',$user->id)
                              ->where('status','Active')
                              ->get();
         return view('Dashboard.home',compact('user','saving','inactiveLoans','activeLoans','targetsr','targetSaving','title'));
