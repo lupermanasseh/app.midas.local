@@ -23,7 +23,7 @@
             <p class="profile__heading text-grey darken-3">{{$review->user->userInstance($guarantor)->first_name}} {{$review->user->userInstance($guarantor)->last_name}}</p>
             <!-- <span><i class="small material-icons pink-text lighten-4">looks</i></span> -->
             <span>
-              {{number_format($review->totalLiability($guarantor),2,'.',',')}}
+              {{number_format($review->totalLiability($guarantor)*0.5,2,'.',',')}}
             </span>
             <!-- <span>
               @if($review->imageCount($guarantor)===0)
