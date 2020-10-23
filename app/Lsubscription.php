@@ -361,21 +361,25 @@ $g2=0.0;
   $g1 = Lsubscription::where('guarantor_id1',$user_id)
                       ->where('loan_status','Active')
                       ->get();
+        if($g1->count()>=1){
+          foreach($g1 as $firstg){
+          $bal= $this->findCompleteBalance($firstg->id);
+            $g1 = $g1+$bal;
+          }
+        }
 
-      foreach($g1 as $firstg){
-      $bal= $this->findCompleteBalance($firstg->id);
-        $g1 = $g1+$bal;
-      }
 
       //select all active loans guranteed as second  guarantor
       $g2 = Lsubscription::where('guarantor_id2',$user_id)
                           ->where('loan_status','Active')
                           ->get();
-
-          foreach($g2 as $secondg){
-          $bal2= $this->findCompleteBalance($secondg->id);
-            $g2 = $g2+$bal2;
+          if($g2->count()>=1){
+            foreach($g2 as $secondg){
+            $bal2= $this->findCompleteBalance($secondg->id);
+              $g2 = $g2+$bal2;
+            }
           }
+
     return $g1+$g2;
   // $sumBal =0;
   // $userGuaranteedLoans = $this->uniqueDebtors($user_id);
