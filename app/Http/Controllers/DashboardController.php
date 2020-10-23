@@ -121,6 +121,15 @@ class DashboardController extends Controller
         return view('Dashboard.savings',compact('title','saving'));
     }
 
+    //guarantor details page
+    public function loansGuaranteedDetails($id){
+        $title ='Guarantor Details';
+        $newUser = User::find($id);
+        $newSubObj = new Lsubscription;
+        $firstGuarantor = Lsubscription::guarantorAsFirst($id);
+        $secondGuarantor = Lsubscription::guarantorAsSecond($id);
+        return view('Dashboard.detailGuarantor',compact('firstGuarantor','secondGuarantor','title','newUser','newSubObj'));
+    }
     /**
      * Detail user savings by year
      * pass in year
