@@ -22,10 +22,16 @@
                 {{$active->notes}}
             </td>
             <td>
+                @if($active->amount_withdrawn)
                 {{number_format($active->amount_withdrawn,2,'.',',')}}
+                @else
+                @endif
             </td>
             <td>
+                @if($active->amount_saved)
                 {{number_format($active->amount_saved,2,'.',',')}}
+                @else
+                @endif
             </td>
             <td>{{number_format($active->balanceAsAt($active->amount_saved,$active->amount_withdrawn,$active->id,auth()->id()))}}
             </td>
