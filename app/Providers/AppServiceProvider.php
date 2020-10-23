@@ -63,12 +63,15 @@ class AppServiceProvider extends ServiceProvider
          * Create view composer for user dashboard
          */
         view()->composer('inc.dashboard-overview', function($view){
-            $view->with('totalSaving', Saving::mySavings(auth()->id()));
+          $newSubscription = new Lsubscription;
+          $totalLiability = $newSubscription->totalLiability(auth()->id());
+          $savings = Saving::mySavings(auth()->id());
+            $view->with(['totalSaving'=>$savings,'liability'=>$totalLiability]);
         });
 
-        view()->composer('inc.dashboard-overview', function($view){
-            $view->with('tsSaving', TargetSaving::myTargetSavings(auth()->id()));
-        });
+        // view()->composer('inc.dashboard-overview', function($view){
+        //     $view->with('tsSaving', TargetSaving::myTargetSavings(auth()->id()));
+        // });
 
         view()->composer(['inc.dashboard-userreviews','Dashboard.home'], function($view){
             $paidLoans = Lsubscription::paidLoans(auth()->id());
