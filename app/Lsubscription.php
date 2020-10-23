@@ -363,9 +363,9 @@ $g1=0;
 
       foreach($g1 as $firstg){
         $bal= $this->findCompleteBalance($firstg->id);
-        $sumG1 = $g1+$bal;
+        $g1 = $g1+$bal;
       }
-      return $sumG1;
+      return $g1;
   // $sumBal =0;
   // $userGuaranteedLoans = $this->uniqueDebtors($user_id);
   //  foreach($userGuaranteedLoans as $user ){
