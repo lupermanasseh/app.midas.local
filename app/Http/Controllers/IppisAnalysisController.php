@@ -155,6 +155,8 @@ $userid = $request['user_id'];
 $overdeduct_id = $request['overdeduct_id'];
 $loansubid= $request['loan_id'];
 
+
+
 //start transaction
 DB::beginTransaction();
 try{
@@ -162,6 +164,9 @@ try{
   $overDeduct = Loanoverdeduction::find($overdeduct_id);
   $amount = $overDeduct->overdeduction_amount;
   //select all loan deductions based on the loan id and date and ref
+
+  //masterdeduct id
+  $masterDeductId = $overDeduct->masterdeduction_id;
 
   //check if user has an active loan
   if($loansubid){
@@ -284,6 +289,21 @@ $lastLoanPaid->loanBalance($lastLoanPaid->id);
 //CHANGE STATUS of our overdeduct
 $overDeduct->status = 'Inactive';
 $overDeduct->save();
+
+//post to user consolidated loan ledger
+// //post cumulative amount to consolidated loan ledger
+//
+$newConsolidatedDeduct = new Userconsolidatedloan();
+
+$now = Carbon::now()->toTimeString();
+$newConsolidatedDeduct->user_id = $userid;
+$newConsolidatedDeduct->description = $cumulativeDeduct->description;
+$newConsolidatedDeduct->date_entry = $cumulativeDeduct->entry_date;
+$newConsolidatedDeduct->entry_time = $now;
+$newConsolidatedDeduct->credit = $cumulativeDeduct->cumulative_amount;
+$newConsolidatedDeduct->ref_identification = $cumulativeDeduct->master_reference;
+$newConsolidatedDeduct->save();
+$newConsolidatedDeduct->userConsolidatedBalances($userid);
   }
 }
 catch(\Exception $e){
@@ -1031,6 +1051,18 @@ try{
               $cumulativeDeduct->status = 'Inactive';
               $cumulativeDeduct->save();
 
+              //
+              $newConsolidatedDeduct = new Userconsolidatedloan();
+
+              $now = Carbon::now()->toTimeString();
+              $newConsolidatedDeduct->user_id = $user_id;
+              $newConsolidatedDeduct->description = $cumulativeDeduct->description;
+              $newConsolidatedDeduct->date_entry = $cumulativeDeduct->entry_date;
+              $newConsolidatedDeduct->entry_time = $now;
+              $newConsolidatedDeduct->credit = $cumulativeDeduct->cumulative_amount;
+              $newConsolidatedDeduct->ref_identification = $cumulativeDeduct->master_reference;
+              $newConsolidatedDeduct->save();
+              $newConsolidatedDeduct->userConsolidatedBalances($user_id);
             }
 
           }else{
@@ -1603,6 +1635,21 @@ foreach ($allMasterDeductions as $masterDeduction) {
             //CHANGE STATUS OF THE MASTER DEDUCTION HERE
             $cumulativeDeduct->status = 'Inactive';
             $cumulativeDeduct->save();
+
+            //post to the user consolidated ledger
+            // //post cumulative amount to consolidated loan ledger
+            //
+            $newConsolidatedDeduct = new Userconsolidatedloan();
+
+            $now = Carbon::now()->toTimeString();
+            $newConsolidatedDeduct->user_id = $user_id;
+            $newConsolidatedDeduct->description = $cumulativeDeduct->description;
+            $newConsolidatedDeduct->date_entry = $cumulativeDeduct->entry_date;
+            $newConsolidatedDeduct->entry_time = $now;
+            $newConsolidatedDeduct->credit = $cumulativeDeduct->cumulative_amount;
+            $newConsolidatedDeduct->ref_identification = $cumulativeDeduct->master_reference;
+            $newConsolidatedDeduct->save();
+            $newConsolidatedDeduct->userConsolidatedBalances($user_id);
 
           }
 
