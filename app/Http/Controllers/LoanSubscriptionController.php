@@ -325,7 +325,52 @@ public function paidLoanEdit($id)
             return redirect('/loanDeduction/history/'.$loan_sub->id);
         }
 
+///Deactivate loan
 
+public function deactivateLoan($id)
+    {
+
+        DB::beginTransaction();
+        try{
+          $loan_sub = Lsubscription::find($id);
+
+          $loan_sub->loan_status = "Inactive";
+          $loan_sub->save();
+
+        }
+        catch(\Exception $e){
+          DB::rollback();
+          toastr()->error($e->getMessage());
+          return back();
+        }
+        DB::commit();
+        toastr()->success('Record updated successfully!');
+        return redirect('/user/landingPage/'.$loan_sub->user_id);
+    }
+
+
+    ///Activate loan
+
+    public function activateLoan($id)
+        {
+
+            DB::beginTransaction();
+            try{
+              $loan_sub = Lsubscription::find($id);
+
+              $loan_sub->loan_status = "Active";
+              $loan_sub->save();
+
+            }
+            catch(\Exception $e){
+              DB::rollback();
+              toastr()->error($e->getMessage());
+              return back();
+            }
+            DB::commit();
+            toastr()->success('Record updated successfully!');
+            return redirect('/user/landingPage/'.$loan_sub->user_id);
+        }
 
     /**
      * Update the specified resource in storage.
