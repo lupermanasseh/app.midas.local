@@ -193,6 +193,8 @@ Route::post('/edit/disbursementdate','LoanSubscriptionController@editDisbursemen
 Route::get('/loandisbursement/date','LoanSubscriptionController@loanDisbursementSingleDate');
 Route::get('/guarantor/dashboard','LoanSubscriptionController@guarantorDashboard');
 Route::get('/guarantor/Details/{id}','LoanSubscriptionController@guarantorDetails');
+Route::get('/deactivate/loan/{id}','LoanSubscriptionController@deactivateLoan');
+Route::get('/activate/loan/{id}','LoanSubscriptionController@activateLoan');
 
 });
 
