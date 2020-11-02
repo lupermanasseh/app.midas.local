@@ -171,6 +171,8 @@
                                   <a href="/paidloan/edit/{{$myProduct->id}}"><i class="tiny material-icons tooltipped" data-position="top" data-tooltip="Edit Loan">edit</i> </a>
                                   <a href="/destroy/deductions/{{$myProduct->id}}" id="delete"> <i
                                           class="tiny material-icons red-text tooltipped" data-position="bottom" data-tooltip="Delete Loan">delete_forever</i></a>
+                                          <a href="/deactivate/loan/{{$myProduct->id}}" id="delete"> <i
+                                                  class="tiny material-icons blue-text tooltipped" data-position="bottom" data-tooltip="Deactivate Loan">close</i></a>
                                 </td>
                                 <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                             </tr>
@@ -228,7 +230,10 @@
                             href="/loanDeduction/history/{{$myProduct->id}}" class="tooltipped" data-position="left" data-tooltip="Loan Deduction History">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
                         </td>
                         <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank" class="tooltipped" data-position="bottom" data-tooltip="View Loan Schedule">View</a></td>
-
+                        <td>
+                          <a href="/activate/loan/{{$myProduct->id}}" id="delete"> <i
+                                          class="tiny material-icons green-text tooltipped" data-position="bottom" data-tooltip="Activate Loan">check</i></a>
+                        </td>
                         <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                     </tr>
                     @endforeach
