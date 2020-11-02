@@ -242,6 +242,20 @@ try{
                             //CHANGE STATUS of our overdeduct
                             $overDeduct->status = 'Inactive';
                             $overDeduct->save();
+
+                  //post to cumulative balance
+
+                  $newConsolidatedDeduct = new Userconsolidatedloan();
+
+                  $now = Carbon::now()->toTimeString();
+                  $newConsolidatedDeduct->user_id = $userid;
+                  $newConsolidatedDeduct->description = $cumulativeDeduct->description;
+                  $newConsolidatedDeduct->date_entry = $cumulativeDeduct->entry_date;
+                  $newConsolidatedDeduct->entry_time = $now;
+                  $newConsolidatedDeduct->credit = $cumulativeDeduct->cumulative_amount;
+                  $newConsolidatedDeduct->ref_identification = $cumulativeDeduct->master_reference;
+                  $newConsolidatedDeduct->save();
+                  $newConsolidatedDeduct->userConsolidatedBalances($userid);
       }
   }else{
 //user has no active loan
