@@ -216,16 +216,16 @@
                 </thead>
                 <tbody>
 
-                    @foreach ($inactiveLoans as $inactive)
+                    @foreach ($inactiveLoans as $myProduct)
                     <tr>
-                        <td>{{$inactive->product->name}}</td>
-                        <td>{{$inactive->loan_start_date->toFormattedDateString()}}</td>
-                        <td>{{$inactive->loan_end_date->toFormattedDateString()}}</td>
-                        <td>{{$inactive->custom_tenor}}</td>
+                        <td>{{$myProduct->product->name}}</td>
+                        <td>{{$myProduct->loan_start_date->toFormattedDateString()}}</td>
+                        <td>{{$myProduct->loan_end_date->toFormattedDateString()}}</td>
+                        <td>{{$myProduct->custom_tenor}}</td>
                         <td>{{number_format($myProduct->amount_approved,2,'.',',')}}</td>
                         <td>{{number_format($myProduct->monthly_deduction,2,'.',',')}}</td>
                         <td><a
-                            href="/loanDeduction/history/{{$myProduct->id}}" class="tooltipped" data-position="left" data-tooltip="Loan Deduction History">{{number_format($inactive->amount_approved-$inactive->totalLoanDeductions($inactive->id),2,'.',',')}}</a>
+                            href="/loanDeduction/history/{{$myProduct->id}}" class="tooltipped" data-position="left" data-tooltip="Loan Deduction History">{{number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')}}</a>
                         </td>
                         <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank" class="tooltipped" data-position="bottom" data-tooltip="View Loan Schedule">View</a></td>
 
