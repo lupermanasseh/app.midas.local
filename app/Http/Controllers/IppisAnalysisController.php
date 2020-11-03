@@ -210,7 +210,7 @@ try{
                             $activeLoans = Lsubscription::where('loan_status','Active')
                                                           ->where('user_id',$userid)
                                                           //->where('loan_start_date','<',$cumulativeDeduct->entry_date)
-                                                          ->oldest('loan_start_date')
+                                                          ->orderBy('custom_tenor')
                                                           ->get();
 
                             $first = $activeLoans->first();
