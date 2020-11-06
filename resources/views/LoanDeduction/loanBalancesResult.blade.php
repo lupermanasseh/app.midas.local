@@ -48,7 +48,7 @@
                     @if (count($uniqueDebtors)>=1)
                     <tr>
                         <th colspan="4">Total</th>
-                        <th>{{number_format($listing->loanBalanceAggregateAt($loanSubCollection),2,'.',',')}}</th>
+                        <th>{{number_format($loanSubObj->loanBalanceAggregateAt($loanSubCollection),2,'.',',')}}</th>
                     </tr>
                     @else
                     @endif

@@ -1095,6 +1095,7 @@ public function topUpLoan(Request $request){
     public function LoanBalancesResult(Request $request){
         $title = 'Loan Deduction Balances';
         $loanDeductionObj = new Ldeduction;
+        $loanSubObj = new Lsubscription;
         $this->validate(request(), [
              'to' =>'required|date',
              ]);
@@ -1106,8 +1107,10 @@ public function topUpLoan(Request $request){
         $loanSubCollection = $loanDeductionObj->findLoanDeductionByDate($from,$to);
 
         $uniqueDebtors = $loanSubCollection->unique('user_id');
+        //total loan balances
 
-        return view('LoanDeduction.loanBalancesResult',compact('title','loanSubCollection','to','from','$loanDeductionObj','uniqueDebtors'));
+
+        return view('LoanDeduction.loanBalancesResult',compact('title','loanSubObj','loanSubCollection','to','from','$loanDeductionObj','uniqueDebtors'));
     }
 
     //download in excel format individual loan Balances
