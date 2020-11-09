@@ -197,10 +197,10 @@ class User extends Authenticatable
             foreach($all_loans as $item){
                 //$totalBal=0;
                 $approved_amt = $item->amount_approved;
-                $topup_amt = $item->topup_amount;
-                $principal = $approved_amt+$topup_amt;
+                //$topup_amt = $item->topup_amount;
+                //$principal = $approved_amt+$topup_amt;
                 $deductions = $lsub->totalLoanDeductions($item->id);
-                $bal = $principal-$deductions;
+                $bal = $approved_amt-$deductions;
                 $sumBal = $sumBal+$bal;
             }
             return $sumBal;
