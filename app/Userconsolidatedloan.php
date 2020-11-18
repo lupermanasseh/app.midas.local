@@ -124,12 +124,12 @@ protected $dates = ['created_at', 'updated_at','date_entry'];
 
 
         public static function getConsolidatedLoanBalances($user_id){
-        $i= static::where('user_id',$user_id)
-                        //->orderBy('date_entry','asc')
+        return static::where('user_id',$user_id)
+                        ->orderBy('date_entry','asc')
                         //->orderBy('created_at','asc')
-                        //->orderBy('entry_time','asc')
+                        ->orderBy('entry_time','asc')
                         ->get();
-              return $i->sortBy('date_entry')->sortBy('created_at');
+              //return $i->sortBy('date_entry')->sortBy('created_at');
         }
 
 
