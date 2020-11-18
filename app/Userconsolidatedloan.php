@@ -129,7 +129,7 @@ protected $dates = ['created_at', 'updated_at','date_entry'];
                         //->orderBy('created_at','asc')
                         //->orderBy('entry_time','asc')
                         ->get();
-              return $i->sortBy('date_entry')->sortBy('entry_time');
+              return $i->sortBy('date_entry')->sortBy('created_at');
         }
 
 
