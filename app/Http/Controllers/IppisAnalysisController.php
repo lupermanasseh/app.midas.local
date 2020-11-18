@@ -264,7 +264,7 @@ foreach ($allMasterDeductions as $masterDeduction) {
                                 ->where('user_id',$user_id)
                                 ->where('loan_start_date','<',$cumulativeDeduct->entry_date)
                                 ->orderBy('custom_tenor','asc')
-                                ->orderBy('disbursement_date')
+                                ->orderBy('disbursement_date','asc')
                                 ->get();
 
               //Check if user has more than one loan
