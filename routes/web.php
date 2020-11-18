@@ -324,7 +324,6 @@ Route::middleware(['auth:admin'])->group(function () {
   Route::get('/recentIppisInputs/listing','IppisAnalysisController@recentIppisLoanInputs');//1
   Route::get('/savingMaster/listing/{date}/{reference}','IppisAnalysisController@recentMasterSaving');
   Route::get('/post/loans','IppisAnalysisController@recentIppisLoanInputs'); //2. same with 1 check
-  Route::get('/loan/distribute/{id}','IppisAnalysisController@postLoan');
   Route::get('/loandeductions/bulkmaster','IppisAnalysisController@postLoanBulk');
   Route::get('/saving/distribute/{date}/{ref}','IppisAnalysisController@postSaving');
   Route::get('/saving/post/{id}','IppisAnalysisController@postMySaving');
@@ -336,9 +335,5 @@ Route::middleware(['auth:admin'])->group(function () {
   Route::post('/legacy-loandeduct-upload','IppisAnalysisController@legacyLoanDeductions')->name('legacyloandeduct.import');
   Route::get('/show/legacysubs','IppisAnalysisController@showPendingLegacySubs');
   Route::get('/on/legacysubs','IppisAnalysisController@activateBulkLegacySubs');
-  //Route::get('/ippis-analysis/distribute','IppisAnalysisController@distributeAnalysis');
-  Route::get('/loan/overdeduction','IppisAnalysisController@loanOverDeductions');
-  Route::get('/loanoverdeduction/post/{userid}/{id}','IppisAnalysisController@postLoanOverDeduction');
-  Route::post('/loanoverdeduction/store','IppisAnalysisController@loanOverDeductionStore');
 
   });
