@@ -37,7 +37,7 @@ protected $dates = ['created_at', 'updated_at','date_entry'];
                           $consolidatedLoanDeductions = Userconsolidatedloan::
                                             where('user_id',$userid)
                                             ->orderBy('date_entry', 'asc')
-                                            ->orderBy('created_at', 'asc')
+                                            ->orderBy('entry_time', 'desc')
                                             ->get();
 
                                   //loop to update balances to zero
