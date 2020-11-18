@@ -82,8 +82,8 @@ class Ldeduction extends Model
     public static function myLoanDeductions($subid){
         $ldeductionObj = new Ldeduction;
         $loan = Lsubscription::find($subid);
-        $principal = $loan->amount_approved + $loan->topup_amount;
-        $totaldebit = $principal + $ldeductionObj->totalLoanDebit($subid);
+        //$principal = $loan->amount_approved + $loan->topup_amount;
+        $totaldebit = $ldeductionObj->totalLoanDebit($subid);
         return $loanBal = $totaldebit - $ldeductionObj->totalLoanCredit($subid);
       //  return $totalDeductions = $ldeductionObj->totalLoanCredit($subid)-$ldeductionObj->totalLoanDebit($subid);
       }

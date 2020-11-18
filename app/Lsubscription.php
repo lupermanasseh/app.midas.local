@@ -116,11 +116,11 @@ public function findLoansByDisbursementDate($date){
     public  function totalIppisDeductions($_id,$activeLoans)
     {
       //TODO  Include a start date parameter to help select only loans that are due
-                    $monthly_Deductions = $activeLoans->where('user_id',$_id)
-                                                      ->sum('monthly_deduction');
-                    $totalDeficit = Defaultcharge::deficitTotal($_id);
-                    $totalDefaultCharge = Defaultcharge::defaultChargesTotal($_id);
-                     return $monthly_Deductions + $totalDeficit + $totalDefaultCharge;
+      $monthly_Deductions = $activeLoans->where('user_id',$_id)
+                          ->sum('monthly_deduction');
+                          $totalDeficit = Defaultcharge::deficitTotal($_id);
+                          $totalDefaultCharge = Defaultcharge::defaultChargesTotal($_id);
+                          return $monthly_Deductions + $totalDeficit + $totalDefaultCharge;
 
     }
 
@@ -128,7 +128,7 @@ public function findLoansByDisbursementDate($date){
   public function loanBalance($id){
 
     $loanSub = Lsubscription::find($id);
-    $loanAmount = $loanSub->amount_approved+$loanSub->topup_amount;
+    $loanAmount = $loanSub->amount_approved;
      //$loanAmount = $loanSub->amount_approved+$loanSub->topup_amount;
 
     //3 get sum deductions for the product
@@ -138,7 +138,8 @@ public function findLoansByDisbursementDate($date){
     //find the diff
     $diffRslt = $loanAmount-$totalDeductions;
 
-    if($diffRslt <= 0){
+    //if($diffRslt <= 0){
+    if($diffRslt == 0){
         //update the subj obj status to inactive
         $loanSub->loan_status = 'Inactive';
         //$loanSub->loan_end_date = now()->toDateString();
