@@ -438,7 +438,7 @@ public function removeConsolidatedLoanDeduction($id){
 //Debit loan
 
 public function debitLoan(Request $request){
-
+$rand = $this->randomString();
     //Save loan repayment
     $this->validate(request(), [
     'amount' =>'required|numeric|between:0.00,999999999.99',
@@ -459,11 +459,6 @@ public function debitLoan(Request $request){
         //begin transaction to process uploads
         DB::beginTransaction();
         try{
-            // if($loanSub->loan_status=='Inactive'){
-            //     //check loan
-            //     toastr()->error('This loan is inactive.');
-            //     return redirect('/user/landingPage/'.$loanSub->user_id);
-            // }else{
 
                 $loanRepay = new Ldeduction;
                 //total loan Balances
@@ -477,6 +472,7 @@ public function debitLoan(Request $request){
                 $loanRepay->lsubscription_id = $subid;
                 $loanRepay->entry_month = $request['entry_date'];
                 $loanRepay->entry_time = $now;
+                $loanRepay->deduct_reference = $rand;
                 $loanRepay->notes = $request['notes'];
                 $loanRepay->uploaded_by = auth()->user()->first_name;
                 $loanRepay->save();
@@ -493,6 +489,7 @@ public function debitLoan(Request $request){
                 $newConsolidatedDeduct->description = $request['notes'];
                 $newConsolidatedDeduct->date_entry = $request['entry_date'];
                 $newConsolidatedDeduct->entry_time = $now;
+                $newConsolidatedDeduct->ref_identification = $rand;
                 $newConsolidatedDeduct->debit = $request['amount'];
                 $newConsolidatedDeduct->save();
                 $newConsolidatedDeduct->userConsolidatedBalances($userId);
@@ -694,6 +691,7 @@ public function topUpLoan(Request $request){
     //Store loan deduction/bank repayment
     public function repayStore(Request $request){
 
+      $rand = $this->randomString();
         //Save loan repayment
         $this->validate(request(), [
         'amount' =>'required|numeric|between:0.00,999999999.99',
@@ -715,11 +713,6 @@ public function topUpLoan(Request $request){
             //begin transaction to process uploads
             DB::beginTransaction();
             try{
-                // if($totalDeductions >= $amtApproved){
-                //     //check loan
-                //     toastr()->error('Loan seems fully paid, check please.');
-                //     return redirect('/user/page/'.$loanSub->user_id);
-                // }else{
 
                     $loanRepay = new Ldeduction;
                     //total loan Balances
@@ -733,7 +726,7 @@ public function topUpLoan(Request $request){
                     $loanRepay->lsubscription_id = $request['sub_id'];
                     $loanRepay->entry_month = $request['entry_date'];
                     $loanRepay->entry_time = $now;
-                    //$loanRepay->teller_no = $request['teller_number'];
+                    $loanRepay->deduct_reference = $rand;
                     //$loanRepay->depositor_name = $request['depositor_name'];
                     $loanRepay->notes = $request['notes'];
                     //$loanRepay->bank_add = $request['bank_add'];
@@ -752,6 +745,7 @@ public function topUpLoan(Request $request){
                     $newConsolidatedDeduct->description = $request['notes'];
                     $newConsolidatedDeduct->date_entry = $request['entry_date'];
                     $newConsolidatedDeduct->entry_time = $now;
+                    $newConsolidatedDeduct->ref_identification = $rand;
                     $newConsolidatedDeduct->credit = $request['amount'];
                     $newConsolidatedDeduct->save();
                     $newConsolidatedDeduct->userConsolidatedBalances($loanSub->user_id);
@@ -1178,5 +1172,15 @@ public function topUpLoan(Request $request){
         $pdf= PDF::loadView('Prints.allConsolidatedLoanBalancesPdf',compact('collection','title','to','from','uniqueDebtors'));
         return $pdf->stream();
     }
+//random string
+//random string
+public function randomString(){
+    $randomString = rand(10,1000);
+
+    $dateNow = Carbon::now();
+    $formattedDate = $dateNow->toDateString();
+    return $randomString.'-'.$formattedDate;
+}
+
 
 }
