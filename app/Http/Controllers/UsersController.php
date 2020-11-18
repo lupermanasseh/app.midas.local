@@ -322,7 +322,7 @@ public function activateUser(Request $request){
                                 ->get();
 
             $consolidatedLoans = Userconsolidatedloan::getConsolidatedLoanBalances($user->id);
-
+//dd($consolidatedLoans);
             }
             return view('Users.userSearch',compact('user','saving','targetsr','structured','allLoans','inactiveLoans','targetSaving','activeLoans','consolidatedLoans','title'));
         }
