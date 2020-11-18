@@ -114,6 +114,7 @@ class Ldeduction extends Model
                       $loanDeductions = Ldeduction::
                                         where('lsubscription_id',$subid)
                                         ->orderBy('entry_month', 'asc')
+                                        ->orderBy('created_at','asc')
                                         ->get();
 
                               //loop to update balances to zero
