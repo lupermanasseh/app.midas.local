@@ -99,8 +99,6 @@
     </li>
     <li><a href="/legacy-loans"><i class="fas fa-pen-nib"></i>Loan Subscriptions</a></li>
     <li><a href="/show/legacysubs"><i class="fas fa-pen-nib"></i>Activate Loan Subs</a></li>
-    <li><a href="/loan/overdeduction"><i class="fas fa-chart-pie"></i>Loan Overdeduction</a></li>
-    <!-- <li><a href="/legacy-loandeduct-form"><i class="fas fa-arrow-alt-circle-up"></i>Legacy Loan Deduct</a></li> -->
 
     <li>
         <div class="divider"></div>
@@ -195,7 +193,6 @@
     <li><a href="/audited/loans" class="orange-text darken-4">Audited</a></li>
     <li><a href="/approved/loans" class="orange-text darken-4">Approved</a></li>
     <li><a href="/activeLoans" class="orange-text darken-4">Active</a></li>
-    <li><a href="/loan/overdeduction" class="orange-text darken-4">Over Deduction</a></li>
 </ul>
 
 {{-- DROP DOWN MENU 4 --}}
