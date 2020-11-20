@@ -9,7 +9,7 @@ class Product extends Model
     //
     protected $fillable = [
         'name',
-        'description', 
+        'description',
         // 'lastname',
         // 'email',
         // 'password',
@@ -28,6 +28,10 @@ class Product extends Model
         return $this->hasMany(Lsubscription::class);
     }
 
+    //A product can have more than one loan refund
+    public function refundloans(){
+        return $this->hasMany(Refundloan::class);
+    }
     //A product can have more than one product deductions
     public function pdeductions(){
         return $this->hasMany(Productdeduction::class);
@@ -37,7 +41,7 @@ class Product extends Model
       public function ldeductions(){
         return $this->hasMany(Ldeduction::class);
     }
-    
+
      //A product can have more than one loan default charge
      public function defaultcharge(){
         return $this->hasMany(Deafultcharge::class);
@@ -65,6 +69,6 @@ class Product extends Model
         })->get();
         return $subCount->count();
     }
-    
+
     protected $dates = ['created_at', 'updated_at'];
 }

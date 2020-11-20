@@ -94,6 +94,11 @@ class User extends Authenticatable
      public function consolidatedloans(){
         return $this->hasMany(Userconsolidatedloan::class);
     }
+
+    //User has many loan refunds
+     public function refundloans(){
+        return $this->hasMany(Refundloan::class);
+    }
     //Relationship with Target Savings Review
     public function tsreviews(){
         return $this->hasMany(Targetsr::class);
