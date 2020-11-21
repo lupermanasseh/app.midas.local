@@ -1069,7 +1069,7 @@ foreach ($allMasterDeductions as $masterDeduction) {
             // $refund->recalculateRefundBalances($user_id);
 
               //deactivate master loan deduction
-            $cumulativeDeduct->status = 'Inactive';
+            $cumulativeDeduct->status = 'Active';
             $cumulativeDeduct->save();
 
           //post to consolidated ledger also
