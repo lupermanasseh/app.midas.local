@@ -263,7 +263,8 @@ foreach ($allMasterDeductions as $masterDeduction) {
 
   $activeLoans = Lsubscription::where('loan_status','Active')
                                 ->where('user_id',$user_id)
-                                ->where('loan_start_date','<',$cumulativeDeduct->entry_date)
+                                //->where('loan_start_date','<',$cumulativeDeduct->entry_date)
+                                ->where('disbursement_date','<',$cumulativeDeduct->entry_date)
                                 ->orderBy('custom_tenor','asc')
                                 ->orderBy('disbursement_date','asc')
                                 ->get();
@@ -537,7 +538,7 @@ foreach ($allMasterDeductions as $masterDeduction) {
                 //check for the last iteration
                 if($overDeductionIteration == $loanCount-1){
 
-                  dd($remainingDeductible);
+
                   //check for remaining active loans before this posting the last one
                   $activeLoansBeforeLastPost = Lsubscription::where('loan_status','Active')
                                             ->where('user_id',$sub->user_id)
