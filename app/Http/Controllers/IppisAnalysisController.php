@@ -579,7 +579,7 @@ foreach ($allMasterDeductions as $masterDeduction) {
                         $myLoanSubscription->loanBalance($sub->id);
 
                   }elseif($remainingDeductible > $loanBal && $activeLoansBeforeLastPost->count()>1){
-                    //remaining balance is greater and more loan(s) available
+                    //remaining deductible is greater than remaing loan balance and more loan(s) available, pay the last loan balance
                     //create a new deduction
                     $newDeduction = new Ldeduction;
 
@@ -613,7 +613,7 @@ foreach ($allMasterDeductions as $masterDeduction) {
                                               ->get();
 
                           if($remainingActiveLoans->count()==1){
-                            //loop through the loan and post the remainig deductible
+                            //only one loan remaining, loop through the loan and post the remaining deductible
                             foreach($remainingActiveLoans as $remainingActiveLoan){
 
                                   //post all remaining deductible
@@ -626,7 +626,7 @@ foreach ($allMasterDeductions as $masterDeduction) {
                                   $newDeduction->product_id=$remainingActiveLoan->product_id;
                                   $newDeduction->lsubscription_id =$remainingActiveLoan->id;
                                   $newDeduction->amount_deducted = $remainingDeductible;
-                                  $newDeduction->balances = $loanDeductionBalance + $remainingloanBal;
+                                  $newDeduction->balances = $loanDeductionBalance + $remainingDeductible;
                                   $newDeduction->entry_month = $cumulativeDeduct->entry_date;
                                   $newDeduction->entry_time =$now;
                                   $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
