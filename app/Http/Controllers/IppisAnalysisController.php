@@ -323,10 +323,11 @@ foreach ($allMasterDeductions as $masterDeduction) {
                   foreach($activeLoans as $sub){
 
                     //check to know loan start date
-                    $subDate = $sub->loan_start_date->toDateString();
+                    //$subDate = $sub->loan_start_date->toDateString();
+                    $disbursementDate = $sub->disbursement_date->toDateString();
                     $entryDate = $cumulativeDeduct->entry_date->toDateString();
 
-                    if($subDate > $entryDate){
+                    if($disbursementDate > $entryDate){
                     continue;
                     }else{
                       //actual monthly deduction
