@@ -154,10 +154,10 @@ $date = null;
             //'product_cat'=>'required|integer',
             'product_item'=>'required|integer',
             'custom_tenor' =>'nullable|integer|between:1,60',
-            'guarantor_id1' => 'required|integer',
-            'guarantor_id2' => 'required|integer',
+            'guarantor_id1' => 'nullable|integer',
+            'guarantor_id2' => 'nullable|integer',
             'units' => 'nullable|integer',
-            'amount_applied' =>'nullable|numeric|between:0.00,999999999.99',
+            'amount_applied' =>'required|numeric|between:0.00,999999999.99',
             'net_pay' =>'required|numeric|between:0.00,999999999.99',
             ]);
 
@@ -167,13 +167,13 @@ $date = null;
                 $product = Product::find($request['product_item']);
 
                 //check fo active users
-                $guarantor1 = User::find(request(['guarantor_id1']));
-                $guarantor2 = User::find(request(['guarantor_id2']));
-                $applicant = User::find(request(['reg_no']));
-                if($guarantor1=="" || $guarantor2=="" || $applicant==""){
-                    toastr()->error('One or more users do not exist');
-                    return redirect('/loanSub/create');
-                }
+                // $guarantor1 = User::find(request(['guarantor_id1']));
+                // $guarantor2 = User::find(request(['guarantor_id2']));
+                // $applicant = User::find(request(['reg_no']));
+                // if($guarantor1=="" || $guarantor2=="" || $applicant==""){
+                //     toastr()->error('One or more users do not exist');
+                //     return redirect('/loanSub/create');
+                // }
                 //Check loan eleigibility by total indebtedness
                 $user = new User();
                 $totalIndebtedness = $user->totalApprovedAmount($request['reg_no']);
