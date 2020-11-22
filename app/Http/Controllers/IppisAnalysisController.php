@@ -537,7 +537,7 @@ foreach ($allMasterDeductions as $masterDeduction) {
                 //check for the last iteration
                 if($overDeductionIteration == $loanCount-1){
 
-
+                  dd($remainingDeductible);
                   //check for remaining active loans before this posting the last one
                   $activeLoansBeforeLastPost = Lsubscription::where('loan_status','Active')
                                             ->where('user_id',$sub->user_id)
