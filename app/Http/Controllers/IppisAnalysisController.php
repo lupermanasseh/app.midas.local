@@ -326,7 +326,7 @@ foreach ($allMasterDeductions as $masterDeduction) {
                     //$subDate = $sub->loan_start_date->toDateString();
                     $disbursementDate = $sub->disbursement_date->toDateString();
                     $entryDate = $cumulativeDeduct->entry_date->toDateString();
-
+                    dd($disbursementDate);
                     if($disbursementDate > $entryDate){
                     continue;
                     }else{
