@@ -54,7 +54,7 @@
                 <table>
                     <tr>
                         <th>TOTAL LOAN AMOUNT:</th>
-                        <td>{{number_format($loan->amount_approved+$loan->topup_amount,2,'.',',')}}</td>
+                        <td>{{number_format($loan->amount_approved+$loan->wrong_deduction,2,'.',',')}}</td>
                     </tr>
                     <tr>
                         <th>TENOR:</th>
@@ -134,7 +134,7 @@
                           @else
                           NOT AVAILABLE
                           @endif</td>
-                        <td>Normal Loan Disbursement</td>
+                        <td>{{$loan->product->name}}</td>
                         <td>{{number_format($loan->amount_approved,2,'.',',')}}</td>
                         <td>-</td>
                         <td>{{number_format($loan->amount_approved,2,'.',',')}}
