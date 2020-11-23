@@ -1010,50 +1010,53 @@ foreach ($allMasterDeductions as $masterDeduction) {
           */
 
             $cumAmount = $cumulativeDeduct->cumulative_amount;
-          //  dd($cumAmount);
-            // $loan_sub = new Lsubscription();
-            // $loan_sub->product_id = 6; //24;
-            // $loan_sub->user_id = $user_id;
-            // $loan_sub->monthly_deduction = $cumAmount;
-            // $loan_sub->custom_tenor = 1;
-            // $loan_sub->amount_applied = $cumAmount;
-            // $loan_sub->amount_approved = $cumAmount;
-            // $loan_sub->net_pay = $cumAmount;
-            // $loan_sub->approved_date = $cumulativeDeduct->entry_date;
-            // $loan_sub->loan_start_date = $cumulativeDeduct->entry_date;
-            // $loan_sub->loan_end_date = $cumulativeDeduct->entry_date;
-            // $loan_sub->disbursement_date = $cumulativeDeduct->entry_date;
-            // $loan_sub->loan_status = 'Active';
-            // $loan_sub->approve_by = auth()->user()->first_name;
-            // $loan_sub->save();
+
+            $loan_sub = new Lsubscription();
+            $loan_sub->product_id = 24;
+            $loan_sub->user_id = $user_id;
+            //$loan_sub->monthly_deduction = $cumAmount;
+            $loan_sub->custom_tenor = 1;
+            //$loan_sub->amount_applied = $cumAmount;
+            $loan_sub->wrong_deduction = $cumAmount;
+            //$loan_sub->net_pay = $cumAmount;
+            $loan_sub->approved_date = $cumulativeDeduct->entry_date;
+            $loan_sub->loan_start_date = $cumulativeDeduct->entry_date;
+            $loan_sub->loan_end_date = $cumulativeDeduct->entry_date;
+            $loan_sub->disbursement_date = $cumulativeDeduct->entry_date;
+            $loan_sub->loan_status = 'Active';
+            $loan_sub->approve_by = auth()->user()->first_name;
+            $loan_sub->save();
+
             //
-            // $defaultLoanID = $loan_sub->id;
+            $defaultLoanID = $loan_sub->id;
             //
-            // $defaultSubObj = Lsubscription::find($defaultLoanID);
+
+            $defaultSubObj = Lsubscription::find($defaultLoanID);
             //create a corresponding debit in the loan deduction table
-            //pay what is available
-            //$newDeduction = new Ldeduction;
+
+
+            $newDeduction = new Ldeduction;
 
 
                //total loan balances
-            // $now = Carbon::now()->toTimeString();
-            // $loanDeductionBalance = $newDeduction->myLoanDeductions($defaultLoanID);
-            // $newDeduction->user_id = $user_id;
-            // $newDeduction->product_id=$defaultSubObj->product_id;
-            // $newDeduction->lsubscription_id =$defaultLoanID;
-            // $newDeduction->amount_deducted = $cumAmount;
-            // $newDeduction->balances = $loanDeductionBalance + $cumAmount;
-            // $newDeduction->entry_month = $cumulativeDeduct->entry_date;
-            // $newDeduction->entry_time =$now;
-            // $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
-            // $newDeduction->notes = 'Over Deduction Post - '.$cumulativeDeduct->description;
-            // $newDeduction->uploaded_by = auth()->user()->first_name;
-            // $newDeduction->save();
-            //
-            //   //recaculate loan balances
-            // $newDeduction->recalculateLoanDeductionBalances($defaultSubObj->id);
-            //   //stop loan
-            // $myLoanSubscription->loanBalance($defaultSubObj->id);
+            $now = Carbon::now()->toTimeString();
+            $loanDeductionBalance = $newDeduction->myLoanDeductions($defaultLoanID);
+            $newDeduction->user_id = $user_id;
+            $newDeduction->product_id=$defaultSubObj->product_id;
+            $newDeduction->lsubscription_id =$defaultLoanID;
+            $newDeduction->amount_deducted = $cumAmount;
+            $newDeduction->balances = $loanDeductionBalance + $cumAmount;
+            $newDeduction->entry_month = $cumulativeDeduct->entry_date;
+            $newDeduction->entry_time =$now;
+            $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
+            $newDeduction->notes = 'Over Deduction Post - '.$cumulativeDeduct->description;
+            $newDeduction->uploaded_by = auth()->user()->first_name;
+            $newDeduction->save();
+
+              //recaculate loan balances
+            $newDeduction->recalculateLoanDeductionBalances($defaultSubObj->id);
+              //stop loan
+            //$myLoanSubscription->loanBalance($defaultSubObj->id);
 
 
 //second idea
@@ -1069,22 +1072,22 @@ foreach ($allMasterDeductions as $masterDeduction) {
             // $refund->save();
             // $refund->recalculateRefundBalances($user_id);
 
-              //deactivate master loan deduction
-            $cumulativeDeduct->status = 'Active';
+            //deactivate master loan deduction
+            $cumulativeDeduct->status = 'Inactive';
             $cumulativeDeduct->save();
 
           //post to consolidated ledger also
-          // $newConsolidatedDeduct = new Userconsolidatedloan();
-          //
-          // $now = Carbon::now()->toTimeString();
-          // $newConsolidatedDeduct->user_id = $user_id;
-          // $newConsolidatedDeduct->description = 'Wrong Loan Deduction- '.$cumulativeDeduct->description;
-          // $newConsolidatedDeduct->date_entry = $cumulativeDeduct->entry_date;
-          // $newConsolidatedDeduct->entry_time = $now;
-          // $newConsolidatedDeduct->credit = $cumulativeDeduct->cumulative_amount;
-          // $newConsolidatedDeduct->ref_identification = $cumulativeDeduct->master_reference;
-          // $newConsolidatedDeduct->save();
-          // $newConsolidatedDeduct->userConsolidatedBalances($user_id);
+          $newConsolidatedDeduct = new Userconsolidatedloan();
+
+          $now = Carbon::now()->toTimeString();
+          $newConsolidatedDeduct->user_id = $user_id;
+          $newConsolidatedDeduct->description = 'Wrong Loan Deduction- '.$cumulativeDeduct->description;
+          $newConsolidatedDeduct->date_entry = $cumulativeDeduct->entry_date;
+          $newConsolidatedDeduct->entry_time = $now;
+          $newConsolidatedDeduct->credit = $cumulativeDeduct->cumulative_amount;
+          $newConsolidatedDeduct->ref_identification = $cumulativeDeduct->master_reference;
+          $newConsolidatedDeduct->save();
+          $newConsolidatedDeduct->userConsolidatedBalances($user_id);
     }
 
 }//end foreach loop
