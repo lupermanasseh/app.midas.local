@@ -264,7 +264,7 @@ foreach ($allMasterDeductions as $masterDeduction) {
   $activeLoans = Lsubscription::where('loan_status','Active')
                                 ->where('user_id',$user_id)
                                 //->where('loan_start_date','<',$cumulativeDeduct->entry_date)
-                                ->where('disbursement_date','<',$cumulativeDeduct->entry_date)
+                                ->where('disbursement_date','<=',$cumulativeDeduct->entry_date)
                                 ->orderBy('custom_tenor','asc')
                                 ->orderBy('disbursement_date','asc')
                                 ->get();
