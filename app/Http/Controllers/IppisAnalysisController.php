@@ -251,6 +251,7 @@ try{
 $allMasterDeductions = Masterdeduction::where('status','Active')
                                       ->orderBy('entry_date','asc')
                                       ->get();
+                  dd($allMasterDeductions);
 //2. loop through them and fecth id
 foreach ($allMasterDeductions as $masterDeduction) {
   // code...
