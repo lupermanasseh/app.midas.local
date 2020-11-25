@@ -250,8 +250,7 @@ try{
 //1. select all the active Records
 $allMasterDeductions = Masterdeduction::where('status','Active')
                                       ->orderBy('entry_date','asc')
-                                      ->get();
-                  dd($allMasterDeductions);
+                                      ->get();                
 //2. loop through them and fecth id
 foreach ($allMasterDeductions as $masterDeduction) {
   // code...
