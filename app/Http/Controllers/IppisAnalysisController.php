@@ -247,7 +247,7 @@ public function postLoanBulk(){
 DB::beginTransaction();
 try{
   //
-  Masterdeduction::where('status','Active')->chunk(600, function ($allMasterDeductions) {
+  Masterdeduction::where('status','Active')->chunk(150, function ($allMasterDeductions) {
     //1. select all the active Records
     //$allMasterDeductions = Masterdeduction::where('status','Active')
                                           //->orderBy('entry_date','asc')
