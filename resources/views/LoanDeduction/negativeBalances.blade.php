@@ -16,6 +16,7 @@
                 <thead>
                     <tr>
                         <th>DISBURSEMENT DATE</th>
+                        <th>REG NO</th>
                         <th>NAME</th>
                         <th>PRODUCT</th>
                         <th>AMOUNT</th>
@@ -29,6 +30,7 @@
                     @endif
                     <tr>
                         <td>{{$loan->disbursement_date->toFormattedDateString()}}</td>
+                        <td>{{$loan->user->id}}</td>
                         <td>{{$loan->user->first_name}}
                                 {{$loan->user->last_name}}</td>
                         <td>{{$loan->product->name}}</td>
