@@ -24,12 +24,12 @@
 
                 <div class="input-field col s12 m4 l4">
                     <input placeholder="Reg Number" id="guarantor_id1" name="guarantor_id1" type="number"
-                        class="validate" required>
+                        class="validate">
                     <label for="guarantor_id1">First Guarantor</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
                     <input placeholder="Reg Number" id="guarantor_id2" name="guarantor_id2" type="number"
-                        class="validate" required>
+                        class="validate">
                     <label for="guarantor_id2">Second Guarantor</label>
                 </div>
             </div>

@@ -22,22 +22,25 @@
     
 
 <div class="input-field col s12 m3 l3">
-    <input id="credit" name="credit" value="<?php if($deduction->amount_deducted): ?>
-    <?php echo e(number_format($deduction->amount_deducted,2,'.','')); ?>
-
-    <?php else: ?>
-    <?php endif; ?>" type="number" class="validate">
-    <label for="credit">Credit</label>
+  <?php if($deduction->amount_deducted): ?>
+  <input id="credit" name="credit" value="<?php echo e(number_format($deduction->amount_deducted,2,'.','')); ?>" type="number" step=".01" class="validate">
+  <label for="credit">Credit</label>
+      <?php else: ?>
+      <input id="credit" name="credit" value="" type="number" step=".01" class="validate" disabled>
+      <label for="credit">Credit</label>
+      <?php endif; ?>
 </div>
 
 <div class="input-field col s12 m3 l3">
-    <input id="debit" name="debit" value="<?php if($deduction->amount_debited): ?>
-    <?php echo e(number_format($deduction->amount_debited,2,'.','')); ?>
-
-    <?php else: ?>
-    <?php endif; ?>
-    " type="number" class="validate">
+    <?php if($deduction->amount_debited): ?>
+    <input id="debit" name="debit" value="<?php echo e(number_format($deduction->amount_debited,2,'.','')); ?>" type="number" step=".01" class="validate">
     <label for="debit">Debit</label>
+    <?php else: ?>
+    <input id="debit" name="debit" value="" type="number" step=".01" class="validate" disabled>
+    <label for="debit">Debit</label>
+    <?php endif; ?>
+
+
 </div>
 <div class="input-field col s12 m3 l3">
     <input id="bank_name" name="bank_name" value="<?php echo e($deduction->bank_name); ?>" type="text" class="validate">

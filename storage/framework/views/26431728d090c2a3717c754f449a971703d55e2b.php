@@ -35,6 +35,7 @@
                             <th>REG NO</th>
                             <th>NAME</th>
                             <th>STATUS</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,6 +45,13 @@
                             <td>
                                 <a href="/userDetails/<?php echo e($user->id); ?>"><?php echo e($user->first_name); ?> <?php echo e($user->last_name); ?></a></td>
                             <td><?php echo e($user->status); ?></td>
+                            <td>
+                              <?php if($user->status == 'Active'): ?>
+                              <a href="/userDeactivateForm/<?php echo e($user->id); ?>" class="pink-text darken-2">Deactivate</a>
+                              <?php else: ?>
+                              <a href="/activateUserForm/<?php echo e($user->id); ?>" class="pink-text darken-2">Activate</a>
+                              <?php endif; ?>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -80,13 +88,13 @@
                     <tbody>
 
                         <tr>
-                            <td>Savings (Contribution)</td>
+                            <td>Savings</td>
                             <td>
                                 <a
                                     href="/saving/listings/<?php echo e($user->id); ?>"><?php echo e(number_format($saving->netBalance($user->id),2,'.',',')); ?></a>
                             </td>
                             <td>
-                                <a href="/saving/withdraw/<?php echo e($user->id); ?>" class="btn pink darken-4" target="_blank"> 25% withdrawal</a> | <a href="" class="btn red lighten-2"> Full withdrawal</a>
+                                <a href="/saving/withdraw/<?php echo e($user->id); ?>" class="btn pink darken-4"> withdraw</a>
                             </td>
                         </tr>
                         <?php if(count($targetsr)>=1): ?>
@@ -146,17 +154,12 @@
                             <?php $__currentLoopData = $activeLoans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $myProduct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
                                 <td><?php echo e($myProduct->product->name); ?></td>
-                                <td><?php echo e($myProduct->loan_start_date->toDateString()); ?></td>
-                                <td><?php echo e($myProduct->loan_end_date->toDateString()); ?></td>
+                                <td><?php echo e($myProduct->loan_start_date->toFormattedDateString()); ?></td>
+                                <td><?php echo e($myProduct->loan_end_date->toFormattedDateString()); ?></td>
                                 <td><?php echo e($myProduct->custom_tenor); ?></td>
                                 <td>
-                                  <?php echo e(number_format($myProduct->amount_approved,2,'.',',')); ?>
+                                  <?php echo e(number_format($myProduct->amount_approved+$myProduct->topup_amount,2,'.',',')); ?>
 
-                                    <?php if($myProduct->topup_amount): ?>
-                                    <span class="green-text darken-3">[+<?php echo e(number_format($myProduct->topup_amount,2,'.',',')); ?>]</span>
-                                    <?php else: ?>
-
-                                    <?php endif; ?>
                                 </td>
                                 <td><?php echo e(number_format($myProduct->monthly_deduction,2,'.',',')); ?></td>
                                 <td><a
@@ -167,6 +170,8 @@
                                   <a href="/paidloan/edit/<?php echo e($myProduct->id); ?>"><i class="tiny material-icons tooltipped" data-position="top" data-tooltip="Edit Loan">edit</i> </a>
                                   <a href="/destroy/deductions/<?php echo e($myProduct->id); ?>" id="delete"> <i
                                           class="tiny material-icons red-text tooltipped" data-position="bottom" data-tooltip="Delete Loan">delete_forever</i></a>
+                                          <a href="/deactivate/loan/<?php echo e($myProduct->id); ?>" id="delete"> <i
+                                                  class="tiny material-icons blue-text tooltipped" data-position="bottom" data-tooltip="Deactivate Loan">close</i></a>
                                 </td>
                                 <!-- <td><a data-subid="<?php echo e($myProduct->id); ?>" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="<?php echo e($myProduct->id); ?>" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                             </tr>
@@ -215,16 +220,19 @@
                     <?php $__currentLoopData = $inactiveLoans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $myProduct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td><?php echo e($myProduct->product->name); ?></td>
-                        <td><?php echo e($myProduct->loan_start_date->toDateString()); ?></td>
-                        <td><?php echo e($myProduct->loan_end_date->toDateString()); ?></td>
+                        <td><?php echo e($myProduct->loan_start_date->toFormattedDateString()); ?></td>
+                        <td><?php echo e($myProduct->loan_end_date->toFormattedDateString()); ?></td>
                         <td><?php echo e($myProduct->custom_tenor); ?></td>
-                        <td><?php echo e(number_format($myProduct->amount_approved,2,'.',',')); ?></td>
+                        <td><?php echo e(number_format($myProduct->amount_approved+$myProduct->wrong_deduction,2,'.',',')); ?></td>
                         <td><?php echo e(number_format($myProduct->monthly_deduction,2,'.',',')); ?></td>
                         <td><a
                             href="/loanDeduction/history/<?php echo e($myProduct->id); ?>" class="tooltipped" data-position="left" data-tooltip="Loan Deduction History"><?php echo e(number_format($myProduct->amount_approved-$myProduct->totalLoanDeductions($myProduct->id),2,'.',',')); ?></a>
                         </td>
                         <td><a href="/loan/schedule/<?php echo e($myProduct->id); ?>"  target="_blank" class="tooltipped" data-position="bottom" data-tooltip="View Loan Schedule">View</a></td>
-
+                        <td>
+                          <a href="/activate/loan/<?php echo e($myProduct->id); ?>" id="delete"> <i
+                                          class="tiny material-icons green-text tooltipped" data-position="bottom" data-tooltip="Activate Loan">check</i></a>
+                        </td>
                         <!-- <td><a data-subid="<?php echo e($myProduct->id); ?>" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="<?php echo e($myProduct->id); ?>" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -285,8 +293,8 @@
                             <?php $__currentLoopData = $structured; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $myProduct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
                                 <td><?php echo e($myProduct->product->name); ?></td>
-                                <td><?php echo e($myProduct->loan_start_date->toDateString()); ?></td>
-                                <td><?php echo e($myProduct->loan_end_date->toDateString()); ?></td>
+                                <td><?php echo e($myProduct->loan_start_date->toFormattedDateString()); ?></td>
+                                <td><?php echo e($myProduct->loan_end_date->toFormattedDateString()); ?></td>
                                 <td><?php echo e($myProduct->custom_tenor); ?></td>
                                 <td><?php echo e(number_format($myProduct->amount_approved,2,'.',',')); ?>
 

@@ -88,13 +88,13 @@
     <li><a href="/ippis/savings"><i class="fas fa-coins "></i> Savings</a></li>
     <li><a href="/mastersaving/summary"><i class="fas fa-coins "></i> Post Savings</a></li>
     <li><a href="/ippis/loans"><i class="fas fa-arrow-alt-circle-down "></i> Loans</a></li>
-    <li><a href="/post/loans"><i class="fas fa-coins "></i> Post Loans</a></li>
+    <li><a href="/post/loans"><i class="fas fa-envelope-open "></i> Post Loans</a></li>
     <li><a href="/loan/filter"><i class="fas fa-sort "></i> Filter Loans</a></li>
-    <li><a href="/ippis-analysis"><i class="fas fa-arrow-alt-circle-up "></i>Upload Loan Inputs</a></li>
-    <li><a href="/saving-master-upload-form"><i class="fas fa-arrow-alt-circle-up"></i>Upload Saving Inputs</a>
+    <li><a href="/ippis-analysis"><i class="fas fa-upload "></i>Upload Loan Inputs</a></li>
+    <li><a href="/saving-master-upload-form"><i class="fas fa-hdd"></i>Upload Saving Inputs</a>
     </li>
-    <li><a href="/legacy-loans"><i class="fas fa-arrow-alt-circle-up"></i>Legacy Loans</a></li>
-    <li><a href="/legacy-loandeduct-form"><i class="fas fa-arrow-alt-circle-up"></i>Legacy Loan Deduct</a></li>
+    <li><a href="/legacy-loans"><i class="fas fa-pen-nib"></i>Loan Subscriptions</a></li>
+    <li><a href="/show/legacysubs"><i class="fas fa-pen-nib"></i>Activate Loan Subs</a></li>
 
     <li>
         <div class="divider"></div>
@@ -135,6 +135,7 @@
     <li><a href="/saving/statement"><i class="material-icons">border_inner</i>Statement</a></li>
     <li><a href="/loanbalances/form"><i class="material-icons">border_outer</i>Loan Balances</a></li>
     <li><a href="/consolidatedloanbalances/form"><i class="material-icons">account_balance_wallet</i>Consolidated Loans</a></li>
+    <li><a href="/negativebalances"><i class="material-icons">exposure</i>Negative Balances</a></li>
     <li><a href="/savings/liability"><i class="material-icons">view_list</i>Master Savings</a></li>
     <li>
         <div class="divider"></div>
