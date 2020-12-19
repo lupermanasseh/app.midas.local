@@ -280,7 +280,7 @@ try{
 
                   $myActualLoanAmount = $myLoanSubscription->totalIppisDeductions($user_id,$activeLoans);
 
-
+                  //dd($myActualLoanAmount);
                           /**
                       * Check for the existence of a default charge
                       * If any pay for it before proceeding
@@ -861,6 +861,7 @@ try{
           //==================================
           //check for actual or equal deduction
           elseif($myActualLoanAmount == $ippisCumulativeDeduction){
+
                       //equal deduction
                       $remainingDeductible = $ippisCumulativeDeduction;
 
@@ -876,12 +877,14 @@ try{
 
                           //actual monthly deduction
                           $currentAmount = $sub->monthly_deduction;
-                          if($currentAmount <= $remainingDeductible){
+
                               //there is enough to deduct exact value of expected deduction
                               //check for remaining loan balance
                               $loanBal = $sub->findCompleteBalance($sub->id);
+
                               //check if loan remaining balance is less than actual deduction
                               if($loanBal<=$currentAmount){
+
                                 //create a new deduction
                                 $newDeduction = new Ldeduction;
                                 //total loan balances
@@ -906,6 +909,7 @@ try{
                                 $myLoanSubscription->loanBalance($sub->id);
                               }
                                 else{
+
                                   //create a new deduction
                                   $newDeduction = new Ldeduction;
                                   //total loan balances
@@ -930,7 +934,6 @@ try{
                                   $myLoanSubscription->loanBalance($sub->id);
                                 }
 
-                              }
 
                         }//end check date
                       }//end for each for equal deduction
@@ -1093,7 +1096,7 @@ try{
 
     }//end foreach loop
 
-});
+}); // chunking code bracket
      /** */
 }catch(\Exception $e){
     DB::rollback();
