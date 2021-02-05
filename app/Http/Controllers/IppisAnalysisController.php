@@ -235,7 +235,7 @@ public function postMySaving($id){
     }
    DB::commit();
     toastr()->success('Saving records posted successfully!');
-    //redirect to listing page order by latest
+    //redirect to listing page order by latest and others
     return back();
 }
 
