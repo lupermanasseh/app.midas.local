@@ -282,7 +282,7 @@ try{
 
                   $myActualLoanAmount = $myLoanSubscription->totalIppisDeductions($user_id,$activeLoans);
 
-                  dd($myActualLoanAmount);
+                  //dd($myActualLoanAmount);
                           /**
                       * Check for the existence of a default charge
                       * If any pay for it before proceeding
@@ -322,7 +322,7 @@ try{
                       if($ippisCumulativeDeduction < $myActualLoanAmount){
 
                         $remainingDeductible = $ippisCumulativeDeduction;
-
+                        dd($remainingDeductible);
                       //initialize  variables
                       foreach($activeLoans as $sub){
 
