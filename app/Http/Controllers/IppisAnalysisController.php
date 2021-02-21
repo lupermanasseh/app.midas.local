@@ -278,11 +278,11 @@ try{
 
                   //get total ippis deduction
                   $ippisCumulativeDeduction = $cumulativeDeduct->cumulative_amount;
-                    dd($ippisCumulativeDeduction);
+                   // dd($ippisCumulativeDeduction);
 
                   $myActualLoanAmount = $myLoanSubscription->totalIppisDeductions($user_id,$activeLoans);
 
-                  //dd($myActualLoanAmount);
+                  dd($myActualLoanAmount);
                           /**
                       * Check for the existence of a default charge
                       * If any pay for it before proceeding
