@@ -338,7 +338,7 @@ try{
                           //allow for deductions
                          if($currentAmount <= $remainingDeductible){
                          //there is enough to deduct exact value of expected deduction
-                            dd(11);
+                            //dd(11);
                           //check for remaining loan balance
                           $loanBal = $sub->findCompleteBalance($sub->id);
                           //check if loan remaining balance is less than actual deduction
@@ -395,7 +395,7 @@ try{
 
                           }elseif($currentAmount > $remainingDeductible && $remainingDeductible !=0){
                           //there is no enough to deduct store the value available
-                            dd(12);
+                            //dd(12);
                             //check the remaining balance
                             $loanBal = $sub->findCompleteBalance($sub->id);
                             //check if loan remaining balance is less than actual deduction
