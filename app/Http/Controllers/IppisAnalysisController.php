@@ -271,7 +271,7 @@ try{
                                     ->orderBy('custom_tenor','asc')
                                     ->orderBy('disbursement_date','asc')
                                     ->get();
-                dd($activeLoans);
+
                   //Check if user has more than one loan
                 if($activeLoans->count()>1){
 
