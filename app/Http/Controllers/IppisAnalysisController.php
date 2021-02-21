@@ -322,7 +322,7 @@ try{
                       if($ippisCumulativeDeduction < $myActualLoanAmount){
 
                         $remainingDeductible = $ippisCumulativeDeduction;
-                        dd($remainingDeductible);
+
                       //initialize  variables
                       foreach($activeLoans as $sub){
 
@@ -338,7 +338,7 @@ try{
                           //allow for deductions
                          if($currentAmount <= $remainingDeductible){
                          //there is enough to deduct exact value of expected deduction
-
+                            dd(11);
                           //check for remaining loan balance
                           $loanBal = $sub->findCompleteBalance($sub->id);
                           //check if loan remaining balance is less than actual deduction
@@ -395,10 +395,10 @@ try{
 
                           }elseif($currentAmount > $remainingDeductible && $remainingDeductible !=0){
                           //there is no enough to deduct store the value available
-
-                          //check the remaining balance
-                          $loanBal = $sub->findCompleteBalance($sub->id);
-                          //check if loan remaining balance is less than actual deduction
+                            dd(12);
+                            //check the remaining balance
+                            $loanBal = $sub->findCompleteBalance($sub->id);
+                            //check if loan remaining balance is less than actual deduction
                           if($loanBal<=$remainingDeductible){
                             //
                             $newDeduction = new Ldeduction;
@@ -415,7 +415,7 @@ try{
                             $newDeduction->deduct_reference = $cumulativeDeduct->master_reference;
                             $newDeduction->notes = $cumulativeDeduct->description;
                             $newDeduction->uploaded_by = auth()->user()->first_name;
-                            $remainingDeductible = $remainingDeductible-$remainingDeductible;
+                            $remainingDeductible = $remainingDeductible-$loanBal;
                             $newDeduction->save();
 
                             //recaculate loan balances
