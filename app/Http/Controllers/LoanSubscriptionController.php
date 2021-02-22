@@ -277,7 +277,7 @@ public function paidLoanEdit($id)
 
             'tenor' =>'required|integer|between:1,60',
             'loan_amount' =>'required|numeric|between:0.00,999999999.99',
-            'deduction' =>'required|numeric|between:0.00,999999999.99',
+            //'deduction' =>'required|numeric|between:0.00,999999999.99',
             'start_date' =>'required|date',
             'end_date' =>'required|date',
             'disbursement_date' =>'nullable|date',
