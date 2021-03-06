@@ -418,10 +418,9 @@ public function findCompleteBalance($subid){
     $ldeductionObj = new Ldeduction;
     $loan = Lsubscription::find($subid);
     //$principal = $loan->amount_approved+$loan->topup_amount;
-    //$principal = $loan->amount_approved;
+    $principal = $loan->amount_approved;
     $totalDeductions = $ldeductionObj->totalLoanCredit($subid)-$ldeductionObj->totalLoanDebit($subid);
-    return $balance = $totalDeductions;
-    //return $balance = $principal-$totalDeductions;
+    return $balance = $principal-$totalDeductions;
   }
 
 public static function subGroup(){
