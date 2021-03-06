@@ -417,8 +417,8 @@ public function uniqueDebtors($userid){
 public function findCompleteBalance($subid){
     $ldeductionObj = new Ldeduction;
     $loan = Lsubscription::find($subid);
-    $principal = $loan->amount_approved+$loan->topup_amount;
-
+    //$principal = $loan->amount_approved+$loan->topup_amount;
+    $principal = $loan->amount_approved;
     $totalDeductions = $ldeductionObj->totalLoanCredit($subid)-$ldeductionObj->totalLoanDebit($subid);
     return $balance = $principal-$totalDeductions;
   }
