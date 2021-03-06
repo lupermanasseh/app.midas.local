@@ -77,7 +77,7 @@ public function showNegativeBalances(){
 //Show all loans who have balances but inactive
 public function verifyBalances(){
     $title = 'Verify Balances';
-    $loans = Lsubscription::where('loan_status', 'Inactive')
+    $loans = Lsubscription::where('loan_status','=', 'Inactive')
                           ->orderBy('disbursement_date','asc')
                           ->get();
 
