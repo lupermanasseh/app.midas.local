@@ -74,6 +74,38 @@ public function showNegativeBalances(){
   return view ('LoanDeduction.negativeBalances', compact('title','loans'));
 }
 
+//Show all loans who have balances but inactive
+public function verifyBalances(){
+    $title = 'Verify Balances';
+    $loans = Lsubscription::where('loan_status', 'Inactive')
+                          ->orderBy('disbursement_date','asc')
+                          ->get();
+
+    return view ('LoanDeduction.notInactive', compact('title','loans'));
+  }
+
+  //activate verify loan Balances
+
+  public function activateVerifyBalance($id)
+  {
+
+      DB::beginTransaction();
+      try{
+        $loan_sub = Lsubscription::find($id);
+
+        $loan_sub->loan_status = "Active";
+        $loan_sub->save();
+
+      }
+      catch(\Exception $e){
+        DB::rollback();
+        toastr()->error($e->getMessage());
+        return back();
+      }
+      DB::commit();
+      toastr()->success('Record updated successfully!');
+      return redirect('/verifyBalances');
+}
 //populate user consolidated loans table
 public function populate(){
 
