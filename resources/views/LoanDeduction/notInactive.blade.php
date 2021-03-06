@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
                     @foreach ($loans as $loan)
-                    @if($loan->findCompleteBalance($loan->id) ==0)
+                    @if($loan->findCompleteBalance($loan->id) === 0 )
                     @continue
                     @endif
                     <tr>
