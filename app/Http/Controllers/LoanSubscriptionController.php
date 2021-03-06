@@ -370,7 +370,7 @@ public function deactivateLoan($id)
             DB::commit();
             toastr()->success('Record updated successfully!');
             return redirect('/user/landingPage/'.$loan_sub->user_id);
-        }
+    }
 
     /**
      * Update the specified resource in storage.
