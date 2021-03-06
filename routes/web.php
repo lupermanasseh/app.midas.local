@@ -314,6 +314,8 @@ Route::post('/consolidatedLoanBalances/find','LoanDeductionsController@consolida
 Route::get('/consolidatedloanbalance/excel/{from}/{to}','LoanDeductionsController@consolidatedLoanBalancesExcelExport');
 Route::get('/consolidatedloanbalance/pdf/{from}/{to}','LoanDeductionsController@consolidatedLoanBalancesPdf');
 Route::get('/negativebalances','LoanDeductionsController@showNegativeBalances');
+Route::get('/verifyBalances','LoanDeductionsController@verifyBalances');
+Route::get('/activate/verifyBalances/{id}','LoanDeductionsController@activateVerifyBalance');
 });
 
 //Monthly Target Savings Routes
