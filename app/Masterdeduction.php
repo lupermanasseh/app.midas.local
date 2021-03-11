@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Lsubscription;
+use App\Ldeduction;
+use App\User;
 
 class Masterdeduction extends Model
 {
@@ -28,4 +31,21 @@ class Masterdeduction extends Model
     public function overdeductions(){
       return $this->hasMany(Loanoverdeduction::class);
   }
+
+  //Method to update Master Deduction records
+  public function updateMasterDeduction($masterDeductionObj){
+
+    $records = Ldeduction::where('entry_month', $masterDeductionObj->entry_date)
+                            ->where('deduct_reference',$masterDeductionObj->master_reference)
+                            ->get();
+            if($records){
+                //change to inactive
+                $masterDeductionObj->status = 'Inactive';
+                $masterDeductionObj->save();
+            }else{
+                //change to active
+                $masterDeductionObj->status = 'Active';
+                $masterDeductionObj->save();
+            }
+}
 }
