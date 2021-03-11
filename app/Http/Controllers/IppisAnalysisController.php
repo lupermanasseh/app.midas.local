@@ -266,8 +266,8 @@ try{
 
       $activeLoans = Lsubscription::where('loan_status','Active')
                                     ->where('user_id',$user_id)
-                                    //->where('loan_start_date','<',$cumulativeDeduct->entry_date)
-                                    ->where('disbursement_date','<=',$cumulativeDeduct->entry_date)
+                                    ->where('loan_start_date','<',$cumulativeDeduct->entry_date)
+                                    //->where('disbursement_date','<=',$cumulativeDeduct->entry_date)
                                     ->orderBy('custom_tenor','asc')
                                     ->orderBy('disbursement_date','asc')
                                     ->get();
@@ -327,10 +327,10 @@ try{
                       foreach($activeLoans as $sub){
 
                         //check to know loan start date
-                        //$subDate = $sub->loan_start_date->toDateString();
-                        $disbursementDate = $sub->disbursement_date->toDateString();
+                        $startDate = $sub->loan_start_date->toDateString();
+                        //$disbursementDate = $sub->disbursement_date->toDateString();
                         $entryDate = $cumulativeDeduct->entry_date->toDateString();
-                        if($disbursementDate > $entryDate){
+                        if($startDate > $entryDate){
                         continue;
                         }else{
                           //actual monthly deduction
@@ -506,8 +506,10 @@ try{
                 }//end check for date
 
                 }//end foreach
-                      $cumulativeDeduct->status = 'Inactive';
-                      $cumulativeDeduct->save();
+                      //$cumulativeDeduct->status = 'Inactive';
+                    //  $cumulativeDeduct->save();
+                    //NEW CODE
+                    $cumulativeDeduct->updateMasterDeduction($cumulativeDeduct);
             } //end check for under deduction
 
             //over deduction check
@@ -778,10 +780,10 @@ try{
                     else{
 
                     //check to know loan start date
-                    //$subDate = $sub->loan_start_date->toDateString();
-                    $disbursementDate = $sub->disbursement_date->toDateString();
+                    $startDate = $sub->loan_start_date->toDateString();
+                    //$disbursementDate = $sub->disbursement_date->toDateString();
                     $entryDate = $cumulativeDeduct->entry_date->toDateString();
-                    if($disbursementDate > $entryDate){
+                    if($startDate > $entryDate){
                     continue;
                     }else{
                       //
@@ -902,10 +904,10 @@ try{
                     }
                     else{
                       //check to know loan start date
-                          //$subDate = $sub->loan_start_date->toDateString();
-                          $disbursementDate = $sub->disbursement_date->toDateString();
+                          $startDate = $sub->loan_start_date->toDateString();
+                          //$disbursementDate = $sub->disbursement_date->toDateString();
                           $entryDate = $cumulativeDeduct->entry_date->toDateString();
-                          if($disbursementDate > $entryDate){
+                          if($startDate > $entryDate){
                           continue;
                         }else{
 
@@ -975,9 +977,12 @@ try{
                     //increment loop here
                     $equalDeductionIteration++;
 
-                      }//end for each for equal deduction
-                      $cumulativeDeduct->status = 'Inactive';
-                      $cumulativeDeduct->save();
+                      }//end for each - for equal deduction
+                      //$cumulativeDeduct->status = 'Inactive';
+                      //$cumulativeDeduct->save();
+
+                      //NEW CODE
+                    $cumulativeDeduct->updateMasterDeduction($cumulativeDeduct);
                   }
 
               // //post cumulative amount to consolidated loan ledger
@@ -1027,8 +1032,11 @@ try{
                   $myLoanSubscription->loanBalance($sub->id);
 
                   //CHANGE STATUS OF THE MASTER DEDUCTION HERE
-                  $cumulativeDeduct->status = 'Inactive';
-                  $cumulativeDeduct->save();
+
+                  //$cumulativeDeduct->status = 'Inactive';
+                  //$cumulativeDeduct->save();
+                  //NEW CODE
+                  $cumulativeDeduct->updateMasterDeduction($cumulativeDeduct);
 
                   //post to the user consolidated ledger
                   // //post cumulative amount to consolidated loan ledger
@@ -1116,8 +1124,11 @@ try{
                 // $refund->recalculateRefundBalances($user_id);
 
                 //deactivate master loan deduction
-                $cumulativeDeduct->status = 'Inactive';
-                $cumulativeDeduct->save();
+                //$cumulativeDeduct->status = 'Inactive';
+                //$cumulativeDeduct->save();
+
+                //NEW CODE
+                $cumulativeDeduct->updateMasterDeduction($cumulativeDeduct);
 
               //post to consolidated ledger also
               $newConsolidatedDeduct = new Userconsolidatedloan();
