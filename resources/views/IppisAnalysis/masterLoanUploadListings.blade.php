@@ -39,10 +39,14 @@
                         <td>{{$myItem->ippis_no}}</td>
                         <td>{{number_format($myItem->cumulative_amount,2,'.',',')}}</td>
                         <td>{{$myItem->created_at->diffForHumans()}}</td>
-                        <!-- <td>
-                            <a href="/loan/distribute/{{$myItem->id}}" class="btn green darken-3 post-looan">Post
-                                Loan</a>
-                        </td> -->
+                        <td>
+                            @if($myItem->unPostedDeduction($myItem->id)->count()==0)
+                            <a href="/postDeductions/{{$myItem->id}}" class="btn red darken-3 post-looan">Post Anyway</a>
+                            @else
+
+                            @endif
+
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
