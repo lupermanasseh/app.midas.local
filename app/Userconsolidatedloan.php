@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Ldeduction;
+use App\User;
 use Carbon\Carbon;
 
 class Userconsolidatedloan extends Model
@@ -190,4 +192,36 @@ protected $dates = ['created_at', 'updated_at','date_entry'];
                $bal = $totalDebit-$totalCredit;
                  return $bal;
              }
+
+//post to user consolidated ledger
+public function postConsolidatedAmount($masterDeductionObj){
+
+    $records = Ldeduction::where('entry_month', $masterDeductionObj->entry_date)
+                            ->where('deduct_reference',$masterDeductionObj->master_reference)
+                            ->get();
+
+            if($records->count()>=1){
+
+              $newConsolidatedDeduct = new Userconsolidatedloan();
+
+              $now = Carbon::now()->toTimeString();
+              $newConsolidatedDeduct->user_id = $masterDeductionObj->ippis_no;
+              $newConsolidatedDeduct->description = $masterDeductionObj->description;
+              $newConsolidatedDeduct->date_entry = $masterDeductionObj->entry_date;
+              $newConsolidatedDeduct->entry_time = $now;
+              $newConsolidatedDeduct->credit = $masterDeductionObj->cumulative_amount;
+              $newConsolidatedDeduct->ref_identification = $masterDeductionObj->master_reference;
+              $newConsolidatedDeduct->save();
+              $newConsolidatedDeduct->userConsolidatedBalances($masterDeductionObj->ippis_no);
+            }else{
+                // //dd(90);
+                // //change to active
+                // $masterDeductionObj->status = 'Active';
+                // $masterDeductionObj->save();
+                // toastr()->success('Loan deduction inputs processed successfully!');
+                // //redirect to listing page order by latest
+                // redirect('/activeLoans');
+            }
+}
+
 }
