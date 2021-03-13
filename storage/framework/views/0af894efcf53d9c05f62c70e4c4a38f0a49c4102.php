@@ -37,10 +37,14 @@
                         <td><?php echo e($myItem->ippis_no); ?></td>
                         <td><?php echo e(number_format($myItem->cumulative_amount,2,'.',',')); ?></td>
                         <td><?php echo e($myItem->created_at->diffForHumans()); ?></td>
-                        <!-- <td>
-                            <a href="/loan/distribute/<?php echo e($myItem->id); ?>" class="btn green darken-3 post-looan">Post
-                                Loan</a>
-                        </td> -->
+                        <td>
+                            <?php if($myItem->unPostedDeduction($myItem->id)->count()==0): ?>
+                            <a href="/postDeductions/<?php echo e($myItem->id); ?>" class="btn red darken-3 post-looan">Post Anyway</a>
+                            <?php else: ?>
+
+                            <?php endif; ?>
+
+                        </td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
