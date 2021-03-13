@@ -38,14 +38,29 @@ class Masterdeduction extends Model
     $records = Ldeduction::where('entry_month', $masterDeductionObj->entry_date)
                             ->where('deduct_reference',$masterDeductionObj->master_reference)
                             ->get();
-            if($records){
+
+            if($records->count()>=1){
                 //change to inactive
                 $masterDeductionObj->status = 'Inactive';
                 $masterDeductionObj->save();
             }else{
+                //dd(90);
                 //change to active
                 $masterDeductionObj->status = 'Active';
                 $masterDeductionObj->save();
             }
 }
+
+
+//Find unposted master inputs
+public function unPostedDeduction($id){
+    $masterItem = Masterdeduction::find($id);
+
+    $records = Ldeduction::where('entry_month', $masterItem->entry_date)
+                            ->where('deduct_reference',$masterItem->master_reference)
+                            ->get();
+                            return $records;
+}
+
+
 }
