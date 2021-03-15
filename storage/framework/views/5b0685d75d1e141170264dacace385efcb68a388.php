@@ -16,28 +16,38 @@
         <div class="col s12 m3 l3">
             <div class="card-panel pink-text center top-banner">
                 <i class="fas fa-user-friends"></i>
-                <div><span><a href="/contributors-list">Membership Register</a></span></div>
+                <div><span><a href="/contributors-list">Register</a></span></div>
             </div>
         </div>
 
         <div class="col s12 m3 l3">
+            <div class="card-panel  pink-text center top-banner">
+                <i class="fas fa-calendar-alt"></i>
+                <div> <span><a href="/loandisbursement/find">Disbursement Date</a></span></div>
+            </div>
+        </div>
+
+        <div class="col s12 m2 l2">
             <div class="card-panel  pink-text center top-banner">
                 <i class="fas fa-plus-circle"></i>
                 <div> <span><a href="/loanSub/create">New Loan</a></span></div>
             </div>
         </div>
 
-        <div class="col s12 m3 l3">
-            <div class="card-panel  pink-text center top-banner">
-                <i class="fas fa-search"></i>
-                <div> <span><a href="/loandisbursement/find">Disbursement Date</a></span></div>
-            </div>
-        </div>
 
-        <div class="col s12 m3 l3">
+
+        <div class="col s12 m2 l2">
             <div class="card-panel  pink-text center top-banner">
                 <i class="fas fa-user-friends"></i>
                 <div> <span><a href="/guarantor/dashboard">Guarantors</a></span></div>
+            </div>
+        </div>
+        <div class="col s12 m2 l2">
+            <div class="card-panel  pink-text center top-banner">
+                <i class="fab fa-cc-mastercard"></i>
+                <div> <span><a href="">Over Paid</a></span></div>
+
+                <div> <span><a href="/overpaid/loans"> <?php echo e($overPaid->count()); ?> </a> </span></div>
             </div>
         </div>
 

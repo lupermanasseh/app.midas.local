@@ -3,17 +3,17 @@
     
     <div class="row">
         <div class="col s12 subject-header">
-            <h6 class="teal-text">RECENT MASTER LOAN DEDUCTION(s)</h6>
+            <h6 class="teal-text">UNPOSTED MASTER LOAN DEDUCTION(s)</h6>
         </div>
     </div>
-<?php if(count($loanMaster)>=1): ?>
+
     <div class="row">
         <div class="col s12 subject-header">
-            <span><a href="/loandeductions/bulkmaster"><i class="small material-icons tooltipped" data-position="bottom"
-                        data-tooltip="Post Bulk">done_all</i></a></span>
+            <span><a href="/post/loans"><i class="small material-icons tooltipped" data-position="bottom"
+                        data-tooltip="Post Loans">arrow_back</i></a></span>
         </div>
     </div>
-    <?php endif; ?>
+
 
     <div class="row">
         <div class="col s12">
@@ -37,6 +37,14 @@
                         <td><?php echo e($myItem->ippis_no); ?></td>
                         <td><?php echo e(number_format($myItem->cumulative_amount,2,'.',',')); ?></td>
                         <td><?php echo e($myItem->created_at->diffForHumans()); ?></td>
+                        <td>
+                            <?php if($myItem->unPostedDeduction($myItem->id)->count()==0): ?>
+                            <a href="/postDeductions/<?php echo e($myItem->id); ?>" class="btn red darken-3 post-looan">Post Anyway</a>
+                            <?php else: ?>
+
+                            <?php endif; ?>
+
+                        </td>
                     </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
