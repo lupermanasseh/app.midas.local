@@ -69,6 +69,12 @@ class AppServiceProvider extends ServiceProvider
             $view->with(['totalSaving'=>$savings,'liability'=>$totalLiability]);
         });
 
+        //Create a view composer for admin-top-section, over paid loan div
+        view()->composer('inc.admin-top-section', function($view){
+            $overPaidTotal= Lsubscription::overPaidLoans();
+              $view->with(['overPaid'=>$overPaidTotal]);
+          });
+
         // view()->composer('inc.dashboard-overview', function($view){
         //     $view->with('tsSaving', TargetSaving::myTargetSavings(auth()->id()));
         // });
