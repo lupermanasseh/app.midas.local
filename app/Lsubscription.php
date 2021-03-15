@@ -139,12 +139,12 @@ public function findLoansByDisbursementDate($date){
     $diffRslt = $loanAmount-$totalDeductions;
 
     //if($diffRslt <= 0){
-    if($diffRslt <= 0){
-        //update the subj obj status to inactive
+    if($diffRslt == 0){
         $loanSub->loan_status = 'Inactive';
-        //$loanSub->loan_end_date = now()->toDateString();
-        //$loanSub->review_by = auth()->id();
         $loanSub->save();
+    }elseif($diffRslt < 0){
+      $loanSub->loan_status = 'overpaid';
+      $loanSub->save();
     }
 
 }
@@ -295,6 +295,14 @@ public static function pendingLoans($id){
         $query->orderBy('name', 'desc');
         }])->get();
 }
+
+//User over paid subscriptions
+
+public static function overPaidLoans(){
+        return static::where('loan_status','overpaid')
+              ->orderBy('user_id', 'asc')
+              ->get();
+      }
 
 //Find Total deduction for a given loan subscription
 //Pass in loan subscription id
