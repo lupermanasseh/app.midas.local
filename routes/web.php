@@ -323,9 +323,9 @@ Route::middleware(['auth:admin'])->group(function () {
   Route::get('/ippis-analysis','IppisAnalysisController@ippisAnalysisForm'); //upload loan inputs
   Route::get('/mastersaving/summary','IppisAnalysisController@masterSavingSummary');
   Route::post('/ippis-analysis-upload','IppisAnalysisController@importIppisAnalysis')->name('ippisanalysis.import');
-  Route::get('/recentIppisInputs/listing','IppisAnalysisController@recentIppisLoanInputs');//1
+  Route::get('/unpostedIppisDeductions','IppisAnalysisController@unPostedIppisLoanDeductions'); //not used yet
   Route::get('/savingMaster/listing/{date}/{reference}','IppisAnalysisController@recentMasterSaving');
-  Route::get('/post/loans','IppisAnalysisController@recentIppisLoanInputs'); //2. same with 1 check
+  Route::get('/post/loans','IppisAnalysisController@recentIppisLoanInputs');
   Route::get('/loandeductions/bulkmaster','IppisAnalysisController@postLoanBulk');
   Route::get('/postDeductions/{id}','IppisAnalysisController@postLoanAnyway');
   Route::get('/saving/distribute/{date}/{ref}','IppisAnalysisController@postSaving');
