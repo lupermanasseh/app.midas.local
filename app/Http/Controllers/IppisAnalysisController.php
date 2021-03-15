@@ -112,7 +112,7 @@ public function importIppisAnalysis(){
     }
     DB::commit();
 
-    return redirect ('/recentIppisInputs/listing');
+    return redirect ('/post/loans');
 
 }
 
@@ -2829,7 +2829,12 @@ public function postLoanAnyway($id){
     }
 
 
-
+//over paid loans listings
+public function listOverPaidLoans(){
+    $title = 'Over Paid Loans';
+    $overPaidLoans= Lsubscription::overPaidLoans();
+    return view('IppisAnalysis.overPaidLoans',compact('title','overPaidLoans'));
+}
 
 //form to upload legacy loan subscriptions information
  public function legacyLoan(){
