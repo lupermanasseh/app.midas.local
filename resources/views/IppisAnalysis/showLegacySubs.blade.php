@@ -34,7 +34,7 @@
                     @foreach ($collection as $myItem)
                     <tr>
                         <td>{{$myItem->disbursement_date->toFormattedDateString()}}</td>
-                        <td>{{$myItem->user['last_name']}}</td>
+                        <td>{{$myItem->user->last_name}}</td>
                         <td>{{$myItem->user_id}}</td>
                         <td>{{number_format($myItem->amount_approved,2,'.',',')}}</td>
                         <td>{{$myItem->created_at->diffForHumans()}}</td>
