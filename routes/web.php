@@ -320,6 +320,7 @@ Route::get('/activate/verifyBalances/{id}','LoanDeductionsController@activateVer
 
 //Monthly Target Savings Routes
 Route::middleware(['auth:admin'])->group(function () {
+  Route::get('/overpaidLoans/listings','IppisAnalysisController@listOverPaidLoans');
   Route::get('/ippis-analysis','IppisAnalysisController@ippisAnalysisForm'); //upload loan inputs
   Route::get('/mastersaving/summary','IppisAnalysisController@masterSavingSummary');
   Route::post('/ippis-analysis-upload','IppisAnalysisController@importIppisAnalysis')->name('ippisanalysis.import');
