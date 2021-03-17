@@ -7,7 +7,8 @@
         <tr>
 
             <th>Product</th>
-            <th>Amount Applied</th>
+            <th>Amount</th>
+            <th>Balance</th>
             <th>Status</th>
             <th>Detail</th>
             <th>History</th>
@@ -18,7 +19,8 @@
         <tr>
 
             <td>{{$active->product->name}}</td>
-            <td>{{number_format($active->amount_applied,2,'.',',')}}</td>
+            <td>{{number_format($active->amount_approved,2,'.',',')}}</td>
+            <td>  {{number_format($active->amount_approved-$active->totalLoanDeductions($active->id),2,'.',',')}}</td>
             <td>
                 {{$active->loan_status}}
             </td>
