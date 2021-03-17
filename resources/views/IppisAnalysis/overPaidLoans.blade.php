@@ -45,6 +45,8 @@
                         @if(count($overPaidLoans)>=1)
                         <thead>
                             <tr>
+                                <th>Name</th>
+                                <th>Loan Type</th>
                                 <th>Loan Type</th>
                                 <th>S/Date</th>
                                 <th>E/Date</th>
@@ -60,6 +62,7 @@
 
                             @foreach ($overPaidLoans as $myProduct)
                             <tr>
+                                <td>{{$myProduct->user->first_name}}</td>
                                 <td>{{$myProduct->product->name}}</td>
                                 <td>{{$myProduct->loan_start_date->toFormattedDateString()}}</td>
                                 <td>{{$myProduct->loan_end_date->toFormattedDateString()}}</td>
@@ -74,10 +77,10 @@
                                 <td><a href="/loan/schedule/{{$myProduct->id}}"  target="_blank" class="tooltipped" data-position="bottom" data-tooltip="View Loan Schedule">View</a></td>
                                 <td>
                                   <a href="/paidloan/edit/{{$myProduct->id}}"><i class="tiny material-icons tooltipped" data-position="top" data-tooltip="Edit Loan">edit</i> </a>
-                                  <a href="/destroy/deductions/{{$myProduct->id}}" id="delete"> <i
-                                          class="tiny material-icons red-text tooltipped" data-position="bottom" data-tooltip="Delete Loan">delete_forever</i></a>
                                           <a href="/deactivate/loan/{{$myProduct->id}}" id="delete"> <i
                                                   class="tiny material-icons blue-text tooltipped" data-position="bottom" data-tooltip="Deactivate Loan">close</i></a>
+                                <a href="/activate/loan/{{$myProduct->id}}" id="delete"> <i
+                                                    class="tiny material-icons green-text tooltipped" data-position="bottom" data-tooltip="Activate Loan">check</i></a>
                                 </td>
                                 <!-- <td><a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger red darken-3 transferid" href="#modal1">Debit</a> | <a data-subid="{{$myProduct->id}}" class="waves-effect waves-light btn modal-trigger transferid"  href="#modal2">Credit</a></td> -->
                             </tr>
