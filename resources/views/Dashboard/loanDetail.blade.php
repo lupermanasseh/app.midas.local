@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div class="user-profiles">
+{{-- <div class="user-profiles">
 
     <div class="profile-detail">
 
@@ -80,5 +80,5 @@
 
     </div>
 
-</div>
+</div> --}}
 @endsection
