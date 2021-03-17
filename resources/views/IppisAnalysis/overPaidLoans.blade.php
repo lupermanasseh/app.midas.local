@@ -84,15 +84,7 @@
                             @endforeach
                             @else
                             @endif
-                            @if(count($overPaidLoans)>=1)
-                            <tr>
-                                <th colspan="4">Summary</th>
-                                <th>{{number_format($user->totalApprovedAmount($user->id),2,'.',',')}}</th>
-                                <th>{{number_format($user->loanSubscriptionTotal($user->id),2,'.',',')}}</th>
-                                <th>{{number_format($user->allLoanBalances($user->id),2,'.',',')}}</th>
-                            </tr>
-                            @else
-                            @endif
+
                         </tbody>
                     </table>
                 </div>
