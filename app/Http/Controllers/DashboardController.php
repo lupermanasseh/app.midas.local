@@ -194,6 +194,7 @@ class DashboardController extends Controller
         $user_id = auth()->id();
         $loans = Lsubscription::where('user_id',$user_id)
                             ->where('loan_status','Active')
+                            ->orWhere('loan_status','overpaid')
                             ->with('user')
                             ->get();
         return view('Dashboard.allLoans',compact('loans','title'));
