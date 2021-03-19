@@ -400,13 +400,13 @@ public function deactivateLoan($id)
                 $product = Product::find($request['product_item']);
 
                 //check fo active users
-                $guarantor1 = User::find(request(['guarantor_id1']));
-                $guarantor2 = User::find(request(['guarantor_id2']));
-                $applicant = User::find(request(['reg_no']));
-                if($guarantor1=="" || $guarantor2=="" || $applicant==""){
-                    toastr()->error('One or more users do not exist');
-                    return redirect('/loanSub/create');
-                }
+                // $guarantor1 = User::find(request(['guarantor_id1']));
+                // $guarantor2 = User::find(request(['guarantor_id2']));
+                // $applicant = User::find(request(['reg_no']));
+                // if($guarantor1=="" || $guarantor2=="" || $applicant==""){
+                //     toastr()->error('One or more users do not exist');
+                //     return redirect('/loanSub/create');
+                // }
                 //Check loan eleigibility by total indebtedness
                 $user = new User();
                 $totalIndebtedness = $user->totalApprovedAmount($request['reg_no']);
@@ -433,7 +433,7 @@ public function deactivateLoan($id)
                 //$loan_sub->productdivision_id = $request['product_cat'];
                 $loan_sub->product_id = $request['product_item'];
                 $loan_sub->user_id = $request['reg_no'];
-                $loan_sub->guarantor_id = $request['guarantor_id1'];
+                $loan_sub->guarantor_id1 = $request['guarantor_id1'];
                 $loan_sub->guarantor_id2 = $request['guarantor_id2'];
                 $loan_sub->monthly_deduction = $amtApplied/$tenor;
                 $loan_sub->custom_tenor = $tenor;
