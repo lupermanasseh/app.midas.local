@@ -2909,7 +2909,7 @@ public function activateBulkLegacySubs(){
       $now = Carbon::now()->toTimeString();
       //$date = $user->disbursement_date." ".$now;
 
-      //inser records
+      //insert records
       $newData = new Userconsolidatedloan();
       $newData->user_id = $myItem->user_id;
       $newData->lsubscription_id = $myItem->id;
