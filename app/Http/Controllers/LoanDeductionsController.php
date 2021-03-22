@@ -1129,11 +1129,16 @@ public function topUpLoan(Request $request){
              $from = new Carbon('2016-02-01');
              $from = $from->toDateString();
              $to = $request['to'];
+             //$loanSubCollection = $loanDeductionObj->findLoanDeductionByDate($from,$to);
+             //
+             $loanSubCollection =    Lsubscription::
+                                    where('loan_status','Active')
+                                    ->orderBy('user_id', 'asc')
+                                    ->get();
 
-        $loanSubCollection = $loanDeductionObj->findLoanDeductionByDate($from,$to);
 
-        $uniqueDebtors = $loanSubCollection->unique('user_id');
-        //total loan balances
+            $uniqueDebtors = $loanSubCollection->unique('user_id');
+            //total loan balances
 
 
         return view('LoanDeduction.loanBalancesResult',compact('title','loanSubObj','loanSubCollection','to','from','$loanDeductionObj','uniqueDebtors'));
