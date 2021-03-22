@@ -166,7 +166,7 @@ class User extends Authenticatable
         return $this->consolidatedLoanDebitTotal($userid)-$this->consolidatedLoanCreditTotal($userid);
     }
 
-     //Total sum deductible for loan subscription
+     //Total sum deductible for active loan subscription
      public function loanSubscriptionTotal($id)
      {
          return Lsubscription::where('user_id', '=', $id)
@@ -176,8 +176,17 @@ class User extends Authenticatable
          ->sum('monthly_deduction');
      }
 
-        //Total sum approved loan amount
+     //Total sum deductible for inactive loan subscription
+     public function inactiveLoanSubscriptionTotal($id)
+     {
+         return Lsubscription::where('user_id', '=', $id)
+         ->where(function ($query) {
+             $query->where('loan_status', '=', 'inactive');
+         })
+         ->sum('monthly_deduction');
+     }
 
+        //Total sum approved loan amount
         public function totalApprovedAmount($id)
         {
             $totalLoans = Lsubscription::where('user_id', '=', $id)
@@ -189,14 +198,46 @@ class User extends Authenticatable
             return $approved_amt + $topupAmt;
         }
 
+        //Total sum of inactive loan approved loan amount
+        public function totalInactiveApprovedAmount($id)
+        {
+            $totalLoans = Lsubscription::where('user_id', '=', $id)
+            ->where(function ($query) {
+                $query->where('loan_status', '=', 'inactive');
+            })->get();
+            $approved_amt = $totalLoans->sum('amount_approved');
+            $topupAmt = $totalLoans->sum('topup_amount');
+            return $approved_amt + $topupAmt;
+        }
 
-        //All loan balances
+        //All active loan balances
         public function allLoanBalances($id)
         {
             $sumBal=0;
             $lsub = new Lsubscription;
             $all_loans = Lsubscription::where('user_id', '=', $id)
                                         ->where('loan_status','active')
+                                        ->get();
+
+            foreach($all_loans as $item){
+                //$totalBal=0;
+                $approved_amt = $item->amount_approved;
+                //$topup_amt = $item->topup_amount;
+                //$principal = $approved_amt+$topup_amt;
+                $deductions = $lsub->totalLoanDeductions($item->id);
+                $bal = $approved_amt-$deductions;
+                $sumBal = $sumBal+$bal;
+            }
+            return $sumBal;
+        }
+
+        //All inactive loan balances
+        public function allInactiveLoanBalances($id)
+        {
+            $sumBal=0;
+            $lsub = new Lsubscription;
+            $all_loans = Lsubscription::where('user_id', '=', $id)
+                                        ->where('loan_status','inactive')
                                         ->get();
 
             foreach($all_loans as $item){
