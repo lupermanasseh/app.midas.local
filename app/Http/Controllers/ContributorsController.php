@@ -344,38 +344,6 @@ public function statementFind(Request $request){
 
      return view ('Contributors.statementResult',compact('title','result','fromDate','toDate','saving','userObj','user_id'));
 
-     // if($category =="Loan"){
-         //process search for loan
-         // $heading ='Filtered Loan Records';
-         // $user_id = auth()->id();
-         // $collection = Ldeduction::whereBetween('created_at', [$from,$to])
-         // ->orderBy('created_at')
-         // ->get();
-         // $records = $collection->where('user_id',$user_id);
-
-         // return view ('Dashboard.searchLoans',compact('title','records'));
-     // }elseif($category=="TS"){
-     //     //process search for Target Saving
-     //     $heading ='Filtered Target Savings';
-     //     $user_id = auth()->id();
-     //     $collection = TargetSaving::whereBetween('created_at', [$from,$to])
-     //     ->orderBy('created_at')
-     //     ->get();
-     //     $records = $collection->where('user_id',$user_id);
-
-     //     return view ('Dashboard.searchTs',compact('title','records'));
-     // }
-     // elseif($category=="Saving"){
-     //     //process search for saving
-     //     $heading ='Filtered  Savings';
-     //     $user_id = auth()->id();
-     //     $collection = Saving::whereBetween('created_at', [$from,$to])
-     //     ->orderBy('created_at')
-     //     ->get();
-     //     $records = $collection->where('user_id',$user_id);
-
-     //     return view ('Dashboard.searchSaving',compact('title','records','from','to'));
-     // }
 }
 
 //print html savings  statement
