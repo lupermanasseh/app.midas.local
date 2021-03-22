@@ -239,12 +239,12 @@
                     @endforeach
 
                     @if(count($inactiveLoans)>=1)
-                    <!-- <tr>
+
                         <th colspan="4">Summary</th>
-                        <th>{{number_format($user->totalApprovedAmount($user->id),2,'.',',')}}</th>
-                        <th>{{number_format($user->loanSubscriptionTotal($user->id),2,'.',',')}}</th>
-                        <th>{{number_format($user->allLoanBalances($user->id),2,'.',',')}}</th>
-                    </tr> -->
+                        <th>{{number_format($user->totalInactiveApprovedAmount($user->id),2,'.',',')}}</th>
+                        <th>{{number_format($user->inactiveLoanSubscriptionTotal($user->id),2,'.',',')}}</th>
+                        <th>{{number_format($user->allInactiveLoanBalances($user->id),2,'.',',')}}</th>
+
                     @else
                     @endif
                 </tbody>
