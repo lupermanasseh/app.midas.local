@@ -47,7 +47,7 @@
                 <i class="fab fa-cc-mastercard"></i>
                 <div> <span><a href="">Over Paid</a></span></div>
 
-                <div> <span><a href="/overpaid/loans"> <?php echo e($overPaid->count()); ?> </a> </span></div>
+                <div> <span><a href="/overpaidLoans/listings"> <?php echo e($overPaid->count()); ?> </a> </span></div>
             </div>
         </div>
 
