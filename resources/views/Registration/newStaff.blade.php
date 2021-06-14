@@ -70,13 +70,13 @@
 
 
                 <div class="input-field col s4">
-                    <input id="first_name" name="first_name" type="text" class="validate" required>
-                    <label for="first_name">Surname</label>
+                    <input id="sur_name" name="sur_name" type="text" class="validate" required>
+                    <label for="sur_name">Surname</label>
                 </div>
 
                 <div class="input-field col s4">
-                    <input id="last_name" name="last_name" type="text" class="validate" required>
-                    <label for="last_name">Last name</label>
+                    <input id="first_name" name="first_name" type="text" class="validate" required>
+                    <label for="first_name">Last name</label>
                 </div>
                 <div class="input-field col s4">
                     <input id="other_name" name="other_name" type="text">

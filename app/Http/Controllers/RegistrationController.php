@@ -42,14 +42,14 @@ class RegistrationController extends Controller
         //'title'=>'required',
         'first_name'=>'required|string',
         'last_name'=>'required|string',
-        'other_name'=>'required|string',
+        'other_name'=>'string',
         'phone'=>'required',
         //'dob'=>'required|date',
         //'home_add'=>'required|max:100',
         //'res_add'=>'required|max:100',
         'sex'=>'required',
     ]);
-    
+
 
     $admin = new Admin();
 
@@ -57,7 +57,7 @@ class RegistrationController extends Controller
     $admin->email = $request['email'];
     //$user->title = $request['title'];
     $admin->first_name = $request['first_name'];
-    $admin->last_name = $request['last_name'];
+    $admin->last_name = $request['sur_name'];
     $admin->other_name = $request['other_name'];
     $admin->phone = $request['phone'];
     //$user->dob = $request['dob'];
@@ -86,9 +86,9 @@ class RegistrationController extends Controller
         $title ="New User";
         return view('Registration.newUser',compact('title'));
     }
-    
 
- 
+
+
    //Store  new member
    public function storeUser (Request $request){
     //validate the form
@@ -112,7 +112,7 @@ class RegistrationController extends Controller
         'staff_no'=>'required|numeric||between:0.00,999999999.99',
         'marital_status'=>'required',
     ]);
-    
+
 
     $user = new User();
     $payment_number = $request['payment_number'];
@@ -152,7 +152,7 @@ class RegistrationController extends Controller
     return back();
 }
 
-//form for nok 
+//form for nok
 public function nextOfKin ($id){
     $title ="User NOK";
     $id = $id;
@@ -161,7 +161,7 @@ public function nextOfKin ($id){
 
 //Save next of kin
 public function nokStore (Request $request){
-    
+
     //validate the form
     $this->validate(request(), [
         //'email' =>'email',
@@ -173,7 +173,7 @@ public function nokStore (Request $request){
         'last_name'=>'required',
         'phone'=>'required',
     ]);
-       
+
         $user_nok = new Nok();
         $user_id = $request['user_id'];
         $user_nok->user_id = $user_id;
@@ -184,16 +184,16 @@ public function nokStore (Request $request){
         $user_nok->first_name = $request['first_name'];
         $user_nok->last_name = $request['last_name'];
         $user_nok->other_name = $request['other_name'];
-        $user_nok->phone = $request['phone'];   
+        $user_nok->phone = $request['phone'];
         $user_nok->save();
 
         if ($user_nok->save()) {
             toastr()->success('User Next of Kin has been saved successfully!');
-    
+
             return redirect('/userDetails/'.$user_id);
         }
         toastr()->error('An error has occurred please try again later.');
-        return back();  
+        return back();
 }
 
 
@@ -217,8 +217,8 @@ public function bankStore (Request $request){
         'acct_number' =>'required|digits:10',
     ]);
 
- 
-        
+
+
         $user_id = $request['user_id'];
         $user_bank = new Bank();
         $user_bank->bank_name = $request['bank_name'];
@@ -230,13 +230,13 @@ public function bankStore (Request $request){
         $user_bank->save();
         if ($user_bank->save()) {
             toastr()->success('User bank details has been saved successfully!');
-    
+
             return redirect('/userDetails/'.$user_id);
         }
         toastr()->error('An error has occurred trying to save record, please try again later.');
         return back();
-   
-   
+
+
 }
 public function photoCreate($id){
 
@@ -267,8 +267,8 @@ public function photoStore(Request $request){
 
         //image path
         //$path = $request->file('photo_image')->storeAs('public/photos',$filenameToStore);
- 
-        
+
+
         $user_id = $request['user_id'];
         $user = User::find($user_id);
 
@@ -277,7 +277,7 @@ public function photoStore(Request $request){
         $user->save();
         if ($user->save()) {
             toastr()->success('Photo uploaded');
-    
+
             return redirect('/userDetails/'.$user_id);
         }
         toastr()->error('An error has occured uploading photo.');
@@ -326,7 +326,7 @@ public function createSavingStore(Request $request){
 /**
  * To deactivate a saving
  * 1. You must first clear yourself of all pending financial obligations
- * 
+ *
  */
 public function deactivateSavingReview($id){
     $id = $id;
@@ -349,7 +349,7 @@ public function filter(){
 
 public function filterProcess(Request $request){
     $title = "Filter Membership Result";
-  
+
     $this->validate(request(), [
    // 'payment_type' =>'required',
     'status' =>'required|string',
@@ -467,7 +467,7 @@ public function savingRegUploadForm(){
    //bank upload process
    public function savingRegUpload(){
   DB::beginTransaction();
-    try{ 
+    try{
     Excel::import(new SavingReviewUserImport(),request()->file('savingreg_import'));
       }catch(\Exception $ex){
         DB::rollback();
@@ -495,19 +495,19 @@ public function tsUploadForm(){
 //
    //ts upload process
    public function tsBulkUpload(){
-   
+
     try{
     Excel::import(new TsUserImport(),request()->file('ts_import'));
       }catch(\Exception $ex){
-          
+
           toastr()->error('Unable to create bulk target saving registrations!');
               return back();
       }catch(\Error $ex){
-         
+
           toastr()->error('Something bad has happened');
           return back();
       }
-     
+
       toastr()->success('Target saving registration bulk data upload  successful!');
       //redirect to listing page order by latest
       return back();
