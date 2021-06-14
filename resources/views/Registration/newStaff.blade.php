@@ -76,11 +76,11 @@
 
                 <div class="input-field col s4">
                     <input id="first_name" name="first_name" type="text" class="validate" required>
-                    <label for="first_name">Last name</label>
+                    <label for="first_name">Firstname</label>
                 </div>
                 <div class="input-field col s4">
                     <input id="other_name" name="other_name" type="text">
-                    <label for="other_name">Other name</label>
+                    <label for="other_name">Othername</label>
                 </div>
 
             </div>
