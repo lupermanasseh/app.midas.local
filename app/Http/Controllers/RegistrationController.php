@@ -94,7 +94,7 @@ class RegistrationController extends Controller
     //validate the form
     $this->validate(request(), [
         'payment_number'=>'required|numeric||between:0.00,999999999.99',
-        'password' =>'required|confirmed',
+        // 'password' =>'required|confirmed',
         'email' =>'email',
         'title'=>'required',
         'first_name'=>'required|string',
@@ -117,7 +117,8 @@ class RegistrationController extends Controller
     $user = new User();
     $payment_number = $request['payment_number'];
     $user->payment_number = $payment_number;
-    $user->password = Hash::make($request['password']);
+    // $user->password = Hash::make($request['password']);
+    $user->password = Hash::make('user');
     $user->email = $request['email'];
     $user->title = $request['title'];
     $user->first_name = $request['first_name'];
