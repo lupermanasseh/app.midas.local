@@ -19,10 +19,10 @@
             </div>
 
             <div class="row">
-                <div class="input-field col s12 m4 l4">
+                {{-- <div class="input-field col s12 m4 l4"> --}}
                     {{-- <input id="bank_name" name="bank_name" type="text" class="validate" required>
                     <label for="bank_name">Bank Name</label> --}}
-                    <div class="input-field col s3">
+                    <div class="input-field col s12 m4 l4">
                         <select id="bank_name" name="bank_name">
                             <option value="Access Bank">Access Bank</option>
                             <option value="First Bank">First Bank</option>
@@ -37,7 +37,7 @@
                         </select>
                         <label>Choose Bank</label>
                     </div>
-                </div>
+                {{-- </div> --}}
 
                 {{-- <div class="input-field col s4">
                     <input id="bank_branch" name="bank_branch" type="text" class="validate" required>
