@@ -149,7 +149,7 @@ public function editBank($id){
     if ($bankUpdate->save()) {
         toastr()->success('Data has been edited successfully!');
 
-        return redirect('/userDetails/'.$id);
+        return redirect('/userDetails/'.$userid);
     }
 
     toastr()->error('An error has occurred trying to update, please try again later.');
