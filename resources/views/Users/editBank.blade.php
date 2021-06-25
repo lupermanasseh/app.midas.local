@@ -38,14 +38,14 @@
                             <option value="{{$bank->bank_name}}" selected>{{$bank->bank_name}}</option>
                             <option value="Access Bank">Access Bank</option>
                             <option value="First Bank">First Bank</option>
-                            <option value="Fidelity Bank">Dr</option>
+                            <option value="Fidelity Bank">Fidelity Bank</option>
                             <option value="FCMB">FCMB</option>
                             <option value="GT Bank">GT Bank</option>
                             <option value="Unity Bank">Unity Bank</option>
                             <option value="Union Bank">Union Bank</option>
                             <option value="UBA">UBA</option>
                             <option value="Heritage Bank">Heritage Bank</option>
-                            <option value="Zenith Bank">Dr</option>
+                            <option value="Zenith Bank">Zenith Bank</option>
                         </select>
                         <label>Choose Bank</label>
                     </div>
