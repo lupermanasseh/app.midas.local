@@ -108,7 +108,7 @@
             <label>Membership Type</label>
         </div>
         <div class="input-field col s3">
-            <input id="dofa" name="dofa" type="text" class="validate datepicker" required>
+            <input id="dofa" name="dofa" type="text" class="validate" required>
             <label for="dofa">DOFA</label>
         </div>
         <div class="input-field col s3">
@@ -156,7 +156,7 @@
             <label for="phone">Phone</label>
         </div>
         <div class="input-field col s4">
-            <input id="dob" name="dob" type="text" class="validate datepicker" required>
+            <input id="dob" name="dob" type="text" class="validate" required>
             <label for="dob">DOB</label>
         </div>
 
