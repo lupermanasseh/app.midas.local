@@ -20,8 +20,23 @@
 
             <div class="row">
                 <div class="input-field col s12 m4 l4">
-                    <input id="bank_name" name="bank_name" type="text" class="validate" required>
-                    <label for="bank_name">Bank Name</label>
+                    {{-- <input id="bank_name" name="bank_name" type="text" class="validate" required>
+                    <label for="bank_name">Bank Name</label> --}}
+                    <div class="input-field col s3">
+                        <select id="bank_name" name="bank_name">
+                            <option value="Access Bank">Access Bank</option>
+                            <option value="First Bank">First Bank</option>
+                            <option value="Fidelity Bank">Dr</option>
+                            <option value="FCMB">FCMB</option>
+                            <option value="GT Bank">GT Bank</option>
+                            <option value="Unity Bank">Unity Bank</option>
+                            <option value="Union Bank">Union Bank</option>
+                            <option value="UBA">UBA</option>
+                            <option value="Heritage Bank">Heritage Bank</option>
+                            <option value="Zenith Bank">Dr</option>
+                        </select>
+                        <label>Choose Bank</label>
+                    </div>
                 </div>
 
                 {{-- <div class="input-field col s4">
@@ -40,11 +55,11 @@
             </div>
 
             <div class="row">
-                {{-- 
+                {{--
                 <div class="input-field col s6">
                     <input id="acct_name" name="acct_name" type="text" class="validate">
                     <label for="acct_name">Account Name</label>
-                </div> 
+                </div>
                 --}}
             </div>
 
