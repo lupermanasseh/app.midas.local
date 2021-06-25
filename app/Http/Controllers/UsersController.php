@@ -132,7 +132,7 @@ public function editBank($id){
      $this->validate(request(), [
         'bank_name' =>'required|string',
         //'bank_branch' =>'required',
-        'sort_code' =>'required|integer',
+        'sort_code' =>'required|string',
         //'acct_name' =>'required',
         'acct_number' =>'required|integer|digits:10',
     ]);
