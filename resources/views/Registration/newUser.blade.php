@@ -11,17 +11,17 @@
         <form class="col s12" method="POST" action="/Create">
             {{ csrf_field() }}
             <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s6">
                     <input id="staff_no" name="staff_no" type="text" class="validate" required>
                     <label for="staff_no">ID Card Number</label>
                 </div>
 
-                <div class="input-field col s3">
+                <div class="input-field col s6">
                     <input id="payment_number" name="payment_number" type="text" class="validate" required>
                     <label for="payment_number">IPPIS Number</label>
                 </div>
 
-                <div class="input-field col s3">
+                {{-- <div class="input-field col s3">
                     <input id="password" name="password" type="password" class="validate" required>
                     <label for="password">Password</label>
                 </div>
@@ -30,7 +30,7 @@
                     <input id="password_confirmation" name="password_confirmation" type="password" class="validate"
                         required>
                     <label for="password_confirmation">Confirm Password</label>
-                </div>
+                </div> --}}
 
             </div>
 
