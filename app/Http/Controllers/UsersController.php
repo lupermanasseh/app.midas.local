@@ -192,7 +192,7 @@ public function editBank($id){
         $profile = User::find($userid);
         if ($nokUpdate->save()) {
             toastr()->success('Data has been edited successfully!');
-            return redirect('/userDetails/'.$id);
+            return redirect('/userDetails/'.$userid);
         }
 
         toastr()->error('An error has occurred trying to update, please try again later.');
