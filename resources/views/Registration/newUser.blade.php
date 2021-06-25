@@ -31,7 +31,6 @@
                         required>
                     <label for="password_confirmation">Confirm Password</label>
                 </div> --}}
-
             </div>
 
             <div class="row">
