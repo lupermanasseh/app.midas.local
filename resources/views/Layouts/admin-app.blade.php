@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css" rel="stylesheet">
     {{-- install sweet alert css --}}
     <title>MIDAS- {{$title}}</title>
 </head>
@@ -166,8 +167,11 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{asset( 'js/echarts.min.js')}} "></script>
     <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
     @stack('scripts')
     <script>
+
+
         //HIDE ALL SECTIONS
     //$('.section').hide();
 
@@ -251,6 +255,22 @@ $('.deny').click(function(e){
     M.toast({html: 'Comment Denied',
     displayLength: 3000})
 })
+
+// calendar widget
+
+  $(function () {
+    $("#dofa").datepicker({
+      format:'yyyy-mm-dd',
+      autoHide:true,
+    });
+  });
+  $(function () {
+    $("#dob").datepicker({
+      format:'yyyy-mm-dd',
+      autoHide:true,
+    });
+  });
+// end calendar widget
 
 
 });
