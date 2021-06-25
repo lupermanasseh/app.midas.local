@@ -134,7 +134,7 @@ public function editBank($id){
         //'bank_branch' =>'required',
         'sort_code' =>'required|string',
         //'acct_name' =>'required',
-        'acct_number' =>'required|integer|digits:10',
+        'acct_number' =>'required|digits:10',
     ]);
     $bankUpdate = Bank::find($id);
     $bankUpdate->bank_name = $request['bank_name'];
