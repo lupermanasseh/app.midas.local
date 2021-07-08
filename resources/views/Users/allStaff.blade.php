@@ -33,7 +33,7 @@
                 <tbody>
                     @foreach ($allStaff as $staff)
                     <tr>
-                        <td>{{$staff->first_name}} {{$staff->last_name}}</td>
+                        <td>{{$staff->last_name}} {{$staff->first_name}} </td>
                         @foreach ($staff->roles as $role)
                         <td>{{$role->name}}</td>
                         @endforeach
