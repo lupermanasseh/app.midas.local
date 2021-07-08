@@ -25,10 +25,15 @@
                     <div class="input-field col s12 m4 l4">
                         <select id="bank_name" name="bank_name">
                             <option value="Access Bank">Access Bank</option>
+                            <option value="Eco Bank">Eco Bank</option>
                             <option value="First Bank">First Bank</option>
                             <option value="Fidelity Bank">Fidelity Bank</option>
                             <option value="FCMB">FCMB</option>
                             <option value="GT Bank">GT Bank</option>
+                            <option value="Keystone Bank">Keystone Bank</option>
+                            <option value="Polaris Bank">Polaris Bank</option>
+                            <option value="Sterling Bank">Sterling Bank</option>
+                            <option value="Stanbic IBTC">Stanbic IBTC</option>
                             <option value="Unity Bank">Unity Bank</option>
                             <option value="Union Bank">Union Bank</option>
                             <option value="UBA">UBA</option>
