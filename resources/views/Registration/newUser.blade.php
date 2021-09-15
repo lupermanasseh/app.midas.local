@@ -91,7 +91,7 @@
 
         <div class="input-field col s4">
             <input id="last_name" name="last_name" type="text" class="validate" required>
-            <label for="last_name">Last name</label>
+            <label for="last_name">First name</label>
         </div>
         <div class="input-field col s4">
             <input id="other_name" name="other_name" type="text">
@@ -147,6 +147,8 @@
                 <option value="Nutrition And Dietetics">Nutrition And Dietetics</option>
                 <option value="Laboratory">Laboratory</option>
                 <option value="Social Works">Social Works</option>
+                <option value="Internal Audit">Internal Audit</option>
+                <option value="Dental">Dental & Max</option>
             </select>
             <label for="dept">Dept</label>
         </div>
