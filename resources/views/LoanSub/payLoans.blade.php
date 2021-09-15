@@ -38,18 +38,19 @@
             <span class="profile__user-name">AVAIL %
                 {{number_format($review->user->availablePercent($review->user_id),2,'.',',')}}</span>
         </div>
+
         <div class="col s12 m3 l3 profile">
             <p class="profile__heading text-grey darken-3">PRODUCT SUMMARY</p>
             <span><i class="small material-icons pink-text lighten-4">looks</i></span>
-            <span class="profile__user-name">Guarantor 1:
+            {{-- <span class="profile__user-name">Guarantor 1:
               @if($review->guarantor_id1)
               {{$review->user->userInstance($review->guarantor_id1)->first_name}} (<a
               href="/#">{{$review->user->loanGuarantorCount($review->guarantor_id)}}</a>)
               @else
               NA
               @endif
-            </span>
-            <span class="profile__user-name">Guarantor 2:
+            </span> --}}
+            {{-- <span class="profile__user-name">Guarantor 2:
               @if($review->guarantor_id2)
               {{$review->user->userInstance($review->guarantor_id2)->first_name}} (<a
                   href="/#">{{$review->user->loanGuarantorCount($review->guarantor_id2)}}</a>)
@@ -57,7 +58,7 @@
               NA
               @endif
 
-            </span>
+            </span> --}}
             <span class="profile__user-name">Repayment N {{number_format($review->monthly_deduction,2,'.',',')}}</span>
             <span class="profile__user-name"><a href="/userLoan/discard/{{$review->id}}">Not sure, remove</a></span>
         </div>
