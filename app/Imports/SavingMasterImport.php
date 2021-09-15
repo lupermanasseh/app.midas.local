@@ -15,9 +15,9 @@ class SavingMasterImport implements ToModel,WithHeadingRow
     */
 
     public function __construct($rand){
-     
+
         $this->string = $rand;
-       
+
     }
     public function model(array $row)
     {
