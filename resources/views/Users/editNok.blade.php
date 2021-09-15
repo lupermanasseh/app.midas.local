@@ -58,13 +58,13 @@
                 <div class="input-field col s4">
                     <input id="first_name" name="first_name" value="{{$nok->first_name}}" type="text" class="validate"
                         required>
-                    <label for="first_name">First Name</label>
+                    <label for="first_name">Surname</label>
                 </div>
 
                 <div class="input-field col s4">
                     <input id="last_name" name="last_name" value="{{$nok->last_name}}" type="text" class="validate"
                         required>
-                    <label for="last_name">Last name</label>
+                    <label for="last_name">First Name</label>
                 </div>
                 <div class="input-field col s4">
                     <input id="other_name" name="other_name" value="{{$nok->other_name}}" type="text">
