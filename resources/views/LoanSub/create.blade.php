@@ -58,11 +58,11 @@
 
             <div class="row">
                 <div class="input-field col s12 m3 l3">
-                    <input id="amount_applied" name="amount_applied" type="number" class="validate" required>
+                    <input id="amount_applied" name="amount_applied" type="number"  step=".01" class="validate" required>
                     <label for="amount_applied">Amount Applied</label>
                 </div>
                 <div class="input-field col s12 m3 l3">
-                    <input id="net_pay" name="net_pay" type="number" class="validate" required>
+                    <input id="net_pay" name="net_pay" type="number" step=".01" class="validate" required>
                     <label for="net_pay">Net Pay</label>
                 </div>
                 <div class="input-field col s12 m6 l6">
