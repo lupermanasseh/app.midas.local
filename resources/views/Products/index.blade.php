@@ -23,6 +23,7 @@
             <table class="highlight">
                 <thead>
                     <tr>
+                        <th>Product ID</th>
                         <th>Product Name</th>
                         <th>Description</th>
                         <th>Status</th>
@@ -32,6 +33,7 @@
                 <tbody>
                     @foreach ($products as $product)
                     <tr>
+                        <td>{{$product->id}}</td>
                         <td><a href="/product/detail/{{$product->id}}">{{$product->name}}</a></td>
                         <td>{{$product->description}}</td>
                         <td>{{$product->status}}</td>
