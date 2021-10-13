@@ -2908,7 +2908,8 @@ public function activateBulkLegacySubs(){
     foreach($collection as $myItem){
     // skip values if item not found
     // $myUser = User::find($myItem)-
-      if(!User::find($myItem->user_id)){
+    $coop = User::find($myItem->user_id);
+      if($coop){
         //   skips
         continue;
       }
