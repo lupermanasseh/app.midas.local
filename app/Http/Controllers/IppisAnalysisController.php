@@ -2905,10 +2905,10 @@ public function activateBulkLegacySubs(){
   try{
     $collection = Lsubscription::where('loan_status','Pending')->get();
 
-    foreach($collection as $myItem->user_id){
+    foreach($collection as $myItem){
     // skip values if item not found
     // $myUser = User::find($myItem)-
-      if(User::find($myItem)->doesntExist()){
+      if(User::find($myItem->user_id)->doesntExist()){
         //   skips
         continue;
       }
