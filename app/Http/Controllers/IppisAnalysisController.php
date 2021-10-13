@@ -2905,7 +2905,13 @@ public function activateBulkLegacySubs(){
   try{
     $collection = Lsubscription::where('loan_status','Pending')->get();
 
-    foreach($collection as $myItem){
+    foreach($collection as $myItem->user_id){
+    // skip values if item not found
+    // $myUser = User::find($myItem)-
+      if(User::find($myItem)->doesntExist()){
+        //   skips
+        continue;
+      }
       $now = Carbon::now()->toTimeString();
       //$date = $user->disbursement_date." ".$now;
 
