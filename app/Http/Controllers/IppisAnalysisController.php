@@ -2909,7 +2909,7 @@ public function activateBulkLegacySubs(){
     // skip values if item not found
     // $myUser = User::find($myItem)-
     $coop = User::find($myItem->user_id);
-      if($coop){
+      if(!$coop){
         //   skips
         continue;
       }
