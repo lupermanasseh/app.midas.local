@@ -269,6 +269,12 @@ try{
                                           //->get();
     //2. loop through them and fetch id
     foreach ($allMasterDeductions as $masterDeduction) {
+
+        $coop = User::find($masterDeduction->ippis_no);
+        if(!$coop){
+          //   skips
+          continue;
+        }
       // code...
       $myLoanSubscription = new Lsubscription;
       //Find user cumulative deduction by id
