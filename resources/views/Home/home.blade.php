@@ -3,7 +3,7 @@
 <section class="banner-container blue">
     <div class="container">
         <div class="row center-align banner">
-            <h1 class="banner-text">How Can We Help You?</h1>
+            <h1 class="banner-text">How Can We Help You??</h1>
             <h3 class="banner-bold">Unique Customer Experience</h3>
             <h6 class="banner-detail">At MIDAS TOUCH Multipurpose Cooperative Society, you will experience distinct
                 customer relationship.
