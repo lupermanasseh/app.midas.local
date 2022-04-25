@@ -327,7 +327,7 @@ public function archiveAllLoanBalances($id)
                                     ->where('status','Active')
                                     ->first();
 
-        return $userSavingRev->current_amount;
+        return $userSavingRev['current_amount'];
     }
 
     //Is Active User
