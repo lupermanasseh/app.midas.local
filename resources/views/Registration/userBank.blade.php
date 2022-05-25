@@ -30,6 +30,7 @@
                             <option value="Fidelity Bank">Fidelity Bank</option>
                             <option value="FCMB">FCMB</option>
                             <option value="GT Bank">GT Bank</option>
+                            <option value="Jaiz Bank">Jaiz Bank</option>
                             <option value="Keystone Bank">Keystone Bank</option>
                             <option value="Polaris Bank">Polaris Bank</option>
                             <option value="Sterling Bank">Sterling Bank</option>
