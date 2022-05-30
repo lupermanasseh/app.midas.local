@@ -176,12 +176,13 @@ $date = null;
                 // }
                 //Check loan eleigibility by total indebtedness
                 $user = new User();
-                $totalIndebtedness = $user->totalApprovedAmount($request['reg_no']);
-                if($totalIndebtedness >=5000000){
-                    //$allowed = 5000000-$totalIndebtedness;
-                    toastr()->error('Maximum loan amount of N 5,000,000 exceeded');
-                    return redirect('/loanSub/create');
-                }
+                // comment this code out it can be uncommented
+                // $totalIndebtedness = $user->totalApprovedAmount($request['reg_no']);
+                // if($totalIndebtedness >=5000000){
+                //     //$allowed = 5000000-$totalIndebtedness;
+                //     toastr()->error('Maximum loan amount of N 5,000,000 exceeded');
+                //     return redirect('/loanSub/create');
+                // }
 
                 $amtApplied = $request['amount_applied'];
 
