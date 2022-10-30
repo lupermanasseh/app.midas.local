@@ -328,7 +328,9 @@ Route::middleware(['auth:admin'])->group(function () {
   Route::get('/savingMaster/listing/{date}/{reference}','IppisAnalysisController@recentMasterSaving');
   Route::get('/post/loans','IppisAnalysisController@recentIppisLoanInputs');
   Route::get('/loandeductions/bulkmaster','IppisAnalysisController@postLoanBulk');
-  Route::get('/postDeductions/{id}','IppisAnalysisController@postLoanAnyway');
+
+  Route::get('/postDeduction/{id}','IppisAnalysisController@postSingleMasterDeduction');
+
   Route::get('/saving/distribute/{date}/{ref}','IppisAnalysisController@postSaving');
   Route::get('/saving/post/{id}','IppisAnalysisController@postMySaving');
   Route::get('/saving-master-upload-form','IppisAnalysisController@savingMasterForm');
