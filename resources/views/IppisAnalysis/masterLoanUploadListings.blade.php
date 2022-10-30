@@ -28,7 +28,7 @@
                         <th>USER ID</th>
                         <th>TOTAL AMOUNT</th>
                         <th>CREATED</th>
-                        <!-- <th>ACTION</th> -->
+                        <th>ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,6 +39,10 @@
                         <td>{{$myItem->ippis_no}}</td>
                         <td>{{number_format($myItem->cumulative_amount,2,'.',',')}}</td>
                         <td>{{$myItem->created_at->diffForHumans()}}</td>
+                        <td>
+                            <a href="/postDeduction/{{$myItem->id}}" class="btn green darken-3 post-looan">Post
+                                Deduction</a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
